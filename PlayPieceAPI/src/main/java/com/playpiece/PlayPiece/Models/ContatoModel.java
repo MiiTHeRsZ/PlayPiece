@@ -1,63 +1,26 @@
-package com.playpiece.PlayPiece.Models;
+package com.playpiece.playpiece.Models;
 
+import jakarta.persistence.*;
+import lombok.*;
+
+@Table(name = "contato")
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class ContatoModel {
-    private static int count;
-    private int id;
-    private Long telefoneFixo;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "celular_principal")
     private Long celularPrincipal;
-    private Long celularAdicional;
-
-    public ContatoModel(Long telefoneFixo) {
-        this.id = ++count;
-        this.telefoneFixo = telefoneFixo;
-    }
-
-    public ContatoModel(Long telefoneFixo, Long celularPrincipal) {
-        this.id = ++count;
-        this.telefoneFixo = telefoneFixo;
-        this.celularPrincipal = celularPrincipal;
-    }
-
-    public ContatoModel(Long telefoneFixo, Long celularPrincipal, Long celularAdicional) {
-        this.id = ++count;
-        this.telefoneFixo = telefoneFixo;
-        this.celularPrincipal = celularPrincipal;
-        this.celularAdicional = celularAdicional;
-    }
-
-    public ContatoModel() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Long getTelefoneFixo() {
-        return telefoneFixo;
-    }
-
-    public void setTelefoneFixo(Long telefoneFixo) {
-        this.telefoneFixo = telefoneFixo;
-    }
-
-    public Long getCelularPrincipal() {
-        return celularPrincipal;
-    }
-
-    public void setCelularPrincipal(Long celularPrincipal) {
-        this.celularPrincipal = celularPrincipal;
-    }
-
-    public Long getCelularAdicional() {
-        return celularAdicional;
-    }
-
-    public void setCelularAdicional(Long celularAdicional) {
-        this.celularAdicional = celularAdicional;
-    }
-
+    @Column(name = "celular_adicional")
+    private Long celular_adicional;
+    @Column(name = "telefone_fixo")
+    private Long telefoneFixo;
 }

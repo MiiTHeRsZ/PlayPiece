@@ -1,4 +1,4 @@
-package com.playpiece.PlayPiece;
+package com.playpiece.playpiece;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
