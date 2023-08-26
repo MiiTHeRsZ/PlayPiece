@@ -1,13 +1,12 @@
-package com.playpiece.playpiece.Services;
+package com.playpiece.PlayPiece.Services;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import com.playpiece.playpiece.Models.ContatoModel;
-import com.playpiece.playpiece.Models.PessoaModel;
-import com.playpiece.playpiece.repositories.ContatoRepository;
-import com.playpiece.playpiece.repositories.UsuarioRepository;
+import com.playpiece.PlayPiece.Models.ContatoModel;
+import com.playpiece.PlayPiece.Models.PessoaModel;
+import com.playpiece.PlayPiece.repositories.ContatoRepository;
+import com.playpiece.PlayPiece.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 

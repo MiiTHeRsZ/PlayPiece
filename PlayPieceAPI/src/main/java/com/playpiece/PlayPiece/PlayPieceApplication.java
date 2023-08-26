@@ -1,4 +1,4 @@
-package com.playpiece.playpiece;
+package com.playpiece.PlayPiece;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

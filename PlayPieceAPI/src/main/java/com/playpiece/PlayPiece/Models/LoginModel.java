@@ -1,4 +1,4 @@
-package com.playpiece.playpiece.Models;
+package com.playpiece.PlayPiece.Models;
 
 import jakarta.persistence.*;
 import lombok.*;

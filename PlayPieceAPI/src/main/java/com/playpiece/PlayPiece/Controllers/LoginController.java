@@ -1,4 +1,4 @@
-package com.playpiece.playpiece.Controllers;
+package com.playpiece.PlayPiece.Controllers;
 
 import java.util.List;
 
@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.playpiece.playpiece.Models.ContatoModel;
-import com.playpiece.playpiece.Models.LoginModel;
-import com.playpiece.playpiece.Services.ContatoService;
-import com.playpiece.playpiece.Services.LoginService;
+import com.playpiece.PlayPiece.Models.*;
+import com.playpiece.PlayPiece.Services.*;
 
 @RestController
 @RequestMapping(value = "acesso")

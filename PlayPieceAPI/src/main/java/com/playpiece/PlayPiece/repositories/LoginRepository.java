@@ -1,10 +1,10 @@
-package com.playpiece.playpiece.repositories;
+package com.playpiece.PlayPiece.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.playpiece.playpiece.Models.LoginModel;
+import com.playpiece.PlayPiece.Models.LoginModel;
 
 @Repository
 public interface LoginRepository extends JpaRepository<LoginModel, Integer> {

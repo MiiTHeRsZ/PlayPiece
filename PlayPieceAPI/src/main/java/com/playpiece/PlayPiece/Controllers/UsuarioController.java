@@ -2,13 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.playpiece.playpiece.Controllers;
+package com.playpiece.PlayPiece.Controllers;
 
-import com.playpiece.playpiece.Models.PessoaModel;
-import com.playpiece.playpiece.Services.UsuarioService;
+import com.playpiece.PlayPiece.Models.*;
+import com.playpiece.PlayPiece.Services.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

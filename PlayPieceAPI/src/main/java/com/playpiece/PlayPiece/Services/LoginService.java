@@ -1,9 +1,9 @@
-package com.playpiece.playpiece.Services;
+package com.playpiece.PlayPiece.Services;
 
 import org.springframework.stereotype.Service;
 
-import com.playpiece.playpiece.Models.LoginModel;
-import com.playpiece.playpiece.repositories.LoginRepository;
+import com.playpiece.PlayPiece.Models.LoginModel;
+import com.playpiece.PlayPiece.repositories.LoginRepository;
 
 @Service
 public class LoginService {

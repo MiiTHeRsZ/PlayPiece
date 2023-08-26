@@ -1,9 +1,7 @@
-package com.playpiece.playpiece.Services;
+package com.playpiece.PlayPiece.Services;
 
-import com.playpiece.playpiece.Models.ContatoModel;
-import com.playpiece.playpiece.Models.PessoaModel;
-import com.playpiece.playpiece.repositories.ContatoRepository;
-import com.playpiece.playpiece.repositories.UsuarioRepository;
+import com.playpiece.PlayPiece.Models.*;
+import com.playpiece.PlayPiece.repositories.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

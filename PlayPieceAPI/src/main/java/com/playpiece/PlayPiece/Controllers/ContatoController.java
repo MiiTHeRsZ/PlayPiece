@@ -1,8 +1,7 @@
-package com.playpiece.playpiece.Controllers;
+package com.playpiece.PlayPiece.Controllers;
 
-import com.playpiece.playpiece.Models.ContatoModel;
-import com.playpiece.playpiece.Models.PessoaModel;
-import com.playpiece.playpiece.Services.ContatoService;
+import com.playpiece.PlayPiece.Models.*;
+import com.playpiece.PlayPiece.Services.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
