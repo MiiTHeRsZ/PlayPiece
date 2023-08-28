@@ -29,55 +29,55 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "/usuario")
-public class UsuarioController {
+public class PessoaController {
 
-    final UsuarioService usuarioService;
+    final PessoaService pessoaService;
 
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
+    public PessoaController(PessoaService pessoaService) {
+        this.pessoaService = pessoaService;
     }
 
     @GetMapping()
     public ResponseEntity<List<PessoaModel>> getPessoa() {
 
-        List<PessoaModel> pessoas = usuarioService.getPessoas();
+        List<PessoaModel> pessoas = pessoaService.getPessoas();
 
         return ResponseEntity.ok().body(pessoas);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PessoaModel> getPessoaById(@PathVariable int id) {
-        PessoaModel pessoa = usuarioService.getPessoaById(id);
+        PessoaModel pessoa = pessoaService.getPessoaById(id);
 
         return ResponseEntity.ok().body(pessoa);
     }
 
     @GetMapping(value = "search", params = { "cpf" })
     public ResponseEntity<List<PessoaModel>> getPessoaByCpf(@RequestParam Long cpf) {
-        List<PessoaModel> pessoa = usuarioService.getPessoaByCpf(cpf);
+        List<PessoaModel> pessoa = pessoaService.getPessoaByCpf(cpf);
         return ResponseEntity.ok().body(pessoa);
     }
 
     @GetMapping(value = "search", params = { "nome" })
     public ResponseEntity<List<PessoaModel>> getPessoaByNome(@RequestParam String nome) {
-        List<PessoaModel> pessoas = usuarioService.getPessoaByNome(nome);
+        List<PessoaModel> pessoas = pessoaService.getPessoaByNome(nome);
         return ResponseEntity.ok().body(pessoas);
 
     }
 
     @PostMapping
     public ResponseEntity<PessoaModel> postPessoa(@RequestBody PessoaModel pessoa) {
-        return new ResponseEntity<>(usuarioService.postPessoa(pessoa), HttpStatus.CREATED);
+        return new ResponseEntity<>(pessoaService.postPessoa(pessoa), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<PessoaModel> patchPessoa(@PathVariable int id, @RequestBody PessoaModel pessoaModel) {
-        return new ResponseEntity<>(usuarioService.patchPessoa(id, pessoaModel), HttpStatus.OK);
+        return new ResponseEntity<>(pessoaService.patchPessoa(id, pessoaModel), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<PessoaModel> statusPessoa(@PathVariable int id){
-        return new ResponseEntity<>(usuarioService.statusPessoa(id), HttpStatus.OK);
+        return new ResponseEntity<>(pessoaService.statusPessoa(id), HttpStatus.OK);
     }
 
 }

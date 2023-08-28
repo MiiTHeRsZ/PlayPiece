@@ -11,7 +11,7 @@ import com.playpiece.PlayPiece.Models.PessoaModel;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<PessoaModel, Integer> {
+public interface PessoaRepository extends JpaRepository<PessoaModel, Integer> {
     List<PessoaModel> findAll();
 
     PessoaModel findById(int id);

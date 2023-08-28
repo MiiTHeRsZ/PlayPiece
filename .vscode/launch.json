@@ -5,7 +5,17 @@
             "name": "Spring Boot-PlayPieceApplication<PlayPiece>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "mainClass": "com.playpiece.playpiece.PlayPieceApplication",
+            "mainClass": "com.playpiece.PlayPiece.PlayPieceApplication",
+            "projectName": "PlayPiece",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-PlayPieceApplication<PlayPiece>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.playpiece.PlayPiece.PlayPieceApplication",
             "projectName": "PlayPiece",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
