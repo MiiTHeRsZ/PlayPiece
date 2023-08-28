@@ -8,7 +8,6 @@ import com.playpiece.PlayPiece.Models.PessoaModel;
 import com.playpiece.PlayPiece.repositories.ContatoRepository;
 import com.playpiece.PlayPiece.repositories.PessoaRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class PessoaService {
