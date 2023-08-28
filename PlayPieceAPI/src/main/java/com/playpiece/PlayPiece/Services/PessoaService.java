@@ -36,10 +36,16 @@ public class PessoaService {
         List<PessoaModel> pessoas = pessoaRepository.findByNomeContaining(nome);
         return pessoas;
     }
-
+    
     public PessoaModel postPessoa(PessoaModel pessoa) {
         pessoa.setId(null);
         pessoa.getContato().setId(null);
+        return pessoaRepository.save(pessoa);
+    }
+    public PessoaModel statusPessoa(int id){
+        PessoaModel pessoa = pessoaRepository.findById(id);
+        pessoa.setAtivo(!pessoa.getAtivo());
+
         return pessoaRepository.save(pessoa);
     }
 
@@ -97,10 +103,4 @@ public class PessoaService {
         return pessoaRepository.save(pessoa);
     }
 
-    public PessoaModel statusPessoa(int id){
-        PessoaModel pessoa = pessoaRepository.findById(id);
-        pessoa.setAtivo(!pessoa.getAtivo());
-
-        return pessoaRepository.save(pessoa);
-    }
 }

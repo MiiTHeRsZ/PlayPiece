@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.playpiece.PlayPiece.Controllers;
 
 import com.playpiece.PlayPiece.Models.*;
@@ -10,7 +6,6 @@ import com.playpiece.PlayPiece.Services.*;
 import java.util.*;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,12 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @author KINOO
- */
 @RestController
-@RequestMapping(value = "/usuario")
+@RequestMapping(value = "/pessoa")
 public class PessoaController {
 
     final PessoaService pessoaService;
@@ -76,8 +67,7 @@ public class PessoaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<PessoaModel> statusPessoa(@PathVariable int id){
+    public ResponseEntity<PessoaModel> statusPessoa(@PathVariable int id) {
         return new ResponseEntity<>(pessoaService.statusPessoa(id), HttpStatus.OK);
     }
-
 }
