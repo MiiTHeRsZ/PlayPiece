@@ -78,9 +78,4 @@ public class PessoaController {
         return new ResponseEntity<>(pessoaService.statusPessoa(id), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<PessoaModel> statusPessoa(@PathVariable int id) {
-        return new ResponseEntity<>(usuarioService.statusPessoa(id), HttpStatus.OK);
-    }
-
 }
