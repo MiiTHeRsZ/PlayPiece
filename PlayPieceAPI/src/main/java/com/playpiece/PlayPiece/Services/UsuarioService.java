@@ -96,4 +96,11 @@ public class UsuarioService {
 
         return usuarioRepository.save(pessoa);
     }
+
+    public PessoaModel statusPessoa(int id){
+        PessoaModel pessoa = usuarioRepository.findById(id);
+        pessoa.setAtivo(!pessoa.getAtivo());
+
+        return usuarioRepository.save(pessoa);
+    }
 }

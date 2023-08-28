@@ -12,6 +12,7 @@ import java.util.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -72,6 +73,11 @@ public class UsuarioController {
     @PatchMapping("/{id}")
     public ResponseEntity<PessoaModel> patchPessoa(@PathVariable int id, @RequestBody PessoaModel pessoaModel) {
         return new ResponseEntity<>(usuarioService.patchPessoa(id, pessoaModel), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<PessoaModel> statusPessoa(@PathVariable int id){
+        return new ResponseEntity<>(usuarioService.statusPessoa(id), HttpStatus.OK);
     }
 
 }
