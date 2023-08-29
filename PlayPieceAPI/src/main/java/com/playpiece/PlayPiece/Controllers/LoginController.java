@@ -1,6 +1,7 @@
 package com.playpiece.PlayPiece.Controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +11,7 @@ import com.playpiece.PlayPiece.Models.*;
 import com.playpiece.PlayPiece.Services.*;
 
 @RestController
-@RequestMapping(value = "acesso")
+@RequestMapping("acesso")
 public class LoginController {
 
     final LoginService loginService;
@@ -18,7 +19,8 @@ public class LoginController {
     public LoginController(LoginService loginService) {
         this.loginService = loginService;
     }
-
+    
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "access", params = { "email" })
     public ResponseEntity<LoginModel> getLoginInfo(@RequestParam String email) {
         return ResponseEntity.ok().body(loginService.getLoginInfo(email));
