@@ -11,18 +11,21 @@
 
 <body>
     <div class="form__container">
-        <form action="">
-            <label for="#nickname" class="form__label">Usuário (e-mail):</label>
-            <input type="email" name="nickname" id="nickname" class="form__input-text" placeholder="exemplo@exemplo.com" required />
+        <form action="" id="form">
+            <label for=" #nickname" class="form__label">Usuário (e-mail):</label>
+            <input type="email" name="nickname" id="nickname" class="form__input-text" placeholder="exemplo@exemplo.com"
+                required />
             <label for="#password" class="form__label">Senha:</label>
-            <input type="password" name="password" id="password" class="form__input-text" placeholder="***********" minlength="8" required />
+            <input type="password" name="password" id="password" class="form__input-text" placeholder="***********"
+                minlength="8" required />
             <div class="btns">
-                <input type="submit" value="Entrar" class="form__btn" />
+                <input type="submit" value="Entrar" id="form__btn" />
                 🔹
-                <a href="../index.html" class="form__btn">Voltar</a>
+                <a href="../index.html" id="form__btn">Voltar</a>
             </div>
         </form>
     </div>
+    <script src="../script/login.js"></script>
 </body>
 
 </html>

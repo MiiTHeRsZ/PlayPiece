@@ -15,7 +15,6 @@ public class LoginService {
 
     public LoginModel getLoginInfo(String email) {
         LoginModel login = loginRepository.getLoginInfo(email);
-        login.setSenha(login.getSenha().getBytes().toString());
         return login;
     }
 }
