@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/pessoa")
+@CrossOrigin("*")
+@RequestMapping(value = "/pessoa")
 public class PessoaController {
-
     final PessoaService pessoaService;
 
     public PessoaController(PessoaService pessoaService) {

@@ -5,18 +5,26 @@ import java.util.*;
 
 import com.playpiece.PlayPiece.Models.ContatoModel;
 import com.playpiece.PlayPiece.Models.PessoaModel;
+import com.playpiece.PlayPiece.Models.UsuarioModel;
 import com.playpiece.PlayPiece.repositories.ContatoRepository;
 import com.playpiece.PlayPiece.repositories.PessoaRepository;
+import com.playpiece.PlayPiece.repositories.UsuarioRepository;
+
 import org.springframework.stereotype.Service;
 
 @Service
 public class PessoaService {
     final PessoaRepository pessoaRepository;
+    final UsuarioRepository usuarioRepository;
     final ContatoRepository contatoRepository;
+    final ContatoService contatoService;
 
-    public PessoaService(PessoaRepository pessoaRepository, ContatoRepository contatoRepository) {
+    public PessoaService(PessoaRepository pessoaRepository, ContatoRepository contatoRepository,
+            ContatoService contatoService, UsuarioRepository usuarioRepository) {
         this.pessoaRepository = pessoaRepository;
         this.contatoRepository = contatoRepository;
+        this.contatoService = contatoService;
+        this.usuarioRepository = usuarioRepository;
     }
 
     public List<PessoaModel> getPessoas() {
@@ -35,24 +43,32 @@ public class PessoaService {
         List<PessoaModel> pessoas = pessoaRepository.findByNomeContaining(nome);
         return pessoas;
     }
-    
+
     public PessoaModel postPessoa(PessoaModel pessoa) {
         pessoa.setId(null);
         pessoa.getContato().setId(null);
+        contatoRepository.save(pessoa.getContato());
         return pessoaRepository.save(pessoa);
     }
-    public PessoaModel statusPessoa(int id){
+
+    public PessoaModel statusPessoa(int id) {
         PessoaModel pessoa = pessoaRepository.findById(id);
+        List<UsuarioModel> usuarios = usuarioRepository.findAll();
+        for (UsuarioModel usuario : usuarios) {
+            if (usuario.getPessoa().getId() == pessoa.getId() && pessoa.getAtivo() == true) {
+                pessoa.setAtivo(false);
+                usuario.setAtivo(false);
+                usuarioRepository.save(usuario);
+                return pessoaRepository.save(pessoa);
+            }
+        }
+
         pessoa.setAtivo(!pessoa.getAtivo());
-
         return pessoaRepository.save(pessoa);
     }
 
-    public PessoaModel patchPessoa(int id, PessoaModel pessoaModel) {
-
-        PessoaModel novaPessoa = pessoaModel;
+    public PessoaModel patchPessoa(int id, PessoaModel novaPessoa) {
         PessoaModel pessoa = pessoaRepository.findById(id);
-        ContatoModel contato = pessoa.getContato();
         ContatoModel novoContato = novaPessoa.getContato();
 
         for (Field field : PessoaModel.class.getDeclaredFields()) {
@@ -63,42 +79,15 @@ public class PessoaService {
                         && field.getName() != "id" && field.getName() != "cpf") {
 
                     if (field.getName() == "contato") {
-                        for (Field contatoField : ContatoModel.class.getDeclaredFields()) {
-                            contatoField.setAccessible(true);
-
-                            if (contatoField.get(novoContato) != null
-                                    && !contatoField.get(novoContato).equals(contatoField.get(contato))
-                                    && contatoField.getName() != "id") {
-
-                                System.out.println("Sub contato : " + contatoField.get(contato) + " para: "
-                                        + contatoField.get(novoContato));
-
-                                contatoField.set(contato, contatoField.get(novoContato));
-                            }
-                        }
+                        contatoService.patchContato(pessoa.getContato().getId(), novoContato);
                     } else {
-                        System.out.println(
-                                "Sub pessoa: " + field.get(pessoa) + " para: " + field.get(novaPessoa));
                         field.set(pessoa, field.get(novaPessoa));
                     }
-
-                }
-
-                if (field.get(novaPessoa) != null && field.getName() == "id"
-                        && !novaPessoa.getId().toString().equals(pessoa.getId().toString())) {
-
-                    System.out.println("Id não pode ser alterado!");
-
-                } else if (field.get(novaPessoa) != null && field.getName() == "cpf"
-                        && !novaPessoa.getCpf().toString().equals(pessoa.getCpf().toString())) {
-
-                    System.out.println("CPF não pode ser alterado!");
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
-
         return pessoaRepository.save(pessoa);
     }
 
