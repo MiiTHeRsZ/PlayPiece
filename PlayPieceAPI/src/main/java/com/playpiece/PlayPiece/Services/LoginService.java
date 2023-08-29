@@ -37,4 +37,10 @@ public class LoginService {
         loginRepository.postLoginUser(login.getSenha(), usuario.getPessoa().getId(), idUsuario);
         return loginRepository.getUserLoginInfo(usuario.getEmailUsuario());
     }
+
+    public LoginModel patchLoginUser(String emailUsuario, String novaSenha) {
+        int idUsuario = usuarioRepository.findByEmailUsuario(emailUsuario).get(0).getId();
+        loginRepository.patchLoginUser(novaSenha, idUsuario);
+        return getUserLoginInfo(emailUsuario);
+    }
 }

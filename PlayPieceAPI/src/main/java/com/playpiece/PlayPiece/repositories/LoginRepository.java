@@ -18,4 +18,9 @@ public interface LoginRepository extends JpaRepository<LoginModel, Integer> {
     @Transactional
     @Query(value = "insert into acesso (senha, id_pessoa, id_usuario) values (?1, ?2, ?3)", nativeQuery = true)
     int postLoginUser(String senha, int id_pessoa, int id_usuario);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update acesso set senha = ?1 where id_usuario = ?2", nativeQuery = true)
+    int patchLoginUser(String senha, int id_usuario);
 }
