@@ -1,28 +1,68 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/reset.css" />
+    <link rel="stylesheet" href="../styles/backoffice.css" />
+    <title>Página Backoffice</title>
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/reset.css">
-    <link rel="stylesheet" href="../styles/backoffice.css">
-    <title>PI - Desenvolvimento de Sistemas Orientados a WEB</title>
+  <body>
+    <div class="content">
+      <div class="titleContent">
+        <h2>Principal</h2>
+      </div>
+      <a href="#" id="mostrarTabela">Listar Produto</a>
+      <a href="">Listar Usuário</a>
+      <!-- <a href="">Listar Pedido</a> -->
+    </div>
 
-    <style>
-        h1 {
-            text-align: center;
-            padding: 20%;
-            font-size: 50px;
-        }
-        a{
-            font-size: 50px;
-        }
-    </style>
-</head>
+      <table id="tabelaProd">
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Alterar</th>
+          <th>Hanb/Desab</th>
+        </tr>
+        <tr>
+          <td>Henrick Adrian</td>
+          <td>henrick@email.com</td>
+          <td>Alterar</td>
+          <td><a href="">Dado 4</a></td>
+          <td>Habilitado</td>
+        </tr>
+        <tr>
+            <td>Dado 1</td>
+            <td>Dado 2</td>
+            <td>Dado 3</td>
+            <td><a href="">Dado 4</a></td>
+            <td>Dado 5</td>
+          </tr>
+          <tr>
+            <td>Dado 1</td>
+            <td>Dado 2</td>
+            <td>Dado 3</td>
+            <td><a href="">Dado 4</a></td>
+            <td>Dado 5</td>
+          </tr>
+          <tr>
+            <td>Dado 1</td>
+            <td>Dado 2</td>
+            <td>Dado 3</td>
+            <td><a href="">Dado 4</a></td>
+            <td>Dado 5</td>
+          </tr>
+          <tr>
+            <td>Dado 1</td>
+            <td>Dado 2</td>
+            <td>Dado 3</td>
+            <td><a href="">Dado 4</a></td>
+            <td>Dado 5</td>
+          </tr>
+      </table>
 
-<body>
-    <a href="login.html"><<<<<<<</a>
-    <h1>Bem vindo a página de vendas</h1>
-</body>
-
+    <script src="/script/usuarioBackoffice.js"></script>
+  </body>
 </html>
