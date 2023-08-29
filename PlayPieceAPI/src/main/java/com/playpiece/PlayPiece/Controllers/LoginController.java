@@ -16,6 +16,7 @@ import com.playpiece.PlayPiece.Services.*;
 @RestController
 @CrossOrigin("*")
 @RequestMapping(value = "acesso")
+
 public class LoginController {
 
     final LoginService loginService;
@@ -23,7 +24,8 @@ public class LoginController {
     public LoginController(LoginService loginService) {
         this.loginService = loginService;
     }
-
+    
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "access", params = { "email" })
     public ResponseEntity<LoginModel> getUserLoginInfo(@RequestParam String email) {
         return ResponseEntity.ok().body(loginService.getUserLoginInfo(email));

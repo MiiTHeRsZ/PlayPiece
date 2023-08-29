@@ -22,21 +22,20 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RequestMapping(value = "/pessoa")
 public class PessoaController {
-
     final PessoaService pessoaService;
 
     public PessoaController(PessoaService pessoaService) {
         this.pessoaService = pessoaService;
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping()
     public ResponseEntity<List<PessoaModel>> getPessoa() {
-
         List<PessoaModel> pessoas = pessoaService.getPessoas();
-
         return ResponseEntity.ok().body(pessoas);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/{id}")
     public ResponseEntity<PessoaModel> getPessoaById(@PathVariable int id) {
         PessoaModel pessoa = pessoaService.getPessoaById(id);
@@ -44,29 +43,33 @@ public class PessoaController {
         return ResponseEntity.ok().body(pessoa);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "search", params = { "cpf" })
     public ResponseEntity<List<PessoaModel>> getPessoaByCpf(@RequestParam Long cpf) {
         List<PessoaModel> pessoa = pessoaService.getPessoaByCpf(cpf);
         return ResponseEntity.ok().body(pessoa);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "search", params = { "nome" })
     public ResponseEntity<List<PessoaModel>> getPessoaByNome(@RequestParam String nome) {
         List<PessoaModel> pessoas = pessoaService.getPessoaByNome(nome);
         return ResponseEntity.ok().body(pessoas);
-
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping
     public ResponseEntity<PessoaModel> postPessoa(@RequestBody PessoaModel pessoa) {
         return new ResponseEntity<>(pessoaService.postPessoa(pessoa), HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "*")
     @PatchMapping("/{id}")
     public ResponseEntity<PessoaModel> patchPessoa(@PathVariable int id, @RequestBody PessoaModel pessoaModel) {
         return new ResponseEntity<>(pessoaService.patchPessoa(id, pessoaModel), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/{id}")
     public ResponseEntity<PessoaModel> statusPessoa(@PathVariable int id) {
         return new ResponseEntity<>(pessoaService.statusPessoa(id), HttpStatus.OK);

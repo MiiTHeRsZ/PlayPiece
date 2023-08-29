@@ -18,7 +18,6 @@ const conect_api = async () => {
     alert("usuario ou senha incorreta");
   }
 
-
 }
 
 const btn = document.getElementById("form__btn");
