@@ -26,4 +26,7 @@ public class UsuarioModel {
 
     private double salario;
     private Boolean ativo;
+
+    @Column(name = "email_usuario")
+    private String emailUsuario;
 }

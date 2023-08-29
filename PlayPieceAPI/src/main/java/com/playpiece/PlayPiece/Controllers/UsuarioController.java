@@ -41,8 +41,11 @@ public class UsuarioController {
 
     @GetMapping(value = "search", params = { "nome" })
     public ResponseEntity<List<UsuarioModel>> getUsuarioByNome(@RequestParam String nome) {
-        return new ResponseEntity<>(usuarioService.getUsuarioByNome(nome), HttpStatus.OK);
+        List<UsuarioModel> usuarios = usuarioService.getUsuarioByNome(nome);
+        if (usuarios.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+        return new ResponseEntity<List<UsuarioModel>>(usuarios, HttpStatus.OK);
     }
 
     @PostMapping
