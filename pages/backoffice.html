@@ -1,68 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/reset.css" />
-    <link rel="stylesheet" href="../styles/backoffice.css" />
-    <title>Página Backoffice</title>
-  </head>
 
-  <body>
-    <div class="content">
-      <div class="titleContent">
-        <h2>Principal</h2>
-      </div>
-      <a href="#" id="mostrarTabela">Listar Produto</a>
-      <a href="">Listar Usuário</a>
-      <!-- <a href="">Listar Pedido</a> -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../styles/reset.css" />
+  <link rel="stylesheet" href="../styles/backoffice.css" />
+  <title>Página Backoffice</title>
+</head>
+
+<body>
+  <div class="content">
+    <div class="titleContent">
+      <h2>Principal</h2>
     </div>
+    <a href="#" id="mostrarTabela">Listar Usuários</a>
+    <a href="">Listar Produto</a>
+    <!-- <a href="">Listar Pedido</a> -->
+  </div>
 
-      <table id="tabelaProd">
-        <tr>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Status</th>
-          <th>Alterar</th>
-          <th>Hanb/Desab</th>
-        </tr>
-        <tr>
-          <td>Henrick Adrian</td>
-          <td>henrick@email.com</td>
-          <td>Alterar</td>
-          <td><a href="">Dado 4</a></td>
-          <td>Habilitado</td>
-        </tr>
-        <tr>
-            <td>Dado 1</td>
-            <td>Dado 2</td>
-            <td>Dado 3</td>
-            <td><a href="">Dado 4</a></td>
-            <td>Dado 5</td>
-          </tr>
-          <tr>
-            <td>Dado 1</td>
-            <td>Dado 2</td>
-            <td>Dado 3</td>
-            <td><a href="">Dado 4</a></td>
-            <td>Dado 5</td>
-          </tr>
-          <tr>
-            <td>Dado 1</td>
-            <td>Dado 2</td>
-            <td>Dado 3</td>
-            <td><a href="">Dado 4</a></td>
-            <td>Dado 5</td>
-          </tr>
-          <tr>
-            <td>Dado 1</td>
-            <td>Dado 2</td>
-            <td>Dado 3</td>
-            <td><a href="">Dado 4</a></td>
-            <td>Dado 5</td>
-          </tr>
-      </table>
+  <table id="tabelaUser" style="display: none;" value=1>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Status</th>
+      <th>Cargo</th>
+      <th>Alterar</th>
+    </tr>
+  </table>
 
-    <script src="/script/usuarioBackoffice.js"></script>
-  </body>
+  <script src="/script/usuarioBackoffice.js"></script>
+</body>
+
 </html>
