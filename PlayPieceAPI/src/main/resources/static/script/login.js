@@ -11,9 +11,11 @@ const conect_api = async () => {
   const response = await fetch(`http://localhost:8080/acesso/access?email=${nickname}`).then(data => data.json());
   console.log(response);
 
+  const result = await fetch(`http://localhost:8080/usuario/search?email=${nickname}`).then(data => data.json())
+
   if (nickname == response.email && password == response.senha.hashCode()) {
     console.log("logado")
-    location.href = "./backoffice.html";
+    location.href = `./backoffice.html?/group=${result.cargo.id}`,{};
   } else {
     alert("usuario ou senha incorreta");
   }

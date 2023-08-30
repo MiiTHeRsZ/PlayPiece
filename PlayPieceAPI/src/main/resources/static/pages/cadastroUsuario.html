@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de usuário</title>
+    <link rel="stylesheet" href="../styles/cadastroUsuario.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Cadastro de novo usuário</h1>
+    </header>
+    <form action="#" id="form">
+        <label for="#cpf">CPF:</label>
+        <input type="text" name="cpf" id="cpf" required minlength="11">
+        <label for="#nome">Nome:</label>
+        <input type="text" name="nome" id="nome" required>
+        <label for="#nome">Sobrenome:</label>
+        <input type="text" name="sobrenome" id="sobrenome" required>
+        <label for="#email_pessoal">E-mail pessoal:</label>
+        <input type="email" name="email_pessoal" id="email_pessoal" required>
+        <label for="#email_profissional">E-mail profissional:</label>
+        <input type="email" name="email_profissional" id="email_profissional" required readonly>
+        <label for="#cep">CEP:</label>
+        <input type="number" name="cep" id="cep" required>
+        <label for="#endereco">Endereço completo:</label>
+        <input type="text" name="endereco" id="endereco" required>
+        <label for="#celular_principal">Celular Principal:</label>
+        <input type="tel" name="celular_principal" id="celular_principal" required>
+        <label for="#celular_adicional">Celular Secundário:</label>
+        <input type="tel" name="celular_adicional" id="celular_adicional">
+        <label for="#telefone_fixo">Telefone Fixo:</label>
+        <input type="tel" name="telefone_fixo" id="telefone_fixo">
+        <label for="#cargo">Cargo:</label>
+        <select id="cargo" required>
+            <option value="0" selected="true" disabled="disabled">Selecione um cargo</option>
+        </select>
+        <label for="#salario">Salário:</label>
+        <input type="number" name="salario" id="salario" required>
+
+        <button type="submit" id="btn-salvar">Salvar</button>
+
+    </form>
+
+    <script src="../script/cadastroUsuario.js"></script>
+</body>
+
+</html>

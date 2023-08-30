@@ -8,7 +8,7 @@
   border: 2px solid black;
   display: grid;
   margin-top: 10px;
-  margin: 50px;
+  margin: 10px 50px;
 }
 
 .content a {
@@ -21,8 +21,7 @@
 }
 
 #tabelaUser {
-  margin: 50px;
-  position: absolute;
+  margin: 2px 50px;
   border: 2px solid black;
 }
 
@@ -34,7 +33,12 @@ td {
   text-align: center;
 }
 
-.changeStatusButton {
+td button {
+  text-decoration: underline;
+}
+
+.changeStatusButton,
+.alterarUsuario {
   background-color: transparent;
   border: none;
   cursor: pointer;

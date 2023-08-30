@@ -41,6 +41,10 @@ public class UsuarioService {
         return usuarioRepository.findById(id).get();
     }
 
+    public UsuarioModel getUsuarioByEmail(String email) {
+        return usuarioRepository.findByEmailUsuario(email).get(0);
+    }
+
     public List<UsuarioModel> getUsuarioByNome(String nome) {
         List<UsuarioModel> usuarios = usuarioRepository.findAll();
         ArrayList<UsuarioModel> novosUsuarios = new ArrayList<UsuarioModel>();
@@ -72,13 +76,6 @@ public class UsuarioService {
         usuario.setAtivo(!usuario.getAtivo());
 
         return usuarioRepository.save(usuario);
-    }
-
-    public UsuarioModel putChangeCargo(int id, int cargoId) {
-        UsuarioModel usuario = usuarioRepository.findById(id).get();
-        CargoModel novoCargo = cargoRepository.findById(cargoId).get();
-        usuario.setCargo(novoCargo);
-        return usuario;
     }
 
     public UsuarioModel patchUsuario(int id, UsuarioModel novoUsuario) {

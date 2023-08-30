@@ -1,6 +1,7 @@
 package com.playpiece.PlayPiece.Services;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,10 @@ public class CargoService {
 
     public CargoService(CargoRepository cargoRepository) {
         this.cargoRepository = cargoRepository;
+    }
+
+    public List<CargoModel> getAllCargos() {
+        return cargoRepository.findAll();
     }
 
     public CargoModel patchCargo(int id, CargoModel novoCargo) {

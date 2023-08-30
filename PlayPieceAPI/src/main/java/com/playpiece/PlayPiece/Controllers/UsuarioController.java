@@ -39,6 +39,11 @@ public class UsuarioController {
         return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioById(id), HttpStatus.OK);
     }
 
+    @GetMapping(value = "search", params = { "email" })
+    public ResponseEntity<UsuarioModel> getUsuarioByEmail(@RequestParam String email) {
+        return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioByEmail(email), HttpStatus.OK);
+    }
+
     @GetMapping(value = "search", params = { "nome" })
     public ResponseEntity<List<UsuarioModel>> getUsuarioByNome(@RequestParam String nome) {
         List<UsuarioModel> usuarios = usuarioService.getUsuarioByNome(nome);
@@ -57,13 +62,6 @@ public class UsuarioController {
     public ResponseEntity<UsuarioModel> patchUsuario(@PathVariable int id,
             @RequestBody UsuarioModel usuarioModel) {
         return new ResponseEntity<>(usuarioService.patchUsuario(id, usuarioModel),
-                HttpStatus.OK);
-    }
-
-    @PutMapping(value = "{id}", params = { "cargo" })
-    public ResponseEntity<UsuarioModel> putChangeCargo(@PathVariable int id,
-            @RequestParam int cargoId) {
-        return new ResponseEntity<>(usuarioService.putChangeCargo(id, cargoId),
                 HttpStatus.OK);
     }
 

@@ -1,11 +1,19 @@
+const urlParams = new URLSearchParams(window.location.search);
+group = urlParams.get('group')
+
+
 document.getElementById("mostrarTabela").addEventListener("click", () => {
-  var tabela = document.getElementById("tabelaUser");
-  if (tabela.style.display === "none") {
-    criarTabela();
-    tabela.style.display = "table"; // Corrigido aqui
+  if (group == 1) {
+    var tabela = document.getElementById("tabelaUser");
+    if (tabela.style.display === "none") {
+      criarTabela();
+      tabela.style.display = "table"; // Corrigido aqui
+    } else {
+      clearTable();
+      tabela.style.display = "none"; // Corrigido aqui
+    }
   } else {
-    clearTable();
-    tabela.style.display = "none"; // Corrigido aqui
+    alert("Permissão negada")
   }
 });
 
@@ -40,7 +48,7 @@ async function criarTabela() {
     email.textContent = `${usuario.Email}`
     status.innerHTML = `<button class = "changeStatusButton" value=${usuario.Id}> ${usuario.Status ? "Ativo" : "Inativo"} </button>`
     grupo.textContent = `${usuario.Grupo}`
-    alterar.innerHTML = `<a href="#"> alterar <a>`
+    alterar.innerHTML = `<a onclick="window.open('../pages/alterarUsuario.html?id=${usuario.Id}','name','width=500,height=1000')"> <button class = "alterarUsuario"> alterar </button> <a>`
 
 
     tr.appendChild(nome)
@@ -68,7 +76,7 @@ function alterarStatus() {
   });
 }
 
-function clearTable(){
+function clearTable() {
   const tr = document.querySelectorAll(".linhaTabela")
 
   tr.forEach(linha => {
