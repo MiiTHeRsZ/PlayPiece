@@ -2,37 +2,40 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../styles/reset.css" />
-  <link rel="stylesheet" href="../styles/backoffice.css" />
-  <title>Página Backoffice</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="../styles/reset.css" />
+	<link rel="stylesheet" href="../styles/backoffice.css" />
+	<title>Página Backoffice</title>
 </head>
 
 <body>
-  <div class="content">
-    <div class="titleContent">
-      <h2>Principal</h2>
-    </div>
-    <a id="mostrarTabela"><button>Listar Usuários</button></a>
-    <a onclick="window.open('../pages/cadastroUsuario.html','name','width=500,height=1000')"><button>Cadastrar
-        novo usuário</button></a>
-    <a><button disabled>Listar Produto</button></a>
-    <!-- <a href="">Listar Pedido</a> -->
-  </div>
+	<div class="content">
+		<div class="titleContent">
+			<h2>Principal</h2>
+		</div>
+		<a id="mostrarTabela"><button>Listar Usuários</button></a>
+		<a onclick="window.open('../pages/cadastroUsuario.html','name','width=500,height=1000')"><button>Cadastrar
+				novo usuário</button></a>
+		<a><button disabled>Listar Produto</button></a>
+		<!-- <a href="">Listar Pedido</a> -->
+	</div>
 
-  <table id="tabelaUser" style="display: none;" value=1>
-    <tr>
-      <th>Nome</th>
-      <th>Email</th>
-      <th>Status</th>
-      <th>Cargo</th>
-      <th>Alterar</th>
-    </tr>
-  </table>
+	<label for="txtName" class="txtNamess">Nome:</label>
+	<input type="text" name="Nome" id="txtNome">
+	<a id="pesquisarPorNome">Pesquisar</a>
 
-  <script src="../script/usuarioBackoffice.js"></script>
-  <script src="../script/FunctionsUsuarios.js"></script>
+	<table id="tabelaUser" style="display: none;" value=1>
+		<tr>
+			<th>Nome</th>
+			<th>Email</th>
+			<th>Status</th>
+			<th>Cargo</th>
+			<th>Alterar</th>
+		</tr>
+	</table>
+
+	<script src="../script/backoffice.js"></script>
 </body>
 
 </html>
