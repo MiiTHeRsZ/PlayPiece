@@ -15,7 +15,7 @@ const conect_api = async () => {
 
   if (nickname == response.email && password == response.senha.hashCode()) {
     console.log("logado")
-    location.href = `./backoffice.html?/group=${result.cargo.id}`,{};
+    location.href = `./backoffice.html?group=${result.cargo.id}`,{};
   } else {
     alert("usuario ou senha incorreta");
   }

@@ -20,6 +20,14 @@
   text-align: center;
 }
 
+#txtNome {
+  border: 2px solid;
+}
+
+#pesquisarPorNome {
+  cursor: pointer;
+}
+
 #tabelaUser {
   margin: 2px 50px;
   border: 2px solid black;

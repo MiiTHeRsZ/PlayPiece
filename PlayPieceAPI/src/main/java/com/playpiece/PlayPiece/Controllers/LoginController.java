@@ -18,7 +18,6 @@ import com.playpiece.PlayPiece.Services.*;
 @RestController
 @CrossOrigin("*")
 @RequestMapping(value = "acesso")
-
 public class LoginController {
 
     final LoginService loginService;
