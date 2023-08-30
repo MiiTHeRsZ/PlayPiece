@@ -42,7 +42,6 @@ CREATE TABLE `pessoa` (
   KEY `id_contato` (`id_contato`),
   CONSTRAINT `pessoa_ibfk_1` FOREIGN KEY (`id_contato`) REFERENCES `contato` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
