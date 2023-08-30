@@ -1,5 +1,5 @@
 body {
-    background-color: #d7effa;
+    background-color: #dfecf1;
 }
 
 h1 {
@@ -22,4 +22,8 @@ label {
 #form select {
     border-radius: 5px;
     border: 2px outset #ccc;
+}
+
+#btn-salvar {
+    border-radius: 10px;
 }
