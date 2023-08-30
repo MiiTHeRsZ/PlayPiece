@@ -39,7 +39,7 @@ CREATE TABLE `usuario` (
   KEY `id_cargo` (`id_cargo`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_pessoa`) REFERENCES `pessoa` (`id`),
   CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`id_cargo`) REFERENCES `cargo` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,1,1,1500.56,1,'vini@playpiece.com'),(2,2,2,15022,1,'user2@playpiece.com'),(3,9,1,15,1,'LucasLira@playpiece.com'),(4,5,1,15,1,'LucasSantos@playpiece.com'),(5,12,1,2344,1,'LeoLeo@playpiece.com'),(6,13,2,12000,1,'email_profissional'),(8,14,1,123123,1,'alevi.7@playpiece.com'),(9,16,1,123123,1,'amaia.9@playpiece.com'),(10,17,2,12312,1,'lpeixoto.10@playpiece.com'),(11,18,1,12312,1,'ldantas.11@playpiece.com'),(12,3,1,1500,1,'amenezes.pp12@playpiece.com'),(13,8,1,1590,1,'lsacoman.pp13@playpiece.com'),(14,19,2,1593,1,'ldeltoro.pp14@playpiece.com'),(15,20,1,1,1,'apaiva.pp15@playpiece.com'),(16,21,1,43,1,'lviella.pp16@playpiece.com');
+INSERT INTO `usuario` VALUES (1,1,1,1500,1,'lfujimura.pp0@playpiece.com');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-30  6:32:54
+-- Dump completed on 2023-08-30 19:39:56
