@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  width: 200px;
+  border: 2px solid black;
+  display: grid;
+  margin-top: 10px;
+  margin: 10px 50px;
+}
+
+.content a {
+  margin: 10px;
+}
+
+.titleContent {
+  border-bottom: 2px solid black;
+  text-align: center;
+}
+
+#tabelaUser {
+  margin: 2px 50px;
+  border: 2px solid black;
+}
+
+#tabelaProd tr,
+th,
+td {
+  border: 2px solid black;
+  padding: 5px;
+  text-align: center;
+}
+
+td button {
+  text-decoration: underline;
+}
+
+.changeStatusButton,
+.alterarUsuario {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}

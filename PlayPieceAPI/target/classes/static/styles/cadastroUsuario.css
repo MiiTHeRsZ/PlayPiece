@@ -1,0 +1,25 @@
+body {
+    background-color: #d7effa;
+}
+
+h1 {
+    text-align: center;
+}
+
+label {
+    font-weight: bold;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+    gap: 5px;
+}
+
+#form input:not(input[type=checkbox]),
+#form select {
+    border-radius: 5px;
+    border: 2px outset #ccc;
+}

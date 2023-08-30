@@ -1,0 +1,35 @@
+@import url("./var.css");
+
+body {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--txt-color);
+    background-color: var(--bg-color);
+    transition: all .3s ease-in-out;
+}
+
+body .welcome {
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    width: fit-content;
+    padding: 3rem 2rem;
+    border-radius: 25px;
+    line-height: 2;
+    text-align: center;
+    background-color: var(--bg-alternative-color);
+    box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
+    transition: all .3s ease-in-out;
+}
+
+
+
+.welcome .btn-login-page {
+    padding: 4px 40px;
+    border-radius: 30px;
+    font-size: 24px;
+    color: var(--txt-accent-color-secondary);
+    background-color: var(--txt-accent-color-primary);
+}
