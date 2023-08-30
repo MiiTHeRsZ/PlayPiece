@@ -31,12 +31,10 @@ CREATE TABLE `acesso` (
   `email` varchar(255) DEFAULT NULL,
   `id_usuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_pessoa` (`id_pessoa`),
   UNIQUE KEY `senha` (`senha`),
-  UNIQUE KEY `id_usuario` (`id_usuario`),
   KEY `fk_id_pessoa` (`id_pessoa`),
   CONSTRAINT `fk_id_pessoa` FOREIGN KEY (`id_pessoa`) REFERENCES `pessoa` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +43,7 @@ CREATE TABLE `acesso` (
 
 LOCK TABLES `acesso` WRITE;
 /*!40000 ALTER TABLE `acesso` DISABLE KEYS */;
-INSERT INTO `acesso` VALUES (1,'senha1231234',1,NULL,1),(2,'97876694223',2,NULL,2),(3,'97876694564',9,NULL,3),(4,'97876324993',5,NULL,4),(5,'12312312315',18,NULL,11),(6,'12312312318',21,NULL,16);
+INSERT INTO `acesso` VALUES (1,'-414477009',1,NULL,1);
 /*!40000 ALTER TABLE `acesso` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-30  6:32:53
+-- Dump completed on 2023-08-30 19:50:33
