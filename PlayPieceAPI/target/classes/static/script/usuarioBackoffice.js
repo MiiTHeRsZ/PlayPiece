@@ -17,6 +17,7 @@ async function criarTabela() {
 
   const tabela = document.getElementById("tabelaUser");
 
+  //Criando os campos da tabela
   for (var i = 0; i < response.length; i++) {
     let usuario = {
       "Id": response[i].id,

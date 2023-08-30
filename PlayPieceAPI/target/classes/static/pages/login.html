@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/login.css">
+    <title>PI - Desenvolvimento de Sistemas Orientados a WEB</title>
+    <script src="../script/login.js" defer></script>
+</head>
+
+<body>
+    <div class="form__container">
+        <form action="" id="form">
+            <label for=" #nickname" class="form__label">Usuário (e-mail):</label>
+            <input type="email" name="nickname" id="nickname" class="form__input-text" placeholder="exemplo@exemplo.com"
+                required />
+            <label for="#password" class="form__label">Senha:</label>
+            <input type="password" name="password" id="password" class="form__input-text" placeholder="***********"
+                minlength="8" required />
+            <div class="btns">
+                <input type="submit" value="Entrar" id="form__btn" />
+                🔹
+                <a href="../index.html" id="form__btn">Voltar</a>
+            </div>
+        </form>
+    </div>
+    <script src="../script/login.js"></script>
+</body>
+
+</html>
