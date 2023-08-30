@@ -1,10 +1,10 @@
 document.getElementById("mostrarTabela").addEventListener("click", () => {
   var tabela = document.getElementById("tabelaUser");
-
-  criarTabela();
   if (tabela.style.display === "none") {
+    criarTabela();
     tabela.style.display = "table"; // Corrigido aqui
   } else {
+    clearTable();
     tabela.style.display = "none"; // Corrigido aqui
   }
 });
@@ -62,13 +62,16 @@ function alterarStatus() {
   changeStatusButton.forEach(element => {
     element.addEventListener("click", async () => {
       await fetch(`http://localhost:8080/usuario/${element.value}`, { method: 'DELETE' })
-      const tr = document.querySelectorAll(".linhaTabela")
-
-      tr.forEach(linha => {
-        linha.innerHTML = ""
-      })
-
+      clearTable()
       criarTabela()
     })
   });
+}
+
+function clearTable(){
+  const tr = document.querySelectorAll(".linhaTabela")
+
+  tr.forEach(linha => {
+    linha.innerHTML = ""
+  })
 }
