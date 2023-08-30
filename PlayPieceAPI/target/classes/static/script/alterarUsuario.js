@@ -99,6 +99,7 @@ botaoSalvar.addEventListener("click", async (e) => {
     if (result.status == 200) {
 
         alert("Usuário atualizado com sucesso!")
+        window.close()
     } else {
         document.querySelector("body").style = "background-color:#ffcbcb;"
         alert("Falha ao atualizar usuário\nTente novamente")

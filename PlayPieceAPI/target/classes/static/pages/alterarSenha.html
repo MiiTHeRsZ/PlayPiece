@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alteração de usuário</title>
+    <link rel="stylesheet" href="../styles/cadastroUsuario.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Alteração de senha</h1>
+    </header>
+    <form action="#" id="form">
+        <label for="#email_profissional">E-mail profissional:</label>
+        <input type="text" name="email_profissional" id="email_profissional" required readonly>
+        <label for="#senha">Nova senha:</label>
+        <input type="password" name="senha" id="senha" required minlength="8">
+        <label for="#confirmar_senha">confirmar senha:</label>
+        <input type="password" name="confirmar_senha" id="confirmar_senha" required minlength="8">
+
+        <button type="submit" id="btn-salvar">Alterar Senha</button>
+
+    </form>
+
+    <script src="../script/alterarSenha.js"></script>
+</body>
+
+</html>
