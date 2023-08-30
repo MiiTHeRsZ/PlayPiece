@@ -7,6 +7,10 @@ body {
     color: var(--txt-color);
     background-color: var(--bg-color);
     transition: all .3s ease-in-out;
+    background-image: url(../images/background-image.jpg);
+    background-position: top;
+    background-repeat: space;
+    background-size: cover;
 }
 
 body .welcome {
@@ -22,6 +26,7 @@ body .welcome {
     background-color: var(--bg-alternative-color);
     box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
     transition: all .3s ease-in-out;
+    opacity: 0.8;
 }
 
 
@@ -30,6 +35,6 @@ body .welcome {
     padding: 4px 40px;
     border-radius: 30px;
     font-size: 24px;
-    color: var(--txt-accent-color-secondary);
-    background-color: var(--txt-accent-color-primary);
+    color: var(--txt-color);
+    background-color: var(--txt-accent-color-ternary);
 }

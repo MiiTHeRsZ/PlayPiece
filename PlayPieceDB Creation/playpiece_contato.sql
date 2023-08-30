@@ -31,6 +31,7 @@ CREATE TABLE `contato` (
   `telefone_fixo` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +40,7 @@ CREATE TABLE `contato` (
 
 LOCK TABLES `contato` WRITE;
 /*!40000 ALTER TABLE `contato` DISABLE KEYS */;
+INSERT INTO `contato` VALUES (1,11959287161,NULL,NULL);
 INSERT INTO `contato` VALUES (1,11959287161,NULL,NULL);
 /*!40000 ALTER TABLE `contato` ENABLE KEYS */;
 UNLOCK TABLES;
