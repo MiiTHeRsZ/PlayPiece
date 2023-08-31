@@ -173,7 +173,7 @@ botaoSalvar.addEventListener("click", async (e) => {
                 'Content-Type':
                     'application/json;charset=utf-8'
             },
-            body: JSON.stringify(usuario),
+            body: JSON.stringify(document.getElementById("cpf").value.toString().hashCode()),
 
         })
         if (createSenha.status == 201) {
@@ -188,3 +188,15 @@ botaoSalvar.addEventListener("click", async (e) => {
         alert("Falha ao cadastrar usuário\nTente novamente")
     }
 })
+
+String.prototype.hashCode = function () {
+    var hash = 0,
+        i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        chr = this.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+}

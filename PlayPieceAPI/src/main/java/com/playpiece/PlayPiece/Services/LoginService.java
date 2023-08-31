@@ -27,13 +27,12 @@ public class LoginService {
         return login;
     }
 
-    public LoginModel postLoginUser(String emailUsuario) {
+    public LoginModel postLoginUser(String emailUsuario, String senha) {
 
         UsuarioModel usuario = usuarioRepository.findByEmailUsuario(emailUsuario).get(0);
         System.out.println(usuario);
         LoginModel login = new LoginModel(null, usuario.getEmailUsuario(),
-                usuario.getPessoa().getCpf().toString());
-        System.out.println(login.getSenha() + " - " + usuario.getPessoa().getId() + " - " + usuario.getId());
+                senha);
         loginRepository.postLoginUser(login.getSenha(), usuario.getPessoa().getId(), usuario.getId());
         return loginRepository.getUserLoginInfo(usuario.getEmailUsuario());
     }

@@ -32,8 +32,8 @@ public class LoginController {
     }
 
     @PostMapping(value = "newAccess", params = { "emailUsuario" })
-    public ResponseEntity<LoginModel> postLoginUser(@RequestParam String emailUsuario) {
-        return new ResponseEntity<>(loginService.postLoginUser(emailUsuario), HttpStatus.CREATED);
+    public ResponseEntity<LoginModel> postLoginUser(@RequestParam String emailUsuario, @RequestBody String senha) {
+        return new ResponseEntity<>(loginService.postLoginUser(emailUsuario, senha), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{emailUsuario}")
