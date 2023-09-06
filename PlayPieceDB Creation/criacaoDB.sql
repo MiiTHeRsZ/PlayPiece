@@ -1,0 +1,1 @@
+insert into cargo (nome) value ("administrador")

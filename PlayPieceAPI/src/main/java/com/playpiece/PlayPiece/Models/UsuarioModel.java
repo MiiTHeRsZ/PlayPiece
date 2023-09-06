@@ -13,20 +13,19 @@ import lombok.*;
 public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_pessoa", referencedColumnName = "id")
-    private PessoaModel pessoa;
+    private Long id;
+    private String nome;
+    private String cpf;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_cargo", referencedColumnName = "id")
     @Enumerated(EnumType.STRING)
     private CargoModel cargo;
-
-    private double salario;
-    private Boolean ativo;
-
-    @Column(name = "email_usuario")
+    
+    @Column(name = "email")
     private String emailUsuario;
+    
+    private String senha;
+
+    private Boolean ativo;
 }

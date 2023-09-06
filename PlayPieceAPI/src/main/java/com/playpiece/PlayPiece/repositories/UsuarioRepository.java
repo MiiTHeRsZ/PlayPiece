@@ -10,4 +10,5 @@ import java.util.List;
 public interface UsuarioRepository extends JpaRepository<UsuarioModel, Integer> {
 
     List<UsuarioModel> findByEmailUsuario(String emailUsuario);
+    List<UsuarioModel> findByNomeContaining(String nome);
 }

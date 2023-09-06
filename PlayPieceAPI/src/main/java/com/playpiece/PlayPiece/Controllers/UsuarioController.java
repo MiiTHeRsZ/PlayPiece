@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -58,10 +57,10 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioService.postUsuario(usuario), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<UsuarioModel> patchUsuario(@PathVariable int id,
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioModel> updateUsuario(@PathVariable int id,
             @RequestBody UsuarioModel usuarioModel) {
-        return new ResponseEntity<>(usuarioService.patchUsuario(id, usuarioModel),
+        return new ResponseEntity<>(usuarioService.updateUsuario(id, usuarioModel),
                 HttpStatus.OK);
     }
 
