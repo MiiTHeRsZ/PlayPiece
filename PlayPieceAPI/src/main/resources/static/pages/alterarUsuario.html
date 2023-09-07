@@ -10,23 +10,50 @@
 
 <body>
 
-    <header>
-        <h1>Alteração de usuário</h1>
-    </header>
-    <form action="#" id="form">
-        <label for="#cpf">CPF:</label>
-        <input type="text" name="cpf" id="cpf" required>
-        <label for="#nome">Nome:</label>
-        <input type="text" name="nome" id="nome" required>
-        <label for="#email_profissional">E-mail profissional:</label>
-        <input type="email" name="email_profissional" id="email_profissional" required readonly>
-        <label for="#cargo">Cargo:</label>
-        <select id="cargo" required>
-            <option value="0" selected="true" disabled="disabled">Selecione um cargo</option>
-        </select>
-        <button type="submit" id="btn-salvar">Salvar</button>
+    <section id="altUser">
+        <header>
+            <h1>Alteração de usuário</h1>
+        </header>
+        <form action="#" id="form">
+            <label for="#cpf">CPF:</label>
+            <input type="text" name="cpf" id="cpf" required>
+            <label for="#nome">Nome:</label>
+            <input type="text" name="nome" id="nome" required>
+            <label for="#email_profissional">E-mail profissional:</label>
+            <input type="email" name="email_profissional" id="email_profissional" required readonly>
+            <label for="#cargo">Cargo:</label>
+            <select id="cargo" required>
+                <option value="0" selected="true" disabled="disabled">Selecione um cargo</option>
+            </select>
+            <div id="btnSection">
+                <button type="submit" id="btn-salvar" class="button">Salvar</button>
+                <a href="#" id="alterarSenha">Alterar Senha</a>
 
-    </form>
+
+        </form>
+    </section>
+
+
+    <span class="overlay" style="display:  none;"></span>
+
+
+    <section id="senhaPage" style="display: none;">
+        <form action=" #" id="form" class="senhaForm">
+            <div>
+                <label for="#senha">Nova senha:</label>
+                <input type="password" name="senha" id="senha" required minlength="8">
+            </div>
+            <div>
+                <label for="#confirmar_senha">Confirmar senha:</label>
+                <input type="password" name="confirmar_senha" id="confirmar_senha" required minlength="8">
+            </div>
+            <div id="btnSection">
+                <button type="submit" id="btn-salvarSenha" class="button">Alterar Senha</button>
+                <button type="button" id="btn-cancelarSenha" class="button">Cancelar</button>
+            </div>
+
+        </form>
+    </section>
 
     <script src="../script/alterarUsuario.js"></script>
 </body>

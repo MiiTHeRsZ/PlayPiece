@@ -35,8 +35,6 @@ document.getElementById("senha1").onchange = () => {
 
     let ret = verificarSenhas(senha1, senha2)
 
-    console.log(ret)
-
     if (ret) {
         document.getElementById("senha2").style.border = '2px solid gray'
     } else {
@@ -57,8 +55,6 @@ document.getElementById("senha2").onchange = () => {
     let cpfret = validaCPF(cpf)
 
     let ret = verificarSenhas(senha1, senha2)
-
-    console.log(ret)
 
     if (ret) {
         document.getElementById("senha2").style.border = '2px solid gray'

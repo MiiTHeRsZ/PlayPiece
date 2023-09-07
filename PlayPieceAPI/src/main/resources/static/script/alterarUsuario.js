@@ -85,6 +85,7 @@ botaoSalvar.addEventListener("click", async (e) => {
 
 })
 
+
 function validaCPF(cpf) {
     var Soma = 0
     var Resto
@@ -133,4 +134,124 @@ function validaCPF(cpf) {
         return false
 
     return true
+}
+
+//=====================================================================================
+//========================|| alteração de senha ||=====================================
+//=====================================================================================
+
+let altSenha = document.getElementById("alterarSenha")
+let overlay = document.querySelector(".overlay")
+altSenha.addEventListener("click", async (e) => {
+    e.preventDefault()
+    let senhaPage = document.getElementById("senhaPage")
+    if (senhaPage.style.display === "none") {
+        senhaPage.style.display = "block"
+        overlay.style.display = "block"
+    } else {
+        senhaPage.style.display = "none"
+        overlay.style.display = "none"
+    }
+})
+
+let btnCancel = document.getElementById("btn-cancelarSenha")
+btnCancel.onclick = () => {
+    senhaPage.style.display = "none"
+    overlay.style.display = "none"
+}
+
+document.getElementById("senha").onchange = () => {
+
+    let senha1 = document.getElementById("senha").value
+    let senha2 = document.getElementById("confirmar_senha").value
+
+    let ret = verificarSenhas(senha1, senha2)
+
+    if (ret) {
+        document.getElementById("confirmar_senha").style.border = '2px solid gray'
+        document.getElementById("btn-salvarSenha").removeAttribute("disabled")
+    } else {
+        document.getElementById("confirmar_senha").style.border = '2px solid red'
+        document.getElementById("btn-salvarSenha").setAttribute("disabled", "true")
+    }
+
+}
+document.getElementById("confirmar_senha").onchange = () => {
+
+    let senha1 = document.getElementById("senha").value
+    let senha2 = document.getElementById("confirmar_senha").value
+
+    let ret = verificarSenhas(senha1, senha2)
+
+    if (ret) {
+        document.getElementById("confirmar_senha").style.border = '2px solid gray'
+        document.getElementById("btn-salvarSenha").removeAttribute("disabled")
+    } else {
+        document.getElementById("confirmar_senha").style.border = '2px solid red'
+        document.getElementById("btn-salvarSenha").setAttribute("disabled", "true")
+    }
+
+}
+
+function verificarSenhas(senha1, senha2) {
+    if (senha1 !== senha2 || senha2 == null || senha2.length < 8 || senha2.length > 25) {
+        return false
+    } else {
+        return true
+    }
+}
+
+let botao = document.getElementById("btn-salvarSenha")
+botao.addEventListener("click", async (e) => {
+    e.preventDefault()
+
+    let senha1 = document.getElementById("senha").value
+    let senha2 = document.getElementById("confirmar_senha").value
+
+
+    if (senha1.value !== senha2.value) {
+        alert("Senhas não batem")
+    } else {
+        const user = await fetch(`http://localhost:8080/usuario/${idUsuario}`).then(data => data.json())
+        let senhaCripto = senha1.hashCode()
+
+        usuario = {
+            "id": user.id,
+            "nome": user.nome,
+            "cpf": user.cpf,
+            "cargo": user.cargo,
+            "emailUsuario": user.emailUsuario,
+            "senha": senhaCripto,
+            "ativo": user.ativo
+        }
+
+        const result = await fetch(`http://localhost:8080/usuario/${idUsuario}`, {
+            method: "PUT", headers: {
+                'Content-Type':
+                    'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(usuario),
+        })
+        if (result.status == 200) {
+
+            alert("Senha atualizada com sucesso!")
+            senhaPage.style.display = "none"
+            overlay.style.display = "none"
+        } else {
+            document.querySelector("body").style = "background-color:#ffcbcb;"
+            alert("Falha ao atualizar senha\nTente novamente")
+        }
+    }
+})
+
+String.prototype.hashCode = function () {
+    var hash = 0,
+        i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        chr = this.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
 }
