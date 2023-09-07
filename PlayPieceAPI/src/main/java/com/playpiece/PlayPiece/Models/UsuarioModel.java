@@ -15,16 +15,17 @@ public class UsuarioModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
     private String cpf;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_cargo", referencedColumnName = "id")
     @Enumerated(EnumType.STRING)
     private CargoModel cargo;
-    
+
     @Column(name = "email")
     private String emailUsuario;
-    
+
     private String senha;
 
     private Boolean ativo;

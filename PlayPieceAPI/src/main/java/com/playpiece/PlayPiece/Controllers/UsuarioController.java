@@ -35,12 +35,23 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioModel> getUsuarioById(@PathVariable int id) {
-        return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioById(id), HttpStatus.OK);
+        try {
+
+            return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioById(id), HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<UsuarioModel>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(value = "search", params = { "email" })
     public ResponseEntity<UsuarioModel> getUsuarioByEmail(@RequestParam String email) {
-        return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioByEmail(email), HttpStatus.OK);
+        try {
+            return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioByEmail(email), HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<UsuarioModel>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(value = "search", params = { "nome" })

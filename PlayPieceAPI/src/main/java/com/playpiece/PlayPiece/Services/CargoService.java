@@ -20,24 +20,4 @@ public class CargoService {
     public List<CargoModel> getAllCargos() {
         return cargoRepository.findAll();
     }
-
-    public CargoModel patchCargo(int id, CargoModel novoCargo) {
-
-        CargoModel cargo = cargoRepository.findById(id).get();
-        try {
-            for (Field cargoField : CargoModel.class.getDeclaredFields()) {
-                cargoField.setAccessible(true);
-
-                if (cargoField.get(novoCargo) != null
-                        && !cargoField.get(novoCargo).equals(cargoField.get(cargo))
-                        && cargoField.getName() != "nome") {
-
-                    cargo = cargoRepository.findById(novoCargo.getId()).get();
-                }
-            }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return cargo;
-    }
 }

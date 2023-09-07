@@ -16,7 +16,8 @@ public class UsuarioService {
     final CargoRepository cargoRepository;
     final CargoService cargoService;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, CargoRepository cargoRepository, CargoService cargoService) {
+    public UsuarioService(UsuarioRepository usuarioRepository, CargoRepository cargoRepository,
+            CargoService cargoService) {
         this.usuarioRepository = usuarioRepository;
         this.cargoRepository = cargoRepository;
         this.cargoService = cargoService;
@@ -43,6 +44,7 @@ public class UsuarioService {
         usuario.setId(null);
         usuario.setCargo(cargoRepository.findById(usuario.getCargo().getId()).get());
         usuario.setAtivo(true);
+
         return usuarioRepository.save(usuario);
     }
 
@@ -55,15 +57,12 @@ public class UsuarioService {
 
     public UsuarioModel updateUsuario(int id, UsuarioModel novoUsuario) {
         UsuarioModel usuario = usuarioRepository.findById(id).get();
-        String emailUsuario = usuario.getEmailUsuario();
-        CargoModel cargo = novoUsuario.getCargo();
 
+        novoUsuario.setId(usuario.getId());
+        novoUsuario.setEmailUsuario(usuario.getEmailUsuario());
         usuario = novoUsuario;
 
-        usuario.setId(null);
-        usuario.setEmailUsuario(emailUsuario);
-
-        usuario.setCargo(cargoService.patchCargo(usuario.getCargo().getId(), cargo));
+        usuario.setCargo(cargoRepository.findById(usuario.getCargo().getId()).get());
 
         return usuarioRepository.save(usuario);
     }

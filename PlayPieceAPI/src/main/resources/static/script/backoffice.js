@@ -1,18 +1,19 @@
 const urlParams = new URLSearchParams(window.location.search);
 group = urlParams.get('group')
 
+if (group == 2) {
+  document.getElementById("mostrarTabela").style.display = "none"
+  document.getElementById("btnCadastroUsuario").style.display = "none"
+
+}
+
 document.getElementById("mostrarTabela").addEventListener("click", () => {
-  if (group == 1) {
-    const tabela = document.getElementById("tabelaUser");
-    if (tabela.style.display === "none") {
-      criarTabela();
-      tabela.style.display = "table"; // Corrigido aqui
-    } else {
-      clearTable();
-      tabela.style.display = "none"; // Corrigido aqui
-    }
+  const tabela = document.getElementById("secaoTabelaUsuario");
+  if (tabela.style.display == "none") {
+    criarTabela();
+    tabela.style.display = "block";
   } else {
-    alert("Permissão negada")
+    tabela.style.display = "none"
   }
 });
 
@@ -22,17 +23,21 @@ async function criarTabela() {
     data.json()
   );
 
+  clearTable()
+
   const tabela = document.getElementById("tabelaUser");
 
   //Criando os campos da tabela
   for (var i = 0; i < response.length; i++) {
+
     let usuario = {
       "Id": response[i].id,
-      "Nome": response[i].pessoa.nome,
+      "Nome": response[i].nome,
       "Email": response[i].emailUsuario,
       "Status": response[i].ativo,
       "Grupo": response[i].cargo.nome
     }
+
     let tr = document.createElement("tr")
     tr.setAttribute("class", "linhaTabela")
     tabela.appendChild(tr)
@@ -49,14 +54,11 @@ async function criarTabela() {
     grupo.textContent = `${usuario.Grupo}`
     alterar.innerHTML = `<a onclick="window.open('../pages/alterarUsuario.html?id=${usuario.Id}','name','width=500,height=1000')"> <button class = "alterarUsuario"> alterar </button> <a>`
 
-
     tr.appendChild(nome)
     tr.appendChild(email)
     tr.appendChild(status)
     tr.appendChild(grupo)
     tr.appendChild(alterar)
-
-
   }
 
   alterarStatus()
@@ -67,8 +69,10 @@ async function criarTabela() {
 
 document.getElementById("pesquisarPorNome").addEventListener("click", () => {
   const nome = document.getElementById("txtNome").value;
-  clearTable();
+  const tabela = document.getElementById("secaoTabelaUsuario");
+  clearTable()
   pesquisarPorNome(nome);
+  tabela.style.display = "block";
 });
 
 async function pesquisarPorNome(nome) {
@@ -76,7 +80,6 @@ async function pesquisarPorNome(nome) {
   const response = await fetch(`http://localhost:8080/usuario/search?nome=${nome}`).then((data) =>
     data.json()
   );
-  console.log('response',response )
 
   const tabela = document.getElementById("tabelaUser");
 
@@ -84,11 +87,12 @@ async function pesquisarPorNome(nome) {
   for (var i = 0; i < response.length; i++) {
     let usuario = {
       "Id": response[i].id,
-      "Nome": response[i].pessoa.nome,
+      "Nome": response[i].nome,
       "Email": response[i].emailUsuario,
       "Status": response[i].ativo,
       "Grupo": response[i].cargo.nome
     }
+
     let tr = document.createElement("tr")
     tr.setAttribute("class", "linhaTabela")
     tabela.appendChild(tr)
@@ -105,14 +109,11 @@ async function pesquisarPorNome(nome) {
     grupo.textContent = `${usuario.Grupo}`
     alterar.innerHTML = `<a onclick="window.open('../pages/alterarUsuario.html?id=${usuario.Id}','name','width=500,height=1000')"> <button class = "alterarUsuario"> alterar </button> <a>`
 
-
     tr.appendChild(nome)
     tr.appendChild(email)
     tr.appendChild(status)
     tr.appendChild(grupo)
     tr.appendChild(alterar)
-
-
   }
 
   alterarStatus()

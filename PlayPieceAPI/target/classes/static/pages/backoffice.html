@@ -15,25 +15,26 @@
 			<h2>Principal</h2>
 		</div>
 		<a id="mostrarTabela"><button>Listar Usuários</button></a>
-		<a onclick="window.open('../pages/cadastroUsuario.html','name','width=500,height=1000')"><button>Cadastrar
+		<a onclick="window.open('../pages/cadastroUsuario.html','name','width=500,height=1000')" id="btnCadastroUsuario"><button>Cadastrar
 				novo usuário</button></a>
 		<a><button disabled>Listar Produto</button></a>
 		<!-- <a href="">Listar Pedido</a> -->
 	</div>
 
-	<label for="txtName" class="txtNamess">Nome:</label>
-	<input type="text" name="Nome" id="txtNome">
-	<a id="pesquisarPorNome">Pesquisar</a>
-
-	<table id="tabelaUser" style="display: none;" value=1>
-		<tr>
-			<th>Nome</th>
-			<th>Email</th>
-			<th>Status</th>
-			<th>Cargo</th>
-			<th>Alterar</th>
-		</tr>
-	</table>
+	<section id="secaoTabelaUsuario" style="display: none;">
+		<table id="tabelaUser" value=1>
+			<label for="txtName" class="txtNamess">Nome:</label>
+			<input type="text" name="Nome" id="txtNome">
+			<a id="pesquisarPorNome">Pesquisar</a>
+			<tr>
+				<th>Nome</th>
+				<th>Email</th>
+				<th>Status</th>
+				<th>Cargo</th>
+				<th>Alterar</th>
+			</tr>
+		</table>
+	</section>
 
 	<script src="../script/backoffice.js"></script>
 </body>
