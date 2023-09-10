@@ -75,3 +75,18 @@ label {
 .senhaForm div {
     text-align: center;
 }
+
+.alert {
+    color: red;
+    display: none;
+    font-size: 14px;
+}
+
+#showPassword {
+    cursor: pointer;
+    align-self: center;
+}
+
+#showPassword:hover {
+    color: #fff;
+}

@@ -70,9 +70,21 @@ document.getElementById("senha2").onchange = () => {
 }
 
 function verificarSenhas(senha1, senha2) {
+    let alert = document.querySelector(".alert")
     if (senha1 !== senha2 || senha2 == null || senha2.length < 8 || senha2.length > 25) {
+        if (senha2 == "") {
+        }
+        else if (senha1 !== senha2) {
+            alert.style.display = "inline"
+            alert.innerHTML = "Senhas não batem"
+        } else if (senha2.length < 8 || senha2.length > 25) {
+            alert.style.display = "inline"
+            alert.innerHTML = "Senha deve conter de 8 até 25 caracteres"
+        }
         return false
     } else {
+        alert.innerHTML = ""
+        alert.style.display = "none"
         return true
     }
 }
@@ -96,6 +108,27 @@ document.getElementById("cpf").onchange = () => {
         document.getElementById("btn-salvar").setAttribute("disabled", "true")
     }
 }
+
+let showPassIcon = document.querySelector("#showPassword")
+showPassIcon.addEventListener("click", () => {
+    if (showPassIcon.getAttribute("class") == "fa-solid fa-eye-slash") {
+        showPassIcon.removeAttribute("class")
+        showPassIcon.setAttribute("class", "fa-solid fa-eye")
+        let passInput = document.querySelectorAll(".passInput")
+        for (let i = 0; i < passInput.length; i++) {
+            passInput[i].setAttribute("type", "text")
+        }
+
+    }
+    else {
+        showPassIcon.removeAttribute("class")
+        showPassIcon.setAttribute("class", "fa-solid fa-eye-slash")
+        let passInput = document.querySelectorAll(".passInput")
+        for (let i = 0; i < passInput.length; i++) {
+            passInput[i].setAttribute("type", "password")
+        }
+    }
+})
 
 const botaoSalvar = document.getElementById("btn-salvar");
 botaoSalvar.addEventListener("click", async (e) => {

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de usuário</title>
     <link rel="stylesheet" href="../styles/cadastroUsuario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body>
@@ -25,10 +26,12 @@
             <option value="0" selected="true" disabled="disabled">Selecione um cargo</option>
         </select>
         <label for="#senha1">Senha:</label>
-        <input type="password" name="senha1" id="senha1" minlength="8" maxlength="25" required>
+        <input type="password" name="senha1" id="senha1" class="passInput" minlength="8" maxlength="25" required>
         <label for="#senha2">Confirmar senha:</label>
-        <input type="password" name="senha2" id="senha2" minlength="8" maxlength="25" required>
+        <input type="password" name="senha2" id="senha2" class="passInput" minlength="8" maxlength="25" required>
+        <span class="alert"></span>
 
+        <i id="showPassword" class="fa-solid fa-eye-slash"></i>
 
         <button type="submit" id="btn-salvar" disabled>Salvar</button>
 

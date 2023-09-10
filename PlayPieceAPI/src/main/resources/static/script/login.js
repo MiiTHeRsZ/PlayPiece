@@ -22,6 +22,21 @@ btn.addEventListener("click", () => {
   conect_api();
 });
 
+let showPassIcon = document.querySelector("#showPassword")
+showPassIcon.addEventListener("click", () => {
+  if (showPassIcon.getAttribute("class") == "fa-solid fa-eye-slash") {
+    showPassIcon.removeAttribute("class")
+    showPassIcon.setAttribute("class", "fa-solid fa-eye")
+    document.getElementById("password").setAttribute("type", "text")
+  }
+  else {
+    showPassIcon.removeAttribute("class")
+    showPassIcon.setAttribute("class", "fa-solid fa-eye-slash")
+    document.getElementById("password").setAttribute("type", "password")
+  }
+})
+
+
 String.prototype.hashCode = function () {
   var hash = 0,
     i, chr;

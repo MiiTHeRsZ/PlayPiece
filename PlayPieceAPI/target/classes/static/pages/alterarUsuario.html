@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alteração de usuário</title>
     <link rel="stylesheet" href="../styles/cadastroUsuario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body>
@@ -41,12 +42,17 @@
         <form action=" #" id="form" class="senhaForm">
             <div>
                 <label for="#senha">Nova senha:</label>
-                <input type="password" name="senha" id="senha" required minlength="8">
+                <input type="password" name="senha" id="senha" class="passInput" required minlength="8">
             </div>
             <div>
                 <label for="#confirmar_senha">Confirmar senha:</label>
-                <input type="password" name="confirmar_senha" id="confirmar_senha" required minlength="8">
+                <input type="password" name="confirmar_senha" id="confirmar_senha" class="passInput" required
+                    minlength="8">
             </div>
+            <span class="alert">aa</span>
+
+            <i id="showPassword" class="fa-solid fa-eye-slash"></i>
+
             <div id="btnSection">
                 <button type="submit" id="btn-salvarSenha" class="button">Alterar Senha</button>
                 <button type="button" id="btn-cancelarSenha" class="button">Cancelar</button>

@@ -58,3 +58,24 @@ body {
     background: transparent;
     cursor: pointer;
 }
+
+.passBox {
+    position: relative;
+}
+
+#password {
+    width: 100%;
+    padding-right: 15%;
+}
+
+#showPassword {
+    position: absolute;
+    right: 5%;
+    bottom: 25%;
+    cursor: pointer;
+    content: "<i class='fa-solid fa-eye-slash'></i>";
+}
+
+#showPassword:hover {
+    color: var(--txt-accent-color-ternary);
+}
