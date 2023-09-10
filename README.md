@@ -5,13 +5,13 @@ Acessos padrão
 
 ADM
 
-lfujimura.pp5@playpiece.com
+lfujimura.pp1@playpiece.com
 123123123
 
 
 Estoq
 
-vmendes.pp1@playpiece.com
+vmendes.pp2@playpiece.com
 123123123
 
 
