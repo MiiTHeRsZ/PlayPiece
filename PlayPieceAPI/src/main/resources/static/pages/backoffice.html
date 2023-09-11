@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="../styles/reset.css" />
 	<link rel="stylesheet" href="../styles/backoffice.css" />
+	<script src="../script/backoffice.js" defer></script>
 	<title>Página Backoffice</title>
 </head>
 
@@ -15,16 +16,17 @@
 			<h2>Principal</h2>
 		</div>
 		<a id="mostrarTabela"><button>Listar Usuários</button></a>
-		<a onclick="window.open('../pages/cadastroUsuario.html','name','width=500,height=1000')" id="btnCadastroUsuario"><button>Cadastrar
-				novo usuário</button></a>
-		<a><button disabled>Listar Produto</button></a>
+		<a onclick="window.open('../pages/cadastroUsuario.html','name','width=500,height=1000')" id="btnCadastroUsuario">
+			<button>Cadastrarnovo usuário</button>
+		</a>
+		<a id="mostrarTbProdutos"><button disabled>Listar Produto</button></a>
 		<!-- <a href="">Listar Pedido</a> -->
 	</div>
 
-	<section id="secaoTabelaUsuario" style="display: none;">
-		<table id="tabelaUser" value=1>
-			<label for="txtName" class="txtNamess">Nome:</label>
-			<input type="text" name="Nome" id="txtNome">
+	<section id = "secaoTabelaUsuario" style = "display: none;">
+		<table id = "tabelaUser" value = 1>
+			<label for = "txtName" class="txtNamess">Nome:</label>
+			<input type = "text" name="Nome" id="txtNome">
 			<a id="pesquisarPorNome">Pesquisar</a>
 			<tr>
 				<th>Nome</th>
@@ -36,7 +38,23 @@
 		</table>
 	</section>
 
-	<script src="../script/backoffice.js"></script>
+	<section id = "secaoTabelaProduto" style="display: none;">
+		<table id = "tabelProduct" value = 1>
+			<label for = "txtName" class="txtNamess">Nome:</label>
+			<input type = "text" name="NomeProduto" id = "txtNomeProduto">
+			<a id = "pesquisarPorNomeProduto">Pesquisar</a>
+			<tr>
+				<th>Nome</th>
+				<th>Preço</th>
+				<!-- <th>Descrissão</th>
+				<th>Componentes</th> -->
+				<th>Categoria</th>
+				<th>Status</th>
+				<th>Alterar</th>
+			</tr>
+		</table>
+	</section>
+
 </body>
 
 </html>

@@ -4,20 +4,19 @@ group = urlParams.get('group')
 if (group == 2) {
   document.getElementById("mostrarTabela").style.display = "none"
   document.getElementById("btnCadastroUsuario").style.display = "none"
-
 }
 
 document.getElementById("mostrarTabela").addEventListener("click", () => {
   const tabela = document.getElementById("secaoTabelaUsuario");
   if (tabela.style.display == "none") {
-    criarTabela();
+    createTbUsers();
     tabela.style.display = "block";
   } else {
     tabela.style.display = "none"
   }
 });
 
-async function criarTabela() {
+async function createTbUsers() {
 
   const response = await fetch("http://localhost:8080/usuario").then((data) =>
     data.json()
@@ -27,7 +26,7 @@ async function criarTabela() {
 
   const tabela = document.getElementById("tabelaUser");
 
-  //Criando os campos da tabela
+  //Criando os campos da tabela usuario
   for (var i = 0; i < response.length; i++) {
 
     let usuario = {
@@ -83,7 +82,7 @@ async function pesquisarPorNome(nome) {
 
   const tabela = document.getElementById("tabelaUser");
 
-  //Criando os campos da tabela
+  //Criando os campos da tabela usuario
   for (var i = 0; i < response.length; i++) {
     let usuario = {
       "Id": response[i].id,
@@ -127,7 +126,7 @@ function alterarStatus() {
     element.addEventListener("click", async () => {
       await fetch(`http://localhost:8080/usuario/${element.value}`, { method: 'DELETE' })
       clearTable()
-      criarTabela()
+      createTbUsers()
     })
   });
 }
