@@ -17,9 +17,6 @@ import java.util.UUID;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-/***
- * @author Ian S. pereira
- */
 @RestController
 public class ProductController {
 
@@ -40,8 +37,10 @@ public class ProductController {
     public ResponseEntity<List<ProductModel>> getAllProducts()
     {
         List<ProductModel> productList = productRepository.findAll();
-        if (!productList.isEmpty()) {
-            for (ProductModel product : productList) {
+        if (!productList.isEmpty()) 
+        {
+            for (ProductModel product : productList) 
+            {
                 UUID id = product.getIdProduct();
                 // link que irá redirecionar para o produto em especifico
                 product.add(linkTo(methodOn(ProductController.class).getOneProduct(id)).withSelfRel());
