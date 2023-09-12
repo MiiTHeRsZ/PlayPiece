@@ -7,8 +7,9 @@ import com.playpiece.PlayPiece.Models.UsuarioModel;
 import java.util.List;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<UsuarioModel, Integer> {
+public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
 
     List<UsuarioModel> findByEmailUsuario(String emailUsuario);
+
     List<UsuarioModel> findByNomeContaining(String nome);
 }

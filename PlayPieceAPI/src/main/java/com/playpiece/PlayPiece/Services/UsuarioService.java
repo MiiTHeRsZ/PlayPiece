@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.playpiece.PlayPiece.Models.CargoModel;
 import com.playpiece.PlayPiece.Models.UsuarioModel;
 import com.playpiece.PlayPiece.repositories.CargoRepository;
 import com.playpiece.PlayPiece.repositories.UsuarioRepository;
@@ -14,20 +13,17 @@ public class UsuarioService {
 
     final UsuarioRepository usuarioRepository;
     final CargoRepository cargoRepository;
-    final CargoService cargoService;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, CargoRepository cargoRepository,
-            CargoService cargoService) {
+    public UsuarioService(UsuarioRepository usuarioRepository, CargoRepository cargoRepository) {
         this.usuarioRepository = usuarioRepository;
         this.cargoRepository = cargoRepository;
-        this.cargoService = cargoService;
     }
 
     public List<UsuarioModel> getUsuarioList() {
         return usuarioRepository.findAll();
     }
 
-    public UsuarioModel getUsuarioById(int id) {
+    public UsuarioModel getUsuarioById(Long id) {
         return usuarioRepository.findById(id).get();
     }
 
@@ -48,14 +44,14 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public UsuarioModel statusUsuario(int id) {
+    public UsuarioModel statusUsuario(Long id) {
         UsuarioModel usuario = usuarioRepository.findById(id).get();
         usuario.setAtivo(!usuario.getAtivo());
 
         return usuarioRepository.save(usuario);
     }
 
-    public UsuarioModel updateUsuario(int id, UsuarioModel novoUsuario) {
+    public UsuarioModel updateUsuario(Long id, UsuarioModel novoUsuario) {
         UsuarioModel usuario = usuarioRepository.findById(id).get();
 
         novoUsuario.setId(usuario.getId());

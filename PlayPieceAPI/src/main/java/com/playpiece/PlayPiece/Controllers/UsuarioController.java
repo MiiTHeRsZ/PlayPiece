@@ -34,7 +34,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioModel> getUsuarioById(@PathVariable int id) {
+    public ResponseEntity<UsuarioModel> getUsuarioById(@PathVariable Long id) {
         try {
 
             return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioById(id), HttpStatus.OK);
@@ -69,14 +69,14 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioModel> updateUsuario(@PathVariable int id,
-            @RequestBody UsuarioModel usuarioModel) {
-        return new ResponseEntity<>(usuarioService.updateUsuario(id, usuarioModel),
+    public ResponseEntity<UsuarioModel> updateUsuario(@PathVariable Long id,
+            @RequestBody UsuarioModel novoUsuario) {
+        return new ResponseEntity<>(usuarioService.updateUsuario(id, novoUsuario),
                 HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<UsuarioModel> statusUsuario(@PathVariable int id) {
+    public ResponseEntity<UsuarioModel> statusUsuario(@PathVariable Long id) {
         return new ResponseEntity<>(usuarioService.statusUsuario(id), HttpStatus.OK);
     }
 }
