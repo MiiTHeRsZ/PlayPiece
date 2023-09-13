@@ -25,8 +25,10 @@ public class ImagemController {
     }
 
     @PostMapping
-    public String uploadImagem(@RequestParam("imageFile") MultipartFile imageFile) {
+    public String uploadImagem(@RequestBody MultipartFile imageFile) {
         String returnValue = "start";
+
+        System.out.println(imageFile);
 
         try {
             imagemService.saveImage(imageFile);

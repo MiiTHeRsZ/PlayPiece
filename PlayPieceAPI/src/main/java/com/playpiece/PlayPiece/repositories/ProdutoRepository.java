@@ -15,6 +15,8 @@ public interface ProdutoRepository extends JpaRepository<ProdutoModel, Long> {
 
     public Page<ProdutoModel> findAllByOrderByIdDesc(Pageable pageable);
 
+    public List<ProdutoModel> findAllByOrderByIdDesc();
+
     @Query(value = "select p from produto p where p.nome like %?1% order by id desc")
     public Page<ProdutoModel> findByNomeContaining(String nome, Pageable pageable);
 }

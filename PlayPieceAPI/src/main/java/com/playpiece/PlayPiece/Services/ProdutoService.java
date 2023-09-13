@@ -33,6 +33,17 @@ public class ProdutoService {
         return produtos;
     }
 
+    public List<ProdutoModel> getProdutoListImagem() {
+
+        List<ProdutoModel> produtos = produtoRepository.findAllByOrderByIdDesc();
+
+        for (ProdutoModel produto : produtos) {
+            produto.setListaImagens(adicionarImagensProduto(produto.getId()));
+        }
+
+        return produtos;
+    }
+
     public ProdutoModel getProdutoById(Long id) {
         ProdutoModel produto = produtoRepository.findById(id).get();
         produto.setListaImagens(adicionarImagensProduto(produto.getId()));
