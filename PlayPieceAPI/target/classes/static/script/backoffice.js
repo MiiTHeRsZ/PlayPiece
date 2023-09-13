@@ -2,10 +2,10 @@ const urlParams = new URLSearchParams(window.location.search);
 group = urlParams.get('group')
 
 if (group == 2) {
-    document.getElementById("mostrarTabela").style.display = "none"
+    document.getElementById("mostrarTbUsuarios").style.display = "none"
 }
 
-document.getElementById("mostrarTabela").addEventListener("click", () => {
+document.getElementById("mostrarTbUsuarios").addEventListener("click", () => {
     const tabela = document.getElementById("secaoTabelaUsuario");
     if (tabela.style.display == "none") {
         createTbUsers();
@@ -62,6 +62,75 @@ async function createTbUsers() {
     alterarStatus()
 
 }
+
+//Mostrar tabela Usuário // Henrick
+document.getElementById("mostrarTbProdutos").addEventListener("click", () => {
+    const tabela = document.getElementById("secaoTabelaProduto");
+    if (tabela.style.display == "none") {
+        createTbProducts();
+        tabela.style.display = "block";
+    } else {
+        tabela.style.display = "none"
+    }
+});
+
+async function createTbProducts() {
+
+    const response = await fetch("http://localhost:8080/produto").then((data) =>
+        data.json()
+    );
+
+    clearTable()
+
+    const tabela = document.getElementById("tabelProduct");
+
+    //Criando os campos da tabela produto
+    for (var i = 0; i < response.length; i++) {
+
+        let produto = {
+            "Id": response[i].id,
+            "Nome": response[i].nome,
+            "Avaliacao": response[i].avaliacao,
+            "Descricao": response[i].descricao,
+            "Preco": response[i].preco,
+            "Quantidade": response[i].quantidade,
+            "Status": response[i].ativo
+        }
+
+        let tr = document.createElement("tr")
+        tr.setAttribute("class", "linhaTabela")
+        tabela.appendChild(tr)
+
+        let nome = document.createElement("td")
+        let avaliacao = document.createElement("td")
+        let descricao = document.createElement("td")
+        let preco = document.createElement("td")
+        let quantidade = document.createElement("td")
+        let status = document.createElement("td")
+        let alterar = document.createElement("td")
+
+        nome.textContent = `${produto.Nome}`
+        avaliacao.textContent = `${produto.Avaliacao}`
+        descricao.textContent = `${produto.Descricao}`
+        preco.textContent = `${produto.Preco}`
+        quantidade.textContent = `${produto.Quantidade}`
+        status.innerHTML = `<button class = "changeStatusButton" value=${produto.Id}> ${produto.Status ? "Ativo" : "Inativo"} </button>`
+        alterar.innerHTML = `<a onclick="window.open('../pages/alterarProduto.html?id=${produto.Id}','name','width=500,height=1000')"> <button class = "alterarProduto"> alterar </button> <a>`
+
+        tr.appendChild(nome)
+        tr.appendChild(avaliacao)
+        tr.appendChild(descricao)
+        tr.appendChild(preco)
+        tr.appendChild(quantidade)
+        tr.appendChild(status)
+        tr.appendChild(alterar)
+    }
+
+    alterarStatus()
+
+}
+//Mostrar tabela produto // Henrick
+
 
 /* Filtrar por Nome */
 
