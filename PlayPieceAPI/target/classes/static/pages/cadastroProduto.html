@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar |Produto</title>
+    <link rel="stylesheet" href="../styles/cadastroUsuario.css">
+    <title>Cadastrar Produto</title>
 </head>
+
 <body>
-    
+    <main>
+        <form action="#" id="form">
+            <label for="#nome">Nome:</label>
+            <input type="text" name="nome" id="nome" required>
+            <label for="#avaliacao">Avaliação:</label>
+            <input type="number" name="avaliacao" id="avaliacao" step=".5" min="0" max="5" value="0" required>
+            <label for="#descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" required maxlength="200" rows="5" cols="30"
+                placeholder="Descrição"></textarea>
+            <label for="#preco">Preço:</label>
+            <input type="number" name="preco" id="preco" step=".01" min="0" value="0" required>
+            <label for="#quantidade">Quantidade:</label>
+                <input type="number" name="quantidade" id="quantidade" min="0" value="1" required>
+                <div id="input_imagens">
+                    <p class="drop-text">Arraste e solte as imagens aqui ou <span class="busque">clique para
+                            adicionar
+                    </p>
+                    <input type="file" name="imageFile" id="imagens" multiple="multiple">
+                </div>
+            <span class="alert"></span>
+            <button type="submit" id="btn-salvar" class="button">Salvar</button>
+
+        </form>
+    </main>
+    <script src="../script/cadastroProduto.js"></script>
 </body>
+
 </html>

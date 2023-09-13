@@ -25,7 +25,7 @@ create table produto(
 id bigint auto_increment primary key,
 nome varchar(200) not null,
 avaliacao decimal(2,1) not null,
-descricao varchar(2000) not null,
+descricao text not null,
 preco decimal(10,2) not null,
 quantidade int not null,
 ativo bool not null
