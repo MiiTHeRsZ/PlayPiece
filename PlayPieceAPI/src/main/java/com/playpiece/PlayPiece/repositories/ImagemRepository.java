@@ -1,10 +1,11 @@
 package com.playpiece.PlayPiece.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.playpiece.PlayPiece.Models.ContatoModel;
 import org.springframework.stereotype.Repository;
 
+import com.playpiece.PlayPiece.Models.ImagemModel;
+
 @Repository
-public interface ContatoRepository extends JpaRepository<ContatoModel, Integer> {
+public interface ImagemRepository extends JpaRepository<ImagemModel, Long> {
+
 }

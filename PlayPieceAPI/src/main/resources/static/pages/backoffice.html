@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="../styles/reset.css" />
 	<link rel="stylesheet" href="../styles/backoffice.css" />
+	<script src="../script/backoffice.js" defer></script>
 	<title>Página Backoffice</title>
 </head>
 
@@ -14,28 +15,47 @@
 		<div class="titleContent">
 			<h2>Principal</h2>
 		</div>
-		<a id="mostrarTabela"><button>Listar Usuários</button></a>
-		<a onclick="window.open('../pages/cadastroUsuario.html','name','width=500,height=1000')"><button>Cadastrar
-				novo usuário</button></a>
-		<a><button disabled>Listar Produto</button></a>
+		<a id="mostrarTbUsuarios"><button>Listar Usuários</button></a>
+		<a id="mostrarTbProdutos"><button>Listar Produto</button></a>
 		<!-- <a href="">Listar Pedido</a> -->
 	</div>
 
-	<label for="txtName" class="txtNamess">Nome:</label>
-	<input type="text" name="Nome" id="txtNome">
-	<a id="pesquisarPorNome">Pesquisar</a>
+	<section id="secaoTabelaUsuario" style="display: none;">
+		<table id="tabelaUser" value=1>
+			<label for="txtNome" class="txtNamess">Nome:</label>
+			<input type="text" name="Nome" id="txtNome">
+			<a id="pesquisarPorNome">Pesquisar</a>
+			<a onclick="window.open('../pages/cadastroUsuario.html','name','width=500,height=1000')"
+				id="btnCadastroUsuario">➕</a>
+			<tr>
+				<th>Nome</th>
+				<th>Email</th>
+				<th>Status</th>
+				<th>Cargo</th>
+				<th>Alterar</th>
+			</tr>
+		</table>
+	</section>
 
-	<table id="tabelaUser" style="display: none;" value=1>
-		<tr>
-			<th>Nome</th>
-			<th>Email</th>
-			<th>Status</th>
-			<th>Cargo</th>
-			<th>Alterar</th>
-		</tr>
-	</table>
+	<section id="secaoTabelaProduto" style="display: none;">
+		<table id="tabelProduct" value=1>
+			<label for="txtNomeProduto" class="txtNamess">Nome:</label>
+			<input type="text" name="NomeProduto" id="txtNomeProduto">
+			<a id="pesquisarPorNomeProduto">Pesquisar</a>
+			<a onclick="window.open('../pages/cadastroProduto.html','name','width=500,height=1000')"
+				id="btnCadastroProduto">➕</a>
+			<tr>
+				<th>Nome</th>
+				<th>Avaliação</th>
+				<th>Descrição</th>
+				<th>Preço</th>
+				<th>Quantidade</th>
+				<th>Status</th>
+				<th>Alterar</th>
+			</tr>
+		</table>
+	</section>
 
-	<script src="../script/backoffice.js"></script>
 </body>
 
 </html>

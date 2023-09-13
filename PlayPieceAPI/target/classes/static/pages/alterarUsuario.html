@@ -6,44 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alteração de usuário</title>
     <link rel="stylesheet" href="../styles/cadastroUsuario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body>
 
-    <header>
-        <h1>Alteração de usuário</h1>
-    </header>
-    <form action="#" id="form">
-        <label for="#cpf">CPF:</label>
-        <input type="text" name="cpf" id="cpf" required readonly>
-        <label for="#nome">Nome:</label>
-        <input type="text" name="nome" id="nome" required>
-        <label for="#nome">Sobrenome:</label>
-        <input type="text" name="sobrenome" id="sobrenome" required>
-        <label for="#email_pessoal">E-mail pessoal:</label>
-        <input type="email" name="email_pessoal" id="email_pessoal" required>
-        <label for="#email_profissional">E-mail profissional:</label>
-        <input type="email" name="email_profissional" id="email_profissional" required readonly>
-        <label for="#cep">CEP:</label>
-        <input type="number" name="cep" id="cep" required>
-        <label for="#endereco">Endereço completo:</label>
-        <input type="text" name="endereco" id="endereco" required>
-        <label for="#celular_principal">Celular Principal:</label>
-        <input type="tel" name="celular_principal" id="celular_principal" required>
-        <label for="#celular_adicional">Celular Secundário:</label>
-        <input type="tel" name="celular_adicional" id="celular_adicional">
-        <label for="#telefone_fixo">Telefone Fixo:</label>
-        <input type="tel" name="telefone_fixo" id="telefone_fixo">
-        <label for="#cargo">Cargo:</label>
-        <select id="cargo" required>
-            <option value="0" selected="true" disabled="disabled">Selecione um cargo</option>
-        </select>
-        <label for="#salario">Salário:</label>
-        <input type="number" name="salario" id="salario" required>
+    <section id="altUser">
+        <header>
+            <h1>Alteração de usuário</h1>
+        </header>
+        <form action="#" id="form">
+            <label for="#cpf">CPF:</label>
+            <input type="text" name="cpf" id="cpf" required>
+            <label for="#nome">Nome:</label>
+            <input type="text" name="nome" id="nome" required>
+            <label for="#email_profissional">E-mail profissional:</label>
+            <input type="email" name="email_profissional" id="email_profissional" required readonly>
+            <label for="#cargo">Cargo:</label>
+            <select id="cargo" required>
+                <option value="0" selected="true" disabled="disabled">Selecione um cargo</option>
+            </select>
+            <div id="btnSection">
+                <button type="submit" id="btn-salvar" class="button">Salvar</button>
+                <a href="#" id="alterarSenha">Alterar Senha</a>
+            </div>
 
-        <button type="submit" id="btn-salvar">Salvar</button>
+        </form>
+    </section>
 
-    </form>
+
+    <span class="overlay" style="display:  none;"></span>
+
+
+    <section id="senhaPage" style="display: none;">
+        <form action=" #" id="form" class="senhaForm">
+            <div>
+                <label for="#senha">Nova senha:</label>
+                <input type="password" name="senha" id="senha" class="passInput" required minlength="8">
+            </div>
+            <div>
+                <label for="#confirmar_senha">Confirmar senha:</label>
+                <input type="password" name="confirmar_senha" id="confirmar_senha" class="passInput" required
+                    minlength="8">
+            </div>
+            <span class="alert">aa</span>
+
+            <i id="showPassword" class="fa-solid fa-eye-slash"></i>
+
+            <div id="btnSection">
+                <button type="submit" id="btn-salvarSenha" class="button">Alterar Senha</button>
+                <button type="button" id="btn-cancelarSenha" class="button">Cancelar</button>
+            </div>
+
+        </form>
+    </section>
 
     <script src="../script/alterarUsuario.js"></script>
 </body>

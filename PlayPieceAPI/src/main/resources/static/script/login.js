@@ -5,18 +5,13 @@ const conect_api = async () => {
   const nickname = document.getElementById("nickname").value;
   const password = (document.getElementById("password").value).hashCode();
 
-  const response = await fetch(`http://localhost:8080/acesso/access?email=${nickname}`).then(data => data.json());
-
   const result = await fetch(`http://localhost:8080/usuario/search?email=${nickname}`).then(data => data.json())
 
-  if (nickname == response.email && password == response.senha) {
+  if (nickname == result.emailUsuario && password == result.senha) {
     console.log("logado")
-    if (password == result.pessoa.cpf.toString().hashCode()) {
-      window.open(`../pages/alterarSenha.html?email=${nickname}`,
-        "", "width=300, height=400");
-    }
     location.href = `./backoffice.html?group=${result.cargo.id}`, {};
   } else {
+    console.log(password)
     alert("usuario ou senha incorreta");
   }
 
@@ -26,6 +21,21 @@ const btn = document.getElementById("form__btn");
 btn.addEventListener("click", () => {
   conect_api();
 });
+
+let showPassIcon = document.querySelector("#showPassword")
+showPassIcon.addEventListener("click", () => {
+  if (showPassIcon.getAttribute("class") == "fa-solid fa-eye-slash") {
+    showPassIcon.removeAttribute("class")
+    showPassIcon.setAttribute("class", "fa-solid fa-eye")
+    document.getElementById("password").setAttribute("type", "text")
+  }
+  else {
+    showPassIcon.removeAttribute("class")
+    showPassIcon.setAttribute("class", "fa-solid fa-eye-slash")
+    document.getElementById("password").setAttribute("type", "password")
+  }
+})
+
 
 String.prototype.hashCode = function () {
   var hash = 0,

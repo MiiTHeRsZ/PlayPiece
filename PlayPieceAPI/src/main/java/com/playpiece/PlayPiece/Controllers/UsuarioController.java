@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,13 +34,24 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioModel> getUsuarioById(@PathVariable int id) {
-        return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioById(id), HttpStatus.OK);
+    public ResponseEntity<UsuarioModel> getUsuarioById(@PathVariable Long id) {
+        try {
+
+            return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioById(id), HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<UsuarioModel>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(value = "search", params = { "email" })
     public ResponseEntity<UsuarioModel> getUsuarioByEmail(@RequestParam String email) {
-        return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioByEmail(email), HttpStatus.OK);
+        try {
+            return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioByEmail(email), HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<UsuarioModel>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(value = "search", params = { "nome" })
@@ -58,15 +68,15 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioService.postUsuario(usuario), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<UsuarioModel> patchUsuario(@PathVariable int id,
-            @RequestBody UsuarioModel usuarioModel) {
-        return new ResponseEntity<>(usuarioService.patchUsuario(id, usuarioModel),
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioModel> updateUsuario(@PathVariable Long id,
+            @RequestBody UsuarioModel novoUsuario) {
+        return new ResponseEntity<>(usuarioService.updateUsuario(id, novoUsuario),
                 HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<UsuarioModel> statusUsuario(@PathVariable int id) {
+    public ResponseEntity<UsuarioModel> statusUsuario(@PathVariable Long id) {
         return new ResponseEntity<>(usuarioService.statusUsuario(id), HttpStatus.OK);
     }
 }

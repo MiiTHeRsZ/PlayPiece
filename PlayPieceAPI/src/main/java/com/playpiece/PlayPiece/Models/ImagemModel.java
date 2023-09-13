@@ -1,13 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.playpiece.PlayPiece.Models;
 
-/**
- *
- * @author KINOO
- */
+import jakarta.persistence.*;
+import lombok.*;
+
+@Table(name = "imagem")
+@Entity(name = "imagem")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class ImagemModel {
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "id_produto")
+    private Long produtoId;
+    private String caminho;
+    private boolean padrao;
+    private boolean ativo;
 }

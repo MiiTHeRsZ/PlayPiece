@@ -1,6 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
 idUsuario = urlParams.get('id')
-console.log(idUsuario)
 
 async function getCargos() {
     let responseCargo = await fetch("http://localhost:8080/cargo").then(response => response.json())
@@ -18,42 +17,35 @@ async function getUser() {
 
     const result = await fetch(`http://localhost:8080/usuario/${idUsuario}`).then(response => response.json())
 
-    console.log(result)
-    contato = {
-        "celularPrincipal": result.pessoa.contato.celularPrincipal,
-        "celular_adicional": result.pessoa.contato.celular_adicional,
-        "telefoneFixo": result.pessoa.contato.telefoneFixo
+    usuario = {
+        "id": result.id,
+        "nome": result.nome,
+        "cpf": result.cpf,
+        "cargo": result.cargo,
+        "emailUsuario": result.emailUsuario,
+        "senha": result.senha,
+        "ativo": result.ativo
     }
-    pessoa = {
-        "id": result.pessoa.id,
-        "nome": result.pessoa.nome,
-        "cpf": result.pessoa.cpf,
-        "email": result.pessoa.email,
-        "cep": result.pessoa.cep,
-        "endereco": result.pessoa.endereco,
-        "contato": contato,
-        "fotoPerfil": result.pessoa.fotoPerfil,
-        "ativo": result.pessoa.ativo
-    }
-
-    let nome = pessoa.nome.split(" ")
-
-    document.getElementById("celular_principal").value = contato.celularPrincipal
-    document.getElementById("celular_adicional").value = contato.celular_adicional
-    document.getElementById("telefone_fixo").value = contato.telefoneFixo
-    document.getElementById("nome").value = nome[0]
-    document.getElementById("sobrenome").value = nome[1]
-    document.getElementById("cpf").value = pessoa.cpf
-    document.getElementById("email_pessoal").value = pessoa.email
-    document.getElementById("cep").value = pessoa.cep
-    document.getElementById("endereco").value = pessoa.endereco
+    document.getElementById("nome").value = result.nome
+    document.getElementById("cpf").value = result.cpf
     document.getElementById("email_profissional").value = result.emailUsuario
     document.getElementById("cargo").value = result.cargo.id
-    document.getElementById("salario").value = Number.parseFloat(result.salario).toFixed(2)
-
 }
 
 getUser()
+
+document.getElementById("cpf").onchange = () => {
+    let cpf = document.getElementById("cpf").value
+    let ret = validaCPF(cpf)
+
+    if (ret) {
+        document.getElementById("cpf").style.border = '2px solid gray'
+        document.getElementById("btn-salvar").removeAttribute("disabled")
+    } else {
+        document.getElementById("cpf").style.border = '2px solid red'
+        document.getElementById("btn-salvar").setAttribute("disabled", "true")
+    }
+}
 
 const botaoSalvar = document.getElementById("btn-salvar");
 botaoSalvar.addEventListener("click", async (e) => {
@@ -62,33 +54,19 @@ botaoSalvar.addEventListener("click", async (e) => {
     let cargo = {
         "id": document.getElementById("cargo").value
     }
-    contato = {
-        "celularPrincipal": document.getElementById("celular_principal").value,
-        "celular_adicional": document.getElementById("celular_adicional").value,
-        "telefoneFixo": document.getElementById("telefone_fixo").value
-    }
 
-    pessoa = {
-        "nome": document.getElementById("nome").value + " " + document.getElementById("sobrenome").value,
+    usuario = {
+        "id": usuario.id,
+        "nome": document.getElementById("nome").value,
         "cpf": document.getElementById("cpf").value,
-        "email": document.getElementById("email_pessoal").value,
-        "cep": document.getElementById("cep").value,
-        "endereco": document.getElementById("endereco").value,
-        "contato": contato,
-        "fotoPerfil": null,
-        "ativo": true
-    }
-
-    let usuario = {
-        "pessoa": pessoa,
         "cargo": cargo,
-        "salario": document.getElementById("salario").value,
-        "ativo": true,
-        "emailUsuario": document.getElementById("email_profissional").value,
+        "emailUsuario": usuario.emailUsuario,
+        "senha": usuario.senha,
+        "ativo": usuario.ativo
     }
 
     const result = await fetch(`http://localhost:8080/usuario/${idUsuario}`, {
-        method: "PATCH",
+        method: "PUT",
         headers: {
             'Content-Type':
                 'application/json;charset=utf-8'
@@ -106,3 +84,210 @@ botaoSalvar.addEventListener("click", async (e) => {
     }
 
 })
+
+
+function validaCPF(cpf) {
+    var Soma = 0
+    var Resto
+
+    var strCPF = String(cpf).replace(/[^\d]/g, '')
+
+    if (strCPF.length !== 11)
+        return false
+
+    if ([
+        '00000000000',
+        '11111111111',
+        '22222222222',
+        '33333333333',
+        '44444444444',
+        '55555555555',
+        '66666666666',
+        '77777777777',
+        '88888888888',
+        '99999999999',
+    ].indexOf(strCPF) !== -1)
+        return false
+
+    for (i = 1; i <= 9; i++)
+        Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+
+    Resto = (Soma * 10) % 11
+
+    if ((Resto == 10) || (Resto == 11))
+        Resto = 0
+
+    if (Resto != parseInt(strCPF.substring(9, 10)))
+        return false
+
+    Soma = 0
+
+    for (i = 1; i <= 10; i++)
+        Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i)
+
+    Resto = (Soma * 10) % 11
+
+    if ((Resto == 10) || (Resto == 11))
+        Resto = 0
+
+    if (Resto != parseInt(strCPF.substring(10, 11)))
+        return false
+
+    return true
+}
+
+//=====================================================================================
+//========================|| alteração de senha ||=====================================
+//=====================================================================================
+
+let altSenha = document.getElementById("alterarSenha")
+let overlay = document.querySelector(".overlay")
+altSenha.addEventListener("click", async (e) => {
+    e.preventDefault()
+    let senhaPage = document.getElementById("senhaPage")
+    if (senhaPage.style.display === "none") {
+        senhaPage.style.display = "block"
+        overlay.style.display = "block"
+    } else {
+        senhaPage.style.display = "none"
+        overlay.style.display = "none"
+    }
+})
+
+let btnCancel = document.getElementById("btn-cancelarSenha")
+btnCancel.onclick = () => {
+    document.getElementById("senha").value = ""
+    document.getElementById("confirmar_senha").value = ""
+    document.querySelector(".alert").innerHTML = ""
+    senhaPage.style.display = "none"
+    overlay.style.display = "none"
+}
+
+document.getElementById("senha").onchange = () => {
+
+    let senha1 = document.getElementById("senha").value
+    let senha2 = document.getElementById("confirmar_senha").value
+
+    let ret = verificarSenhas(senha1, senha2)
+
+    if (ret) {
+        document.getElementById("confirmar_senha").style.border = '2px solid gray'
+        document.getElementById("btn-salvarSenha").removeAttribute("disabled")
+    } else {
+        document.getElementById("confirmar_senha").style.border = '2px solid red'
+        document.getElementById("btn-salvarSenha").setAttribute("disabled", "true")
+    }
+
+}
+document.getElementById("confirmar_senha").onchange = () => {
+
+    let senha1 = document.getElementById("senha").value
+    let senha2 = document.getElementById("confirmar_senha").value
+
+    let ret = verificarSenhas(senha1, senha2)
+
+    if (ret) {
+        document.getElementById("confirmar_senha").style.border = '2px solid gray'
+        document.getElementById("btn-salvarSenha").removeAttribute("disabled")
+    } else {
+        document.getElementById("confirmar_senha").style.border = '2px solid red'
+        document.getElementById("btn-salvarSenha").setAttribute("disabled", "true")
+    }
+
+}
+
+function verificarSenhas(senha1, senha2) {
+    let alert = document.querySelector(".alert")
+    if (senha1 !== senha2 || senha2 == null || senha2.length < 8 || senha2.length > 25) {
+        if (senha2 == "") {
+        }
+        else if (senha1 !== senha2) {
+            alert.style.display = "inline"
+            alert.innerHTML = "Senhas não batem"
+        } else if (senha2.length < 8 || senha2.length > 25) {
+            alert.style.display = "inline"
+            alert.innerHTML = "Senha deve conter de 8 até 25 caracteres"
+        }
+        return false
+    } else {
+        alert.innerHTML = ""
+        alert.style.display = "none"
+        return true
+    }
+}
+
+let botao = document.getElementById("btn-salvarSenha")
+botao.addEventListener("click", async (e) => {
+    e.preventDefault()
+
+    let senha1 = document.getElementById("senha").value
+    let senha2 = document.getElementById("confirmar_senha").value
+
+
+    if (senha1.value !== senha2.value) {
+        alert("Senhas não batem")
+    } else {
+        const user = await fetch(`http://localhost:8080/usuario/${idUsuario}`).then(data => data.json())
+        let senhaCripto = senha1.hashCode()
+
+        usuario = {
+            "id": user.id,
+            "nome": user.nome,
+            "cpf": user.cpf,
+            "cargo": user.cargo,
+            "emailUsuario": user.emailUsuario,
+            "senha": senhaCripto,
+            "ativo": user.ativo
+        }
+
+        const result = await fetch(`http://localhost:8080/usuario/${idUsuario}`, {
+            method: "PUT", headers: {
+                'Content-Type':
+                    'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(usuario),
+        })
+        if (result.status == 200) {
+
+            alert("Senha atualizada com sucesso!")
+            senhaPage.style.display = "none"
+            overlay.style.display = "none"
+        } else {
+            document.querySelector("body").style = "background-color:#ffcbcb;"
+            alert("Falha ao atualizar senha\nTente novamente")
+        }
+    }
+})
+
+let showPassIcon = document.querySelector("#showPassword")
+showPassIcon.addEventListener("click", () => {
+    if (showPassIcon.getAttribute("class") == "fa-solid fa-eye-slash") {
+        showPassIcon.removeAttribute("class")
+        showPassIcon.setAttribute("class", "fa-solid fa-eye")
+        let passInput = document.querySelectorAll(".passInput")
+        for (let i = 0; i < passInput.length; i++) {
+            passInput[i].setAttribute("type", "text")
+        }
+
+    }
+    else {
+        showPassIcon.removeAttribute("class")
+        showPassIcon.setAttribute("class", "fa-solid fa-eye-slash")
+        let passInput = document.querySelectorAll(".passInput")
+        for (let i = 0; i < passInput.length; i++) {
+            passInput[i].setAttribute("type", "password")
+        }
+    }
+})
+
+String.prototype.hashCode = function () {
+    var hash = 0,
+        i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        chr = this.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+}
