@@ -3,6 +3,8 @@ group = urlParams.get('group')
 
 if (group == 2) {
     document.getElementById("mostrarTbUsuarios").style.display = "none"
+    document.getElementById("btnCadastroUsuario").style.display = "none"
+    document.getElementById("btnCadastroProduto").style.display = "none"
 }
 
 document.getElementById("mostrarTbUsuarios").addEventListener("click", () => {
@@ -125,7 +127,7 @@ async function createTbProducts() {
         preco.textContent = `${produto.Preco}`
         quantidade.textContent = `${produto.Quantidade}`
         status.innerHTML = `<button class = "changeStatusButton" value=${produto.Id}> ${produto.Status ? "Ativo" : "Inativo"} </button>`
-        alterar.innerHTML = `<a onclick="window.open('../pages/alterarProduto.html?id=${produto.Id}','name','width=500,height=1000')"> <button class = "alterarProduto"> alterar </button> <a>`
+        alterar.innerHTML = `<a onclick="window.open('../pages/alterarProduto.html?id=${produto.Id}&group=${group}','name','width=500,height=1000')"> <button class = "alterarProduto"> alterar </button> <a>`
 
         tr.appendChild(nome)
         tr.appendChild(avaliacao)
