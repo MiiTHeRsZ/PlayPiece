@@ -7,6 +7,11 @@ if (group == 2) {
 
 document.getElementById("mostrarTbUsuarios").addEventListener("click", () => {
     const tabela = document.getElementById("secaoTabelaUsuario");
+    const tabelaProduto = document.getElementById("secaoTabelaProduto");
+
+    if (tabelaProduto.style.display == "block") {
+        tabelaProduto.style.display = "none"
+    }
     if (tabela.style.display == "none") {
         createTbUsers();
         tabela.style.display = "block";
@@ -66,6 +71,11 @@ async function createTbUsers() {
 //Mostrar tabela Usuário // Henrick
 document.getElementById("mostrarTbProdutos").addEventListener("click", () => {
     const tabela = document.getElementById("secaoTabelaProduto");
+    const tabelaUsuario = document.getElementById("secaoTabelaUsuario");
+
+    if (tabelaUsuario.style.display == "block") {
+        tabelaUsuario.style.display = "none"
+    }
     if (tabela.style.display == "none") {
         createTbProducts();
         tabela.style.display = "block";
@@ -190,13 +200,24 @@ async function pesquisarPorNome(nome) {
 function alterarStatus() {
     let changeStatusButton = document.querySelectorAll(".changeStatusButton")
 
-    changeStatusButton.forEach(element => {
-        element.addEventListener("click", async () => {
-            await fetch(`http://localhost:8080/usuario/${element.value}`, { method: 'DELETE' })
-            clearTable()
-            createTbUsers()
-        })
-    });
+    if (document.getElementById("secaoTabelaUsuario").style.display == "block") {
+        changeStatusButton.forEach(element => {
+            element.addEventListener("click", async () => {
+                await fetch(`http://localhost:8080/usuario/${element.value}`, { method: 'DELETE' })
+                clearTable()
+                createTbUsers()
+            })
+        });
+    } else if (document.getElementById("secaoTabelaProduto").style.display == "block") {
+        changeStatusButton.forEach(element => {
+            element.addEventListener("click", async () => {
+                await fetch(`http://localhost:8080/produto/${element.value}`, { method: 'DELETE' })
+                clearTable()
+                createTbProducts()
+            })
+        });
+    }
+
 }
 
 function clearTable() {

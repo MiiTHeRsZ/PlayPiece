@@ -22,7 +22,6 @@ body {
 
 .content a {
     margin: 10px;
-
 }
 
 .titleContent {
@@ -31,7 +30,8 @@ body {
     border-top: 10px solid #fff;
 }
 
-#tabelaUser {
+#tabelaUser,
+#tabelProduct {
     margin: 20px 50px;
     border: 2px solid black;
     background-color: #fff;
@@ -39,11 +39,7 @@ body {
     border-radius: 20px;
 }
 
-#tabelaUser #btnCadastroUsuario {
-
-}
-
-#tabelaProd tr,
+tr,
 th,
 td {
     border: 2px solid black;
@@ -77,6 +73,7 @@ td button {
 #pesquisarPorNome {
     padding: 5px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 #pesquisarPorNome:hover {
