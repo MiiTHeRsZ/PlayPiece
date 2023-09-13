@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.playpiece.PlayPiece.Models.ImagemModel;
 import com.playpiece.PlayPiece.Models.ProdutoModel;
@@ -63,7 +64,6 @@ public class ProdutoService {
     public ProdutoModel postProduto(ProdutoModel produto) {
         produto.setId(null);
         produto.setAtivo(true);
-
         return produtoRepository.save(produto);
     }
 

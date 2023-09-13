@@ -3,6 +3,7 @@ package com.playpiece.PlayPiece.Controllers;
 import java.io.IOException;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,14 +25,12 @@ public class ImagemController {
         this.imagemService = imagemService;
     }
 
-    @PostMapping
-    public String uploadImagem(@RequestBody MultipartFile imageFile) {
+    @PostMapping(value = "/{id}", params = { "nome" })
+    public String uploadImagem(@RequestBody MultipartFile imageFile, @PathVariable Long id, @RequestParam String nome) {
         String returnValue = "start";
 
-        System.out.println(imageFile);
-
         try {
-            imagemService.saveImage(imageFile);
+            imagemService.saveImage(imageFile, id, nome);
         } catch (IOException e) {
             e.printStackTrace();
             returnValue = "error";

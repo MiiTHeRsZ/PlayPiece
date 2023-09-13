@@ -40,14 +40,17 @@ public class ImagemService {
         return imagemRepository.save(novaImagem);
     }
 
-    public void saveImage(MultipartFile imageFile) throws IOException {
+    public void saveImage(MultipartFile imagem, Long produtoID, String nome) throws IOException {
 
-        String folder = "PlayPieceAPI/src/main/resources/static/images/Produtos/2/";
-        byte[] bytes = imageFile.getBytes();
+        String folder = "PlayPieceAPI/src/main/resources/static/images/Produtos/" + produtoID + "/";
+        byte[] bytes = imagem.getBytes();
         Path path = Paths.get(folder);
         Files.createDirectories(path);
-        path = Paths.get(folder + imageFile.getOriginalFilename());
+        path = Paths.get(folder + nome);
         Files.write(path, bytes);
+        ImagemModel imagemSalva = new ImagemModel(null, produtoID, folder + nome, false,
+                true);
+        postImagem(imagemSalva);
     }
 
     public ImagemModel statusImagem(Long id) {
