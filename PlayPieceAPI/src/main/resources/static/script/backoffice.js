@@ -55,7 +55,7 @@ async function createTbUsers() {
 
         nome.textContent = `${usuario.Nome}`
         email.textContent = `${usuario.Email}`
-        status.innerHTML = `<button class = "changeStatusButton" value=${usuario.Id}> ${usuario.Status ? "Ativo" : "Inativo"} </button>`
+        status.innerHTML = `<button class = "changeStatusButton" id="changeStatusButton" value=${usuario.Id}> ${usuario.Status ? "Ativo" : "Inativo"} </button>`
         grupo.textContent = `${usuario.Grupo}`
         alterar.innerHTML = `<a onclick="window.open('../pages/alterarUsuario.html?id=${usuario.Id}','name','width=500,height=1000')"> <button class = "alterarUsuario"> alterar </button> <a>`
 
@@ -128,6 +128,9 @@ async function createTbProducts() {
         quantidade.textContent = `${produto.Quantidade}`
         status.innerHTML = `<button class = "changeStatusButton" value=${produto.Id}> ${produto.Status ? "Ativo" : "Inativo"} </button>`
         alterar.innerHTML = `<a onclick="window.open('../pages/alterarProduto.html?id=${produto.Id}&group=${group}','name','width=500,height=1000')"> <button class = "alterarProduto"> alterar </button> <a>`
+        if (group == 2) {
+            status.firstChild.setAttribute("disabled", "true")
+        }
 
         tr.appendChild(nome)
         tr.appendChild(avaliacao)

@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,19 @@ public class ImagemController {
 
     @PostMapping(value = "/{id}", params = { "nome" })
     public String uploadImagem(@RequestBody MultipartFile imageFile, @PathVariable Long id, @RequestParam String nome) {
+        String returnValue = "start";
+
+        try {
+            imagemService.saveImage(imageFile, id, nome);
+        } catch (IOException e) {
+            e.printStackTrace();
+            returnValue = "error";
+        }
+        return returnValue;
+    }
+
+    @PutMapping(value = "/{id}", params = {"nome"})
+    public String updateImagem(@RequestBody MultipartFile imageFile, @PathVariable Long id, @RequestParam String nome) {
         String returnValue = "start";
 
         try {

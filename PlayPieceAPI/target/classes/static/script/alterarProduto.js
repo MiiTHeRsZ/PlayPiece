@@ -7,7 +7,6 @@ if (group == 2) {
     document.getElementById("avaliacao").setAttribute("readonly","true")
     document.getElementById("descricao").setAttribute("readonly","true")
     document.getElementById("preco").setAttribute("readonly","true")
-    document.getElementById("imagens").setAttribute("readonly","true")
 }
 
 async function getProduct() {
@@ -28,7 +27,6 @@ async function getProduct() {
     document.getElementById("descricao").value = result.descricao
     document.getElementById("preco").value = result.preco
     document.getElementById("quantidade").value = result.quantidade
-    document.getElementById("imagens").value = result.imagens[0].caminho
 }
 
 getProduct()
@@ -44,6 +42,7 @@ botaoSalvar.addEventListener("click", async (e) => {
         "descricao": document.getElementById("descricao").value,
         "preco": document.getElementById("preco").value,
         "quantidade": document.getElementById("quantidade").value,
+        "ativo": produto.ativo
     }
 
     const result = await fetch(`http://localhost:8080/produto/${idProduto}`, {
