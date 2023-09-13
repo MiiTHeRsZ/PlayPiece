@@ -21,13 +21,11 @@
             <label for="#preco">Preço:</label>
             <input type="number" name="preco" id="preco" step=".01" min="0" value="0" required>
             <label for="#quantidade">Quantidade:</label>
-                <input type="number" name="quantidade" id="quantidade" min="0" value="1" required>
-                <div id="input_imagens">
-                    <p class="drop-text">Arraste e solte as imagens aqui ou <span class="busque">clique para
-                            adicionar
-                    </p>
-                    <input type="file" name="imageFile" id="imagens" multiple="multiple">
-                </div>
+            <input type="number" name="quantidade" id="quantidade" min="0" value="1" required>
+            <div id="input_imagens">
+                <p class="drop-text">Arraste e solte as imagens aqui</p>
+                <input type="file" name="imageFile" id="imagens" multiple>
+            </div>
             <span class="alert"></span>
             <button type="submit" id="btn-salvar" class="button">Salvar</button>
 
