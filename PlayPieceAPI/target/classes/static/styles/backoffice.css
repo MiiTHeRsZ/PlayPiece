@@ -52,7 +52,8 @@ td button {
 }
 
 .changeStatusButton,
-.alterarUsuario {
+.alterarUsuario,
+.alterarProduto {
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -61,8 +62,11 @@ td button {
 
 .txtNamess,
 #btnCadastroUsuario,
+#btnCadastroProduto,
 #txtNome,
-#pesquisarPorNome {
+#txtNomeProduto,
+#pesquisarPorNome,
+#pesquisarPorNomeProduto {
     background-color: #fff;
     margin-left: 10px;
     opacity: 0.7;
@@ -70,12 +74,15 @@ td button {
 
 .txtNamess,
 #btnCadastroUsuario,
-#pesquisarPorNome {
+#btnCadastroProduto,
+#pesquisarPorNome,
+#pesquisarPorNomeProduto {
     padding: 5px;
     border-radius: 10px;
     cursor: pointer;
 }
 
-#pesquisarPorNome:hover {
+#pesquisarPorNome:hover,
+#pesquisarPorNomeProduto:hover {
     cursor: pointer;
 }

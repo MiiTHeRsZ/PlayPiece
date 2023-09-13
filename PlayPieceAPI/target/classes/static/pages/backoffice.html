@@ -22,7 +22,7 @@
 
 	<section id="secaoTabelaUsuario" style="display: none;">
 		<table id="tabelaUser" value=1>
-			<label for="txtName" class="txtNamess">Nome:</label>
+			<label for="txtNome" class="txtNamess">Nome:</label>
 			<input type="text" name="Nome" id="txtNome">
 			<a id="pesquisarPorNome">Pesquisar</a>
 			<a onclick="window.open('../pages/cadastroUsuario.html','name','width=500,height=1000')"
@@ -39,9 +39,11 @@
 
 	<section id="secaoTabelaProduto" style="display: none;">
 		<table id="tabelProduct" value=1>
-			<label for="txtName" class="txtNamess">Nome:</label>
+			<label for="txtNomeProduto" class="txtNamess">Nome:</label>
 			<input type="text" name="NomeProduto" id="txtNomeProduto">
-			<a id="pesquisarPorNome">Pesquisar</a>
+			<a id="pesquisarPorNomeProduto">Pesquisar</a>
+			<a onclick="window.open('../pages/cadastroProduto.html','name','width=500,height=1000')"
+				id="btnCadastroProduto">➕</a>
 			<tr>
 				<th>Nome</th>
 				<th>Avaliação</th>
