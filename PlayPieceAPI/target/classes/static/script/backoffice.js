@@ -1,12 +1,14 @@
 const urlParams = new URLSearchParams(window.location.search);
 group = urlParams.get('group')
 
+// group 2 => estoquista
 if (group == 2) {
     document.getElementById("mostrarTbUsuarios").style.display = "none"
     document.getElementById("btnCadastroUsuario").style.display = "none"
     document.getElementById("btnCadastroProduto").style.display = "none"
 }
 
+// botão que mostra/ oculta a tabela de usuarios
 document.getElementById("mostrarTbUsuarios").addEventListener("click", () => {
     const tabela = document.getElementById("secaoTabelaUsuario");
     const tabelaProduto = document.getElementById("secaoTabelaProduto");
@@ -70,7 +72,7 @@ async function createTbUsers() {
 
 }
 
-//Mostrar tabela Usuário // Henrick
+// botão que mostra/ oculta a tabela de produtos
 document.getElementById("mostrarTbProdutos").addEventListener("click", () => {
     const tabela = document.getElementById("secaoTabelaProduto");
     const tabelaUsuario = document.getElementById("secaoTabelaUsuario");
@@ -288,6 +290,7 @@ function alterarStatus() {
 
 }
 
+// função que limpa conteudo da tabela
 function clearTable() {
     const tr = document.querySelectorAll(".linhaTabela")
 

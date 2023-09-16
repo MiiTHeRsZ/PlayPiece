@@ -1,6 +1,8 @@
+// responsavel por coletar o id do usuario de url aberta
 const urlParams = new URLSearchParams(window.location.search);
 idUsuario = urlParams.get('id')
 
+// função responsavel por listar os cargos existentes
 async function getCargos() {
     let responseCargo = await fetch("http://localhost:8080/cargo").then(response => response.json())
     let box = document.getElementById("cargo")
@@ -11,10 +13,13 @@ async function getCargos() {
         box.appendChild(option)
     });
 }
-getCargos()
+getCargos();
 
+
+// função responsavel por listar os usuarios existentes
 async function getUser() {
 
+    // busca os dados de um usuario em especifico e converte em JSON
     const result = await fetch(`http://localhost:8080/usuario/${idUsuario}`).then(response => response.json())
 
     usuario = {
@@ -35,9 +40,12 @@ async function getUser() {
 getUser()
 
 document.getElementById("cpf").onchange = () => {
+    // varieavel que coleta o valor armazenado dentro do input que tem o id cpf
     let cpf = document.getElementById("cpf").value
+    //variavel responsavel por chamar a função que valida o cpf
     let ret = validaCPF(cpf)
 
+    // permissão para salvar o não o cpf alterado
     if (ret) {
         document.getElementById("cpf").style.border = '2px solid gray'
         document.getElementById("btn-salvar").removeAttribute("disabled")

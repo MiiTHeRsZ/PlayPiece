@@ -1,5 +1,7 @@
 package com.playpiece.PlayPiece.Models;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,7 +17,7 @@ public class UsuarioModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-
+    @CPF
     private String cpf;
 
     @ManyToOne(cascade = CascadeType.ALL)

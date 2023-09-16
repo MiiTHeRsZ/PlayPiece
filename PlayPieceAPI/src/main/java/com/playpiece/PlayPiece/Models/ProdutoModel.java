@@ -18,10 +18,10 @@ public class ProdutoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
     @Column(name = "nome", columnDefinition = "VARCHAR(40)")
+    private String nome;
     private double avaliacao;
-    @Column(name = "descricao", columnDefinition = "LONGTEXT") 
+    @Column(name = "descricao", columnDefinition = "TEXT") 
     private String descricao;
     @Column(name = "preco", columnDefinition = "DECIMAL(10,2)")
     private double preco;
