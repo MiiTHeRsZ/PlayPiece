@@ -55,6 +55,7 @@ document.getElementById("cpf").onchange = () => {
     }
 }
 
+// evento ao clicar no botão salvar. Salva todas as informações que foram alteradas. com exceção do email que não pode ser alterado
 const botaoSalvar = document.getElementById("btn-salvar");
 botaoSalvar.addEventListener("click", async (e) => {
     e.preventDefault()
@@ -93,7 +94,7 @@ botaoSalvar.addEventListener("click", async (e) => {
 
 })
 
-
+// função responsavel por validar se o CPF fornecido é válido ou não
 function validaCPF(cpf) {
     var Soma = 0
     var Resto
