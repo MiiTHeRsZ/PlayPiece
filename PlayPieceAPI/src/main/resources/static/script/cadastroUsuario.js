@@ -15,6 +15,7 @@ inputNome.addEventListener("change", async () => {
     emailProfi()
 })
 
+// função responsavel por criar um email para usuario atraves do seu nome, do seu ultimo sobrenome e do seu ID
 async function emailProfi() {
     let users = await fetch("http://localhost:8080/usuario").then(response => response.json())
     let id = 0;
@@ -35,40 +36,45 @@ document.getElementById("senha1").onchange = () => {
 
     let ret = verificarSenhas(senha1, senha2)
 
+    // verifica se as senhas informadas são validas ou não
     if (ret) {
         document.getElementById("senha2").style.border = '2px solid gray'
     } else {
         document.getElementById("senha2").style.border = '2px solid red'
     }
+    // verifica se as informações senha e cpf foram preechidas corratamente ou não para liberar o botao de salvar
     if (ret && cpfret) {
         document.getElementById("btn-salvar").removeAttribute("disabled")
+        document.getElementById("btn-salvar").style.cursor = 'pointer'
     } else {
         document.getElementById("btn-salvar").setAttribute("disabled", "true")
     }
-
 }
-document.getElementById("senha2").onchange = () => {
 
+document.getElementById("senha2").onchange = () => {
+    
     let senha1 = document.getElementById("senha1").value
     let senha2 = document.getElementById("senha2").value
     let cpf = document.getElementById("cpf").value
     let cpfret = validaCPF(cpf)
 
     let ret = verificarSenhas(senha1, senha2)
-
+    
+    // verifica se as informações senha e cpf foram preechidas corratamente ou não para liberar o botao de salvar
     if (ret) {
         document.getElementById("senha2").style.border = '2px solid gray'
     } else {
         document.getElementById("senha2").style.border = '2px solid red'
     }
     if (ret && cpfret) {
-        document.getElementById("btn-salvar").removeAttribute("disabled")
+        document.getElementById("btn-salvar").removeAttribute("disabled");
+        document.getElementById("btn-salvar").style.cursor = 'pointer';
     } else {
         document.getElementById("btn-salvar").setAttribute("disabled", "true")
     }
 
 }
-
+// função que verifica se a senha fornceida é valida ou não
 function verificarSenhas(senha1, senha2) {
     let alert = document.querySelector(".alert")
     if (senha1 !== senha2 || senha2 == null || senha2.length < 8 || senha2.length > 25) {
@@ -103,12 +109,14 @@ document.getElementById("cpf").onchange = () => {
     }
 
     if (ret && senharet) {
-        document.getElementById("btn-salvar").removeAttribute("disabled")
+        document.getElementById("btn-salvar").removeAttribute("disabled");
+        document.getElementById("btn-salvar").style.cursor = 'pointer';
     } else {
-        document.getElementById("btn-salvar").setAttribute("disabled", "true")
+        document.getElementById("btn-salvar").setAttribute("disabled", "true");
     }
 }
 
+// ícone do olho, responsavel por deixar a senha oculta ou não
 let showPassIcon = document.querySelector("#showPassword")
 showPassIcon.addEventListener("click", () => {
     if (showPassIcon.getAttribute("class") == "fa-solid fa-eye-slash") {
@@ -130,6 +138,7 @@ showPassIcon.addEventListener("click", () => {
     }
 })
 
+// evento responsavel por salavr todos os dados obtidos do usuario
 const botaoSalvar = document.getElementById("btn-salvar");
 botaoSalvar.addEventListener("click", async (e) => {
     e.preventDefault()
@@ -153,7 +162,7 @@ botaoSalvar.addEventListener("click", async (e) => {
             'Content-Type':
                 'application/json;charset=utf-8'
         },
-        body: JSON.stringify(usuario),
+        body: JSON.stringify(usuario), // converte os dados array usuario em json
 
     })
 
@@ -167,6 +176,7 @@ botaoSalvar.addEventListener("click", async (e) => {
     }
 })
 
+// função responsavel por criar um hashcode da senha fornecida pelo usuario
 String.prototype.hashCode = function () {
     var hash = 0,
         i, chr;
@@ -179,6 +189,7 @@ String.prototype.hashCode = function () {
     return hash;
 }
 
+// função responsavel por validar se o CPF fornecido é válido ou não
 function validaCPF(cpf) {
     var Soma = 0
     var Resto

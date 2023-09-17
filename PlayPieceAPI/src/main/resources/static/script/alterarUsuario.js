@@ -150,9 +150,9 @@ function validaCPF(cpf) {
 //=====================================================================================
 
 let altSenha = document.getElementById("alterarSenha")
-let overlay = document.querySelector(".overlay")
+let overlay = document.querySelector(".overlay") // bloqueia a navegação no "fundo" (tela de alterar usuario)
 altSenha.addEventListener("click", async (e) => {
-    e.preventDefault()
+    e.preventDefault() // responsavel por não recarregar a pagina
     let senhaPage = document.getElementById("senhaPage")
     if (senhaPage.style.display === "none") {
         senhaPage.style.display = "block"
@@ -205,17 +205,17 @@ document.getElementById("confirmar_senha").onchange = () => {
 
 }
 
+// função responsavel por verificar e validar a senha
 function verificarSenhas(senha1, senha2) {
     let alert = document.querySelector(".alert")
     if (senha1 !== senha2 || senha2 == null || senha2.length < 8 || senha2.length > 25) {
         if (senha2 == "") {
-        }
-        else if (senha1 !== senha2) {
+        } else if (senha1 !== senha2) {
             alert.style.display = "inline"
-            alert.innerHTML = "Senhas não batem"
+            alert.innerHTML = "Senhas não batem!!"
         } else if (senha2.length < 8 || senha2.length > 25) {
             alert.style.display = "inline"
-            alert.innerHTML = "Senha deve conter de 8 até 25 caracteres"
+            alert.innerHTML = "Senha deve conter de 8 até 25 caracteres!!"
         }
         return false
     } else {
@@ -225,6 +225,7 @@ function verificarSenhas(senha1, senha2) {
     }
 }
 
+// botão que salva a alteração da senha na tela "alterar senha"
 let botao = document.getElementById("btn-salvarSenha")
 botao.addEventListener("click", async (e) => {
     e.preventDefault()
@@ -268,6 +269,7 @@ botao.addEventListener("click", async (e) => {
     }
 })
 
+// ícone do olho, responsavel por deixar a senha oculta ou não
 let showPassIcon = document.querySelector("#showPassword")
 showPassIcon.addEventListener("click", () => {
     if (showPassIcon.getAttribute("class") == "fa-solid fa-eye-slash") {
@@ -289,6 +291,7 @@ showPassIcon.addEventListener("click", () => {
     }
 })
 
+// função responsavel por criar um hashcode da senha fornecida pelo usuario
 String.prototype.hashCode = function () {
     var hash = 0,
         i, chr;

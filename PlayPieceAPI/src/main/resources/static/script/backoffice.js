@@ -72,7 +72,7 @@ async function createTbUsers() {
 
 }
 
-// botão que mostra/ oculta a tabela de produtos
+// botão que mostra/oculta a tabela de produtos
 document.getElementById("mostrarTbProdutos").addEventListener("click", () => {
     const tabela = document.getElementById("secaoTabelaProduto");
     const tabelaUsuario = document.getElementById("secaoTabelaUsuario");
@@ -88,6 +88,7 @@ document.getElementById("mostrarTbProdutos").addEventListener("click", () => {
     }
 });
 
+// função responsavel por "criar" a tabela de produtos, onde todas as colunas ficarão amostra
 async function createTbProducts() {
 
     const response = await fetch("http://localhost:8080/produto").then((data) =>
@@ -142,15 +143,10 @@ async function createTbProducts() {
         tr.appendChild(status)
         tr.appendChild(alterar)
     }
-
     alterarStatus()
-
 }
-//Mostrar tabela produto // Henrick
 
-
-/* Filtrar por Nome - Usuário */
-
+// Responsavel por filtrar a lista de usuários por Nome 
 document.getElementById("pesquisarPorNome").addEventListener("click", () => {
     const nome = document.getElementById("txtNome").value;
     const tabela = document.getElementById("secaoTabelaUsuario");
@@ -267,6 +263,7 @@ async function pesquisarPorNomeProduto(nome) {
 
 }
 
+// função responsavel por inativar ou ativar uma pessoa e/ou um produto
 function alterarStatus() {
     let changeStatusButton = document.querySelectorAll(".changeStatusButton")
 
