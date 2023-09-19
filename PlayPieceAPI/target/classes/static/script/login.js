@@ -3,10 +3,13 @@ form.onclick = (e) => e.preventDefault();
 
 const conect_api = async () => {
   const nickname = document.getElementById("nickname").value;
+  // converte senha fornecida pelo usuario e ja transforma essa senha em hashcode
   const password = (document.getElementById("password").value).hashCode();
 
-  const result = await fetch(`http://localhost:8080/usuario/search?email=${nickname}`).then(data => data.json())
+  // faz a busca dos dados fornecidos e depois converte para json
+  const result = await fetch(`/usuario/search?email=${nickname}`).then(data => data.json())
 
+  // validar se usuario e senha digitados batem com o usuario e senha cadastrado no banco de dados
   if (nickname == result.emailUsuario && password == result.senha) {
     console.log("logado")
     location.href = `./backoffice.html?group=${result.cargo.id}`, {};

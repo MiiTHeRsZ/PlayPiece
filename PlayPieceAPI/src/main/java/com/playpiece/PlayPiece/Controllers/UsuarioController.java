@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 
 import com.playpiece.PlayPiece.Services.UsuarioService;
 
@@ -35,13 +36,13 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioModel> getUsuarioById(@PathVariable Long id) {
-        try {
 
-            return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioById(id), HttpStatus.OK);
-        } catch (Exception e) {
-            System.out.println(e);
-            return new ResponseEntity<UsuarioModel>(HttpStatus.NOT_FOUND);
-        }
+            var usuario = usuarioService.getUsuarioById(id);
+            if(usuario == null){
+                return new ResponseEntity<>(new UsuarioModel(),HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(usuario, HttpStatus.OK);
+        
     }
 
     @GetMapping(value = "search", params = { "email" })
