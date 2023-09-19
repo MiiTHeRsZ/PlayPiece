@@ -4,7 +4,7 @@ idUsuario = urlParams.get('id')
 
 // função responsavel por listar os cargos existentes
 async function getCargos() {
-    let responseCargo = await fetch("http://localhost:8080/cargo").then(response => response.json())
+    let responseCargo = await fetch("/cargo").then(response => response.json())
     let box = document.getElementById("cargo")
     responseCargo.forEach(cargo => {
         let option = document.createElement("option")
@@ -20,7 +20,7 @@ getCargos();
 async function getUser() {
 
     // busca os dados de um usuario em especifico e converte em JSON
-    const result = await fetch(`http://localhost:8080/usuario/${idUsuario}`).then(response => response.json())
+    const result = await fetch(`/usuario/${idUsuario}`).then(response => response.json())
 
     usuario = {
         "id": result.id,
@@ -74,7 +74,7 @@ botaoSalvar.addEventListener("click", async (e) => {
         "ativo": usuario.ativo
     }
 
-    const result = await fetch(`http://localhost:8080/usuario/${idUsuario}`, {
+    const result = await fetch(`/usuario/${idUsuario}`, {
         method: "PUT",
         headers: {
             'Content-Type':
@@ -237,7 +237,7 @@ botao.addEventListener("click", async (e) => {
     if (senha1.value !== senha2.value) {
         alert("Senhas não batem")
     } else {
-        const user = await fetch(`http://localhost:8080/usuario/${idUsuario}`).then(data => data.json())
+        const user = await fetch(`/usuario/${idUsuario}`).then(data => data.json())
         let senhaCripto = senha1.hashCode()
 
         usuario = {
@@ -250,7 +250,7 @@ botao.addEventListener("click", async (e) => {
             "ativo": user.ativo
         }
 
-        const result = await fetch(`http://localhost:8080/usuario/${idUsuario}`, {
+        const result = await fetch(`/usuario/${idUsuario}`, {
             method: "PUT", headers: {
                 'Content-Type':
                     'application/json;charset=utf-8'

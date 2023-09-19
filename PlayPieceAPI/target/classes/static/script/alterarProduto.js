@@ -11,7 +11,7 @@ if (group == 2) {
 
 async function getProduct() {
 
-    const result = await fetch(`http://localhost:8080/produto/${idProduto}`).then(response => response.json())
+    const result = await fetch(`/produto/${idProduto}`).then(response => response.json())
 
     produto = {
         "id": result.id,
@@ -45,7 +45,7 @@ botaoSalvar.addEventListener("click", async (e) => {
         "ativo": produto.ativo
     }
 
-    const result = await fetch(`http://localhost:8080/produto/${idProduto}`, {
+    const result = await fetch(`/produto/${idProduto}`, {
         method: "PUT",
         headers: {
             'Content-Type':

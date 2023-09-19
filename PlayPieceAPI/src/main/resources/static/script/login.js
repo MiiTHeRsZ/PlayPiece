@@ -7,7 +7,7 @@ const conect_api = async () => {
   const password = (document.getElementById("password").value).hashCode();
 
   // faz a busca dos dados fornecidos e depois converte para json
-  const result = await fetch(`http://localhost:8080/usuario/search?email=${nickname}`).then(data => data.json())
+  const result = await fetch(`/usuario/search?email=${nickname}`).then(data => data.json())
 
   // validar se usuario e senha digitados batem com o usuario e senha cadastrado no banco de dados
   if (nickname == result.emailUsuario && password == result.senha) {

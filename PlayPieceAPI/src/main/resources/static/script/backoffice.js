@@ -26,7 +26,7 @@ document.getElementById("mostrarTbUsuarios").addEventListener("click", () => {
 
 async function createTbUsers() {
 
-    const response = await fetch("http://localhost:8080/usuario").then((data) =>
+    const response = await fetch("/usuario").then((data) =>
         data.json()
     );
 
@@ -91,7 +91,7 @@ document.getElementById("mostrarTbProdutos").addEventListener("click", () => {
 // função responsavel por "criar" a tabela de produtos, onde todas as colunas ficarão amostra
 async function createTbProducts() {
 
-    const response = await fetch("http://localhost:8080/produto").then((data) =>
+    const response = await fetch("/produto").then((data) =>
         data.json()
     );
 
@@ -157,7 +157,7 @@ document.getElementById("pesquisarPorNome").addEventListener("click", () => {
 
 async function pesquisarPorNome(nome) {
 
-    const response = await fetch(`http://localhost:8080/usuario/search?nome=${nome}`).then((data) =>
+    const response = await fetch(`/usuario/search?nome=${nome}`).then((data) =>
         data.json()
     );
 
@@ -211,7 +211,7 @@ document.getElementById("pesquisarPorNomeProduto").addEventListener("click", () 
 
 async function pesquisarPorNomeProduto(nome) {
 
-    const response = await fetch(`http://localhost:8080/produto/search?nome=${nome}`).then((data) =>
+    const response = await fetch(`/produto/search?nome=${nome}`).then((data) =>
         data.json()
     );
 
@@ -270,7 +270,7 @@ function alterarStatus() {
     if (document.getElementById("secaoTabelaUsuario").style.display == "block") {
         changeStatusButton.forEach(element => {
             element.addEventListener("click", async () => {
-                await fetch(`http://localhost:8080/usuario/${element.value}`, { method: 'DELETE' })
+                await fetch(`/usuario/${element.value}`, { method: 'DELETE' })
                 clearTable()
                 createTbUsers()
             })
@@ -278,7 +278,7 @@ function alterarStatus() {
     } else if (document.getElementById("secaoTabelaProduto").style.display == "block") {
         changeStatusButton.forEach(element => {
             element.addEventListener("click", async () => {
-                await fetch(`http://localhost:8080/produto/${element.value}`, { method: 'DELETE' })
+                await fetch(`/produto/${element.value}`, { method: 'DELETE' })
                 clearTable()
                 createTbProducts()
             })

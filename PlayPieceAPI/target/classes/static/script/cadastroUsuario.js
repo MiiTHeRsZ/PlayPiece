@@ -1,5 +1,5 @@
 async function getCargos() {
-    let responseCargo = await fetch("http://localhost:8080/cargo").then(response => response.json())
+    let responseCargo = await fetch("/cargo").then(response => response.json())
     let box = document.getElementById("cargo")
     responseCargo.forEach(cargo => {
         let option = document.createElement("option")
@@ -17,7 +17,7 @@ inputNome.addEventListener("change", async () => {
 
 // função responsavel por criar um email para usuario atraves do seu nome, do seu ultimo sobrenome e do seu ID
 async function emailProfi() {
-    let users = await fetch("http://localhost:8080/usuario").then(response => response.json())
+    let users = await fetch("/usuario").then(response => response.json())
     let id = 0;
     users.forEach(user => {
         id = Number(user.id) + 1
@@ -156,7 +156,7 @@ botaoSalvar.addEventListener("click", async (e) => {
         "ativo": true
     }
 
-    const result = await fetch("http://localhost:8080/usuario", {
+    const result = await fetch("/usuario", {
         method: "POST",
         headers: {
             'Content-Type':
