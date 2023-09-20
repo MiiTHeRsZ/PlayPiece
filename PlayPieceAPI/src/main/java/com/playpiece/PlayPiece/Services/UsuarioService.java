@@ -36,7 +36,13 @@ public class UsuarioService {
     }
 
     public UsuarioModel getUsuarioByEmail(String email) {
-        return usuarioRepository.findByEmailUsuario(email).get(0);
+        try{
+            UsuarioModel usuario = usuarioRepository.findByEmailUsuario(email).get(0);
+            return usuario;
+        }catch(Exception e){
+            System.out.println(e);
+            return null;
+        }
     }
 
     public List<UsuarioModel> getUsuarioByNome(String nome) {
