@@ -35,11 +35,11 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioModel> getUsuarioById(@PathVariable Long id) {
+    public ResponseEntity getUsuarioById(@PathVariable Long id) {
 
             var usuario = usuarioService.getUsuarioById(id);
             if(usuario == null){
-                return new ResponseEntity<>(new UsuarioModel(),HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("Usuário não encontrado",HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(usuario, HttpStatus.OK);
         
