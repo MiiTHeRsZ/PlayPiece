@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 
 import com.playpiece.PlayPiece.Services.UsuarioService;
 
@@ -29,36 +30,40 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UsuarioModel>> getUsuarioList() {
-        return new ResponseEntity<List<UsuarioModel>>(usuarioService.getUsuarioList(), HttpStatus.OK);
+    public ResponseEntity getUsuarioList() {
+        List<UsuarioModel> usuarios = usuarioService.getUsuarioList();
+        if (usuarios.isEmpty())
+            return new ResponseEntity<>("Não há usuários",HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<List<UsuarioModel>>(usuarios, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioModel> getUsuarioById(@PathVariable Long id) {
-        try {
+    public ResponseEntity getUsuarioById(@PathVariable Long id) {
 
-            return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioById(id), HttpStatus.OK);
-        } catch (Exception e) {
-            System.out.println(e);
-            return new ResponseEntity<UsuarioModel>(HttpStatus.NOT_FOUND);
-        }
+        var usuario = usuarioService.getUsuarioById(id);
+        if (usuario == null)
+            return new ResponseEntity<>("Usuário não encontrado", HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(usuario, HttpStatus.OK);
+
     }
 
     @GetMapping(value = "search", params = { "email" })
-    public ResponseEntity<UsuarioModel> getUsuarioByEmail(@RequestParam String email) {
-        try {
-            return new ResponseEntity<UsuarioModel>(usuarioService.getUsuarioByEmail(email), HttpStatus.OK);
-        } catch (Exception e) {
-            System.out.println(e);
-            return new ResponseEntity<UsuarioModel>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity getUsuarioByEmail(@RequestParam String email) {
+
+        var usuario = usuarioService.getUsuarioByEmail(email);
+        if (usuario == null)
+            return new ResponseEntity<>("Usuário não encontrado", HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
 
     @GetMapping(value = "search", params = { "nome" })
-    public ResponseEntity<List<UsuarioModel>> getUsuarioByNome(@RequestParam String nome) {
+    public ResponseEntity getUsuarioByNome(@RequestParam String nome) {
         List<UsuarioModel> usuarios = usuarioService.getUsuarioByNome(nome);
         if (usuarios.isEmpty())
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Usuários não encontrados",HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<List<UsuarioModel>>(usuarios, HttpStatus.OK);
     }

@@ -76,7 +76,7 @@ btnSalvarProduto.addEventListener("submit", async (e) => {
         "quantidade": document.querySelector("#quantidade").value
     }
 
-    let result = await fetch("http://localhost:8080/produto", {
+    let result = await fetch("/produto", {
         method: "POST",
         headers: {
             'Content-Type':
@@ -98,10 +98,10 @@ btnSalvarProduto.addEventListener("submit", async (e) => {
         let formData = new FormData()
         formData.append("imageFile", imagem)
         console.log(imagem)
-        const produto = await fetch(`http://localhost:8080/produto`).then(data => data.json())
+        const produto = await fetch(`/produto`).then(data => data.json())
         let separa = imagem.type.split("/")
         let tipo = separa[1]
-        const resultImagem = await fetch(`http://localhost:8080/imagem/${produto[0].id}?nome=${index.toString()}.${tipo}`, {
+        const resultImagem = await fetch(`/imagem/${produto[0].id}?nome=${index.toString()}.${tipo}`, {
             method: "POST",
             body: formData
         })

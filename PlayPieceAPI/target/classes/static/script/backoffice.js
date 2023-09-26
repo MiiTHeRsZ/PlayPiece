@@ -1,12 +1,14 @@
 const urlParams = new URLSearchParams(window.location.search);
 group = urlParams.get('group')
 
+// group 2 => estoquista
 if (group == 2) {
     document.getElementById("mostrarTbUsuarios").style.display = "none"
     document.getElementById("btnCadastroUsuario").style.display = "none"
     document.getElementById("btnCadastroProduto").style.display = "none"
 }
 
+// botão que mostra/ oculta a tabela de usuarios
 document.getElementById("mostrarTbUsuarios").addEventListener("click", () => {
     const tabela = document.getElementById("secaoTabelaUsuario");
     const tabelaProduto = document.getElementById("secaoTabelaProduto");
@@ -24,7 +26,7 @@ document.getElementById("mostrarTbUsuarios").addEventListener("click", () => {
 
 async function createTbUsers() {
 
-    const response = await fetch("http://localhost:8080/usuario").then((data) =>
+    const response = await fetch("/usuario").then((data) =>
         data.json()
     );
 
@@ -70,7 +72,7 @@ async function createTbUsers() {
 
 }
 
-//Mostrar tabela Usuário // Henrick
+// botão que mostra/oculta a tabela de produtos
 document.getElementById("mostrarTbProdutos").addEventListener("click", () => {
     const tabela = document.getElementById("secaoTabelaProduto");
     const tabelaUsuario = document.getElementById("secaoTabelaUsuario");
@@ -86,9 +88,10 @@ document.getElementById("mostrarTbProdutos").addEventListener("click", () => {
     }
 });
 
+// função responsavel por "criar" a tabela de produtos, onde todas as colunas ficarão amostra
 async function createTbProducts() {
 
-    const response = await fetch("http://localhost:8080/produto").then((data) =>
+    const response = await fetch("/produto").then((data) =>
         data.json()
     );
 
@@ -140,15 +143,10 @@ async function createTbProducts() {
         tr.appendChild(status)
         tr.appendChild(alterar)
     }
-
     alterarStatus()
-
 }
-//Mostrar tabela produto // Henrick
 
-
-/* Filtrar por Nome - Usuário */
-
+// Responsavel por filtrar a lista de usuários por Nome 
 document.getElementById("pesquisarPorNome").addEventListener("click", () => {
     const nome = document.getElementById("txtNome").value;
     const tabela = document.getElementById("secaoTabelaUsuario");
@@ -159,7 +157,7 @@ document.getElementById("pesquisarPorNome").addEventListener("click", () => {
 
 async function pesquisarPorNome(nome) {
 
-    const response = await fetch(`http://localhost:8080/usuario/search?nome=${nome}`).then((data) =>
+    const response = await fetch(`/usuario/search?nome=${nome}`).then((data) =>
         data.json()
     );
 
@@ -213,7 +211,7 @@ document.getElementById("pesquisarPorNomeProduto").addEventListener("click", () 
 
 async function pesquisarPorNomeProduto(nome) {
 
-    const response = await fetch(`http://localhost:8080/produto/search?nome=${nome}`).then((data) =>
+    const response = await fetch(`/produto/search?nome=${nome}`).then((data) =>
         data.json()
     );
 
@@ -265,13 +263,14 @@ async function pesquisarPorNomeProduto(nome) {
 
 }
 
+// função responsavel por inativar ou ativar uma pessoa e/ou um produto
 function alterarStatus() {
     let changeStatusButton = document.querySelectorAll(".changeStatusButton")
 
     if (document.getElementById("secaoTabelaUsuario").style.display == "block") {
         changeStatusButton.forEach(element => {
             element.addEventListener("click", async () => {
-                await fetch(`http://localhost:8080/usuario/${element.value}`, { method: 'DELETE' })
+                await fetch(`/usuario/${element.value}`, { method: 'DELETE' })
                 clearTable()
                 createTbUsers()
             })
@@ -279,7 +278,7 @@ function alterarStatus() {
     } else if (document.getElementById("secaoTabelaProduto").style.display == "block") {
         changeStatusButton.forEach(element => {
             element.addEventListener("click", async () => {
-                await fetch(`http://localhost:8080/produto/${element.value}`, { method: 'DELETE' })
+                await fetch(`/produto/${element.value}`, { method: 'DELETE' })
                 clearTable()
                 createTbProducts()
             })
@@ -288,6 +287,7 @@ function alterarStatus() {
 
 }
 
+// função que limpa conteudo da tabela
 function clearTable() {
     const tr = document.querySelectorAll(".linhaTabela")
 

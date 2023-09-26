@@ -82,7 +82,14 @@ td button {
     cursor: pointer;
 }
 
+#btnCadastroUsuario:hover ,
+#btnCadastroProduto:hover {
+    background-color: #e1e1e1;
+    cursor: pointer;
+}
+
 #pesquisarPorNome:hover,
 #pesquisarPorNomeProduto:hover {
     cursor: pointer;
+    background-color: #e1e1e1;
 }

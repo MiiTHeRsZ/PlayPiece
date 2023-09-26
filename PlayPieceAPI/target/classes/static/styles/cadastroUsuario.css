@@ -28,7 +28,11 @@ label {
     border-radius: 10px;
     cursor: pointer;
     background-color: #eeeef0;
+}
 
+#btn-salvar {
+    border-radius: 10px;
+    background-color: #eeeef0;
 }
 
 #alterarSenha,

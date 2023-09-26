@@ -1,8 +1,10 @@
+// responsavel por coletar o id do usuario de url aberta
 const urlParams = new URLSearchParams(window.location.search);
 idUsuario = urlParams.get('id')
 
+// função responsavel por listar os cargos existentes
 async function getCargos() {
-    let responseCargo = await fetch("http://localhost:8080/cargo").then(response => response.json())
+    let responseCargo = await fetch("/cargo").then(response => response.json())
     let box = document.getElementById("cargo")
     responseCargo.forEach(cargo => {
         let option = document.createElement("option")
@@ -11,11 +13,14 @@ async function getCargos() {
         box.appendChild(option)
     });
 }
-getCargos()
+getCargos();
 
+
+// função responsavel por listar os usuarios existentes
 async function getUser() {
 
-    const result = await fetch(`http://localhost:8080/usuario/${idUsuario}`).then(response => response.json())
+    // busca os dados de um usuario em especifico e converte em JSON
+    const result = await fetch(`/usuario/${idUsuario}`).then(response => response.json())
 
     usuario = {
         "id": result.id,
@@ -35,9 +40,12 @@ async function getUser() {
 getUser()
 
 document.getElementById("cpf").onchange = () => {
+    // varieavel que coleta o valor armazenado dentro do input que tem o id cpf
     let cpf = document.getElementById("cpf").value
+    //variavel responsavel por chamar a função que valida o cpf
     let ret = validaCPF(cpf)
 
+    // permissão para salvar o não o cpf alterado
     if (ret) {
         document.getElementById("cpf").style.border = '2px solid gray'
         document.getElementById("btn-salvar").removeAttribute("disabled")
@@ -47,6 +55,7 @@ document.getElementById("cpf").onchange = () => {
     }
 }
 
+// evento ao clicar no botão salvar. Salva todas as informações que foram alteradas. com exceção do email que não pode ser alterado
 const botaoSalvar = document.getElementById("btn-salvar");
 botaoSalvar.addEventListener("click", async (e) => {
     e.preventDefault()
@@ -65,7 +74,7 @@ botaoSalvar.addEventListener("click", async (e) => {
         "ativo": usuario.ativo
     }
 
-    const result = await fetch(`http://localhost:8080/usuario/${idUsuario}`, {
+    const result = await fetch(`/usuario/${idUsuario}`, {
         method: "PUT",
         headers: {
             'Content-Type':
@@ -85,7 +94,7 @@ botaoSalvar.addEventListener("click", async (e) => {
 
 })
 
-
+// função responsavel por validar se o CPF fornecido é válido ou não
 function validaCPF(cpf) {
     var Soma = 0
     var Resto
@@ -141,9 +150,9 @@ function validaCPF(cpf) {
 //=====================================================================================
 
 let altSenha = document.getElementById("alterarSenha")
-let overlay = document.querySelector(".overlay")
+let overlay = document.querySelector(".overlay") // bloqueia a navegação no "fundo" (tela de alterar usuario)
 altSenha.addEventListener("click", async (e) => {
-    e.preventDefault()
+    e.preventDefault() // responsavel por não recarregar a pagina
     let senhaPage = document.getElementById("senhaPage")
     if (senhaPage.style.display === "none") {
         senhaPage.style.display = "block"
@@ -196,17 +205,17 @@ document.getElementById("confirmar_senha").onchange = () => {
 
 }
 
+// função responsavel por verificar e validar a senha
 function verificarSenhas(senha1, senha2) {
     let alert = document.querySelector(".alert")
     if (senha1 !== senha2 || senha2 == null || senha2.length < 8 || senha2.length > 25) {
         if (senha2 == "") {
-        }
-        else if (senha1 !== senha2) {
+        } else if (senha1 !== senha2) {
             alert.style.display = "inline"
-            alert.innerHTML = "Senhas não batem"
+            alert.innerHTML = "Senhas não batem!!"
         } else if (senha2.length < 8 || senha2.length > 25) {
             alert.style.display = "inline"
-            alert.innerHTML = "Senha deve conter de 8 até 25 caracteres"
+            alert.innerHTML = "Senha deve conter de 8 até 25 caracteres!!"
         }
         return false
     } else {
@@ -216,6 +225,7 @@ function verificarSenhas(senha1, senha2) {
     }
 }
 
+// botão que salva a alteração da senha na tela "alterar senha"
 let botao = document.getElementById("btn-salvarSenha")
 botao.addEventListener("click", async (e) => {
     e.preventDefault()
@@ -227,7 +237,7 @@ botao.addEventListener("click", async (e) => {
     if (senha1.value !== senha2.value) {
         alert("Senhas não batem")
     } else {
-        const user = await fetch(`http://localhost:8080/usuario/${idUsuario}`).then(data => data.json())
+        const user = await fetch(`/usuario/${idUsuario}`).then(data => data.json())
         let senhaCripto = senha1.hashCode()
 
         usuario = {
@@ -240,7 +250,7 @@ botao.addEventListener("click", async (e) => {
             "ativo": user.ativo
         }
 
-        const result = await fetch(`http://localhost:8080/usuario/${idUsuario}`, {
+        const result = await fetch(`/usuario/${idUsuario}`, {
             method: "PUT", headers: {
                 'Content-Type':
                     'application/json;charset=utf-8'
@@ -259,6 +269,7 @@ botao.addEventListener("click", async (e) => {
     }
 })
 
+// ícone do olho, responsavel por deixar a senha oculta ou não
 let showPassIcon = document.querySelector("#showPassword")
 showPassIcon.addEventListener("click", () => {
     if (showPassIcon.getAttribute("class") == "fa-solid fa-eye-slash") {
@@ -280,6 +291,7 @@ showPassIcon.addEventListener("click", () => {
     }
 })
 
+// função responsavel por criar um hashcode da senha fornecida pelo usuario
 String.prototype.hashCode = function () {
     var hash = 0,
         i, chr;

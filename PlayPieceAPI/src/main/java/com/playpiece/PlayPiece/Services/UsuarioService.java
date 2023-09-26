@@ -24,11 +24,25 @@ public class UsuarioService {
     }
 
     public UsuarioModel getUsuarioById(Long id) {
-        return usuarioRepository.findById(id).get();
+        
+        try{
+            UsuarioModel usuario = usuarioRepository.findById(id).get();
+            return usuario;
+        }catch(Exception e){
+            System.out.println(e);
+            return null;
+        }
+        
     }
 
     public UsuarioModel getUsuarioByEmail(String email) {
-        return usuarioRepository.findByEmailUsuario(email).get(0);
+        try{
+            UsuarioModel usuario = usuarioRepository.findByEmailUsuario(email).get(0);
+            return usuario;
+        }catch(Exception e){
+            System.out.println(e);
+            return null;
+        }
     }
 
     public List<UsuarioModel> getUsuarioByNome(String nome) {
