@@ -40,15 +40,20 @@ public class ImagemService {
         return imagemRepository.save(novaImagem);
     }
 
-    public void saveImage(MultipartFile imagem, Long produtoID, String nome) throws IOException {
-
+    public void saveImage(MultipartFile imagem, Long produtoID, String nome, int fav) throws IOException {
         String folder = "PlayPieceAPI/src/main/resources/static/images/Produtos/" + produtoID + "/";
         byte[] bytes = imagem.getBytes();
         Path path = Paths.get(folder);
         Files.createDirectories(path);
         path = Paths.get(folder + nome);
         Files.write(path, bytes);
-        ImagemModel imagemSalva = new ImagemModel(null, produtoID, folder + nome, false,
+        boolean isFav = false;
+        if (fav == 1) {
+            isFav = true;
+        } else {
+            isFav = false;
+        }
+        ImagemModel imagemSalva = new ImagemModel(null, produtoID, folder + nome, isFav,
                 true);
         postImagem(imagemSalva);
     }
