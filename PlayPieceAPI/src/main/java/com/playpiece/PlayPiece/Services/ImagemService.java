@@ -41,7 +41,7 @@ public class ImagemService {
     }
 
     public void saveImage(MultipartFile imagem, Long produtoID, String nome, int fav) throws IOException {
-        String folder = "PlayPieceAPI/src/main/resources/static/images/Produtos/" + produtoID + "/";
+        String folder = "src/main/resources/static/images/Produtos/" + produtoID + "/";
         byte[] bytes = imagem.getBytes();
         Path path = Paths.get(folder);
         Files.createDirectories(path);

@@ -60,7 +60,7 @@ function mostarImagensInput() {
     }
     listaInput.forEach((imagem, index) => {
         let link = imagem.split("/")
-        let newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8]
+        let newLink = "../" + link[4] + "/" + link[5] + "/" + link[6] + "/" + link[7]
         imagens += `<div class="imagem-input">
         <img src="${newLink}" alt="imagem">
         <span class="fav" onclick="favoritarInput(${index})">&#10025;</span>
