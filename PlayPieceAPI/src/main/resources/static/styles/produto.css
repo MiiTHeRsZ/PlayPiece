@@ -31,7 +31,7 @@ body {
     margin-right: 16px;
 }
 
-main {
+main > div {
     display: flex;
     justify-content: center;
     padding-top: 32px;
@@ -58,4 +58,15 @@ main {
     height: fit-content;
     max-width: 60vw;
     border-radius: 25px;
+}
+
+#detalhes #div-valor {
+    display: flex;
+    gap: 16px;
+    align-content: center;
+}
+
+#detalhes #div-valor #valor {
+    font-size: 32px;
+    font-weight: bold;
 }

@@ -26,7 +26,7 @@ async function getProducts() {
                 <hr>
                 <div class="card-body">
                     <h5 class="card-title">${produto.nome}</h5>
-                    <p class="card-text">R$ ${produto.preco}</p>
+                    <p class="card-text">R$ ${parseFloat(produto.preco).toFixed(2).replace(".", ",")}</p>
                     <a href="./pages/produto.html?id=${produto.id}" class="btn btn-primary">Detalhes</a>
                 </div>
             `

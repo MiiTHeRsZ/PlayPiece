@@ -124,10 +124,10 @@ async function createTbProducts() {
         let status = document.createElement("td")
         let alterar = document.createElement("td")
 
-        nome.textContent = `${produto.Nome}`
+        nome.innerHTML= `<a href="./produto.html?id=${produto.Id}" target="_blank">${produto.Nome}</a>`
         avaliacao.textContent = `${produto.Avaliacao}`
         descricao.textContent = `${produto.Descricao}`
-        preco.textContent = `${produto.Preco}`
+        preco.textContent = `${parseFloat(produto.Preco).toFixed(2).replace(".", ",")}`
         quantidade.textContent = `${produto.Quantidade}`
         status.innerHTML = `<button class = "changeStatusButton" value=${produto.Id}> ${produto.Status ? "Ativo" : "Inativo"} </button>`
         alterar.innerHTML = `<a onclick="window.open('../pages/alterarProduto.html?id=${produto.Id}&group=${group}','name','width=500,height=1000')"> <button class = "alterarProduto"> alterar </button> <a>`

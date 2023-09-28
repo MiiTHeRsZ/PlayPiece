@@ -1,6 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 group = urlParams.get('group')
 idProduto = urlParams.get('id')
+let imagens;
 
 //#region imagens
 
@@ -12,7 +13,7 @@ let listaInput = []
 async function getImagens() {
 
     let produto = await fetch(`/produto/${idProduto}`).then(response => response.json())
-    let imagens = produto.listaImagens
+    imagens = produto.listaImagens
 
     imagens.forEach(async imagem => {
         console.log(imagem.caminho)
@@ -50,8 +51,9 @@ getImagens()
 
 function mostarImagensInput() {
     limparImagensInput()
+    
     let a = document.querySelector("#imagens").files
-    let imagens = ""
+    let imgs = ""
     let text = document.querySelector("#input_imagens p")
     text.style.display = "none"
     if (listaInput.length == 0) {
@@ -61,14 +63,14 @@ function mostarImagensInput() {
     listaInput.forEach((imagem, index) => {
         let link = imagem.split("/")
         let newLink = "../" + link[4] + "/" + link[5] + "/" + link[6] + "/" + link[7]
-        imagens += `<div class="imagem-input">
+        imgs += `<div class="imagem-input">
         <img src="${newLink}" alt="imagem">
-        <span class="fav" onclick="favoritarInput(${index})">&#10025;</span>
+        <span class="fav" onclick="favoritarInput(${index})">${imagens[index].padrao?"&#10029;":"&#10025;"}</span>
         <span class="del" onclick="removerInput(${index})">&times;</span>
         </div>`
     })
 
-    boxImagens.innerHTML += imagens
+    boxImagens.innerHTML += imgs
     inputImagens.value = ""
 }
 function limparImagensInput() {

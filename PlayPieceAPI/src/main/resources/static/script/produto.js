@@ -29,17 +29,18 @@ async function getProduct() {
     <section id="detalhes">
         <h1 id="nomeProduto">${produto.nome}</h1>
         <h4 for="avaliacao">Avaliação:</h4>
-        <meter id="avaliacao" min="0" max="5" value="${produto.avaliacao}"></meter>
+        <meter id="avaliacao" min="0" max="5" value="${produto.avaliacao}"></meter><span> ${produto.avaliacao}</span>
         <div id="div-valor">
-            <p id="valor">R$ ${produto.preco}</p>
+            <p id="valor">R$ ${parseFloat(produto.preco).toFixed(2).replace(".", ",")}</p>
+            <button disabled>Adicionar ao carrinho</button>
         </div>
         <h4 for="descricao">Descrição:</h4>
         <p id="descricao">${produto.descricao}</p>
-    </section>
-    `;
-
-    container.appendChild(conteudo)
-    gerarCarousel(produto.listaImagens)
+        </section>
+        `;
+        
+        container.appendChild(conteudo)
+        gerarCarousel(produto.listaImagens)
 }
 
 async function gerarCarousel(imagens) {
