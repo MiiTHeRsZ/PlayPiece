@@ -52,3 +52,6 @@ replay_pid*
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 
 .vscode/launch.json
+
+PlayPieceAPI/target/classes/application.properties
+PlayPieceAPI/src/main/resources/application.properties

@@ -17,7 +17,6 @@ inputImagens.addEventListener("change", () => {
 boxImagens.addEventListener("drop", (e) => {
     e.preventDefault()
 
-    console.log(listaInput)
     const files = e.dataTransfer.files
     for (let i = 0; i < files.length; i++) {
         if (!files[i].type.match("image")) continue
@@ -42,12 +41,29 @@ function mostarImagensInput() {
     listaInput.forEach((imagem, index) => {
         imagens += `<div class="imagem-input">
         <img src="${URL.createObjectURL(imagem)}" alt="imagem">
-        <span onclick="removerInput(${index})">&times;</span>
+        <span class="fav" onclick="favoritarInput(${index})">&#10025;</span>
+        <span class="del" onclick="removerInput(${index})">&times;</span>
         </div>`
     })
 
     boxImagens.innerHTML += imagens
     inputImagens.value = ""
+}
+
+function favoritarInput(index) {
+    let unfavcount = 0
+    let el = document.querySelectorAll(".fav")
+    el.forEach((item, i) => {
+        if (i == index) {
+            item.textContent == "✩" ? item.innerHTML = "&#10029;" : item.innerHTML = "&#10025;"
+        } else {
+            item.textContent == "✭" ? item.innerHTML = "&#10025;" : item.innerHTML = "&#10025;"
+        }
+
+        item.textContent == "✩" ? unfavcount++ : ""
+
+    })
+    unfavcount == el.length ? el[0].innerHTML = "&#10029;" : ""
 }
 
 function removerInput(index) {
@@ -95,19 +111,34 @@ btnSalvarProduto.addEventListener("submit", async (e) => {
 
 
     listaInput.forEach(async (imagem, index) => {
+        let fav = 0;
+        let el = document.querySelectorAll(".fav")
+        el.forEach((item, i) => {
+            console.log(el[index])
+            el[index].textContent == "✭" ? fav = 1 : fav = 0
+        })
         let formData = new FormData()
         formData.append("imageFile", imagem)
         console.log(imagem)
         const produto = await fetch(`/produto`).then(data => data.json())
         let separa = imagem.type.split("/")
         let tipo = separa[1]
-        const resultImagem = await fetch(`/imagem/${produto[0].id}?nome=${index.toString()}.${tipo}`, {
+        const resultImagem = await fetch(`/imagem/${produto[0].id}?nome=${index.toString()}.${tipo}&fav=${fav}`, {
             method: "POST",
             body: formData
         })
+        if (resultImagem.status == "201") {
+
+            console.log(resultImagem.url)
+            // window.close()
+        } else {
+            alert("falha ao criar imagens. Tente alterar o produto em breve")
+            // window.close()
+        }
+
     });
 
-    window.close()
+
 
 })
 

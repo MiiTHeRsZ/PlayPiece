@@ -167,14 +167,21 @@ label {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     position: absolute;
     top: 10px;
-    right: 10px;
     cursor: pointer;
     color: white;
     background-color: rgba(0, 0, 0, 0.589);
-    width: 15px;
+    width: 25px;
     text-align: center;
-    font-size: 13px;
+    font-size: 20px;
     border-radius: 50px;
+}
+
+.del {
+    right: 10px;
+}
+
+.fav {
+    left: 10px;
 }
 
 #imagens {
