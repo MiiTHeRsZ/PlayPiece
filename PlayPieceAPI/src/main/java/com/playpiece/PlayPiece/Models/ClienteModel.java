@@ -27,6 +27,6 @@ public class ClienteModel {
     private String senha;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "end_fat", referencedColumnName = "id")
-    private String enderecoFaturamento;
+    private EnderecoModel enderecoFaturamento;
     private Boolean ativo;
 }
