@@ -40,6 +40,34 @@ padrao bool not null,
 ativo bool not null
 );
 
+drop table if exists cliente;
+create table cliente(
+	id bigint primary key auto_increment,
+	cpf varchar(14) not null unique,
+	nome varchar(100) not null,
+	dt_nascimento Date not null,
+	genero varchar(2) not null,
+	email varchar(60) not null unique,
+	senha varchar(25) not null,
+	end_fat bigint not null,
+	ativo bool not null
+);
+
+drop table if exists endereco;
+create table endereco(
+	id bigint primary key auto_increment,
+	id_cliente bigint not null,
+	cep varchar(8) not null,
+	logradouro varchar(255) not null,
+	numero int not null,
+	complemento varchar(255),
+	bairro varchar(255) not null,
+	cidade varchar(255) not null,
+	uf varchar(2) not null,
+	padrao bool not null,
+	ativo bool not null
+);
+
 
 insert into cargo (nome) value ("Administrador"), ("Estoquista");
 insert into usuario (nome, cpf, id_cargo, email, senha, ativo) values('Leonardo Noboru Machado Fujimura', '43183345897', 1, 'lfujimura.pp1@playpiece.com', '-1956131982', true), ('Vinicios Mendes', '97876694993', 2, 'vmendes.pp2@playpiece.com', '-1956131982', true);

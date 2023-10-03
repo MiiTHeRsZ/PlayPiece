@@ -3,7 +3,6 @@ package com.playpiece.PlayPiece.Controllers;
 import java.io.IOException;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.playpiece.PlayPiece.Models.ProdutoModel;
 import com.playpiece.PlayPiece.Services.ImagemService;
 
 @RestController
