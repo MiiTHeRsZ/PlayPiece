@@ -1,6 +1,8 @@
 package com.playpiece.PlayPiece.Models;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -18,15 +20,16 @@ public class ClienteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @CPF
     private String cpf;
     private String nome;
-    private Date dt_nascimento;
+    private LocalDate dt_nascimento;
     private String genero;
     private String email;
     private String senha;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "end_fat", referencedColumnName = "id")
     private EnderecoModel enderecoFaturamento;
+    @Transient
+    private List<EnderecoModel> listaEndereco;
     private Boolean ativo;
 }
