@@ -4,7 +4,7 @@ const container_cards = document.getElementById("produtos");
 
 async function getProducts() {
 
-    let produtos = await fetch('http://localhost:8080/produto').then(response => response.json())
+    let produtos = await fetch('http://localhost:8081/produto').then(response => response.json())
 
     produtos.forEach(produto => {
         let imagens = produto.listaImagens;
@@ -18,7 +18,7 @@ async function getProducts() {
 
         if (produto.ativo) {
             let link = imagemPrincipal.split("/")
-            let newLink = "./" + link[4] + "/" + link[5] + "/" + link[6] + "/" + link[7]
+            let newLink = "./" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8]
             let card = document.createElement("div")
             card.className = "card"
             card.innerHTML = `
