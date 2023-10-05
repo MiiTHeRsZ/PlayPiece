@@ -65,48 +65,48 @@ function criarEstrelas(produto) {
     let avaliacao = produto.avaliacao.toFixed(1)
     avaliacao = avaliacao.toString()
     let valores = avaliacao.split('.')
-    let estrelas=[0,0,0,0,0]
-    if(Number(valores[1])==5){
-        valores[1]=1
-    }else{
-        valores[1]=0
+    let estrelas = [0, 0, 0, 0, 0]
+    if (Number(valores[1]) == 5) {
+        valores[1] = 1
+    } else {
+        valores[1] = 0
     }
 
     const meter = document.querySelector("meter");
-        let count = 0
+    let count = 0
 
-        while(count <Number(valores[0])){
-            estrelas[count]=10
+    while (count < Number(valores[0])) {
+        estrelas[count] = 10
+        count++
+    }
+    if (count < estrelas.length) {
+        while (count < estrelas.length) {
+            if (Number(valores[1] == 1)) {
+                estrelas[count] = 5
+                count = 5
+            }
             count++
         }
-        if(count < estrelas.length){
-            while(count<estrelas.length){
-                if(Number(valores[1]==1)){
-                    estrelas[count]=5
-                    count = 5
-                }
-                count++
-            }
-        }
+    }
 
-        estrelas.forEach(item=>{
-            if(item==10){
-                let estrela = document.createElement("i")
-                estrela.setAttribute("class", "material-icons")
-                estrela.innerHTML="star"
-                meter.appendChild(estrela)
-            }else if(item==5){
-                let estrela = document.createElement("i")
-                estrela.setAttribute("class", "material-icons")
-                estrela.innerHTML="star_half"
-                meter.appendChild(estrela)
-            }else if(item==0){
-                let estrela = document.createElement("i")
-                estrela.setAttribute("class", "material-icons")
-                estrela.innerHTML="star_border"
-                meter.appendChild(estrela)
-            }
-        })
+    estrelas.forEach(item => {
+        if (item == 10) {
+            let estrela = document.createElement("i")
+            estrela.setAttribute("class", "material-icons")
+            estrela.innerHTML = "star"
+            meter.appendChild(estrela)
+        } else if (item == 5) {
+            let estrela = document.createElement("i")
+            estrela.setAttribute("class", "material-icons")
+            estrela.innerHTML = "star_half"
+            meter.appendChild(estrela)
+        } else if (item == 0) {
+            let estrela = document.createElement("i")
+            estrela.setAttribute("class", "material-icons")
+            estrela.innerHTML = "star_border"
+            meter.appendChild(estrela)
+        }
+    })
 
 }
 

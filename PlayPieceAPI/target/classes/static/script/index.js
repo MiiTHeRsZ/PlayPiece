@@ -4,7 +4,7 @@ const container_cards = document.getElementById("produtos");
 
 async function getProducts() {
 
-    let produtos = await fetch('http://localhost:8081/produto').then(response => response.json())
+    let produtos = await fetch('/produto').then(response => response.json())
 
     produtos.forEach(produto => {
         let imagens = produto.listaImagens;
@@ -22,10 +22,10 @@ async function getProducts() {
             let card = document.createElement("div")
             card.className = "card"
             card.innerHTML = `
-                <img src="${newLink}" class="card-img-top" alt="...">
+            <a href="./pages/produto.html?id=${produto.id}"><img src="${newLink}" class="card-img-top" alt="..."></a>
                 <hr>
                 <div class="card-body">
-                    <h5 class="card-title">${produto.nome}</h5>
+                <a href="./pages/produto.html?id=${produto.id}"><h5 class="card-title">${produto.nome}</h5></a>
                     <p class="card-text">R$ ${parseFloat(produto.preco).toFixed(2).replace(".", ",")}</p>
                     <a href="./pages/produto.html?id=${produto.id}" class="btn btn-primary">Detalhes</a>
                 </div>

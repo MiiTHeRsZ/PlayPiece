@@ -55,7 +55,11 @@ main {
     max-width: 250px;
     object-fit: contain;
     position: absolute;
-    top:2%
+    top: 2%;
+}
+
+.card-img-top:hover {
+    filter: grayscale(.25);
 }
 
 hr {
@@ -66,9 +70,9 @@ hr {
     top: 60%;
 }
 
-.card-body{
- position: absolute;
- top:63%;
+.card-body {
+    position: absolute;
+    top: 63%;
 }
 
 #produtos {
@@ -77,4 +81,13 @@ hr {
     gap: 15px;
     justify-content: center;
     margin: 0 5%;
+}
+
+.card-body a:first-child {
+    color: black;
+    text-decoration: none;
+}
+
+.card-body a:first-child h5:hover {
+    transform: scale(105%);
 }

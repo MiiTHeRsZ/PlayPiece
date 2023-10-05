@@ -52,14 +52,14 @@ document.getElementById("senha1").onchange = () => {
 }
 
 document.getElementById("senha2").onchange = () => {
-    
+
     let senha1 = document.getElementById("senha1").value
     let senha2 = document.getElementById("senha2").value
     let cpf = document.getElementById("cpf").value
     let cpfret = validaCPF(cpf)
 
     let ret = verificarSenhas(senha1, senha2)
-    
+
     // verifica se as informações senha e cpf foram preechidas corratamente ou não para liberar o botao de salvar
     if (ret) {
         document.getElementById("senha2").style.border = '2px solid gray'
