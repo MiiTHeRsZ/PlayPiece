@@ -53,8 +53,7 @@ public class ImagemService {
         } else {
             isFav = false;
         }
-        ImagemModel imagemSalva = new ImagemModel(null, produtoID, folder + nome, isFav,
-                true);
+        ImagemModel imagemSalva = new ImagemModel(null, produtoID, folder + nome, isFav, true);
         postImagem(imagemSalva);
     }
 
