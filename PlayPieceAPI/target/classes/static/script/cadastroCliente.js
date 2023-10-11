@@ -4,6 +4,9 @@ document.getElementById("cpf").onchange = () => {
 document.getElementById("email").onchange = () => {
     verificaInformacao();
 }
+document.getElementById("cep").onchange = () => {
+    buscarDadosCep();
+}
 document.getElementById("senha").onchange = () => {
     verificaInformacao();
 }
@@ -198,3 +201,78 @@ function validaCPF(cpf) {
 
     return true
 }
+
+function getJson(url) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 400) {
+                resolve(JSON.parse(xhr.responseText));
+            } else {
+                const erro = {
+                    "codigo": xhr.status,
+                    "mensagem": 'Erro na requisição'
+                };
+                reject(erro);
+            }
+        };
+        xhr.send();
+    });
+}
+
+function getValidCep() {
+    return new Promise((resolve, reject) => {
+        const numeroCep = document.getElementById("cep");
+
+        if (numeroCep.value.length === 8) {
+            numeroCep.classList.remove("input-error");
+            resolve(value);
+        } else {
+            numeroCep.classList.add("input-error");
+            reject(new Error("CEP inválido"));
+        }
+    });
+}
+
+async function buscarDadosCep() {
+    try {
+        const alert = document.querySelector(".cep");
+
+        const cepOK = true
+        const valorCep = await getValidCep();
+        const dadosArray = await getJson(`https://viacep.com.br/ws/${valorCep}/json/`);
+        if (dadosArray.erro === 'true') {
+            alert.innerHTML = "CEP inválido!";
+            alert.style.display = "inline";
+        } else {
+            alert.innerHTML = "";
+            alert.style.display = "none";
+            document.getElementById('logradouro').placeholder = dadosArray.logradouro;
+            document.getElementById('bairro').placeholder = dadosArray.bairro;
+            document.getElementById('cidade').placeholder = dadosArray.localidade;
+            document.getElementById('uf').placeholder = dadosArray.uf;
+        }
+    } catch (erro) {
+        console.log("Erro na busca do CEP: " + erro.message + "\nVerifique se o CEP fornecido é realmente válido");
+    }
+}
+// acionando o evento de busca dos dados atraves de um botao (melhor fazer isso com um botao "enviar" que fazer a requisicao automatica)
+const btnEnviar = document.querySelector("#send");
+btnEnviar.addEventListener("click", buscarDadosCep);
+
+
+
+
+// {
+//     "cep": "04775-170",
+//     "logradouro": "Rua Waldemar Gomes Lingoanoti",
+//     "complemento": "",
+//     "bairro": "Jardim Marabá(Zona Sul)",
+//     "localidade": "São Paulo",
+//     "uf": "SP",
+//     "ibge": "3550308",
+//     "gia": "1004",
+//     "ddd": "11",
+//     "siafi": "7107"
+// }
