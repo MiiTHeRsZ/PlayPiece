@@ -20,7 +20,7 @@ const conect_api = async () => {
 
 }
 
-const btn = document.getElementById("form__btn");
+const btn = document.getElementById("form__btn-entrar");
 btn.addEventListener("click", () => {
   conect_api();
 });
