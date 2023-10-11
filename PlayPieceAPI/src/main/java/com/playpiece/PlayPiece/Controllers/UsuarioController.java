@@ -1,5 +1,6 @@
 package com.playpiece.PlayPiece.Controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.playpiece.PlayPiece.Models.UsuarioModel;
@@ -52,10 +53,15 @@ public class UsuarioController {
     public ResponseEntity getUsuarioByEmail(@RequestParam String email) {
 
         var usuario = usuarioService.getUsuarioByEmail(email);
+
         if (usuario == null)
             return new ResponseEntity<>("Usuário não encontrado", HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<>(usuario, HttpStatus.OK);
+        List<String> login = new ArrayList<>();
+        login.add(usuario.getEmailUsuario());
+        login.add(usuario.getSenha());
+        login.add(usuario.getCargo().getId().toString());
+        return new ResponseEntity<>(login, HttpStatus.OK);
     }
 
     @GetMapping(value = "search", params = { "nome" })

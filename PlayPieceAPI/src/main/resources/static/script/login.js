@@ -8,11 +8,16 @@ const conect_api = async () => {
 
   // faz a busca dos dados fornecidos e depois converte para json
   const result = await fetch(`/usuario/search?email=${nickname}`).then(data => data.json())
+  const user = {
+    "email": result[0],
+    "senha": result[1],
+    "cargo": result[2]
+  }
 
   // validar se usuario e senha digitados batem com o usuario e senha cadastrado no banco de dados
-  if (nickname == result.emailUsuario && password == result.senha) {
+  if (nickname == user.email && password == user.senha) {
     console.log("logado")
-    location.href = `./backoffice.html?group=${result.cargo.id}`, {};
+    location.href = `./backoffice.html?group=${user.cargo}`, {};
   } else {
     console.log(password)
     alert("usuario ou senha incorreta");
