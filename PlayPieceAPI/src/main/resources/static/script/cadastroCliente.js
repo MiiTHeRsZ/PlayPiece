@@ -13,6 +13,16 @@ document.getElementById("senha").onchange = () => {
 document.getElementById("confirmaSenha").onchange = () => {
     verificaInformacao();
 }
+var hojeSemForm = new Date();
+const hoje = {
+    "dia": hojeSemForm.getDate() < 10 ? "0" + hojeSemForm.getDate() : hojeSemForm.getDate(),
+    "mes": Number(hojeSemForm.getMonth() < 10 ? "0" + hojeSemForm.getMonth() : hojeSemForm.getMonth()) + 1,
+    "ano": hojeSemForm.getFullYear(),
+    "string": ""
+}
+hoje.string = hoje.ano + "-" + hoje.mes + "-" + hoje.dia
+
+document.getElementById("dt_nasc").setAttribute("max", hoje.string)
 
 function verificaInformacao() {
     let senha = document.getElementById("senha").value
