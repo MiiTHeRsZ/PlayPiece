@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/perfilCliente.css">
+    <title>Perfil</title>
+    <script src="../script/perfilCliente.js" defer></script>
+</head>
+
+<body>
+    <header id="menuBar">
+        <a href="../index.html"><img src="../images/Logo.png" alt="Logo" class="logo" /></a>
+        <div>
+            <a href="" class="icon shopping_cart"><i class="fi fi-br-shopping-cart"></i></a>
+            <!-- ! Mudar para icone de deslogar -->
+            <a href="./loginCliente.html" class="icon user" id="perfil"><i class="fi fi-br-user"></i></a>
+        </div>
+    </header>
+    <main>
+        <section id="info">
+            <h1 id="nomeCliente">Fulano</h1>
+            <p id="idCliente" hidden></p>
+            <form action="#" id="form">
+                <div>
+                    <label for="cpf">CPF:</label>
+                    <input type="text" name="cpf" id="cpf" minlength="11" required readonly />
+                    <label for="nome">Nome:</label>
+                    <input type="text" name="nome" id="nome" required />
+                </div>
+                <div>
+                    <label for="dt_nasc">Data de Nascimento:</label>
+                    <input type="date" name="dt_nasc" id="dt_nasc" required />
+                    <label for="genero">Gênero:</label>
+                    <select name="genero" id="genero" required>
+                        <option value="0" selected disabled>Selecione um cargo</option>
+                        <option value="F">Feminino</option>
+                        <option value="M">Masculino</option>
+                        <option value="NA">Prefiro não informar</option>
+                    </select>
+                    <label for="email">Email:</label>
+                    <input type="text" name="email" id="email" required readonly />
+                    <span class="alert mail"></span>
+                </div>
+                <button type="submit" id="alterar-info">Alterar informações</button>
+                <div>
+                    <h3>Endereço de Faturamento:</h3>
+                    <label for="cepFat">CEP:</label>
+                    <input type="text" name="cepFat" id="cepFat" required readonly />
+                    <label for="logradouroFat">Logradouro:</label>
+                    <input type="text" name="logradouroFat" id="logradouroFat" required readonly />
+                    <label for="numeroFat">Número:</label>
+                    <input type="text" name="numeroFat" id="numeroFat" required readonly />
+                    <label for="complementoFat">Complemento:</label>
+                    <input type="text" name="complementoFat" id="complementoFat" required readonly />
+                    <label for="bairroFat">Bairro:</label>
+                    <input type="text" name="bairroFat" id="bairroFat" required readonly />
+                    <label for="cidadeFat">Cidade:</label>
+                    <input type="text" name="cidadeFat" id="cidadeFat" required readonly />
+                    <label for="ufFat">UF:</label>
+                    <input type="text" name="ufFat" id="ufFat" required readonly />
+                </div>
+                <div>
+                    <h3>Endereço de Entrega:</h3>
+                    <select name="enderecoEntrega" id="enderecoEntrega">
+                        
+                    </select>
+                    <button type="submit" id="novo-endereco">Novo endereço</button>
+                    <button type="submit" id="definir-endereco-padrao">Definir como padrão</button>
+                    <button type="submit" id="excluir-endereco">Excluir endereço</button>
+                    <div>
+                        <label for="cep">CEP:</label>
+                        <input type="text" name="cep" id="cep" required readonly />
+                        <span class="alert cep"></span>
+                        <label for="logradouro">Logradouro:</label>
+                        <input type="text" name="logradouro" id="logradouro" required readonly />
+                        <label for="numero">Número:</label>
+                        <input type="text" name="numero" id="numero" required readonly />
+                        <label for="complemento">Complemento:</label>
+                        <input type="text" name="complemento" id="complemento" required readonly />
+                        <label for="bairro">Bairro:</label>
+                        <input type="text" name="bairro" id="bairro" required readonly />
+                        <label for="cidade">Cidade:</label>
+                        <input type="text" name="cidade" id="cidade" required readonly />
+                        <label for="uf">UF:</label>
+                        <input type="text" name="uf" id="uf" required readonly />
+                    </div>
+                </div>
+                <div>
+                    <h3>Trocar senha:</h3>
+                    <label for="senha">Nova senha:</label>
+                    <input type="password" name="senha" id="senha" class="passInput" minlength="8" maxlength="25" required
+                    readonly>
+                    <label for="confirmaSenha">Confirmar nova senha:</label>
+                    <input type="password" name="confirmaSenha" id="confirmaSenha" class="passInput" minlength="8"
+                    maxlength="25" required readonly>
+                    <span class="alert senha"></span>
+                    
+                    <i id="showPassword" class="fa-solid fa-eye-slash"></i>
+                </div>
+
+                <button type="submit" id="alterar-senha">Alterar senha</button>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>

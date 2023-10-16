@@ -1,4 +1,9 @@
 const urlParams = new URLSearchParams(window.location.search);
+email = urlParams.get('email');
+
+if (email != null) {
+    document.getElementById("perfil").href = `./pages/perfilCliente.html?email=${email}`;
+}
 
 const container_cards = document.getElementById("produtos");
 

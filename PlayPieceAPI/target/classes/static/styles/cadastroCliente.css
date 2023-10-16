@@ -1,0 +1,74 @@
+@import url("./var.css");
+
+body {
+    font-family: 'Roboto Mono', monospace;
+    color: var(--txt-color);
+    background-color: var(--bg-color);
+    transition: all .3s ease-in-out;
+    background-image: url(../images/background-image.jpg);
+    background-position: top;
+    background-repeat: space;
+    background-size: cover;
+}
+
+
+#containerCadastro {
+    margin: 0 29vw;
+    border: solid 2px #f00;
+    border-radius: 25px;
+    padding: 20px;
+    background-color: #e0e7e9;
+    box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
+}
+
+input {
+    margin: 10px;
+    outline: none !important;
+    border-bottom: 1px solid #ff0;
+}
+
+.space {
+    margin-bottom: 20px;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.cpfNome {
+
+    border: solid 2px #0f0;
+}
+
+.dataGeneroEmail{
+    border: solid 2px #00f;
+}
+
+.lograNum {
+    border: solid 2px #ff0;
+}
+
+.bairCidUf {
+    border: solid 2px #0ff;
+}
+
+.confSenha {
+    border: solid 2px #f0f;
+}
+
+#cep {
+    width: 250px;
+    align-items: center;
+}
+
+#complemento {
+    width: 250px;
+}
+
+.form__container {
+    top: 50vh;
+    left: 50vw;
+    border-radius: 25px;
+    background-color: var(--bg-alternative-color);
+    background: transparent;
+    box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
+    transition: all .5s ease-in-out;
+}

@@ -37,6 +37,7 @@ public class ClienteService {
     }
 
     public ClienteModel postClient(ClienteModel cliente) {
+        System.out.println("\n\n\n\n---------------AQUI-------------" + cliente + "\n\n\n\n---------------AQUI-------------");
         cliente.setId(null);
         cliente.setAtivo(true);
         enderecoService.postEndereco(0L, cliente.getEnderecoFaturamento());

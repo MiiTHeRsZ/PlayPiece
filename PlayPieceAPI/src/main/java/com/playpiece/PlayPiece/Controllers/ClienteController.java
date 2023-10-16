@@ -46,6 +46,7 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity postCliente(@RequestBody ClienteModel cliente) {
+        System.out.println(cliente);
         ClienteModel novoCliente = clienteService.postClient(cliente);
         if (novoCliente == null)
             return new ResponseEntity<String>("Falha ao criar cliente", HttpStatus.BAD_REQUEST);

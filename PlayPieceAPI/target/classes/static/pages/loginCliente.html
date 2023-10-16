@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/reset.css">
-    <link rel="stylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="../styles/loginCliente.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>PI - Desenvolvimento de Sistemas Orientados a WEB</title>
-    <script src="../script/login.js" defer></script>
+    <script src="../script/loginCliente.js" defer></script>
 </head>
 
 <body>
@@ -25,12 +25,15 @@
             </div>
 
             <div class="btns">
-                <input type="submit" value="Entrar" id="form__btn" />
-                <a href="../index.html" id="form__btn">Voltar</a>
+                <a href="cadastroCliente.html" id="form__btn-cadastrar" class="form__btn">Cadastrar</a>
+                <div>
+                    <input type="submit" value="Entrar" id="form__btn-entrar" class="form__btn" />
+                    |
+                    <a href="../index.html" class="form__btn">Voltar</a>
+                </div>
             </div>
         </form>
     </div>
-    <script src="../script/login.js"></script>
 </body>
 
 </html>

@@ -76,7 +76,7 @@ document.getElementById("senha2").onchange = () => {
 }
 // função que verifica se a senha fornceida é valida ou não
 function verificarSenhas(senha1, senha2) {
-    let alert = document.querySelector(".alert")
+    let alert = document.querySelector(".senha")
     if (senha1 !== senha2 || senha2 == null || senha2.length < 8 || senha2.length > 25) {
         if (senha2 == "") {
         }
@@ -168,7 +168,7 @@ botaoSalvar.addEventListener("click", async (e) => {
 
     if (result.status == 201) {
 
-        alert("Usuário criado com sucesso!\nCriando senha")
+        alert("Usuário criado com sucesso!")
         window.close()
     } else {
         document.querySelector("body").style = "background-color:#ffcbcb;"

@@ -21,7 +21,6 @@ body {
     background-color: var(--bg-alternative-color);
     box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
     transition: all .5s ease-in-out;
-    opacity: 0.8;
 }
 
 .form__container form {
@@ -49,7 +48,10 @@ body {
 }
 
 .form__container form .btns {
-    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 24px;
 }
 
 .form__container form .btns .form__btn {
@@ -57,6 +59,11 @@ body {
     color: var(--txt-accent-color-primary);
     background: transparent;
     cursor: pointer;
+}
+
+.form__container form .btns #form__btn-cadastrar{
+    font-size: 16px;
+    color: var(--txt-accent-color-secondary);
 }
 
 .passBox {
