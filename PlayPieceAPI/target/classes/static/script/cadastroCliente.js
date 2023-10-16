@@ -94,8 +94,8 @@ botaoSalvar.addEventListener("click", async (e) => {
     e.preventDefault()
 
     let cliente = {
-        "nome": document.getElementById("nome").value,
         "cpf": document.getElementById("cpf").value,
+        "nome": document.getElementById("nome").value,
         "dt_nascimento": document.getElementById("dt_nasc").value,
         "genero": document.getElementById("genero").value,
         "email": document.getElementById("email").value,
@@ -114,9 +114,11 @@ botaoSalvar.addEventListener("click", async (e) => {
         "ativo": true
     }
 
+    console.log(cliente);
+
     const result = await fetch("/cliente", {
         method: "POST",
-        headers: {  
+        headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(cliente),
@@ -247,7 +249,7 @@ function getValidCep() {
 
 async function buscarDadosCep() {
     try {
-        const alert = document.querySelector(".cep");
+        const alert = document.querySelector(".alert-cep");
 
         const valorCep = await getValidCep();
         const dadosArray = await getJson(`https://viacep.com.br/ws/${valorCep}/json/`);

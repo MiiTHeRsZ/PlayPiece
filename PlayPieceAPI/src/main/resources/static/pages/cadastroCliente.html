@@ -18,70 +18,72 @@
     </header>
 
     <div id="containerCadastro">
-        <form action="#" id="form"> 
+        <form action="#" id="form">
 
-        <div class="cpfNome space">
-            <label for="cpf">CPF:</label>
-            <input type="text" name="cpf" id="cpf" class="form__container" minlength="11" required />
-            <label for="nome">Nome:</label>
-            <input type="text" name="nome" class="form__container" id="nome" required />
-        </div>
+            <div class="cpfNome space">
+                <label for="cpf">CPF:</label>
+                <input type="text" name="cpf" id="cpf" class="form__container" minlength="11" required />
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" class="form__container" id="nome" required />
+            </div>
 
-        <div class="dataGeneroEmail space">
-            <label for="dt_nasc">Data de Nascimento:</label>
-            <input type="date" name="dt_nasc" id="dt_nasc" class="form__container" min="1900-01-01" required />
-            <label for="genero">Gênero:</label>
-            <select id="genero" required>
-                <option value="0" selected="true" disabled="disabled">Selecione um cargo</option>
-                <option value="F">Feminino</option>
-                <option value="M">Masculino</option>
-                <option value="NA">Prefiro não informar</option>
-            </select>
-            <label for="email">Email:</label>
-            <input type="text" name="email" class="form__container" id="email" required />
-        </div>
+            <div class="dataGeneroEmail space">
+                <label for="dt_nasc">Data de Nascimento:</label>
+                <input type="date" name="dt_nasc" id="dt_nasc" class="form__container" min="1900-01-01" required />
+                <label for="genero">Gênero:</label>
+                <select id="genero" required>
+                    <option value="0" selected="true" disabled="disabled">Selecione um cargo</option>
+                    <option value="F">Feminino</option>
+                    <option value="M">Masculino</option>
+                    <option value="NA">Prefiro não informar</option>
+                </select>
+                <label for="email">Email:</label>
+                <input type="text" name="email" class="form__container" id="email" required />
+                <span class="alert mail"></span>
+            </div>
 
-        <div class="cep space">
-            <span class="alert mail"></span>
-            <label for="cep">CEP:</label>
-            <input type="text" name="cep" class="form__container" id="cep" required />
-            <span class="alert cep"></span>
-        </div>
+            <div class="cep space">
+                <label for="cep">CEP:</label>
+                <input type="text" name="cep" class="form__container" id="cep" required />
+                <span class="alert-cep"></span>
+            </div>
 
-        <div class="lograNum space">
-            <label for="logradouro">Logradouro:</label>
-            <input type="text" name="logradouro" class="form__container" id="logradouro" required readonly />
-            <label for="numero">Número:</label>
-            <input type="text" name="numero" class="form__container" id="numero" required />
-        </div>
+            <div class="lograNum space">
+                <label for="logradouro">Logradouro:</label>
+                <input type="text" name="logradouro" class="form__container" id="logradouro" required readonly />
+                <label for="numero">Número:</label>
+                <input type="text" name="numero" class="form__container" id="numero" required />
+            </div>
 
-        <div class="complement space">
-            <label for="complemento">Complemento:</label>
-            <input type="text" name="complemento" class="form__container" id="complemento" required />
-        </div>
+            <div class="complement space">
+                <label for="complemento">Complemento:</label>
+                <input type="text" name="complemento" class="form__container" id="complemento" required />
+            </div>
 
-        <div class="bairCidUf space">
-            <label for="bairro">Bairro:</label>
-            <input type="text" name="bairro" class="form__container" id="bairro" required readonly />
+            <div class="bairCidUf space">
+                <label for="bairro">Bairro:</label>
+                <input type="text" name="bairro" class="form__container" id="bairro" required readonly />
 
-            <label for="cidade">Cidade:</label>
-            <input type="text" name="cidade" class="form__container" id="cidade" required readonly />
+                <label for="cidade">Cidade:</label>
+                <input type="text" name="cidade" class="form__container" id="cidade" required readonly />
 
-            <label for="uf">UF:</label>
-            <input type="text" name="uf" class="form__container" id="uf" required readonly />
-        </div>
-        
-        <div class="confSenha space">
-            <label for="senha">Senha:</label>
-            <input type="password" name="senha" id="senha" class="passInput form__container" minlength="8" maxlength="25" required>
-            <label for="confirmaSenha">Confirmar senha:</label>
-            <input type="password" name="confirmaSenha" id="confirmaSenha" class="passInput form__container" minlength="8" maxlength="25" required>
-            <span class="alert senha"></span>
+                <label for="uf">UF:</label>
+                <input type="text" name="uf" class="form__container" id="uf" required readonly />
+            </div>
 
-            <i id="showPassword" class="fa-solid fa-eye-slash"></i>
+            <div class="confSenha space">
+                <label for="senha">Senha:</label>
+                <input type="password" name="senha" id="senha" class="passInput form__container" minlength="8"
+                    maxlength="25" required>
+                <label for="confirmaSenha">Confirmar senha:</label>
+                <input type="password" name="confirmaSenha" id="confirmaSenha" class="passInput form__container"
+                    minlength="8" maxlength="25" required>
+                <span class="alert senha"></span>
 
-            <button type="submit" id="btn-salvar" disabled>Criar</button>
-        </div>
+                <i id="showPassword" class="fa-solid fa-eye-slash"></i>
+
+                <button type="submit" id="btn-salvar" disabled>Criar</button>
+            </div>
 
         </form>
     </div>
