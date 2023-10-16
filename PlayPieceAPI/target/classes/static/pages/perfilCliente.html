@@ -12,28 +12,29 @@
 
 <body>
     <header id="menuBar">
-        <a href="./index.html"><img src="../images/Logo.png" alt="Logo" class="logo" /></a>
+        <a href="../index.html"><img src="../images/Logo.png" alt="Logo" class="logo" /></a>
         <div>
             <a href="" class="icon shopping_cart"><i class="fi fi-br-shopping-cart"></i></a>
             <!-- ! Mudar para icone de deslogar -->
-            <a href="./pages/loginCliente.html" class="icon user" id="perfil"><i class="fi fi-br-user"></i></a>
+            <a href="./loginCliente.html" class="icon user" id="perfil"><i class="fi fi-br-user"></i></a>
         </div>
     </header>
     <main>
         <section id="info">
             <h1 id="nomeCliente">Fulano</h1>
+            <p id="idCliente" hidden></p>
             <form action="#" id="form">
                 <div>
                     <label for="cpf">CPF:</label>
                     <input type="text" name="cpf" id="cpf" minlength="11" required readonly />
                     <label for="nome">Nome:</label>
-                    <input type="text" name="nome" id="nome" required readonly />
+                    <input type="text" name="nome" id="nome" required />
                 </div>
                 <div>
                     <label for="dt_nasc">Data de Nascimento:</label>
-                    <input type="date" name="dt_nasc" id="dt_nasc" required readonly />
+                    <input type="date" name="dt_nasc" id="dt_nasc" required />
                     <label for="genero">Gênero:</label>
-                    <select name="genero" id="genero" required disabled>
+                    <select name="genero" id="genero" required>
                         <option value="0" selected disabled>Selecione um cargo</option>
                         <option value="F">Feminino</option>
                         <option value="M">Masculino</option>
@@ -43,6 +44,7 @@
                     <input type="text" name="email" id="email" required readonly />
                     <span class="alert mail"></span>
                 </div>
+                <button type="submit" id="alterar-info">Alterar informações</button>
                 <div>
                     <h3>Endereço de Faturamento:</h3>
                     <label for="cepFat">CEP:</label>
@@ -65,6 +67,9 @@
                     <select name="enderecoEntrega" id="enderecoEntrega">
                         
                     </select>
+                    <button type="submit" id="novo-endereco">Novo endereço</button>
+                    <button type="submit" id="definir-endereco-padrao">Definir como padrão</button>
+                    <button type="submit" id="excluir-endereco">Excluir endereço</button>
                     <div>
                         <label for="cep">CEP:</label>
                         <input type="text" name="cep" id="cep" required readonly />
@@ -96,7 +101,7 @@
                     <i id="showPassword" class="fa-solid fa-eye-slash"></i>
                 </div>
 
-                <button type="submit" id="btn-salvar" disabled>Alterar</button>
+                <button type="submit" id="alterar-senha">Alterar senha</button>
             </form>
         </section>
     </main>

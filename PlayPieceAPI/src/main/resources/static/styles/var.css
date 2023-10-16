@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
 
 :root {
+    --font: 'Roboto Mono', monospace;
+
     --bg-color: #D6DDDF;
     --bg-accent-color: #AEB5B7;
     --bg-alternative-color: #E0E7E9;

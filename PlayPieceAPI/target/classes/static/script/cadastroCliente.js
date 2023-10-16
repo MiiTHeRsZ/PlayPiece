@@ -116,7 +116,7 @@ botaoSalvar.addEventListener("click", async (e) => {
 
     const result = await fetch("/cliente", {
         method: "POST",
-        headers: {
+        headers: {  
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(cliente),
