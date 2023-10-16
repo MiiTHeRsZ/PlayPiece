@@ -1,5 +1,8 @@
 package com.playpiece.PlayPiece.Controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.playpiece.PlayPiece.Models.ClienteModel;
 import com.playpiece.PlayPiece.Services.ClienteService;
 
@@ -32,10 +34,14 @@ public class ClienteController {
     @GetMapping(value = "search", params = "email")
     public ResponseEntity getClienteEmail(@RequestParam String email) {
         ClienteModel cliente = clienteService.getClienteByEmail(email);
+
         if (cliente == null)
             return new ResponseEntity<String>("Cliente não encontrado", HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<ClienteModel>(cliente, HttpStatus.OK);
+        List<String> login = new ArrayList<>();
+        login.add(cliente.getEmail());
+        login.add(cliente.getSenha());
+        return new ResponseEntity<>(login, HttpStatus.OK);
     }
 
     @PostMapping
