@@ -20,6 +20,8 @@ function verificaInformacao() {
     let cpf = document.getElementById("cpf").value
     let cpfret = validaCPF(cpf)
     let emailret = verificaEmail();
+    let genero = document.getElementById("genero").value;
+    document.getElementById("senha").value.hashCode()
 
     let ret = verificarSenhas(senha, confirmaSenha)
 
@@ -30,7 +32,7 @@ function verificaInformacao() {
         document.getElementById("confirmaSenha").style.border = '2px solid red'
     }
     // verifica se as informações senha e cpf foram preechidas corratamente ou não para liberar o botao de salvar
-    if (ret && cpfret && emailret) {
+    if (ret && cpfret && emailret && genero != 0) {
         document.getElementById("btn-salvar").removeAttribute("disabled")
         document.getElementById("btn-salvar").style.cursor = 'pointer'
     } else {
@@ -87,7 +89,7 @@ botaoSalvar.addEventListener("click", async (e) => {
         "dt_nascimento": document.getElementById("dt_nasc").value,
         "genero": document.getElementById("genero").value,
         "email": document.getElementById("email").value,
-        "enderencoFaturamento": {
+        "enderecoFaturamento": {
             "cep": document.getElementById("cep").value,
             "logradouro": document.getElementById("logradouro").value,
             "numero": document.getElementById("numero").value,
@@ -112,7 +114,7 @@ botaoSalvar.addEventListener("click", async (e) => {
 
     if (result.status == 201) {
 
-        alert("Cliente criado com sucesso!\nCriando senha")
+        alert("Cliente criado com sucesso!")
         window.close()
     } else {
         document.querySelector("body").style = "background-color:#ffcbcb;"
@@ -223,13 +225,11 @@ function getJson(url) {
 
 function getValidCep() {
     return new Promise((resolve, reject) => {
-        const numeroCep = document.getElementById("cep");
+        const numeroCep = document.getElementById("cep").value;
 
-        if (numeroCep.value.length === 8) {
-            numeroCep.classList.remove("input-error");
-            resolve(value);
+        if (numeroCep.length === 8) {
+            resolve(numeroCep);
         } else {
-            numeroCep.classList.add("input-error");
             reject(new Error("CEP inválido"));
         }
     });
@@ -239,30 +239,23 @@ async function buscarDadosCep() {
     try {
         const alert = document.querySelector(".cep");
 
-        const cepOK = true
         const valorCep = await getValidCep();
         const dadosArray = await getJson(`https://viacep.com.br/ws/${valorCep}/json/`);
-        if (dadosArray.erro === 'true') {
+        if (dadosArray.erro === true) {
             alert.innerHTML = "CEP inválido!";
             alert.style.display = "inline";
         } else {
             alert.innerHTML = "";
             alert.style.display = "none";
-            document.getElementById('logradouro').placeholder = dadosArray.logradouro;
-            document.getElementById('bairro').placeholder = dadosArray.bairro;
-            document.getElementById('cidade').placeholder = dadosArray.localidade;
-            document.getElementById('uf').placeholder = dadosArray.uf;
+            document.getElementById('logradouro').value = dadosArray.logradouro;
+            document.getElementById('bairro').value = dadosArray.bairro;
+            document.getElementById('cidade').value = dadosArray.localidade;
+            document.getElementById('uf').value = dadosArray.uf;
         }
     } catch (erro) {
         console.log("Erro na busca do CEP: " + erro.message + "\nVerifique se o CEP fornecido é realmente válido");
     }
 }
-// acionando o evento de busca dos dados atraves de um botao (melhor fazer isso com um botao "enviar" que fazer a requisicao automatica)
-const btnEnviar = document.querySelector("#send");
-btnEnviar.addEventListener("click", buscarDadosCep);
-
-
-
 
 // {
 //     "cep": "04775-170",

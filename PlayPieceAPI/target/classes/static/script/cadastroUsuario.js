@@ -168,7 +168,7 @@ botaoSalvar.addEventListener("click", async (e) => {
 
     if (result.status == 201) {
 
-        alert("Usuário criado com sucesso!\nCriando senha")
+        alert("Usuário criado com sucesso!")
         window.close()
     } else {
         document.querySelector("body").style = "background-color:#ffcbcb;"

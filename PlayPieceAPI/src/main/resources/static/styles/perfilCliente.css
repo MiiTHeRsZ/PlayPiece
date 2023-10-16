@@ -1,0 +1,30 @@
+@import url("./var.css");
+@import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
+
+main {
+    padding-top: 100px;
+}
+
+#menuBar {
+    width: 100vw;
+    height: 10vh;
+    z-index: 1;
+    padding: 0 20px;
+    border-bottom: 2px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    position: fixed;
+}
+
+#menuBar .logo {
+    width: 60px;
+}
+
+#menuBar .icon {
+    text-decoration: none;
+    color: #000;
+    font-size: 40px;
+    margin-right: 16px;
+}
