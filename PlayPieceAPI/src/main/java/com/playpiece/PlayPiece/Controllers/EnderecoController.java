@@ -37,8 +37,8 @@ public class EnderecoController {
         return new ResponseEntity<List<EnderecoModel>>(listaEnderecos, HttpStatus.OK);
     }
 
-    @GetMapping("/{idCliente}")
-    public ResponseEntity getEnderecoById(Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity getEnderecoById(@PathVariable Long id) {
         EnderecoModel endereco = enderecoService.getEnderecoById(id);
         if (endereco == null)
             return new ResponseEntity<String>("Nenhum endereço cadastrado", HttpStatus.NOT_FOUND);
@@ -63,7 +63,7 @@ public class EnderecoController {
             return new ResponseEntity<String>("Falha ao atualizar endereço",
                     HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<EnderecoModel>(novoEndereco, HttpStatus.OK);
+        return new ResponseEntity<EnderecoModel>(novoEndereco, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

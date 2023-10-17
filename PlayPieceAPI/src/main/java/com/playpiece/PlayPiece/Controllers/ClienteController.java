@@ -38,15 +38,11 @@ public class ClienteController {
         if (cliente == null)
             return new ResponseEntity<String>("Cliente não encontrado", HttpStatus.NOT_FOUND);
 
-        List<String> login = new ArrayList<>();
-        login.add(cliente.getEmail());
-        login.add(cliente.getSenha());
-        return new ResponseEntity<>(login, HttpStatus.OK);
+        return new ResponseEntity<>(cliente, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity postCliente(@RequestBody ClienteModel cliente) {
-        System.out.println(cliente);
         ClienteModel novoCliente = clienteService.postClient(cliente);
         if (novoCliente == null)
             return new ResponseEntity<String>("Falha ao criar cliente", HttpStatus.BAD_REQUEST);
@@ -60,9 +56,10 @@ public class ClienteController {
         ClienteModel novoCliente = clienteService.updateCliente(id, cliente);
 
         if (novoCliente == null)
-            return new ResponseEntity<String>("Falha ao atualizar cliente", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Falha ao atualizar cliente",
+                    HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<ClienteModel>(novoCliente, HttpStatus.OK);
+        return new ResponseEntity<>("a", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
