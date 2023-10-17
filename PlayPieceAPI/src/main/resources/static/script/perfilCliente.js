@@ -2,6 +2,16 @@ const urlParams = new URLSearchParams(window.location.search);
 email = urlParams.get('email');
 let dados;
 
+document.getElementById("logo").href += email;
+
+document.getElementById("sair-perfil").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const resp = window.confirm("Deseja encerrar a sessão?");
+
+    resp == 1 ? window.open("../index.html", "_self") : "";
+});
+
 const conectAPI = async () => {
     dados = await fetch(`/cliente/search?email=${email}`).then(data => data.json());
     preecheDados();
