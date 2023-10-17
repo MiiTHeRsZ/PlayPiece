@@ -39,73 +39,68 @@ const preecheDados = async () => {
             document.getElementById("cidade").value = endereco.cidade;
             document.getElementById("uf").value = endereco.uf;
             document.getElementById("excluir-endereco").toggleAttribute("disabled");
-            document.getElementById("definir-endereco-padrao").toggleAttribute("disabled")
-            document.getElementById("enderecoEntrega").value = endereco.id
         }
-        opcao.textContent = endereco.logradouro + ", N°" + endereco.numero + " " + endereco.complemento;
+        opcao.textContent = endereco.logradouro + ", N°" + endereco.numero;
         document.getElementById("enderecoEntrega").appendChild(opcao);
-
     });
 }
 
-function limpaOptions() {
-    let options = document.querySelectorAll("#enderecoEntrega option")
-    options.forEach(item => {
-        item.remove()
-    })
-}
+document.getElementById("enderecoEntrega").addEventListener("change", () => {
 
-document.getElementById("enderecoEntrega").addEventListener("change", async () => {
+    dados.listaEndereco.forEach(endereco => {
 
-    let endereco = await fetch(`/endereco/${document.getElementById("enderecoEntrega").value}`).then(data => data.json());
-    let cliente = await fetch(`/cliente/search?email=${email}`).then(data => data.json());
+        if (document.getElementById("enderecoEntrega").value == endereco.id) {
+            document.getElementById("cep").value = endereco.cep;
+            document.getElementById("logradouro").value = endereco.logradouro;
+            document.getElementById("numero").value = endereco.numero;
+            document.getElementById("complemento").value = endereco.complemento;
+            document.getElementById("bairro").value = endereco.bairro;
+            document.getElementById("cidade").value = endereco.cidade;
+            document.getElementById("uf").value = endereco.uf;
 
-    if (document.getElementById("enderecoEntrega").value == endereco.id) {
-        document.getElementById("cep").value = endereco.cep;
-        document.getElementById("logradouro").value = endereco.logradouro;
-        document.getElementById("numero").value = endereco.numero;
-        document.getElementById("complemento").value = endereco.complemento;
-        document.getElementById("bairro").value = endereco.bairro;
-        document.getElementById("cidade").value = endereco.cidade;
-        document.getElementById("uf").value = endereco.uf;
-
-        if (endereco.padrao) {
-            document.getElementById("excluir-endereco").toggleAttribute("disabled");
-            document.getElementById("definir-endereco-padrao").toggleAttribute("disabled")
-        } else {
-            document.getElementById("excluir-endereco").removeAttribute("disabled");
-            document.getElementById("definir-endereco-padrao").removeAttribute("disabled");
+            if (endereco.padrao) {
+                document.getElementById("excluir-endereco").toggleAttribute("disabled");
+            } else {
+                document.getElementById("excluir-endereco").removeAttribute("disabled");
+            }
         }
 
-        // if (document.getElementById("enderecoEntrega").value == cliente.enderecoFaturamento.id) {
-        //     document.getElementById("definir-endereco-faturamento").toggleAttribute("disabled")
-        // } else {
-        //     document.getElementById("definir-endereco-faturamento").removeAttribute("disabled");
-        // }
-    }
+    });
+
 });
 
 document.getElementById("alterar-info").addEventListener("click", async (e) => {
     e.preventDefault();
 
-    let cliente = await fetch(`/cliente/search?email=${email}`).then(data => data.json());
-    cliente.nome = document.getElementById("nome").value
-    cliente.dt_nascimento = document.getElementById("dt_nasc").value
-    cliente.genero = document.getElementById("genero").value
+    if (document.getElementById("senha").value === document.getElementById("confirmaSenha").value) {
 
-    const result = await fetch(`/cliente/${cliente.id}`, {
-        method: "PUT",
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(cliente),
-    })
+        let cliente = {
+            "cpf": document.getElementById("cpf").value,
+            "nome": document.getElementById("nome").value,
+            "dt_nascimento": document.getElementById("dt_nasc").value,
+            "genero": document.getElementById("genero").value,
+            "email": document.getElementById("email").value,
+            "enderecoFaturamento": dados.enderecoFaturamento,
+            "listaEndereco": dados.listaEndereco,
+            "senha": document.getElementById("senha").value.length == 0 ? dados.senha : document.getElementById("senha").value.hashCode(),
+            "ativo": true
+        }
 
-    if (result.status == 201) {
+        const result = await fetch(`/cliente/${document.getElementById("idCliente").innerHTML}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(cliente),
+        })
 
-        alert("Dados atualizados com sucesso!")
+        if (result.status == 201) {
+            alert("Dados atualizados com sucesso!");
+        } else {
+            alert("Falha ao atualizar os dados\nTente novamente!");
+        }
     } else {
-        alert("Falha ao atualizar os dados\nTente novamente!")
+        alert("Senhas não coincidem!\nCaso não deseje alterar a senha,\ngaranta que os campos de 'senha' estejam vazios!");
     }
 });
 
@@ -120,12 +115,12 @@ document.getElementById("novo-endereco").addEventListener("click", async (e) => 
         "bairro": document.getElementById("bairro").value,
         "cidade": document.getElementById("cidade").value,
         "uf": document.getElementById("uf").value,
-        "padrao": false,
+        "padrao": true,
         "ativo": true
     }
 
     const result = await fetch(`/endereco/${document.getElementById("idCliente").innerHTML}`, {
-        method: "POST",
+        method: "PUT",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
@@ -133,10 +128,10 @@ document.getElementById("novo-endereco").addEventListener("click", async (e) => 
     })
 
     if (result.status == 201) {
-
-        alert("Endereço criado com sucesso!")
+        alert("Endereço criado com sucesso!");
+        window.location.reload();
     } else {
-        alert("Falha ao criar o endereço\nTente novamente!")
+        alert("Falha ao criar o endereço\nTente novamente!");
     }
 });
 
@@ -148,8 +143,8 @@ document.getElementById("definir-endereco-padrao").addEventListener("click", asy
         "padrao": true
     }
 
-    const result = await fetch(`/endereco/${document.getElementById("enderecoEntrega").value}`, {
-        method: "PUT",
+    const result = await fetch(`/endereco/${document.getElementById("idCliente").innerHTML}`, {
+        method: "PATCH",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
@@ -157,62 +152,9 @@ document.getElementById("definir-endereco-padrao").addEventListener("click", asy
     })
 
     if (result.status == 201) {
-
         alert("Endereço padrão definido com sucesso!")
-        limpaOptions()
-        conectAPI()
     } else {
         alert("Falha ao definir o endereço padrão\nTente novamente!")
-    }
-});
-
-// document.getElementById("definir-endereco-faturamento").addEventListener("click", async (e) => {
-//     e.preventDefault();
-
-//     let cliente = await fetch(`/cliente/search?email=${email}`).then(data => data.json())
-//     console.log(cliente);
-//     cliente.enderecoFaturamento.id = document.getElementById("enderecoEntrega").value
-
-//     const result = await fetch(`/cliente/${cliente.id}`, {
-//         method: "PUT",
-//         headers: {
-//             'Content-Type': 'application/json;charset=utf-8'
-//         },
-//         body: JSON.stringify(cliente),
-//     })
-
-//     if (result.status == 201) {
-
-//         alert("Endereço de faturamento definido com sucesso!")
-//         limpaOptions()
-//         conectAPI()
-//     } else {
-//         alert("Falha ao definir o endereço de faturamento\nTente novamente!")
-//     }
-// });
-
-document.getElementById("alterar-senha").addEventListener("click", async (e) => {
-    e.preventDefault();
-
-    let cliente = {
-        "id": document.getElementById("idCliente").innerHTML,
-        "senha": document.getElementById("senha").value.hashCode()
-    }
-
-    const result = await fetch("/cliente", {
-        method: "PUT",
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(cliente),
-    })
-
-    if (result.status == 201) {
-
-        alert("Senha atualizada com sucesso!")
-        window.close()
-    } else {
-        alert("Falha ao atualizar a senha\nTente novamente!")
     }
 });
 
