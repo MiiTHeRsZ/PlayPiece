@@ -38,7 +38,11 @@ const preecheDados = async () => {
             document.getElementById("bairro").value = endereco.bairro;
             document.getElementById("cidade").value = endereco.cidade;
             document.getElementById("uf").value = endereco.uf;
+            document.getElementById("definir-endereco-padrao").toggleAttribute("disabled");
             document.getElementById("excluir-endereco").toggleAttribute("disabled");
+        }
+        if (!endereco.ativo) {
+            opcao.toggleAttribute("disabled");
         }
         opcao.textContent = endereco.logradouro + ", N°" + endereco.numero;
         document.getElementById("enderecoEntrega").appendChild(opcao);
@@ -59,8 +63,10 @@ document.getElementById("enderecoEntrega").addEventListener("change", () => {
             document.getElementById("uf").value = endereco.uf;
 
             if (endereco.padrao) {
+                document.getElementById("definir-endereco-padrao").toggleAttribute("disabled");
                 document.getElementById("excluir-endereco").toggleAttribute("disabled");
             } else {
+                document.getElementById("definir-endereco-padrao").removeAttribute("disabled");
                 document.getElementById("excluir-endereco").removeAttribute("disabled");
             }
         }
@@ -87,14 +93,14 @@ document.getElementById("alterar-info").addEventListener("click", async (e) => {
         }
 
         const result = await fetch(`/cliente/${document.getElementById("idCliente").innerHTML}`, {
-            method: "PATCH",
+            method: "PUT",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify(cliente),
         })
 
-        if (result.status == 201) {
+        if (result.status == 200 || result.status == 201) {
             alert("Dados atualizados com sucesso!");
         } else {
             alert("Falha ao atualizar os dados\nTente novamente!");
@@ -127,7 +133,7 @@ document.getElementById("novo-endereco").addEventListener("click", async (e) => 
         body: JSON.stringify(endereco),
     })
 
-    if (result.status == 201) {
+    if (result.status == 200 || result.status == 201) {
         alert("Endereço criado com sucesso!");
         window.location.reload();
     } else {
@@ -138,23 +144,38 @@ document.getElementById("novo-endereco").addEventListener("click", async (e) => 
 document.getElementById("definir-endereco-padrao").addEventListener("click", async (e) => {
     e.preventDefault();
 
-    let endereco = {
-        "id": document.getElementById("enderecoEntrega").value,
-        "padrao": true
-    }
-
-    const result = await fetch(`/endereco/${document.getElementById("idCliente").innerHTML}`, {
-        method: "PATCH",
+    const result = await fetch(`/endereco/${document.getElementById("enderecoEntrega").value}`, {
+        method: "PUT",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify(endereco),
+        body: '',
     })
 
-    if (result.status == 201) {
-        alert("Endereço padrão definido com sucesso!")
+    if (result.status == 200 || result.status == 201) {
+        alert("Endereço padrão definido com sucesso!");
+        window.location.reload();
     } else {
-        alert("Falha ao definir o endereço padrão\nTente novamente!")
+        alert("Falha ao definir o endereço padrão\nTente novamente!");
+    }
+});
+
+document.getElementById("excluir-endereco").addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const result = await fetch(`/endereco/${document.getElementById("enderecoEntrega").value}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: '',
+    })
+
+    if (result.status == 200 || result.status == 201) {
+        alert("Endereço desabilitado com sucesso!");
+        window.location.reload();
+    } else {
+        alert("Falha ao desabilitar o endereço\nTente novamente!");
     }
 });
 
