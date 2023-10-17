@@ -12,6 +12,14 @@
 </head>
 
 <body>
+    <header id="menuBar">
+        <a href="../index.html"><img src="../images/Logo.png" alt="Logo" class="logo" /></a>
+        <div>
+            <a href="" class="icon shopping_cart"><i class="fi fi-br-shopping-cart"></i></a>
+            <a href="./loginCliente.html" class="icon user" id="perfil"><i class="fi fi-br-user"></i></a>
+        </div>
+    </header>
+
     <div class="form__container">
         <form action="" id="form">
             <label for=" #nickname" class="form__label">Usuário (e-mail):</label>
@@ -25,7 +33,7 @@
             </div>
 
             <div class="btns">
-                <a href="cadastroCliente.html" id="form__btn-cadastrar" class="form__btn">Cadastrar</a>
+                <a href="./cadastroCliente.html" onclick="{window.open('./cadastroCliente.html','_self')}" id="form__btn-cadastrar" class="form__btn">Cadastrar</a>
                 <div>
                     <input type="submit" value="Entrar" id="form__btn-entrar" class="form__btn" />
                     |
