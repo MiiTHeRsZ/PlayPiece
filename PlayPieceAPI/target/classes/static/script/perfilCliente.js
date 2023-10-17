@@ -26,16 +26,11 @@ const preecheDados = async () => {
     document.getElementById("cidadeFat").value = dados.enderecoFaturamento.cidade;
     document.getElementById("ufFat").value = dados.enderecoFaturamento.uf;
 
-    let idPadrao = 0;
     dados.listaEndereco.forEach(endereco => {
         let opcao = document.createElement("option");
-        if (endereco.ativo) {
-            opcao.value = endereco.id;
-            opcao.textContent = endereco.logradouro + ", N°" + endereco.numero + " " + endereco.complemento;
-            document.getElementById("enderecoEntrega").appendChild(opcao);
-        }
+        opcao.value = endereco.id;
         if (endereco.padrao) {
-            idPadrao = endereco.id;
+            opcao.toggleAttribute("selected");
             document.getElementById("cep").value = endereco.cep;
             document.getElementById("logradouro").value = endereco.logradouro;
             document.getElementById("numero").value = endereco.numero;
@@ -45,22 +40,21 @@ const preecheDados = async () => {
             document.getElementById("uf").value = endereco.uf;
             document.getElementById("definir-endereco-padrao").toggleAttribute("disabled");
             document.getElementById("excluir-endereco").toggleAttribute("disabled");
-            document.getElementById("enderecoEntrega").value = endereco.id
         }
+        if (!endereco.ativo) {
+            opcao.toggleAttribute("disabled");
+        }
+        opcao.textContent = endereco.logradouro + ", N°" + endereco.numero;
+        if (endereco.padrao) {
+            opcao.textContent += ` \u2B50`
+        }
+        document.getElementById("enderecoEntrega").appendChild(opcao);
     });
-
-    let opcoes = document.querySelectorAll("#enderecoEntrega option")
-    opcoes.forEach(item => {
-        if (item.value == idPadrao) {
-            document.getElementById("enderecoEntrega").insertBefore(item, opcoes[0])
-        }
-    })
 }
 
 document.getElementById("enderecoEntrega").addEventListener("change", () => {
 
     dados.listaEndereco.forEach(endereco => {
-        console.log(document.getElementById("enderecoEntrega").value);
 
         if (document.getElementById("enderecoEntrega").value == endereco.id) {
             document.getElementById("cep").value = endereco.cep;
