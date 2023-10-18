@@ -7,7 +7,16 @@ document.getElementById("cpf").onchange = async () => {
         document.getElementById("err-cpf").style.display = "block"
     }
 }
+document.getElementById("nome").onchange = () => {
+    if (!verificaNome()) {
+        alert("Preencha o campo 'Nome' com nome e sobrenome\ncontendo ao menos 3 letras cada!.");
+    }
+    verificaInformacao();
+}
 document.getElementById("email").onchange = () => {
+    verificaInformacao();
+}
+document.getElementById("genero").onchange = () => {
     verificaInformacao();
 }
 document.getElementById("cep").onchange = () => {
@@ -19,6 +28,7 @@ document.getElementById("senha").onchange = () => {
 document.getElementById("confirmaSenha").onchange = () => {
     verificaInformacao();
 }
+
 var hojeSemForm = new Date();
 const hoje = {
     "dia": hojeSemForm.getDate() < 10 ? "0" + hojeSemForm.getDate() : hojeSemForm.getDate(),
@@ -33,6 +43,7 @@ document.getElementById("dt_nasc").setAttribute("max", hoje.string)
 function verificaInformacao() {
     let senha = document.getElementById("senha").value
     let confirmaSenha = document.getElementById("confirmaSenha").value
+    let nomeret = verificaNome();
     let cpf = document.getElementById("cpf").value
     let cpfret = validaCPF(cpf)
     let emailret = verificaEmail();
@@ -47,8 +58,9 @@ function verificaInformacao() {
     } else {
         document.getElementById("confirmaSenha").style.border = '2px solid red'
     }
+
     // verifica se as informações senha e cpf foram preechidas corratamente ou não para liberar o botao de salvar
-    if (ret && cpfret && emailret && genero != 0) {
+    if (ret && nomeret && cpfret && emailret && genero != 0) {
         document.getElementById("btn-salvar").removeAttribute("disabled")
         document.getElementById("btn-salvar").style.cursor = 'pointer'
     } else {
@@ -99,54 +111,41 @@ const botaoSalvar = document.getElementById("btn-salvar");
 botaoSalvar.addEventListener("click", async (e) => {
     e.preventDefault()
 
-    let nomeValido;
-    document.getElementById("nome").value.split(" ").forEach((nome, index) => {
-        if(nome.length > 2 && index > 0 && nomeValido != false) {
-            nomeValido = true;
-        } else {
-            nomeValido = false;
-        }
-    });
-
-    if (nomeValido) {
-        let cliente = {
-            "cpf": document.getElementById("cpf").value,
-            "nome": document.getElementById("nome").value,
-            "dt_nascimento": document.getElementById("dt_nasc").value,
-            "genero": document.getElementById("genero").value,
-            "email": document.getElementById("email").value,
-            "enderecoFaturamento": {
-                "cep": document.getElementById("cep").value,
-                "logradouro": document.getElementById("logradouro").value,
-                "numero": document.getElementById("numero").value,
-                "complemento": document.getElementById("complemento").value,
-                "bairro": document.getElementById("bairro").value,
-                "cidade": document.getElementById("cidade").value,
-                "uf": document.getElementById("uf").value,
-                "padrao": true,
-                "ativo": true
-            },
-            "senha": document.getElementById("senha").value.hashCode(),
+    let cliente = {
+        "cpf": document.getElementById("cpf").value,
+        "nome": document.getElementById("nome").value,
+        "dt_nascimento": document.getElementById("dt_nasc").value,
+        "genero": document.getElementById("genero").value,
+        "email": document.getElementById("email").value,
+        "enderecoFaturamento": {
+            "cep": document.getElementById("cep").value,
+            "logradouro": document.getElementById("logradouro").value,
+            "numero": document.getElementById("numero").value,
+            "complemento": document.getElementById("complemento").value,
+            "bairro": document.getElementById("bairro").value,
+            "cidade": document.getElementById("cidade").value,
+            "uf": document.getElementById("uf").value,
+            "padrao": true,
             "ativo": true
-        }
-        const result = await fetch("/cliente", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(cliente),
-        })
+        },
+        "senha": document.getElementById("senha").value.hashCode(),
+        "ativo": true
+    }
+    const result = await fetch("/cliente", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(cliente),
+    })
 
-        if (result.status == 201) {
+    if (result.status == 201) {
 
-            alert("Cliente criado com sucesso!")
-            window.close()
-        } else {
-            document.querySelector("body").style = "background-color:#ffcbcb;"
-            alert("Falha ao cadastrar cliente\nTente novamente")
-        }
+        alert("Cliente criado com sucesso!")
+        window.close()
     } else {
-        alert("Preencha o campo 'Nome' com no mínimo 2 palavras\ncontendo ao menos 3 letras cada!.")
+        document.querySelector("body").style = "background-color:#ffcbcb;"
+        alert("Falha ao cadastrar cliente\nTente novamente")
     }
 })
 
@@ -261,6 +260,19 @@ function getValidCep() {
             reject(new Error("CEP inválido"));
         }
     });
+}
+
+function verificaNome() {
+    let nome = document.getElementById("nome").value.split(" ");
+    let nomeValido;
+    nome.forEach(palavra => {
+        if (palavra.length < 3 || nome.length < 2 || nomeValido == false) {
+            nomeValido = false;
+        } else {
+            nomeValido = true;
+        }
+    });
+    return nomeValido;
 }
 
 async function buscarDadosCep() {

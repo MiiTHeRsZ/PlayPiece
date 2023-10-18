@@ -48,9 +48,7 @@ public class ClienteService {
 
     public ClienteModel getClienteByEmail(String email) {
         try {
-            System.out.println(email);
             ClienteModel cliente = clienteRespository.findByEmail(email);
-            System.out.println(cliente);
             cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
             return cliente;
         } catch (Exception e) {
