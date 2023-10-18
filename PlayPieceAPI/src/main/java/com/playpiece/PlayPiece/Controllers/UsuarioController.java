@@ -30,7 +30,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity getUsuarioList() {
+    public ResponseEntity<?> getUsuarioList() {
         List<UsuarioModel> usuarios = usuarioService.getUsuarioList();
         if (usuarios.isEmpty())
             return new ResponseEntity<>("Não há usuários", HttpStatus.NOT_FOUND);
@@ -39,7 +39,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getUsuarioById(@PathVariable Long id) {
+    public ResponseEntity<?> getUsuarioById(@PathVariable Long id) {
 
         var usuario = usuarioService.getUsuarioById(id);
         if (usuario == null)
@@ -50,7 +50,7 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "search", params = { "email" })
-    public ResponseEntity getUsuarioByEmail(@RequestParam String email) {
+    public ResponseEntity<?> getUsuarioByEmail(@RequestParam String email) {
 
         var usuario = usuarioService.getUsuarioByEmail(email);
 
@@ -65,7 +65,7 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "search", params = { "nome" })
-    public ResponseEntity getUsuarioByNome(@RequestParam String nome) {
+    public ResponseEntity<?> getUsuarioByNome(@RequestParam String nome) {
         List<UsuarioModel> usuarios = usuarioService.getUsuarioByNome(nome);
         if (usuarios.isEmpty())
             return new ResponseEntity<>("Usuários não encontrados", HttpStatus.NOT_FOUND);

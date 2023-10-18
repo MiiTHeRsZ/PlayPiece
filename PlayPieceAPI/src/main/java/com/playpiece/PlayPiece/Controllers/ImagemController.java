@@ -28,27 +28,27 @@ public class ImagemController {
     }
 
     @PostMapping(value = "/{id}", params = { "nome", "fav" })
-    public ResponseEntity uploadImagem(@RequestBody MultipartFile imageFile, @PathVariable Long id,
+    public ResponseEntity<?> uploadImagem(@RequestBody MultipartFile imageFile, @PathVariable Long id,
             @RequestParam String nome, @RequestParam int fav) {
 
         try {
             imagemService.saveImage(imageFile, id, nome, fav);
-            return new ResponseEntity("OK", HttpStatus.CREATED);
+            return new ResponseEntity<String>("OK", HttpStatus.CREATED);
         } catch (IOException e) {
             e.printStackTrace();
-            return new ResponseEntity("ERRO", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>("ERRO", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping(value = "/{id}", params = { "nome", "fav" })
-    public ResponseEntity updateImagem(@RequestBody MultipartFile imageFile, @PathVariable Long id,
+    public ResponseEntity<?> updateImagem(@RequestBody MultipartFile imageFile, @PathVariable Long id,
             @RequestParam String nome, @RequestParam int fav) {
         try {
             imagemService.saveImage(imageFile, id, nome, fav);
-            return new ResponseEntity("OK", HttpStatus.CREATED);
+            return new ResponseEntity<String>("OK", HttpStatus.CREATED);
         } catch (IOException e) {
             e.printStackTrace();
-            return new ResponseEntity("ERRO", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>("ERRO", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

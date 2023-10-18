@@ -1,6 +1,5 @@
 package com.playpiece.PlayPiece.Services;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +24,17 @@ public class ClienteService {
         this.enderecoRepository = enderecoRepository;
     }
 
+    public ClienteModel getClienteById(Long id) {
+        try {
+            ClienteModel cliente = clienteRespository.findById(id).get();
+            cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
+            return cliente;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
     public ClienteModel getClienteByEmail(String email) {
         try {
             ClienteModel cliente = clienteRespository.findByEmail(email);
@@ -37,7 +47,6 @@ public class ClienteService {
     }
 
     public ClienteModel postClient(ClienteModel cliente) {
-        System.out.println("\n\n\n\n---------------AQUI-------------" + cliente + "\n\n\n\n---------------AQUI-------------");
         cliente.setId(null);
         cliente.setAtivo(true);
         enderecoService.postEndereco(0L, cliente.getEnderecoFaturamento());

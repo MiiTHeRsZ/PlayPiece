@@ -29,7 +29,7 @@ public class EnderecoController {
     }
 
     @GetMapping
-    public ResponseEntity getEnderecoList() {
+    public ResponseEntity<?> getEnderecoList() {
         List<EnderecoModel> listaEnderecos = enderecoService.getEnderecoList();
         if (listaEnderecos.isEmpty())
             return new ResponseEntity<String>("Nenhum endereço cadastrado", HttpStatus.NOT_FOUND);
@@ -38,7 +38,7 @@ public class EnderecoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getEnderecoById(@PathVariable Long id) {
+    public ResponseEntity<?> getEnderecoById(@PathVariable Long id) {
         EnderecoModel endereco = enderecoService.getEnderecoById(id);
         if (endereco == null)
             return new ResponseEntity<String>("Nenhum endereço cadastrado", HttpStatus.NOT_FOUND);
@@ -47,7 +47,7 @@ public class EnderecoController {
     }
 
     @PostMapping("/{idCliente}")
-    public ResponseEntity postEndereco(@PathVariable Long idCliente, @RequestBody EnderecoModel endereco) {
+    public ResponseEntity<?> postEndereco(@PathVariable Long idCliente, @RequestBody EnderecoModel endereco) {
         EnderecoModel novoEndereco = enderecoService.postEndereco(idCliente, endereco);
         if (novoEndereco == null)
             return new ResponseEntity<String>("Falha ao criar endereco", HttpStatus.BAD_REQUEST);
@@ -56,7 +56,7 @@ public class EnderecoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updatePadraoEndereco(@PathVariable Long id) {
+    public ResponseEntity<?> updatePadraoEndereco(@PathVariable Long id) {
         EnderecoModel novoEndereco = enderecoService.updatePadraoEndereco(id);
 
         if (novoEndereco == null)
@@ -67,7 +67,7 @@ public class EnderecoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity statusEndereco(@PathVariable Long id) {
+    public ResponseEntity<?> statusEndereco(@PathVariable Long id) {
         return new ResponseEntity<EnderecoModel>(enderecoService.statusEndereco(id), HttpStatus.OK);
     }
 
