@@ -7,9 +7,13 @@ const conect_api = async () => {
     const password = (document.getElementById("password").value).hashCode();
 
     // faz a busca dos dados fornecidos e depois converte para json
-    const result = await fetch(`/cliente/search?email=${nickname}`).then(data => data.json())
+    let result = null
+    try {
+        result = await fetch(`/cliente/search?email=${nickname}`).then(data => data.json())
+    } catch (error) {
+    }
     // validar se usuario e senha digitados batem com o usuario e senha cadastrado no banco de dados
-    if (nickname == result.email && password == result.senha) {
+    if (result != null && nickname == result.email && password == result.senha) {
         // ! Verificar na API se os dados passados batem, e retornar apenas o ID (Apenas ideia, porém bateu "não tá na história" kkk, pq se não, vai ter que fazer outra busca com o ID, então talvez seja descartada)
         location.href = `../index.html?email=${result.email}`, {};
     } else {
