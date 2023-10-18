@@ -1,5 +1,11 @@
-document.getElementById("cpf").onchange = () => {
-    verificaInformacao();
+document.getElementById("cpf").onchange = async () => {
+    const checkCpf = await (await fetch(`/cliente/search?cpf=${document.getElementById("cpf").value}`)).status == 200 ? true : false
+    if (!checkCpf) {
+        document.getElementById("err-cpf").style.display = "none"
+        verificaInformacao();
+    } else {
+        document.getElementById("err-cpf").style.display = "block"
+    }
 }
 document.getElementById("nome").onchange = () => {
     if (!verificaNome()) {

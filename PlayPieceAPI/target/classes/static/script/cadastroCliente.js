@@ -1,5 +1,11 @@
-document.getElementById("cpf").onchange = () => {
-    verificaInformacao();
+document.getElementById("cpf").onchange = async () => {
+    const checkCpf = await (await fetch(`/cliente/search?cpf=${document.getElementById("cpf").value}`)).status == 200 ? true : false
+    if (!checkCpf) {
+        document.getElementById("err-cpf").style.display = "none"
+        verificaInformacao();
+    } else {
+        document.getElementById("err-cpf").style.display = "block"
+    }
 }
 document.getElementById("email").onchange = () => {
     verificaInformacao();
@@ -93,44 +99,54 @@ const botaoSalvar = document.getElementById("btn-salvar");
 botaoSalvar.addEventListener("click", async (e) => {
     e.preventDefault()
 
-    let cliente = {
-        "cpf": document.getElementById("cpf").value,
-        "nome": document.getElementById("nome").value,
-        "dt_nascimento": document.getElementById("dt_nasc").value,
-        "genero": document.getElementById("genero").value,
-        "email": document.getElementById("email").value,
-        "enderecoFaturamento": {
-            "cep": document.getElementById("cep").value,
-            "logradouro": document.getElementById("logradouro").value,
-            "numero": document.getElementById("numero").value,
-            "complemento": document.getElementById("complemento").value,
-            "bairro": document.getElementById("bairro").value,
-            "cidade": document.getElementById("cidade").value,
-            "uf": document.getElementById("uf").value,
-            "padrao": true,
+    let nomeValido;
+    document.getElementById("nome").value.split(" ").forEach((nome, index) => {
+        if(nome.length > 2 && index > 0 && nomeValido != false) {
+            nomeValido = true;
+        } else {
+            nomeValido = false;
+        }
+    });
+
+    if (nomeValido) {
+        let cliente = {
+            "cpf": document.getElementById("cpf").value,
+            "nome": document.getElementById("nome").value,
+            "dt_nascimento": document.getElementById("dt_nasc").value,
+            "genero": document.getElementById("genero").value,
+            "email": document.getElementById("email").value,
+            "enderecoFaturamento": {
+                "cep": document.getElementById("cep").value,
+                "logradouro": document.getElementById("logradouro").value,
+                "numero": document.getElementById("numero").value,
+                "complemento": document.getElementById("complemento").value,
+                "bairro": document.getElementById("bairro").value,
+                "cidade": document.getElementById("cidade").value,
+                "uf": document.getElementById("uf").value,
+                "padrao": true,
+                "ativo": true
+            },
+            "senha": document.getElementById("senha").value.hashCode(),
             "ativo": true
-        },
-        "senha": document.getElementById("senha").value.hashCode(),
-        "ativo": true
-    }
+        }
+        const result = await fetch("/cliente", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(cliente),
+        })
 
-    console.log(cliente);
+        if (result.status == 201) {
 
-    const result = await fetch("/cliente", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(cliente),
-    })
-
-    if (result.status == 201) {
-
-        alert("Cliente criado com sucesso!")
-        window.close()
+            alert("Cliente criado com sucesso!")
+            window.close()
+        } else {
+            document.querySelector("body").style = "background-color:#ffcbcb;"
+            alert("Falha ao cadastrar cliente\nTente novamente")
+        }
     } else {
-        document.querySelector("body").style = "background-color:#ffcbcb;"
-        alert("Falha ao cadastrar cliente\nTente novamente")
+        alert("Preencha o campo 'Nome' com no mínimo 2 palavras\ncontendo ao menos 3 letras cada!.")
     }
 })
 

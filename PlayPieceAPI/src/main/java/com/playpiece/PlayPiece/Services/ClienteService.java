@@ -35,9 +35,22 @@ public class ClienteService {
         }
     }
 
+    public ClienteModel getClienteByCpf(String cpf) {
+        try {
+            ClienteModel cliente = clienteRespository.findByCpf(cpf);
+            cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
+            return cliente;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
     public ClienteModel getClienteByEmail(String email) {
         try {
+            System.out.println(email);
             ClienteModel cliente = clienteRespository.findByEmail(email);
+            System.out.println(cliente);
             cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
             return cliente;
         } catch (Exception e) {
