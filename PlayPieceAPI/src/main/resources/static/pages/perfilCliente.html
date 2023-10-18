@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/reset.css">
     <link rel="stylesheet" href="../styles/perfilCliente.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>Perfil</title>
 </head>
 
@@ -78,6 +78,7 @@
                 </div>
                 <div id="divEndereco" class="enderecoSpace">
                     <h3>Endereço de Entrega:</h3>
+                    <br>
                     <select name="enderecoEntrega" id="enderecoEntrega">
                     </select>
                     <button type="button" id="novo-endereco">Novo endereço</button>
@@ -133,7 +134,7 @@
                         </div>
                         <div>
                             <label for="complemento-novo">Complemento:</label>
-                            <input type="text" name="complemento-novo" id="complemento-novo"/>
+                            <input type="text" name="complemento-novo" id="complemento-novo" />
                         </div>
                         <div>
                             <label for="bairro-novo">Bairro:</label>
@@ -155,6 +156,7 @@
                 </div>
                 <div>
                     <h3>Trocar senha:</h3>
+                    <br>
                     <label for="senha">Nova senha:</label>
                     <input type="password" name="senha" id="senha" class="passInput" minlength="8" maxlength="25"
                         required>

@@ -68,7 +68,8 @@ h1 {
     text-align: center;
 }
 
-.enderecoSpace>div>div>input {
+.enderecoSpace>div>div>input,
+.passInput {
     border: 2px solid black;
     border-radius: 5px;
     padding-left: 5px;

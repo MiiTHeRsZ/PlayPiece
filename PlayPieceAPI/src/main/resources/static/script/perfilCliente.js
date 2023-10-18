@@ -2,7 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 email = urlParams.get('email');
 let dados;
 
-document.getElementById("logo").href += email;
+document.getElementById("logo").href += "?email=" + email;
 
 document.getElementById("sair-perfil").addEventListener("click", (e) => {
     e.preventDefault();
@@ -172,3 +172,24 @@ String.prototype.hashCode = function () {
     }
     return hash;
 }
+
+let showPassIcon = document.querySelector("#showPassword")
+showPassIcon.addEventListener("click", () => {
+    if (showPassIcon.getAttribute("class") == "fa-solid fa-eye-slash") {
+        showPassIcon.removeAttribute("class")
+        showPassIcon.setAttribute("class", "fa-solid fa-eye")
+        let passInput = document.querySelectorAll(".passInput")
+        for (let i = 0; i < passInput.length; i++) {
+            passInput[i].setAttribute("type", "text")
+        }
+
+    }
+    else {
+        showPassIcon.removeAttribute("class")
+        showPassIcon.setAttribute("class", "fa-solid fa-eye-slash")
+        let passInput = document.querySelectorAll(".passInput")
+        for (let i = 0; i < passInput.length; i++) {
+            passInput[i].setAttribute("type", "password")
+        }
+    }
+})
