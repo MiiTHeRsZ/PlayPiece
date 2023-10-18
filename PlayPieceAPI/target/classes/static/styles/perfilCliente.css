@@ -81,3 +81,11 @@ h1 {
     justify-content: center;
     gap: 10px;
 }
+
+#showPassword {
+    cursor: pointer;
+}
+
+#showPassword:hover {
+    color: var(--txt-accent-color-ternary);
+}

@@ -85,7 +85,15 @@ input {
     transition: all .5s ease-in-out;
 }
 
-#err-cpf {
+.err {
     color: red;
     font-size: 10px;
+}
+
+#showPassword {
+    cursor: pointer;
+}
+
+#showPassword:hover {
+    color: var(--txt-accent-color-ternary);
 }

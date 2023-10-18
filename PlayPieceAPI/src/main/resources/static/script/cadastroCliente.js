@@ -75,12 +75,10 @@ async function verificaEmail() {
         const alert = document.querySelector(".mail");
         if (response.status == 404) {
             alert.style.display = "none"
-            alert.innerHTML = ""
             return false;
         } else {
             const alert = document.querySelector(".mail");
             alert.style.display = "inline"
-            alert.innerHTML = "E-mail já cadastrado"
             return true;
         }
     })

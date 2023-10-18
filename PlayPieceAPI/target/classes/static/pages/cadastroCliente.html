@@ -27,9 +27,11 @@
 
             <div class="cpfNome space">
                 <div>
-                    <label for="cpf">CPF:</label>
-                    <input type="text" name="cpf" id="cpf" class="form__container" minlength="11" required />
-                    <span id="err-cpf" style="display: none;">CPF já cadastrado</span>
+                    <div>
+                        <label for="cpf">CPF:</label>
+                        <input type="text" name="cpf" id="cpf" class="form__container" minlength="11" required />
+                    </div>
+                    <span id="err-cpf" class="err" style="display: none;">CPF já cadastrado</span>
                 </div>
                 <div>
                     <label for="nome">Nome:</label>
@@ -52,9 +54,11 @@
                     </select>
                 </div>
                 <div>
-                    <label for="email">Email:</label>
-                    <input type="text" name="email" class="form__container" id="email" required />
-                    <span class="alert mail"></span>
+                    <div>
+                        <label for="email">Email:</label>
+                        <input type="text" name="email" class="form__container" id="email" required />
+                    </div>
+                    <span id="err-cpf" class="err alert mail" style="display: none;">email já cadastrado</span>
                 </div>
             </div>
 
