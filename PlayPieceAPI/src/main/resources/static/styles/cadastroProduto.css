@@ -73,7 +73,6 @@ input {
     border-radius: 5px;
     background-color: var(--bg-alternative-color);
     background: transparent;
-    box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
     transition: all .5s ease-in-out;
   }
 
