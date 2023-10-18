@@ -115,6 +115,7 @@ document.getElementById("alterar-info").addEventListener("click", async (e) => {
 
         if (result.status == 200 || result.status == 201) {
             alert("Dados atualizados com sucesso!");
+            window.location.reload();
         } else {
             alert("Falha ao atualizar os dados\nTente novamente!");
         }
