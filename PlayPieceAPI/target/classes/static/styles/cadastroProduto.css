@@ -56,20 +56,40 @@ input {
   text-align: center;
 }
 
-.confSenha {
-  text-align: center;
+
+#input_imagens {
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+#input_imagens input {
+    margin: 20px 0 0 0;
 }
 
 .form__container {
-  top: 50vh;
-  left: 50vw;
-  border-radius: 5px;
-  background-color: var(--bg-alternative-color);
-  background: transparent;
-  box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
-  transition: all .5s ease-in-out;
+    top: 50vh;
+    left: 50vw;
+    border-radius: 5px;
+    background-color: var(--bg-alternative-color);
+    background: transparent;
+    box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
+    transition: all .5s ease-in-out;
+  }
+
+.infoFlex {
+    display: flex;
 }
 
-#btn-salvar {
-  margin-top: 15px;
+.infoColumn {
+    flex-direction: column;
+}
+
+.tamMarg {
+  margin-left: 47px;
+}
+
+.btnCenter {
+    margin-top: 15px;
+    text-align: center;
 }

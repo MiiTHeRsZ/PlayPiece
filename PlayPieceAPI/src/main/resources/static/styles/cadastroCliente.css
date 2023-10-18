@@ -40,7 +40,6 @@ body {
 
 #containerCadastro {
     margin: 15vh 29vw;
-    border: solid 2px #f00;
     border-radius: 25px;
     padding: 20px;
     background-color: #e0e7e9;
@@ -57,31 +56,15 @@ input {
     width: 50px;
 }
 
+#cep {
+    width: 250px;
+    align-items: center;
+}
+
 .space {
     margin-bottom: 20px;
     text-align: center;
     justify-content: space-around;
-}
-
-.cpfNome {
-
-    border: solid 2px #0f0;
-}
-
-.dataGeneroEmail{
-    border: solid 2px #00f;
-}
-
-.lograNum {
-    border: solid 2px #ff0;
-}
-
-.bairCidUf {
-    border: solid 2px #0ff;
-}
-
-.confSenha {
-    border: solid 2px #f0f;
 }
 
 #cep {
