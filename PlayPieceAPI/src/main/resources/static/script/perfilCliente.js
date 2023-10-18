@@ -45,6 +45,9 @@ const preecheDados = async () => {
             opcao.toggleAttribute("disabled");
         }
         opcao.textContent = endereco.logradouro + ", N°" + endereco.numero;
+        if (endereco.padrao) {
+            opcao.textContent += ` \u2B50`
+        }
         document.getElementById("enderecoEntrega").appendChild(opcao);
     });
 }

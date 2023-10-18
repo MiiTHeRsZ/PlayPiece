@@ -59,7 +59,7 @@ public class ClienteController {
             return new ResponseEntity<String>("Falha ao atualizar cliente",
                     HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<>("a", HttpStatus.CREATED);
+        return new ResponseEntity<ClienteModel>(novoCliente, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
