@@ -123,37 +123,6 @@ document.getElementById("alterar-info").addEventListener("click", async (e) => {
     }
 });
 
-document.getElementById("novo-endereco").addEventListener("click", async (e) => {
-    e.preventDefault();
-
-    let endereco = {
-        "cep": document.getElementById("cep").value,
-        "logradouro": document.getElementById("logradouro").value,
-        "numero": document.getElementById("numero").value,
-        "complemento": document.getElementById("complemento").value,
-        "bairro": document.getElementById("bairro").value,
-        "cidade": document.getElementById("cidade").value,
-        "uf": document.getElementById("uf").value,
-        "padrao": true,
-        "ativo": true
-    }
-
-    const result = await fetch(`/endereco/${document.getElementById("idCliente").innerHTML}`, {
-        method: "PUT",
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(endereco),
-    })
-
-    if (result.status == 200 || result.status == 201) {
-        alert("Endereço criado com sucesso!");
-        window.location.reload();
-    } else {
-        alert("Falha ao criar o endereço\nTente novamente!");
-    }
-});
-
 document.getElementById("definir-endereco-padrao").addEventListener("click", async (e) => {
     e.preventDefault();
 

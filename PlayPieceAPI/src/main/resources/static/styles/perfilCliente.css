@@ -47,5 +47,36 @@ h1 {
 
 #form div {
     padding: 20px;
-    
+
+}
+
+.enderecoSpace>div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.enderecoSpace>div>div {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    gap: 2px;
+}
+
+.enderecoSpace>div>div>label {
+    text-align: center;
+}
+
+.enderecoSpace>div>div>input {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+
+#divEnderecoNovo #botoes {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
 }
