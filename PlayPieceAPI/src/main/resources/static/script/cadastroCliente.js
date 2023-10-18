@@ -1,5 +1,11 @@
-document.getElementById("cpf").onchange = () => {
-    verificaInformacao();
+document.getElementById("cpf").onchange = async () => {
+    const checkCpf = await (await fetch(`/cliente/search?cpf=${document.getElementById("cpf").value}`)).status == 200 ? true : false
+    if (!checkCpf) {
+        document.getElementById("err-cpf").style.display = "none"
+        verificaInformacao();
+    } else {
+        document.getElementById("err-cpf").style.display = "block"
+    }
 }
 document.getElementById("email").onchange = () => {
     verificaInformacao();
@@ -95,7 +101,7 @@ botaoSalvar.addEventListener("click", async (e) => {
 
     let nomeValido;
     document.getElementById("nome").value.split(" ").forEach(nome => {
-        if(nome.length > 2) {
+        if (nome.length > 2) {
             nomeValido = true;
         } else {
             nomeValido = false;
@@ -130,9 +136,9 @@ botaoSalvar.addEventListener("click", async (e) => {
             },
             body: JSON.stringify(cliente),
         })
-    
+
         if (result.status == 201) {
-    
+
             alert("Cliente criado com sucesso!")
             window.close()
         } else {

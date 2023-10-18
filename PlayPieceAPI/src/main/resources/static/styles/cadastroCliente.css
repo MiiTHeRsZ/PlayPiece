@@ -84,3 +84,8 @@ input {
     background: transparent;
     transition: all .5s ease-in-out;
 }
+
+#err-cpf {
+    color: red;
+    font-size: 10px;
+}

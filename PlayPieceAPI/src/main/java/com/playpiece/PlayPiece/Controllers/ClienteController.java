@@ -38,6 +38,15 @@ public class ClienteController {
         return new ResponseEntity<ClienteModel>(cliente, HttpStatus.OK);
     }
 
+    @GetMapping(value = "search", params = "cpf")
+    public ResponseEntity<?> getClienteById(@RequestParam String cpf) {
+        ClienteModel cliente = clienteService.getClienteByCpf(cpf);
+        if (cliente == null)
+            return new ResponseEntity<String>("Cliente não encontrado", HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<ClienteModel>(cliente, HttpStatus.OK);
+    }
+
     @GetMapping(value = "search", params = "email")
     public ResponseEntity<?> getClienteEmail(@RequestParam String email) {
         ClienteModel cliente = clienteService.getClienteByEmail(email);
