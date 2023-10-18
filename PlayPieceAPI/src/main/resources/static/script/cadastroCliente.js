@@ -94,8 +94,8 @@ botaoSalvar.addEventListener("click", async (e) => {
     e.preventDefault()
 
     let nomeValido;
-    document.getElementById("nome").value.split(" ").forEach(nome => {
-        if(nome.length > 2) {
+    document.getElementById("nome").value.split(" ").forEach((nome, index) => {
+        if(nome.length > 2 && index > 0 && nomeValido != false) {
             nomeValido = true;
         } else {
             nomeValido = false;
