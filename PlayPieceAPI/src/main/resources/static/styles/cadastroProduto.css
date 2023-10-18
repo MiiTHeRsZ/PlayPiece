@@ -48,7 +48,7 @@ body {
 input {
   margin: 10px;
   outline: none !important;
-  border-bottom: 1px solid #ff0;
+  border-bottom: 1px solid rgb(213, 213, 0);
 }
 
 .space {

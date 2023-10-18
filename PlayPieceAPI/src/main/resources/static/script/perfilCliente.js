@@ -19,7 +19,7 @@ const conectAPI = async () => {
 conectAPI();
 
 const preecheDados = async () => {
-    document.getElementById("nomeCliente").innerHTML = dados.nome;
+    document.getElementById("nomeCliente").innerHTML = `Olá, ${dados.nome}!`;
     document.getElementById("idCliente").innerHTML = dados.id;
 
     document.getElementById("cpf").value = dados.cpf;

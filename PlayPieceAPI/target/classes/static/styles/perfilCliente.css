@@ -42,12 +42,11 @@ h1 {
 #form {
     display: flex;
     flex-direction: column;
-    margin: 100px;
+    margin: 20px 100px;
 }
 
 #form div {
-    padding: 20px;
-
+    padding: 20px 0;
 }
 
 .enderecoSpace>div {
@@ -88,4 +87,59 @@ h1 {
 
 #showPassword:hover {
     color: var(--txt-accent-color-ternary);
+}
+
+/* Henrique */
+#containerCadastro {
+    margin: 0 15vw 5vh;
+    padding: 5vh 0;
+    border-radius: 25px;
+    background-color: #e0e7e9;
+    box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
+}
+
+.nomeCpf div {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 120px;
+}
+
+.infoEnderecoFaturamento {
+    display: flex;
+    flex-direction: column;
+}
+
+.infoEnderecoFaturamento div {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 120px;
+}
+
+.endEntregForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.endEntregForm div {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 120px;
+}
+
+.senhaForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.senhaForm div {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 120px;
+}
+
+#alterar-info {
+    align-self: center;
+    width: 20%;
+    font-size: 16px;
+    border-radius: 5px;
 }

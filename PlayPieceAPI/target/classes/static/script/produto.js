@@ -1,5 +1,15 @@
 const urlParams = new URLSearchParams(window.location.search);
 id = urlParams.get('id');
+try {
+    email = urlParams.get('email');
+} catch (error) {
+    console.log(error);
+}
+
+if (email != null) {
+    document.getElementById("perfil").href = `./perfilCliente.html?email=${email}`;
+    document.getElementById("logo").href += `?email=${email}`;
+}
 
 const container = document.getElementById("container");
 

@@ -3,6 +3,7 @@ email = urlParams.get('email');
 
 if (email != null) {
     document.getElementById("perfil").href = `./pages/perfilCliente.html?email=${email}`;
+    document.getElementById("logo").href += `?email=${email}`;
 }
 
 const container_cards = document.getElementById("produtos");
@@ -27,12 +28,12 @@ async function getProducts() {
             let card = document.createElement("div")
             card.className = "card"
             card.innerHTML = `
-            <a href="./pages/produto.html?id=${produto.id}"><img src="${newLink}" class="card-img-top" alt="..."></a>
+            <a href="./pages/produto.html?id=${produto.id}${email != null ? '&email=' + email : ''}"><img src="${newLink}" class="card-img-top" alt="..."></a>
                 <hr>
                 <div class="card-body">
-                <a href="./pages/produto.html?id=${produto.id}"><h5 class="card-title">${produto.nome}</h5></a>
+                <a href="./pages/produto.html?id=${produto.id}${email != null ? '&email=' + email : ''}"><h5 class="card-title">${produto.nome}</h5></a>
                     <p class="card-text">R$ ${parseFloat(produto.preco).toFixed(2).replace(".", ",")}</p>
-                    <a href="./pages/produto.html?id=${produto.id}" class="btn btn-primary">Detalhes</a>
+                    <a href="./pages/produto.html?id=${produto.id}${email != null ? '&email=' + email : ''}" class="btn btn-primary">Detalhes</a>
                 </div>
             `
             container_cards.appendChild(card)

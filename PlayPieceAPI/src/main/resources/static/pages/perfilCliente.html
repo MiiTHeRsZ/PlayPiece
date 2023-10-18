@@ -19,7 +19,7 @@
         </div>
     </header>
     <main>
-        <section id="info">
+        <section id="containerCadastro">
             <h1 id="nomeCliente">Fulano</h1>
             <p id="idCliente" hidden></p>
             <form action="#" id="form">
@@ -29,19 +29,25 @@
                     <label for="nome">Nome:</label>
                     <input type="text" name="nome" id="nome" required />
                 </div>
-                <div>
-                    <label for="dt_nasc">Data de Nascimento:</label>
-                    <input type="date" name="dt_nasc" id="dt_nasc" required />
-                    <label for="genero">Gênero:</label>
-                    <select name="genero" id="genero" required>
-                        <option value="0" selected disabled>Selecione um cargo</option>
-                        <option value="F">Feminino</option>
-                        <option value="M">Masculino</option>
-                        <option value="NA">Prefiro não informar</option>
-                    </select>
-                    <label for="email">Email:</label>
-                    <input type="text" name="email" id="email" required readonly />
-                    <span class="alert mail"></span>
+                <div style="display: flex; gap: 10px;">
+                    <div>
+                        <label for="dt_nasc">Data de Nascimento:</label>
+                        <input type="date" name="dt_nasc" id="dt_nasc" required />
+                    </div>
+                    <div>
+                        <label for="genero">Gênero:</label>
+                        <select name="genero" id="genero" required>
+                            <option value="0" selected disabled>Selecione um cargo</option>
+                            <option value="F">Feminino</option>
+                            <option value="M">Masculino</option>
+                            <option value="NA">Prefiro não informar</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="email">Email:</label>
+                        <input type="text" name="email" id="email" required readonly />
+                        <span class="alert mail"></span>
+                    </div>
                 </div>
                 <div class="enderecoSpace">
                     <h3>Endereço de Faturamento:</h3>
