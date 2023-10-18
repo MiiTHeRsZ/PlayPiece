@@ -1,10 +1,16 @@
 const urlParams = new URLSearchParams(window.location.search);
+email = urlParams.get('email');
+
+if (email != null) {
+    document.getElementById("perfil").href = `./pages/perfilCliente.html?email=${email}`;
+    document.getElementById("logo").href += `?email=${email}`;
+}
 
 const container_cards = document.getElementById("produtos");
 
 async function getProducts() {
 
-    let produtos = await fetch('http://localhost:8080/produto').then(response => response.json())
+    let produtos = await fetch('/produto').then(response => response.json())
 
     produtos.forEach(produto => {
         let imagens = produto.listaImagens;
@@ -18,16 +24,16 @@ async function getProducts() {
 
         if (produto.ativo) {
             let link = imagemPrincipal.split("/")
-            let newLink = "./" + link[4] + "/" + link[5] + "/" + link[6] + "/" + link[7]
+            let newLink = "./" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8]
             let card = document.createElement("div")
             card.className = "card"
             card.innerHTML = `
-                <img src="${newLink}" class="card-img-top" alt="...">
+            <a href="./pages/produto.html?id=${produto.id}${email != null ? '&email=' + email : ''}"><img src="${newLink}" class="card-img-top" alt="..."></a>
                 <hr>
                 <div class="card-body">
-                    <h5 class="card-title">${produto.nome}</h5>
+                <a href="./pages/produto.html?id=${produto.id}${email != null ? '&email=' + email : ''}"><h5 class="card-title">${produto.nome}</h5></a>
                     <p class="card-text">R$ ${parseFloat(produto.preco).toFixed(2).replace(".", ",")}</p>
-                    <a href="./pages/produto.html?id=${produto.id}" class="btn btn-primary">Detalhes</a>
+                    <a href="./pages/produto.html?id=${produto.id}${email != null ? '&email=' + email : ''}" class="btn btn-primary">Detalhes</a>
                 </div>
             `
             container_cards.appendChild(card)

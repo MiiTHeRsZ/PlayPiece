@@ -1,6 +1,5 @@
 package com.playpiece.PlayPiece.Services;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +22,28 @@ public class ClienteService {
         this.clienteRespository = clienteRespository;
         this.enderecoService = enderecoService;
         this.enderecoRepository = enderecoRepository;
+    }
+
+    public ClienteModel getClienteById(Long id) {
+        try {
+            ClienteModel cliente = clienteRespository.findById(id).get();
+            cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
+            return cliente;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public ClienteModel getClienteByCpf(String cpf) {
+        try {
+            ClienteModel cliente = clienteRespository.findByCpf(cpf);
+            cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
+            return cliente;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     public ClienteModel getClienteByEmail(String email) {

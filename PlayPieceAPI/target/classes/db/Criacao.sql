@@ -1,5 +1,4 @@
-drop database if exists playpiece;
-create database playpiece;
+create database if not exists playpiece;
 use playpiece;
 
 SET FOREIGN_KEY_CHECKS=0;

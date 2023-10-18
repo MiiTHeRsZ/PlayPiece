@@ -1,4 +1,5 @@
 @import url("./var.css");
+@import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
 
 body {
     font-family: 'Roboto Mono', monospace;
@@ -6,9 +7,36 @@ body {
     background-color: var(--bg-color);
     transition: all .3s ease-in-out;
     background-image: url(../images/background-image.jpg);
-    background-position: top;
-    background-repeat: space;
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+
+#menuBar {
+    width: 100vw;
+    height: 10vh;
+    z-index: 1;
+    padding: 0 20px;
+    border-bottom: 2px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    position: fixed;
+}
+
+#menuBar .logo {
+    width: 60px;
+}
+
+#menuBar .icon {
+    text-decoration: none;
+    color: #000;
+    font-size: 40px;
+    margin-right: 16px;
 }
 
 .form__container {
@@ -21,7 +49,6 @@ body {
     background-color: var(--bg-alternative-color);
     box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
     transition: all .5s ease-in-out;
-    opacity: 0.8;
 }
 
 .form__container form {
@@ -49,7 +76,10 @@ body {
 }
 
 .form__container form .btns {
-    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 24px;
 }
 
 .form__container form .btns .form__btn {
@@ -57,6 +87,12 @@ body {
     color: var(--txt-accent-color-primary);
     background: transparent;
     cursor: pointer;
+    
+}
+
+.form__container form .btns #form__btn-cadastrar{
+    font-size: 16px;
+    color: var(--txt-accent-color-secondary);
 }
 
 .passBox {

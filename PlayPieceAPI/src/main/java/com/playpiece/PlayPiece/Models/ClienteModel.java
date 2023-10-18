@@ -1,10 +1,7 @@
 package com.playpiece.PlayPiece.Models;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-
-import org.hibernate.validator.constraints.br.CPF;
 
 import jakarta.persistence.*;
 import lombok.*;

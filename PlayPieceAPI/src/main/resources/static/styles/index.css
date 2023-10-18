@@ -43,6 +43,7 @@ main {
     min-width: 300px;
     max-height: 450px;
     max-width: 300px;
+    position: relative;
 }
 
 .card-img-top {
@@ -53,12 +54,25 @@ main {
     height: 60%;
     max-width: 250px;
     object-fit: contain;
+    position: absolute;
+    top: 2%;
+}
+
+.card-img-top:hover {
+    filter: grayscale(.25);
 }
 
 hr {
     width: 95%;
     align-self: center;
     box-shadow: 0 0 5px 1px black;
+    position: absolute;
+    top: 60%;
+}
+
+.card-body {
+    position: absolute;
+    top: 63%;
 }
 
 #produtos {
@@ -67,4 +81,13 @@ hr {
     gap: 15px;
     justify-content: center;
     margin: 0 5%;
+}
+
+.card-body a:first-child {
+    color: black;
+    text-decoration: none;
+}
+
+.card-body a:first-child h5:hover {
+    transform: scale(105%);
 }

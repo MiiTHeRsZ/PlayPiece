@@ -1,5 +1,6 @@
 @import url('./var.css');
 @import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700);
 
 body {
     background-image: url(../images/background-image.jpg);
@@ -70,3 +71,31 @@ main > div {
     font-size: 32px;
     font-weight: bold;
 }
+
+#descricao{
+    text-align: justify;
+}
+
+.avalicao-box{
+    display: flex;
+    gap: 5px;
+}
+
+meter {
+    background: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: gold;
+    display: inline-block;
+    width: auto;
+    height: auto;
+}
+
+::-webkit-meter-bar, ::-webkit-meter-inner-element{
+    background: none;
+  }
+
+  ::-moz-meter-bar {
+    -moz-appearance: none;
+  }

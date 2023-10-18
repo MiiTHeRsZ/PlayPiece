@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.playpiece.PlayPiece.Models.ImagemModel;
-import com.playpiece.PlayPiece.Models.ProdutoModel;
 import com.playpiece.PlayPiece.repositories.ImagemRepository;
 
 @Service
@@ -53,8 +52,7 @@ public class ImagemService {
         } else {
             isFav = false;
         }
-        ImagemModel imagemSalva = new ImagemModel(null, produtoID, folder + nome, isFav,
-                true);
+        ImagemModel imagemSalva = new ImagemModel(null, produtoID, folder + nome, isFav, true);
         postImagem(imagemSalva);
     }
 

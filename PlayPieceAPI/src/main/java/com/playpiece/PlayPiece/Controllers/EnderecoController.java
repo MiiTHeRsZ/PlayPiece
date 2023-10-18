@@ -29,7 +29,7 @@ public class EnderecoController {
     }
 
     @GetMapping
-    public ResponseEntity getEnderecoList() {
+    public ResponseEntity<?> getEnderecoList() {
         List<EnderecoModel> listaEnderecos = enderecoService.getEnderecoList();
         if (listaEnderecos.isEmpty())
             return new ResponseEntity<String>("Nenhum endereço cadastrado", HttpStatus.NOT_FOUND);
@@ -37,8 +37,8 @@ public class EnderecoController {
         return new ResponseEntity<List<EnderecoModel>>(listaEnderecos, HttpStatus.OK);
     }
 
-    @GetMapping("/{idCliente}")
-    public ResponseEntity getEnderecoById(Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getEnderecoById(@PathVariable Long id) {
         EnderecoModel endereco = enderecoService.getEnderecoById(id);
         if (endereco == null)
             return new ResponseEntity<String>("Nenhum endereço cadastrado", HttpStatus.NOT_FOUND);
@@ -47,7 +47,7 @@ public class EnderecoController {
     }
 
     @PostMapping("/{idCliente}")
-    public ResponseEntity postEndereco(@PathVariable Long idCliente, @RequestBody EnderecoModel endereco) {
+    public ResponseEntity<?> postEndereco(@PathVariable Long idCliente, @RequestBody EnderecoModel endereco) {
         EnderecoModel novoEndereco = enderecoService.postEndereco(idCliente, endereco);
         if (novoEndereco == null)
             return new ResponseEntity<String>("Falha ao criar endereco", HttpStatus.BAD_REQUEST);
@@ -56,18 +56,18 @@ public class EnderecoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updatePadraoEndereco(@PathVariable Long id) {
+    public ResponseEntity<?> updatePadraoEndereco(@PathVariable Long id) {
         EnderecoModel novoEndereco = enderecoService.updatePadraoEndereco(id);
 
         if (novoEndereco == null)
             return new ResponseEntity<String>("Falha ao atualizar endereço",
                     HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<EnderecoModel>(novoEndereco, HttpStatus.OK);
+        return new ResponseEntity<EnderecoModel>(novoEndereco, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity statusEndereco(@PathVariable Long id) {
+    public ResponseEntity<?> statusEndereco(@PathVariable Long id) {
         return new ResponseEntity<EnderecoModel>(enderecoService.statusEndereco(id), HttpStatus.OK);
     }
 
