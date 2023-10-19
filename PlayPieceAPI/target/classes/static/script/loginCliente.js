@@ -1,5 +1,6 @@
 const form = document.getElementById("form");
 form.onclick = (e) => e.preventDefault();
+const loader = document.getElementById("loading")
 
 function getCookie(nome) {
     return Cookies.get(nome)
@@ -41,9 +42,10 @@ const conect_api = async () => {
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify(login),
-        }).then(function (result) {
-            status = result.status;
-            return result.json();
+        }).then((data) => {
+            status = data.status
+            loader.classList.remove("display")
+            return data.json()
         })
 
     } catch (error) {
@@ -53,15 +55,25 @@ const conect_api = async () => {
         setCookie("sessaoId", result.id, 1)
         location.href = `../index.html`;
     } else {
-        alert("Usuário e/ou senha inválido(s)!");
+        setTimeout(() => {
+            alert("Usuário e/ou senha inválido(s)!");
+        }, 100)
     }
 
 }
 
 const btn = document.getElementById("form__btn-entrar");
 btn.addEventListener("click", () => {
+    mostrarLoad()
     conect_api();
 });
+
+function mostrarLoad() {
+    loader.classList.add("display")
+    setTimeout(() => {
+        loader.classList.remove("display")
+    }, 10000);
+}
 
 let showPassIcon = document.querySelector("#showPassword")
 showPassIcon.addEventListener("click", () => {

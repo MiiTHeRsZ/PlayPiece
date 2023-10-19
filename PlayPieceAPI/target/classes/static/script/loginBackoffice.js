@@ -1,6 +1,7 @@
 
 const form = document.getElementById("form");
 form.onclick = (e) => e.preventDefault();
+const loader = document.getElementById("loading")
 
 function getCookie(nome) {
 	return Cookies.get(nome)
@@ -12,18 +13,18 @@ function setCookie(nome, info, exdays) {
 function checkCookie(nome) {
 	var cargo = getCookie(nome);
 	if (cargo != undefined) {
-		console.log(cargo);
 		var resp = confirm("Usuário logado. Redirecionando para o BackOffice\nAo cancelar, você estará encerrando sua sessão")
 		if (resp == 1) {
 
 			location.href = `./backoffice.html`
 		} else if (resp == 0) {
 			Cookies.remove("cargo")
+			Cookies.remove("jobSession")
 		}
 	}
 }
 
-secao = checkCookie("cargo")
+sessao = checkCookie("cargo")
 
 const conect_api = async () => {
 	const nickname = document.getElementById("nickname").value;
@@ -44,9 +45,10 @@ const conect_api = async () => {
 				'Content-Type': 'application/json;charset=utf-8'
 			},
 			body: JSON.stringify(login),
-		}).then(function (result) {
-			status = result.status;
-			return result.json();
+		}).then((data) => {
+			status = data.status
+			loader.classList.remove("display")
+			return data.json()
 		})
 
 	} catch (error) {
@@ -63,16 +65,27 @@ const conect_api = async () => {
 
 	// validar se usuario e senha digitados batem com o usuario e senha cadastrado no banco de dados
 	if (status == 200) {
-		setCookie("cargo", cargoCode(result[2]), 1)
+		setCookie("cargo", cargoCode(result[3]), 1)
+		setCookie("jobSession", result[0], 1)
 		location.href = `./backoffice.html`
 	} else {
-		alert("Usuário e/ou senha inválido(s)!");
+		setTimeout(() => {
+			alert("Usuário e/ou senha inválido(s)!");
+		}, 100)
 	}
 
 }
 
+function mostrarLoad() {
+	loader.classList.add("display")
+	setTimeout(() => {
+		loader.classList.remove("display")
+	}, 10000);
+}
+
 const btn = document.getElementById("form__btn-entrar");
 btn.addEventListener("click", () => {
+	mostrarLoad()
 	conect_api();
 });
 

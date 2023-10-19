@@ -6,6 +6,9 @@ function setCookie(nome, info, exdays) {
 }
 
 group = getCookie("cargo")
+jobSessao = getCookie("jobSession")
+
+checkSessao()
 
 String.prototype.hashCode = function () {
     var hash = 0,
@@ -37,6 +40,7 @@ if (group == estoq()) {
 
 // botão que mostra/ oculta a tabela de usuarios
 document.getElementById("mostrarTbUsuarios").addEventListener("click", () => {
+    checkSessao()
     const tabela = document.getElementById("secaoTabelaUsuario");
     const tabelaProduto = document.getElementById("secaoTabelaProduto");
 
@@ -101,6 +105,7 @@ async function createTbUsers() {
 
 // botão que mostra/oculta a tabela de produtos
 document.getElementById("mostrarTbProdutos").addEventListener("click", () => {
+    checkSessao()
     const tabela = document.getElementById("secaoTabelaProduto");
     const tabelaUsuario = document.getElementById("secaoTabelaUsuario");
 
@@ -172,6 +177,7 @@ async function createTbProducts() {
 
 // Responsavel por filtrar a lista de usuários por Nome 
 document.getElementById("pesquisarPorNome").addEventListener("click", () => {
+    checkSessao()
     const nome = document.getElementById("txtNome").value;
     const tabela = document.getElementById("secaoTabelaUsuario");
     clearTable()
@@ -180,7 +186,6 @@ document.getElementById("pesquisarPorNome").addEventListener("click", () => {
 });
 
 async function pesquisarPorNome(nome) {
-
     const response = await fetch(`/usuario/search?nome=${nome}`).then((data) =>
         data.json()
     );
@@ -226,6 +231,7 @@ async function pesquisarPorNome(nome) {
 /* Filtrar por Nome - Produto */
 
 document.getElementById("pesquisarPorNomeProduto").addEventListener("click", () => {
+    checkSessao()
     const nome = document.getElementById("txtNomeProduto").value;
     const tabela = document.getElementById("secaoTabelaProduto");
     clearTable()
@@ -318,4 +324,23 @@ function clearTable() {
     tr.forEach(linha => {
         linha.innerHTML = ""
     })
+}
+
+async function checkSessao() {
+    let cargoId = getCookie("cargo")
+    let sessaoCode = getCookie("jobSession")
+    let funcionario = await fetch(`/usuario/${sessaoCode}`).then(data => data.json())
+    console.log("checando");
+    let cont = 1
+    let cargo = funcionario.cargo.id;
+    for (cont = 1; cont <= 16; cont++) {
+        cargo = String(cargo).hashCode()
+    }
+
+    if (cargo != cargoId) {
+        alert("Sessão inválida")
+        Cookies.remove("jobSession")
+        Cookies.remove("cargo")
+        location.href = "./loginBackoffice.html"
+    }
 }
