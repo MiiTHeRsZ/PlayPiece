@@ -73,6 +73,12 @@ public class UsuarioService {
     public UsuarioModel updateUsuario(Long id, UsuarioModel novoUsuario) {
         UsuarioModel usuario = usuarioRepository.findById(id).get();
 
+        var res = encoder.matches(novoUsuario.getSenha(), usuario.getSenha());
+        if (!res) {
+            var senhaCripto = encoder.encode(novoUsuario.getSenha());
+            novoUsuario.setSenha(senhaCripto);
+        }
+
         novoUsuario.setId(usuario.getId());
         novoUsuario.setEmailUsuario(usuario.getEmailUsuario());
         usuario = novoUsuario;

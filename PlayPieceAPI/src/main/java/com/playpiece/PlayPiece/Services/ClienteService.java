@@ -94,6 +94,11 @@ public class ClienteService {
 
     public ClienteModel updateCliente(Long id, ClienteModel novoCliente) {
         ClienteModel cliente = clienteRespository.findById(id).get();
+        var res = encoder.matches(novoCliente.getSenha(), cliente.getSenha());
+        if (!res) {
+            var senhaCripto = encoder.encode(novoCliente.getSenha());
+            novoCliente.setSenha(senhaCripto);
+        }
         novoCliente.setId(cliente.getId());
         novoCliente.setEmail(cliente.getEmail());
         novoCliente.setCpf(cliente.getCpf());

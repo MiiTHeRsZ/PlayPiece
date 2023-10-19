@@ -48,7 +48,7 @@ function verificaInformacao() {
     let cpfret = validaCPF(cpf)
     let emailret = verificaEmail();
     let genero = document.getElementById("genero").value;
-    document.getElementById("senha").value.hashCode()
+    document.getElementById("senha").value
 
     let ret = verificarSenhas(senha, confirmaSenha)
 
@@ -126,7 +126,7 @@ botaoSalvar.addEventListener("click", async (e) => {
             "padrao": true,
             "ativo": true
         },
-        "senha": document.getElementById("senha").value.hashCode(),
+        "senha": document.getElementById("senha").value,
         "ativo": true
     }
     const result = await fetch("/cliente", {

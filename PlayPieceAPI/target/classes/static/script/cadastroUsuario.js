@@ -152,7 +152,7 @@ botaoSalvar.addEventListener("click", async (e) => {
         "cpf": document.getElementById("cpf").value,
         "cargo": cargo,
         "emailUsuario": document.getElementById("email_profissional").value,
-        "senha": document.getElementById("senha1").value.hashCode(),
+        "senha": document.getElementById("senha1").value,
         "ativo": true
     }
 
