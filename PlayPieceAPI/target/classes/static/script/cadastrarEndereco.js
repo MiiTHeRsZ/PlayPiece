@@ -1,4 +1,11 @@
-email = urlParams.get('email');
+function getCookie(nome) {
+    return Cookies.get(nome)
+}
+function setCookie(nome, info, exdays) {
+    Cookies.set(nome, info, exdays)
+}
+
+idCliente = getCookie('sessaoId')
 
 const botaoNovoEndereco = document.getElementById("novo-endereco");
 
@@ -47,9 +54,7 @@ async function buscarDadosCep() {
 document.getElementById("salvar-novo-endereco").addEventListener("click", async (e) => {
     e.preventDefault();
 
-    const cliente = await fetch(`/cliente/search?email=${email}`).then((data) => data.json())
-
-    console.log(cliente.id);
+    const cliente = await fetch(`/cliente/${idCliente}`).then((data) => data.json())
 
     let endereco = {
         "id": 0,

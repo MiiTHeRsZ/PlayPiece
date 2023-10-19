@@ -1,8 +1,35 @@
-const urlParams = new URLSearchParams(window.location.search);
-group = urlParams.get('group')
+function getCookie(nome) {
+    return Cookies.get(nome)
+}
+function setCookie(nome, info, exdays) {
+    Cookies.set(nome, info, exdays)
+}
+
+group = getCookie("cargo")
+
+String.prototype.hashCode = function () {
+    var hash = 0,
+        i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        chr = this.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+}
+
+let estoq = () => {
+    let cont = 1
+    let code = "2";
+    for (cont = 1; cont <= 16; cont++) {
+        code = String(code).hashCode()
+    }
+    return code
+}
 
 // group 2 => estoquista
-if (group == 2) {
+if (group == estoq()) {
     document.getElementById("mostrarTbUsuarios").style.display = "none"
     document.getElementById("btnCadastroUsuario").style.display = "none"
     document.getElementById("btnCadastroProduto").style.display = "none"
@@ -118,15 +145,13 @@ async function createTbProducts() {
 
         let nome = document.createElement("td")
         let avaliacao = document.createElement("td")
-        let descricao = document.createElement("td")
         let preco = document.createElement("td")
         let quantidade = document.createElement("td")
         let status = document.createElement("td")
         let alterar = document.createElement("td")
 
-        nome.innerHTML= `<a href="./produto.html?id=${produto.Id}" target="_blank">${produto.Nome}</a>`
+        nome.innerHTML = `<a href="./produto.html?id=${produto.Id}" target="_blank">${produto.Nome}</a>`
         avaliacao.textContent = `${produto.Avaliacao}`
-        descricao.textContent = `${produto.Descricao}`
         preco.textContent = `${parseFloat(produto.Preco).toFixed(2).replace(".", ",")}`
         quantidade.textContent = `${produto.Quantidade}`
         status.innerHTML = `<button class = "changeStatusButton" value=${produto.Id}> ${produto.Status ? "Ativo" : "Inativo"} </button>`
@@ -137,7 +162,6 @@ async function createTbProducts() {
 
         tr.appendChild(nome)
         tr.appendChild(avaliacao)
-        tr.appendChild(descricao)
         tr.appendChild(preco)
         tr.appendChild(quantidade)
         tr.appendChild(status)
