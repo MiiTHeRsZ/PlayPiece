@@ -1,4 +1,4 @@
-create database if not exists playpiece;
+cargocreate database if not exists playpiece;
 use playpiece;
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -10,7 +10,7 @@ nome varchar(50) not null,
 cpf varchar(14) not null unique,
 id_cargo smallint not null,
 email varchar(60) not null unique,
-senha varchar(25) not null,
+senha varchar(255) not null,
 ativo bool not null
 );
 
@@ -48,7 +48,7 @@ create table cliente(
 	dt_nascimento Date not null,
 	genero varchar(2) not null,
 	email varchar(60) not null unique,
-	senha varchar(25) not null,
+	senha varchar(255) not null,
 	end_fat bigint not null,
 	ativo bool not null
 );
@@ -70,7 +70,7 @@ create table endereco(
 
 
 insert into cargo (nome) value ("Administrador"), ("Estoquista");
-insert into usuario (nome, cpf, id_cargo, email, senha, ativo) values('Leonardo Noboru Machado Fujimura', '43183345897', 1, 'lfujimura.pp1@playpiece.com', '-1956131982', true), ('Vinicios Mendes', '97876694993', 2, 'vmendes.pp2@playpiece.com', '-1956131982', true);
+insert into usuario (nome, cpf, id_cargo, email, senha, ativo) values('Leonardo Noboru Machado Fujimura', '43183345897', 1, 'lfujimura.pp1@playpiece.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', true), ('Vinicios Mendes', '97876694993', 2, 'vmendes.pp2@playpiece.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', true);
 insert into produto(nome, avaliacao, descricao, preco, quantidade, ativo) values ('Dungeons & Dragons: Kit Essencial', 5, 'Kit Essencial Dungeons Dragons Rpg Dnd Português Inicial Original
 Tudo o que você precisa para criar personagens e jogar as novas aventuras nesta introdução ao maior RPG do mundo.
 
@@ -105,5 +105,9 @@ Escudo do Dungeon Master
 O domínio do sobrenatural não se manifesta em nosso mundo de maneira simples. Uma membrana oculta separa e resguarda a Realidade do Outro Lado, uma dimensão habitada por criaturas monstruosas e demônios. No entanto, essa fronteira pode ser enfraquecida pelo Medo. Aproveitando-se dessa vulnerabilidade, cultistas executam rituais sinistros para romper essa barreira e convocar seres sobrenaturais, desencadeando um caos avassalador. Para frustrar esses nefastos intentos, várias organizações de investigadores operam em escala global. Contra as forças paranormais, esses agentes constituem nossa primeira e última defesa. Neste RPG, você incorporará um agente da Ordo Realitas, uma dessas organizações, levando uma vida dupla enquanto luta tenazmente para prevenir a ascensão do caos. Seja utilizando sua astúcia, um arsenal tecnológico de ponta ou mesmo poderes advindos do Outro Lado, a responsabilidade de proteger nosso mundo recai sobre seus ombros. Este jogo oferece todos os elementos necessários para que o seu grupo vivencie suas próprias missões no cenário criado por Cellbit e lapidado por uma equipe de game designers renomados e veteranos, com mais de uma década de experiência na publicação de jogos de RPG. Agora, o destino do mundo está em suas mãos, pronto para ser moldado por suas decisões e ações.', 239.90,1,true);
 
 insert into imagem(id_produto, caminho, padrao, ativo) values (1, 'PlayPieceAPI/src/main/resources/static/images/Produtos/1/81Yz2C9wsfL.jpg', true, true), (1, 'PlayPieceAPI/src/main/resources/static/images/Produtos/1/02.jpg', false, true), (2, 'PlayPieceAPI/src/main/resources/static/images/Produtos/2/ordem_paranormal_rpg_versao_fisica_25462281_1_a00c3520424507b6535cce8b6569a131.webp', true, true), (2,'PlayPieceAPI/src/main/resources/static/images/Produtos/2/ordem_paranormal_rpg_versao_fisica_25462281_4_ec28873155858efab0833cbe85ed2bf7.webp', false, true);
+
+insert into endereco (id_cliente,cep,logradouro,numero,complemento,bairro,cidade,uf,padrao,ativo) values (1, '04671071','Rua Sócrates','853', 'apt. 193 D', 'Vila Sofia', 'São Paulo', 'SP', true, true ), (1, '04671071','Rua Sócrates','853', 'apt. 44 C', 'Vila Sofia', 'São Paulo', 'SP', false, true );
+
+insert into cliente (cpf, nome,dt_nascimento,genero,email,senha,end_fat,ativo) values('43183345897', 'Leonardo Fujimura', '2002-03-30', 'M', 'l.fujimura@teste.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 1, true);
 
 SET FOREIGN_KEY_CHECKS=1;
