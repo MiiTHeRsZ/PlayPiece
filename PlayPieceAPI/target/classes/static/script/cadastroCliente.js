@@ -140,7 +140,7 @@ botaoSalvar.addEventListener("click", async (e) => {
     if (result.status == 201) {
 
         alert("Cliente criado com sucesso!")
-        window.close()
+        location.href = "./loginCliente.html"
     } else {
         document.querySelector("body").style = "background-color:#ffcbcb;"
         alert("Falha ao cadastrar cliente\nTente novamente")
@@ -294,16 +294,3 @@ async function buscarDadosCep() {
         console.log("Erro na busca do CEP: " + erro.message + "\nVerifique se o CEP fornecido é realmente válido");
     }
 }
-
-// {
-//     "cep": "04775-170",
-//     "logradouro": "Rua Waldemar Gomes Lingoanoti",
-//     "complemento": "",
-//     "bairro": "Jardim Marabá(Zona Sul)",
-//     "localidade": "São Paulo",
-//     "uf": "SP",
-//     "ibge": "3550308",
-//     "gia": "1004",
-//     "ddd": "11",
-//     "siafi": "7107"
-// }

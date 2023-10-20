@@ -80,7 +80,7 @@ public class ClienteController {
     @GetMapping(value = "login", params = { "senha" })
     public ResponseEntity<?> trocasenha(@RequestParam String senha) {
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);
         var novaSenha = encoder.encode(senha);
         return new ResponseEntity<String>(novaSenha, HttpStatus.OK);
     }

@@ -18,7 +18,7 @@ public class ClienteService {
     final ClienteRespository clienteRespository;
     final EnderecoService enderecoService;
     final EnderecoRepository enderecoRepository;
-    final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
+    final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);
 
     public ClienteService(ClienteRespository clienteRespository, EnderecoService enderecoService,
             EnderecoRepository enderecoRepository) {
