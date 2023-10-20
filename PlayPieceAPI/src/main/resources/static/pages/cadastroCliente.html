@@ -24,102 +24,175 @@
 
     <div id="containerCadastro">
         <form action="#" id="form">
+            <section id="input-space">
+                <section id="dados-pessoais" class="formSecao">
+                    <h3>Dados Pessoais</h3>
+                    <div class="infos">
+                        <div>
+                            <div>
+                                <label for="cpf">CPF:</label>
+                                <input type="text" name="cpf" id="cpf" class="form__container" minlength="11"
+                                    required />
+                            </div>
+                            <span id="err-cpf" class="alert err" style="display: none;"></span>
+                        </div>
+                        <div>
+                            <label for="nome">Nome:</label>
+                            <input type="text" name="nome" class="form__container" id="nome" required />
+                        </div>
 
-            <div class="cpfNome space">
-                <div>
-                    <div>
-                        <label for="cpf">CPF:</label>
-                        <input type="text" name="cpf" id="cpf" class="form__container" minlength="11" required />
+                        <div>
+                            <label for="dt_nasc">Nascimento:</label>
+                            <input type="date" name="dt_nasc" id="dt_nasc" class="form__container" min="1900-01-01"
+                                required />
+                        </div>
+                        <div>
+                            <label for="genero">Gênero:</label>
+                            <select id="genero" required>
+                                <option value="0" selected="true" disabled="disabled">Selecione um cargo</option>
+                                <option value="F">Feminino</option>
+                                <option value="M">Masculino</option>
+                                <option value="NA">Prefiro não informar</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div>
+                                <label for="email">Email:</label>
+                                <input type="text" name="email" class="form__container" id="email" required />
+                            </div>
+                            <span id="err-cpf" class="err alert-email mail alert" style="display: none;">email já
+                                cadastrado</span>
+                        </div>
+                        <div>
+                            <div>
+                                <label for="senha">Senha:</label>
+                                <input type="password" name="senha" id="senha" class="passInput form__container"
+                                    minlength="8" maxlength="25" required>
+                            </div>
+                            <div>
+                                <div>
+                                    <label for="confirmaSenha">Confirmar senha:</label>
+                                    <input type="password" name="confirmaSenha" id="confirmaSenha"
+                                        class="passInput form__container" minlength="8" maxlength="25" required>
+                                </div>
+                                <span class="alert-senha senha alert"></span>
+                            </div>
+                            <div>
+                                <label for="showPassword">Mostrar senha:</label>
+                                <i id="showPassword" class="fa-solid fa-eye-slash"></i>
+                            </div>
+                        </div>
                     </div>
-                    <span id="err-cpf" class="err" style="display: none;">CPF já cadastrado</span>
-                </div>
-                <div>
-                    <label for="nome">Nome:</label>
-                    <input type="text" name="nome" class="form__container" id="nome" required />
-                </div>
-            </div>
+                </section>
 
-            <div class="dataGeneroEmail space">
-                <div>
-                    <label for="dt_nasc">Data de Nascimento:</label>
-                    <input type="date" name="dt_nasc" id="dt_nasc" class="form__container" min="1900-01-01" required />
-                </div>
-                <div>
-                    <label for="genero">Gênero:</label>
-                    <select id="genero" required>
-                        <option value="0" selected="true" disabled="disabled">Selecione um cargo</option>
-                        <option value="F">Feminino</option>
-                        <option value="M">Masculino</option>
-                        <option value="NA">Prefiro não informar</option>
-                    </select>
-                </div>
-                <div>
-                    <div>
-                        <label for="email">Email:</label>
-                        <input type="text" name="email" class="form__container" id="email" required />
+                <section id="endereco-faturamento" class="endereco-space formSecao">
+                    <h3>Endereço de faturamento</h3>
+                    <div class="infos">
+                        <div>
+                            <div>
+                                <label for="cep-faturamento">CEP:</label>
+                                <input type="text" name="cep-faturamento" class="form__container" id="cep-faturamento"
+                                    required />
+                            </div>
+                            <span class="alert-cep-faturamento alert"></span>
+                        </div>
+                        <div>
+                            <label for="logradouro-faturamento">Logradouro:</label>
+                            <input type="text" name="logradouro-faturamento" class="form__container"
+                                id="logradouro-faturamento" required readonly />
+                        </div>
+                        <div>
+                            <label for="numero-faturamento">Número:</label>
+                            <input type="text" name="numero-faturamento" class="form__container" id="numero-faturamento"
+                                required />
+                        </div>
+
+                        <div>
+                            <label for="complemento-faturamento">Complemento:</label>
+                            <input type="text" name="complemento-faturamento" class="form__container"
+                                id="complemento-faturamento" required />
+                        </div>
+                        <div>
+                            <label for="bairro-faturamento">Bairro:</label>
+                            <input type="text" name="bairro-faturamento" class="form__container" id="bairro-faturamento"
+                                required readonly />
+                        </div>
+
+                        <div>
+                            <label for="cidade-faturamento">Cidade:</label>
+                            <input type="text" name="cidade-faturamento" class="form__container" id="cidade-faturamento"
+                                required readonly />
+                        </div>
+                        <div>
+                            <label for="uf-faturamento">UF:</label>
+                            <input type="text" name="uf-faturamento" class="form__container" id="uf-faturamento"
+                                required readonly />
+                        </div>
+                        <div>
+                            <label for="isEntrega">Tornar este meu endereço de entrega:</label>
+                            <input type="checkbox" name="isEntrega" id="isEntrega">
+                        </div>
                     </div>
-                    <span id="err-cpf" class="err alert mail" style="display: none;">email já cadastrado</span>
-                </div>
-            </div>
+                </section>
 
-            <div class="cep space">
-                <label for="cep">CEP:</label>
-                <input type="text" name="cep" class="form__container" id="cep" required />
-                <span class="alert-cep"></span>
-            </div>
+                <section id="endereco-entrega" class="endereco-space formSecao">
+                    <h3>Endereço de entrega</h3>
+                    <div class="infos">
+                        <div>
+                            <div>
+                                <label for="cep-entrega">CEP:</label>
+                                <input type="text" name="cep-entrega" class="form__container" id="cep-entrega"
+                                    required />
+                            </div>
+                            <span class="alert-cep-entrega alert"></span>
+                        </div>
 
-            <div class="lograNum space">
-                <div>
-                    <label for="logradouro">Logradouro:</label>
-                    <input type="text" name="logradouro" class="form__container" id="logradouro" required readonly />
-                </div>
-                <div>
-                    <label for="numero">Número:</label>
-                    <input type="text" name="numero" class="form__container" id="numero" required />
-                </div>
-            </div>
+                        <div>
+                            <div>
+                                <label for="logradouro-entrega">Logradouro:</label>
+                                <input type="text" name="logradouro-entrega" class="form__container"
+                                    id="logradouro-entrega" required readonly />
+                            </div>
+                            <div>
+                                <label for="numero-entrega">Número:</label>
+                                <input type="text" name="numero-entrega" class="form__container" id="numero-entrega"
+                                    required />
+                            </div>
+                        </div>
 
-            <div class="complement space">
-                <label for="complemento">Complemento:</label>
-                <input type="text" name="complemento" class="form__container" id="complemento" required />
-            </div>
+                        <div>
+                            <label for="complemento-entrega">Complemento:</label>
+                            <input type="text" name="complemento-entrega" class="form__container"
+                                id="complemento-entrega" required />
+                        </div>
 
-            <div class="bairCidUf space">
-                <div>
-                    <label for="bairro">Bairro:</label>
-                    <input type="text" name="bairro" class="form__container" id="bairro" required readonly />
-                </div>
+                        <div>
+                            <div>
+                                <label for="bairro-entrega">Bairro:</label>
+                                <input type="text" name="bairro-entrega" class="form__container" id="bairro-entrega"
+                                    required readonly />
+                            </div>
 
-                <div>
-                    <label for="cidade">Cidade:</label>
-                    <input type="text" name="cidade" class="form__container" id="cidade" required readonly />
-                </div>
-                <div>
-                    <label for="uf">UF:</label>
-                    <input type="text" name="uf" class="form__container" id="uf" required readonly />
-                </div>
-            </div>
-
-            <div class="confSenha space">
-                <div>
-                    <label for="senha">Senha:</label>
-                    <input type="password" name="senha" id="senha" class="passInput form__container" minlength="8"
-                        maxlength="25" required>
-                </div>
-                <div>
-                    <label for="confirmaSenha">Confirmar senha:</label>
-                    <input type="password" name="confirmaSenha" id="confirmaSenha" class="passInput form__container"
-                        minlength="8" maxlength="25" required>
-                    <span class="alert senha"></span>
-                    <i id="showPassword" class="fa-solid fa-eye-slash"></i>
-                </div>
-
-
-                <button type="submit" id="btn-salvar" disabled>Cadastrar</button>
-            </div>
-
+                            <div>
+                                <label for="cidade-entrega">Cidade:</label>
+                                <input type="text" name="cidade-entrega" class="form__container" id="cidade-entrega"
+                                    required readonly />
+                            </div>
+                            <div>
+                                <label for="uf-entrega">UF:</label>
+                                <input type="text" name="uf-entrega" class="form__container" id="uf-entrega" required
+                                    readonly />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <button type="submit" id="btn-salvar" disabled>Cadastrar</button>
         </form>
     </div>
+    <script src="
+https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
+"></script>
 </body>
 
 </html>

@@ -1,19 +1,35 @@
-const urlParams = new URLSearchParams(window.location.search);
-email = urlParams.get('email');
-let dados;
+function getCookie(nome) {
+    return Cookies.get(nome)
+}
+function setCookie(nome, info, exdays) {
+    Cookies.set(nome, info, exdays)
+}
 
-document.getElementById("logo").href += "?email=" + email;
+function checkCookie(nome) {
+    var sessaoId = getCookie(nome);
+    if (sessaoId == undefined) {
+        alert("Usuário deslogado, redirecionando para login")
+        location.href = "./loginCliente.html"
+    }
+}
+checkCookie('sessaoId')
+
+idCliente = getCookie('sessaoId')
+
+let dados;
 
 document.getElementById("sair-perfil").addEventListener("click", (e) => {
     e.preventDefault();
 
     const resp = window.confirm("Deseja encerrar a sessão?");
-
-    resp == 1 ? window.open("../index.html", "_self") : "";
+    if (resp == 1) {
+        Cookies.remove('sessaoId');
+        window.open("../index.html", "_self")
+    }
 });
 
 const conectAPI = async () => {
-    dados = await fetch(`/cliente/search?email=${email}`).then(data => data.json());
+    dados = await fetch(`/cliente/${idCliente}`).then(data => data.json());
     preecheDados();
 }
 conectAPI();

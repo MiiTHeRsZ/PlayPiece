@@ -3,10 +3,12 @@ package com.playpiece.PlayPiece.Services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.playpiece.PlayPiece.Models.ClienteModel;
 import com.playpiece.PlayPiece.Models.EnderecoModel;
+import com.playpiece.PlayPiece.Models.LoginDto;
 import com.playpiece.PlayPiece.repositories.ClienteRespository;
 import com.playpiece.PlayPiece.repositories.EnderecoRepository;
 
@@ -16,6 +18,7 @@ public class ClienteService {
     final ClienteRespository clienteRespository;
     final EnderecoService enderecoService;
     final EnderecoRepository enderecoRepository;
+    final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);
 
     public ClienteService(ClienteRespository clienteRespository, EnderecoService enderecoService,
             EnderecoRepository enderecoRepository) {
@@ -57,9 +60,27 @@ public class ClienteService {
         }
     }
 
+    public ClienteModel getClienteLogin(LoginDto login) {
+        try {
+            ClienteModel cliente = clienteRespository.findByEmail(login.getEmail());
+            cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
+            var result = encoder.matches(login.getSenha(), cliente.getSenha());
+            if (result && login.getEmail().equalsIgnoreCase(cliente.getEmail())) {
+                return cliente;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
     public ClienteModel postClient(ClienteModel cliente) {
+        var senhaCripto = encoder.encode(cliente.getSenha());
         cliente.setId(null);
         cliente.setAtivo(true);
+        cliente.setSenha(senhaCripto);
         enderecoService.postEndereco(0L, cliente.getEnderecoFaturamento());
         cliente = clienteRespository.save(cliente);
         var endFat = enderecoRepository.save(cliente.getEnderecoFaturamento());
@@ -73,6 +94,11 @@ public class ClienteService {
 
     public ClienteModel updateCliente(Long id, ClienteModel novoCliente) {
         ClienteModel cliente = clienteRespository.findById(id).get();
+        var res = encoder.matches(novoCliente.getSenha(), cliente.getSenha());
+        if (!res) {
+            var senhaCripto = encoder.encode(novoCliente.getSenha());
+            novoCliente.setSenha(senhaCripto);
+        }
         novoCliente.setId(cliente.getId());
         novoCliente.setEmail(cliente.getEmail());
         novoCliente.setCpf(cliente.getCpf());

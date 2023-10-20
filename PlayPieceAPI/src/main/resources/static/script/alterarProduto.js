@@ -51,7 +51,7 @@ getImagens()
 
 function mostarImagensInput() {
     limparImagensInput()
-    
+
     let a = document.querySelector("#imagens").files
     let imgs = ""
     let text = document.querySelector("#input_imagens p")
@@ -65,7 +65,7 @@ function mostarImagensInput() {
         let newLink = "../" + link[4] + "/" + link[5] + "/" + link[6] + "/" + link[7]
         imgs += `<div class="imagem-input">
         <img src="${newLink}" alt="imagem">
-        <span class="fav" onclick="favoritarInput(${index})">${imagens[index].padrao?"&#10029;":"&#10025;"}</span>
+        <span class="fav" onclick="favoritarInput(${index})">${imagens[index].padrao ? "&#10029;" : "&#10025;"}</span>
         <span class="del" onclick="removerInput(${index})">&times;</span>
         </div>`
     })

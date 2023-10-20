@@ -3,6 +3,7 @@ package com.playpiece.PlayPiece.Controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.playpiece.PlayPiece.Models.LoginDto;
 import com.playpiece.PlayPiece.Models.UsuarioModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -49,19 +50,20 @@ public class UsuarioController {
 
     }
 
-    @GetMapping(value = "search", params = { "email" })
-    public ResponseEntity<?> getUsuarioByEmail(@RequestParam String email) {
+    @PutMapping("/login")
+    public ResponseEntity<?> getUsuarioByEmail(@RequestBody LoginDto login) {
 
-        var usuario = usuarioService.getUsuarioByEmail(email);
+        var usuario = usuarioService.usuarioLogin(login);
 
         if (usuario == null)
             return new ResponseEntity<>("Usuário não encontrado", HttpStatus.NOT_FOUND);
 
-        List<String> login = new ArrayList<>();
-        login.add(usuario.getEmailUsuario());
-        login.add(usuario.getSenha());
-        login.add(usuario.getCargo().getId().toString());
-        return new ResponseEntity<>(login, HttpStatus.OK);
+        List<String> resuList = new ArrayList<>();
+        resuList.add(usuario.getId().toString());
+        resuList.add(usuario.getEmailUsuario());
+        resuList.add(usuario.getSenha());
+        resuList.add(usuario.getCargo().getId().toString());
+        return new ResponseEntity<>(resuList, HttpStatus.OK);
     }
 
     @GetMapping(value = "search", params = { "nome" })

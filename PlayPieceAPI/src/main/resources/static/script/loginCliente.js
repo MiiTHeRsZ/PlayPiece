@@ -1,31 +1,79 @@
 const form = document.getElementById("form");
 form.onclick = (e) => e.preventDefault();
+const loader = document.getElementById("loading")
+
+function getCookie(nome) {
+    return Cookies.get(nome)
+}
+function setCookie(nome, info, exdays) {
+    Cookies.set(nome, info, exdays)
+}
+
+function checkCookie(nome) {
+    var sessao = getCookie(nome);
+    if (sessao != undefined) {
+        var resp = confirm("Usuário logado. Redirecionando para o perfil\nAo cancelar, você estará encerrando sua sessão")
+        if (resp == 1) {
+            location.href = `./perfilCliente.html`
+        } else if (resp == 0) {
+            Cookies.remove("sessaoId")
+        }
+    }
+}
+
+sessao = checkCookie("sessaoId")
 
 const conect_api = async () => {
     const nickname = document.getElementById("nickname").value;
     // converte senha fornecida pelo usuario e ja transforma essa senha em hashcode
-    const password = (document.getElementById("password").value).hashCode();
+    const password = document.getElementById("password").value;
 
+    let login = {
+        "email": nickname,
+        "senha": password
+    }
     // faz a busca dos dados fornecidos e depois converte para json
     let result = null
+    let status = null
     try {
-        result = await fetch(`/cliente/search?email=${nickname}`).then(data => data.json())
+        result = await fetch(`/cliente/login`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(login),
+        }).then((data) => {
+            status = data.status
+            loader.classList.remove("display")
+            return data.json()
+        })
+
     } catch (error) {
     }
     // validar se usuario e senha digitados batem com o usuario e senha cadastrado no banco de dados
-    if (result != null && nickname == result.email && password == result.senha) {
-        // ! Verificar na API se os dados passados batem, e retornar apenas o ID (Apenas ideia, porém bateu "não tá na história" kkk, pq se não, vai ter que fazer outra busca com o ID, então talvez seja descartada)
-        location.href = `../index.html?email=${result.email}`, {};
+    if (status == 200) {
+        setCookie("sessaoId", result.id, 1)
+        location.href = `../index.html`;
     } else {
-        alert("Usuário e/ou senha inválido(s)!");
+        setTimeout(() => {
+            alert("Usuário e/ou senha inválido(s)!");
+        }, 100)
     }
 
 }
 
 const btn = document.getElementById("form__btn-entrar");
 btn.addEventListener("click", () => {
+    mostrarLoad()
     conect_api();
 });
+
+function mostrarLoad() {
+    loader.classList.add("display")
+    setTimeout(() => {
+        loader.classList.remove("display")
+    }, 10000);
+}
 
 let showPassIcon = document.querySelector("#showPassword")
 showPassIcon.addEventListener("click", () => {
