@@ -1,7 +1,9 @@
 package com.playpiece.PlayPiece.Controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.playpiece.PlayPiece.Models.LoginDto;
 import com.playpiece.PlayPiece.Models.UsuarioModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 
 import com.playpiece.PlayPiece.Services.UsuarioService;
 
@@ -30,16 +31,16 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity getUsuarioList() {
+    public ResponseEntity<?> getUsuarioList() {
         List<UsuarioModel> usuarios = usuarioService.getUsuarioList();
         if (usuarios.isEmpty())
-            return new ResponseEntity<>("Não há usuários",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Não há usuários", HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<List<UsuarioModel>>(usuarios, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getUsuarioById(@PathVariable Long id) {
+    public ResponseEntity<?> getUsuarioById(@PathVariable Long id) {
 
         var usuario = usuarioService.getUsuarioById(id);
         if (usuario == null)
@@ -49,21 +50,27 @@ public class UsuarioController {
 
     }
 
-    @GetMapping(value = "search", params = { "email" })
-    public ResponseEntity getUsuarioByEmail(@RequestParam String email) {
+    @PutMapping("/login")
+    public ResponseEntity<?> getUsuarioByEmail(@RequestBody LoginDto login) {
 
-        var usuario = usuarioService.getUsuarioByEmail(email);
+        var usuario = usuarioService.usuarioLogin(login);
+
         if (usuario == null)
             return new ResponseEntity<>("Usuário não encontrado", HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<>(usuario, HttpStatus.OK);
+        List<String> resuList = new ArrayList<>();
+        resuList.add(usuario.getId().toString());
+        resuList.add(usuario.getEmailUsuario());
+        resuList.add(usuario.getSenha());
+        resuList.add(usuario.getCargo().getId().toString());
+        return new ResponseEntity<>(resuList, HttpStatus.OK);
     }
 
     @GetMapping(value = "search", params = { "nome" })
-    public ResponseEntity getUsuarioByNome(@RequestParam String nome) {
+    public ResponseEntity<?> getUsuarioByNome(@RequestParam String nome) {
         List<UsuarioModel> usuarios = usuarioService.getUsuarioByNome(nome);
         if (usuarios.isEmpty())
-            return new ResponseEntity<>("Usuários não encontrados",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Usuários não encontrados", HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<List<UsuarioModel>>(usuarios, HttpStatus.OK);
     }

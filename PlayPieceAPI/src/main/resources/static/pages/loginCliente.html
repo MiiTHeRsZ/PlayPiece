@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/loginCliente.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>PI - Desenvolvimento de Sistemas Orientados a WEB</title>
+    <script src="../script/loginCliente.js" defer></script>
+</head>
+
+<body>
+    <header id="menuBar">
+        <a href="../index.html"><img src="../images/Logo.png" alt="Logo" class="logo" /></a>
+    </header>
+
+    <div class="form__container">
+        <form action="" id="form">
+            <label for=" #nickname" class="form__label">E-mail:</label>
+            <input type="email" name="nickname" id="nickname" class="form__input-text" placeholder="exemplo@exemplo.com"
+                required />
+            <label for="#password" class="form__label">Senha:</label>
+            <div class="passBox">
+                <input type="password" name="password" id="password" class="form__input-text" placeholder="***********"
+                    minlength="8" required />
+                <i id="showPassword" class="fa-solid fa-eye-slash"></i>
+            </div>
+
+            <div class="btns">
+                <a href="./cadastroCliente.html" onclick="{window.open('./cadastroCliente.html','_self')}"
+                    id="form__btn-cadastrar" class="form__btn">Cadastrar</a>
+                <div>
+                    <input type="submit" value="Entrar" id="form__btn-entrar" class="form__btn" />
+                    |
+                    <a href="../index.html" onclick="{window.open('../index.html','_self')}"
+                        class="form__btn">Voltar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="loading">
+        <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div>
+            </div>
+            <script src="
+https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
+"></script>
+</body>
+
+</html>

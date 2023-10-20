@@ -1,8 +1,38 @@
-const urlParams = new URLSearchParams(window.location.search);
-group = urlParams.get('group')
+function getCookie(nome) {
+    return Cookies.get(nome)
+}
+function setCookie(nome, info, exdays) {
+    Cookies.set(nome, info, exdays)
+}
+
+group = getCookie("cargo")
+jobSessao = getCookie("jobSession")
+
+checkSessao()
+
+String.prototype.hashCode = function () {
+    var hash = 0,
+        i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        chr = this.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+}
+
+let estoq = () => {
+    let cont = 1
+    let code = "2";
+    for (cont = 1; cont <= 16; cont++) {
+        code = String(code).hashCode()
+    }
+    return code
+}
 
 // group 2 => estoquista
-if (group == 2) {
+if (group == estoq()) {
     document.getElementById("mostrarTbUsuarios").style.display = "none"
     document.getElementById("btnCadastroUsuario").style.display = "none"
     document.getElementById("btnCadastroProduto").style.display = "none"
@@ -10,6 +40,7 @@ if (group == 2) {
 
 // botão que mostra/ oculta a tabela de usuarios
 document.getElementById("mostrarTbUsuarios").addEventListener("click", () => {
+    checkSessao()
     const tabela = document.getElementById("secaoTabelaUsuario");
     const tabelaProduto = document.getElementById("secaoTabelaProduto");
 
@@ -74,6 +105,7 @@ async function createTbUsers() {
 
 // botão que mostra/oculta a tabela de produtos
 document.getElementById("mostrarTbProdutos").addEventListener("click", () => {
+    checkSessao()
     const tabela = document.getElementById("secaoTabelaProduto");
     const tabelaUsuario = document.getElementById("secaoTabelaUsuario");
 
@@ -118,16 +150,14 @@ async function createTbProducts() {
 
         let nome = document.createElement("td")
         let avaliacao = document.createElement("td")
-        let descricao = document.createElement("td")
         let preco = document.createElement("td")
         let quantidade = document.createElement("td")
         let status = document.createElement("td")
         let alterar = document.createElement("td")
 
-        nome.textContent = `${produto.Nome}`
+        nome.innerHTML = `<a href="./produto.html?id=${produto.Id}" target="_blank">${produto.Nome}</a>`
         avaliacao.textContent = `${produto.Avaliacao}`
-        descricao.textContent = `${produto.Descricao}`
-        preco.textContent = `${produto.Preco}`
+        preco.textContent = `${parseFloat(produto.Preco).toFixed(2).replace(".", ",")}`
         quantidade.textContent = `${produto.Quantidade}`
         status.innerHTML = `<button class = "changeStatusButton" value=${produto.Id}> ${produto.Status ? "Ativo" : "Inativo"} </button>`
         alterar.innerHTML = `<a onclick="window.open('../pages/alterarProduto.html?id=${produto.Id}&group=${group}','name','width=500,height=1000')"> <button class = "alterarProduto"> alterar </button> <a>`
@@ -137,7 +167,6 @@ async function createTbProducts() {
 
         tr.appendChild(nome)
         tr.appendChild(avaliacao)
-        tr.appendChild(descricao)
         tr.appendChild(preco)
         tr.appendChild(quantidade)
         tr.appendChild(status)
@@ -148,6 +177,7 @@ async function createTbProducts() {
 
 // Responsavel por filtrar a lista de usuários por Nome 
 document.getElementById("pesquisarPorNome").addEventListener("click", () => {
+    checkSessao()
     const nome = document.getElementById("txtNome").value;
     const tabela = document.getElementById("secaoTabelaUsuario");
     clearTable()
@@ -156,7 +186,6 @@ document.getElementById("pesquisarPorNome").addEventListener("click", () => {
 });
 
 async function pesquisarPorNome(nome) {
-
     const response = await fetch(`/usuario/search?nome=${nome}`).then((data) =>
         data.json()
     );
@@ -202,6 +231,7 @@ async function pesquisarPorNome(nome) {
 /* Filtrar por Nome - Produto */
 
 document.getElementById("pesquisarPorNomeProduto").addEventListener("click", () => {
+    checkSessao()
     const nome = document.getElementById("txtNomeProduto").value;
     const tabela = document.getElementById("secaoTabelaProduto");
     clearTable()
@@ -294,4 +324,23 @@ function clearTable() {
     tr.forEach(linha => {
         linha.innerHTML = ""
     })
+}
+
+async function checkSessao() {
+    let cargoId = getCookie("cargo")
+    let sessaoCode = getCookie("jobSession")
+    let funcionario = await fetch(`/usuario/${sessaoCode}`).then(data => data.json())
+    console.log("checando");
+    let cont = 1
+    let cargo = funcionario.cargo.id;
+    for (cont = 1; cont <= 16; cont++) {
+        cargo = String(cargo).hashCode()
+    }
+
+    if (cargo != cargoId) {
+        alert("Sessão inválida")
+        Cookies.remove("jobSession")
+        Cookies.remove("cargo")
+        location.href = "./loginBackoffice.html"
+    }
 }

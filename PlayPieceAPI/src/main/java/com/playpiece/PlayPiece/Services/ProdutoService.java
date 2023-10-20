@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.playpiece.PlayPiece.Models.ImagemModel;
 import com.playpiece.PlayPiece.Models.ProdutoModel;
@@ -70,11 +69,11 @@ public class ProdutoService {
     public ProdutoModel updateProduto(Long id, ProdutoModel novoProduto) {
         ProdutoModel produto = getProdutoById(id);
         novoProduto.setId(produto.getId());
-        //List<ImagemModel> listaImagens = produto.getListaImagens();
-        //List<ImagemModel> listaImagensNovoProduto = novoProduto.getListaImagens();
-        //List<ImagemModel> novasImagens = new ArrayList<ImagemModel>();
+        List<ImagemModel> listaImagens = produto.getListaImagens();
+        List<ImagemModel> listaImagensNovoProduto = novoProduto.getListaImagens();
+        List<ImagemModel> novasImagens = new ArrayList<ImagemModel>();
 
-        /* if (listaImagensNovoProduto.size() > listaImagens.size()) {
+        if (listaImagensNovoProduto.size() > listaImagens.size()) {
             int count = 0;
             while (count < listaImagens.size()) {
                 novasImagens
@@ -115,7 +114,7 @@ public class ProdutoService {
         }
 
         novoProduto.setListaImagens(novasImagens);
- */
+
         produtoRepository.save(novoProduto);
 
         return novoProduto;
