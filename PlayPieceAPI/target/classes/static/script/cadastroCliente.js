@@ -1,33 +1,80 @@
-document.getElementById("cpf").onchange = async () => {
+var jaCpf = null
+
+document.getElementById("cpf").onchange = async (e) => {
     const checkCpf = await (await fetch(`/cliente/search?cpf=${document.getElementById("cpf").value}`)).status == 200 ? true : false
     if (!checkCpf) {
         document.getElementById("err-cpf").style.display = "none"
-        verificaInformacao();
+        verificaInformacao(e.target.id);
+        jaCpf = false
     } else {
+        document.getElementById("err-cpf").innerHTML = "CPF já cadastrado"
+        document.getElementById("cpf").classList.add('fail')
         document.getElementById("err-cpf").style.display = "block"
+        jaCpf = true
     }
 }
-document.getElementById("nome").onchange = () => {
-    if (!verificaNome()) {
+document.getElementById("nome").onchange = (e) => {
+    if (!verificaNome(e.target.id)) {
         alert("Preencha o campo 'Nome' com nome e sobrenome\ncontendo ao menos 3 letras cada!.");
+        verificaInformacao();
     }
-    verificaInformacao();
 }
-document.getElementById("email").onchange = () => {
-    verificaInformacao();
+document.getElementById("email").onchange = (e) => {
+    if (e.target.value !== "") {
+        verificaInformacao(e.target.id);
+    }
 }
-document.getElementById("genero").onchange = () => {
-    verificaInformacao();
+document.getElementById("genero").onchange = (e) => {
+    if (e.target.value !== "") {
+        verificaInformacao(e.target.id);
+    }
 }
-document.getElementById("cep").onchange = () => {
-    buscarDadosCep();
+document.getElementById("cep-faturamento").onchange = () => {
+    buscarDadosCep("cep-faturamento");
 }
-document.getElementById("senha").onchange = () => {
-    verificaInformacao();
+document.getElementById("cep-entrega").onchange = () => {
+    buscarDadosCep("cep-entrega");
 }
-document.getElementById("confirmaSenha").onchange = () => {
-    verificaInformacao();
+document.getElementById("senha").onchange = (e) => {
+    if (e.target.value !== "") {
+        verificaInformacao(e.target.id);
+    }
 }
+document.getElementById("confirmaSenha").onchange = (e) => {
+    if (e.target.value !== "") {
+        verificaInformacao(e.target.id);
+    }
+}
+
+document.getElementById("isEntrega").addEventListener("change", () => {
+    if (document.getElementById("isEntrega").checked) {
+        document.getElementById("cep-entrega").value = document.getElementById("cep-faturamento").value
+        document.getElementById("cep-entrega").setAttribute("readonly", "true")
+        document.getElementById("logradouro-entrega").value = document.getElementById("logradouro-faturamento").value
+        document.getElementById("logradouro-entrega").setAttribute("readonly", "true")
+        document.getElementById("numero-entrega").value = document.getElementById("numero-faturamento").value
+        document.getElementById("numero-entrega").setAttribute("readonly", "true")
+        document.getElementById("complemento-entrega").value = document.getElementById("complemento-faturamento").value
+        document.getElementById("complemento-entrega").setAttribute("readonly", "true")
+        document.getElementById("bairro-entrega").value = document.getElementById("bairro-faturamento").value
+        document.getElementById("bairro-entrega").setAttribute("readonly", "true")
+        document.getElementById("cidade-entrega").value = document.getElementById("cidade-faturamento").value
+        document.getElementById("cidade-entrega").setAttribute("readonly", "true")
+        document.getElementById("uf-entrega").value = document.getElementById("uf-faturamento").value
+        document.getElementById("uf-entrega").setAttribute("readonly", "true")
+    } else {
+        document.getElementById("cep-entrega").value = ""
+        document.getElementById("cep-entrega").removeAttribute("readonly")
+        document.getElementById("logradouro-entrega").value = ""
+        document.getElementById("numero-entrega").value = ""
+        document.getElementById("numero-entrega").removeAttribute("readonly")
+        document.getElementById("complemento-entrega").value = ""
+        document.getElementById("complemento-entrega").removeAttribute("readonly")
+        document.getElementById("bairro-entrega").value = ""
+        document.getElementById("cidade-entrega").value = ""
+        document.getElementById("uf-entrega").value = ""
+    }
+})
 
 var hojeSemForm = new Date();
 const hoje = {
@@ -40,13 +87,13 @@ hoje.string = hoje.ano + "-" + hoje.mes + "-" + hoje.dia
 
 document.getElementById("dt_nasc").setAttribute("max", hoje.string)
 
-function verificaInformacao() {
+async function verificaInformacao(input) {
     let senha = document.getElementById("senha").value
     let confirmaSenha = document.getElementById("confirmaSenha").value
     let nomeret = verificaNome();
     let cpf = document.getElementById("cpf").value
     let cpfret = validaCPF(cpf)
-    let emailret = verificaEmail();
+    let emailret = await verificaEmail();
     let genero = document.getElementById("genero").value;
     document.getElementById("senha").value
 
@@ -54,9 +101,26 @@ function verificaInformacao() {
 
     // verifica se as senhas informadas são validas ou não
     if (ret) {
-        document.getElementById("confirmaSenha").style.border = '2px solid gray'
+        document.getElementById("confirmaSenha").classList.remove("fail")
     } else {
-        document.getElementById("confirmaSenha").style.border = '2px solid red'
+        document.getElementById("confirmaSenha").classList.add('fail')
+    }
+
+    if (cpfret && !jaCpf) {
+        document.getElementById("cpf").classList.remove("fail")
+        document.getElementById("err-cpf").style.display = "none"
+    } else {
+        document.getElementById("cpf").classList.add('fail')
+        if (!jaCpf) {
+            document.getElementById("err-cpf").innerHTML = "CPF inválido"
+        }
+        document.getElementById("err-cpf").style.display = "inline"
+    }
+
+    if (emailret) {
+        document.getElementById("email").classList.remove("fail")
+    } else {
+        document.getElementById("email").classList.add('fail')
     }
 
     // verifica se as informações senha e cpf foram preechidas corratamente ou não para liberar o botao de salvar
@@ -65,23 +129,30 @@ function verificaInformacao() {
         document.getElementById("btn-salvar").style.cursor = 'pointer'
     } else {
         document.getElementById("btn-salvar").setAttribute("disabled", "true")
+        document.getElementById("btn-salvar").style.cursor = 'not-allowed'
     }
 }
 
 async function verificaEmail() {
     let email = document.getElementById("email").value;
+    let comp = null
 
-    await fetch(`/cliente/search?email=${email}`).then((response) => {
+    comp = await fetch(`/cliente/search?email=${email}`).then((data) => {
         const alert = document.querySelector(".mail");
-        if (response.status == 404) {
+        if (data.status == 404) {
             alert.style.display = "none"
-            return false;
+            return false
         } else {
             const alert = document.querySelector(".mail");
             alert.style.display = "inline"
-            return true;
+            return data.json();
         }
     })
+
+    if (email == comp.email)
+        return false
+
+    return true
 }
 
 let showPassIcon = document.querySelector("#showPassword")
@@ -116,13 +187,13 @@ botaoSalvar.addEventListener("click", async (e) => {
         "genero": document.getElementById("genero").value,
         "email": document.getElementById("email").value,
         "enderecoFaturamento": {
-            "cep": document.getElementById("cep").value,
-            "logradouro": document.getElementById("logradouro").value,
-            "numero": document.getElementById("numero").value,
-            "complemento": document.getElementById("complemento").value,
-            "bairro": document.getElementById("bairro").value,
-            "cidade": document.getElementById("cidade").value,
-            "uf": document.getElementById("uf").value,
+            "cep": document.getElementById("cep-faturamento").value,
+            "logradouro": document.getElementById("logradouro-faturamento").value,
+            "numero": document.getElementById("numero-faturamento").value,
+            "complemento": document.getElementById("complemento-faturamento").value,
+            "bairro": document.getElementById("bairro-faturamento").value,
+            "cidade": document.getElementById("cidade-faturamento").value,
+            "uf": document.getElementById("uf-faturamento").value,
             "padrao": true,
             "ativo": true
         },
@@ -160,18 +231,20 @@ String.prototype.hashCode = function () {
 }
 
 function verificarSenhas(senha, confirmaSenha) {
-    let alert = document.querySelector(".alert")
-    if (senha !== confirmaSenha || confirmaSenha == null || confirmaSenha.length < 8 || confirmaSenha.length > 25) {
-        if (confirmaSenha == "") {
+    let alert = document.querySelector(".alert-senha")
+    if (senha !== confirmaSenha || confirmaSenha == "" || confirmaSenha.length < 8 || confirmaSenha.length > 25) {
+        if (confirmaSenha == "" || senha == "") {
+            return true
         }
         else if (senha !== confirmaSenha) {
             alert.style.display = "inline"
             alert.innerHTML = "Senhas não batem"
+            return false
         } else if (confirmaSenha.length < 8 || confirmaSenha.length > 25) {
             alert.style.display = "inline"
             alert.innerHTML = "Senha deve conter de 8 até 25 caracteres"
+            return false
         }
-        return false
     } else {
         alert.innerHTML = ""
         alert.style.display = "none"
@@ -180,6 +253,9 @@ function verificarSenhas(senha, confirmaSenha) {
 }
 
 function validaCPF(cpf) {
+    if (cpf == "") {
+        return true
+    }
     var Soma = 0
     var Resto
 
@@ -248,9 +324,10 @@ function getJson(url) {
     });
 }
 
-function getValidCep() {
+function getValidCep(input) {
     return new Promise((resolve, reject) => {
-        const numeroCep = document.getElementById("cep").value;
+        const numeroCep = document.getElementById(input).value;
+        console.log(numeroCep);
 
         if (numeroCep.length === 8) {
             resolve(numeroCep);
@@ -273,23 +350,41 @@ function verificaNome() {
     return nomeValido;
 }
 
-async function buscarDadosCep() {
+async function buscarDadosCep(input) {
     try {
-        const alert = document.querySelector(".alert-cep");
-
-        const valorCep = await getValidCep();
-        const dadosArray = await getJson(`https://viacep.com.br/ws/${valorCep}/json/`);
-        if (dadosArray.erro === true) {
-            alert.innerHTML = "CEP inválido!";
-            alert.style.display = "inline";
-        } else {
-            alert.innerHTML = "";
-            alert.style.display = "none";
-            document.getElementById('logradouro').value = dadosArray.logradouro;
-            document.getElementById('bairro').value = dadosArray.bairro;
-            document.getElementById('cidade').value = dadosArray.localidade;
-            document.getElementById('uf').value = dadosArray.uf;
+        const alert = document.querySelector(`.alert-${input}`);
+        if (input === "cep-faturamento") {
+            const valorCep = await getValidCep(input);
+            console.log(valorCep);
+            const dadosArray = await getJson(`https://viacep.com.br/ws/${valorCep}/json/`);
+            if (dadosArray.erro === true) {
+                alert.innerHTML = "CEP inválido!";
+                alert.style.display = "inline";
+            } else {
+                alert.innerHTML = "";
+                alert.style.display = "none";
+                document.getElementById('logradouro-faturamento').value = dadosArray.logradouro;
+                document.getElementById('bairro-faturamento').value = dadosArray.bairro;
+                document.getElementById('cidade-faturamento').value = dadosArray.localidade;
+                document.getElementById('uf-faturamento').value = dadosArray.uf;
+            }
+        } else if (input === "cep-entrega") {
+            valorCep = await getValidCep(input);
+            dadosArray = await getJson(`https://viacep.com.br/ws/${valorCep}/json/`);
+            if (dadosArray.erro === true) {
+                alert.innerHTML = "CEP inválido!";
+                alert.style.display = "inline";
+            } else {
+                alert.innerHTML = "";
+                alert.style.display = "none";
+                document.getElementById('logradouro-entrega').value = dadosArray.logradouro;
+                document.getElementById('bairro-entrega').value = dadosArray.bairro;
+                document.getElementById('cidade-entrega').value = dadosArray.localidade;
+                document.getElementById('uf-entrega').value = dadosArray.uf;
+            }
         }
+
+
     } catch (erro) {
         console.log("Erro na busca do CEP: " + erro.message + "\nVerifique se o CEP fornecido é realmente válido");
     }
