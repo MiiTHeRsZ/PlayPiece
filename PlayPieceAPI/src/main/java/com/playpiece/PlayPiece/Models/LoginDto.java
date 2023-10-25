@@ -1,6 +1,9 @@
 package com.playpiece.PlayPiece.Models;
 
+import jakarta.validation.constraints.Email;
+
 public class LoginDto {
+    @Email
     private String email;
     private String senha;
 

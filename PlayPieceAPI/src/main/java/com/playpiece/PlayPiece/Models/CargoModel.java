@@ -1,6 +1,7 @@
 package com.playpiece.PlayPiece.Models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Table(name = "cargo")
@@ -14,5 +15,6 @@ public class CargoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank
     private String nome;
 }
