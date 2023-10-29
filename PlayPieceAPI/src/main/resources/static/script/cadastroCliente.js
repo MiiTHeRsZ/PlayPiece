@@ -306,44 +306,44 @@ function validaCPF(cpf) {
 }
 
 
-// nova função assincrona getJson
-async function getJson(url) {
-    fetch(url)
-        .then(response => {
-            const statusCode = response.status;
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error("Erro na requisição. Código de Status: " + statusCode);
-            }
-        })
-        .then(responseData => {
-            console.log(responseData);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-}
+// // nova função assincrona getJson
+// async function getJson(url) {
+//     fetch(url)
+//         .then(response => {
+//             const statusCode = response.status;
+//             if (response.ok) {
+//                 return response.json();
+//             } else {
+//                 throw new Error("Erro na requisição. Código de Status: " + statusCode);
+//             }
+//         })
+//         .then(responseData => {
+//             console.log(responseData);
+//         })
+//         .catch(error => {
+//             console.error(error);
+//         });
+// }
 
 // função getJson antiga
-// function getJson(url) {
-//     return new Promise((resolve, reject) => {
-//         const xhr = new XMLHttpRequest();
-//         xhr.open('GET', url, true);
-//         xhr.onload = function () {
-//             if (xhr.status >= 200 && xhr.status < 400) {
-//                 resolve(JSON.parse(xhr.responseText));
-//             } else {
-//                 const erro = {
-//                     codigo: xhr.status,
-//                     mensagem: 'Erro na requisição'
-//                 }
-//                 reject(erro);
-//             }
-//         }
-//         xhr.send();
-//     });
-// }
+function getJson(url) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 400) {
+                resolve(JSON.parse(xhr.responseText));
+            } else {
+                const erro = {
+                    codigo: xhr.status,
+                    mensagem: 'Erro na requisição'
+                }
+                reject(erro);
+            }
+        }
+        xhr.send();
+    });
+}
 
 function getValidCep(input) {
     return new Promise((resolve, reject) => {
