@@ -24,6 +24,31 @@ checkCookie('sessaoId')
 
 var idCliente = getCookie('sessaoId')
 
+function menu() {
+    let nome_perfil = document.getElementById("nome-perfil");
+    let login_perfil = document.getElementById("login-perfil");
+    let sair = document.getElementById("sair");
+
+    if (idCliente == undefined) {
+        nome_perfil.innerHTML = "Seja Bem-Vindo(a)!";
+        login_perfil.innerHTML = "Login";
+        login_perfil.href = "./loginCliente.html";
+        sair.style.display = 'none';
+    } else {
+        nome_perfil.innerHTML = `Olá, ${getCookie("nome")}!`;
+        login_perfil.innerHTML = "Perfil";
+        login_perfil.href = "./perfilCliente.html";
+        sair.style.display = '';
+    }
+}
+menu();
+
+function desconectar() {
+    Cookies.remove('sessaoId');
+    Cookies.remove('nome');
+    window.location.reload();
+}
+
 document.getElementById("perfil").addEventListener("click", async () => {
     let check = false
     if (document.getElementById("menuBox").style.display == "none") {
@@ -197,23 +222,38 @@ function criarEstrelas(produto) {
 getProduct()
 
 function adicionarAoCarrinho(idProduto) {
-    let carrinho = getCookie("carrinho");
-    if (!carrinho || carrinho === "") {
-        setCookie("carrinho", idProduto + "&", 1);
-        alert("O produto foi adicionado ao carrinho!");
-    } else {
+    let carrinho = sessionStorage.getItem('carrinho');
+
+    if (carrinho != "" && carrinho != null && carrinho != undefined) {
+        let carrinhoFinal = "";
         let check = false;
-        carrinho.split("&").forEach(item => {
-            if (item == idProduto) {
+
+        if (carrinho.length > 3) {
+            carrinho.split(",").forEach(item => {
+                prod = item.split("-");
+                if (Number(prod[0]) != idProduto) {
+                    carrinhoFinal += `${item},`;
+                } else {
+                    carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`
+                    check = true;
+                }
+            });
+        } else {
+            prod = carrinho.split("-");
+            if (Number(prod[0]) != idProduto) {
+                carrinhoFinal += `${carrinho},`;
+            } else {
+                carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`
                 check = true;
             }
-        });
-        if (!check) {
-            setCookie("carrinho", carrinho + idProduto + "&", 1);
-            alert("O produto foi adicionado ao carrinho!");
-        } else {
-            alert('O produto já se encontra no seu carrinho!')
         }
-    }
+        carrinhoFinal += !check ? `${idProduto}-1,` : "";
+        carrinhoFinal = carrinhoFinal.slice(0, -1);
 
+        /* carrinhoFinal = carrinhoFinal.substring(0, carrinhoFinal.length - 1); */
+
+        sessionStorage.setItem('carrinho', carrinhoFinal);
+    } else {
+        sessionStorage.setItem('carrinho', `${idProduto}-1`);
+    }
 }

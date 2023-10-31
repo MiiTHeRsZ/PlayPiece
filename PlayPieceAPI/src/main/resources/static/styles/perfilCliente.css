@@ -33,6 +33,10 @@ main {
     margin-right: 16px;
 }
 
+.user {
+    cursor: pointer;
+}
+
 h1 {
     font-size: 32px;
     text-align: center;

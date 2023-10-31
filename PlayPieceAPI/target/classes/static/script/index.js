@@ -16,7 +16,6 @@ checkCookie('sessaoId');
 
 var idCliente = getCookie('sessaoId');
 
-// ! Passar o menu para as outras páginas
 function menu() {
     let nome_perfil = document.getElementById("nome-perfil");
     let login_perfil = document.getElementById("login-perfil");
@@ -28,7 +27,7 @@ function menu() {
         login_perfil.href = "./pages/loginCliente.html";
         sair.style.display = 'none';
     } else {
-        nome_perfil.innerHTML = `Olá, !`;
+        nome_perfil.innerHTML = `Olá, ${getCookie("nome")}!`;
         login_perfil.innerHTML = "Perfil";
         login_perfil.href = "./pages/perfilCliente.html";
         sair.style.display = '';
@@ -37,10 +36,12 @@ function menu() {
 menu();
 
 function desconectar() {
-    Cookies.remove('sessaoId', { path: '/' });
+    Cookies.remove('sessaoId');
+    Cookies.remove('nome');
+
     window.location.reload();
 }
-// ! ---
+
 const container_cards = document.getElementById("produtos");
 
 async function getProducts() {

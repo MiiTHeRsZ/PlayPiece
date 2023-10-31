@@ -39,5 +39,15 @@ body {
 }
 
 main {
-    padding: 100px 0;
+    padding: 100px 100px;
+    background-color: #fff;
+}
+
+.nomeProduto {
+    /* height: 30px;
+    overflow: hidden; */
+}
+
+.btn-qntd {
+    cursor: pointer;
 }

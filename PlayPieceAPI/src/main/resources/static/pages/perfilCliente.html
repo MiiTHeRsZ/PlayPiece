@@ -13,9 +13,19 @@
 <body>
     <header id="menuBar">
         <a href="../index.html" id="logo"><img src="../images/Logo.png" alt="Logo" class="logo" /></a>
-        <div>
-            <a href="" class="icon shopping_cart"><i class="fi fi-br-shopping-cart"></i></a>
-            <a href="" class="icon user" id="sair-perfil"><i class="fi fi-br-exit"></i></a>
+        <div class="dropdown">
+            <a href="./carrinhoCompras.html" class="icon shopping_cart"><i class="fi fi-br-shopping-cart"></i></a>
+            <a class="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="perfil"><i
+                    class="icon user"><i class="fi fi-br-user"></i></i>
+            </a>
+
+            <ul class="dropdown-menu">
+                <li>
+                    <p class="dropdown-item" id="nome-perfil"></p>
+                </li>
+                <li><a class="dropdown-item" href="#" id="login-perfil"></a></li>
+                <li><a class="dropdown-item" href="#" onclick="desconectar()" id="sair">Desconectar</a></li>
+            </ul>
         </div>
     </header>
     <main>
