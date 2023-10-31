@@ -1,4 +1,4 @@
-package com.playpiece.PlayPiece.Services;
+package com.playpiece.PlayPiece.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.playpiece.PlayPiece.Models.ClienteModel;
-import com.playpiece.PlayPiece.Models.EnderecoModel;
-import com.playpiece.PlayPiece.Models.LoginDto;
+import com.playpiece.PlayPiece.models.ClienteModel;
+import com.playpiece.PlayPiece.models.EnderecoModel;
+import com.playpiece.PlayPiece.models.LoginDto;
 import com.playpiece.PlayPiece.repositories.ClienteRespository;
 import com.playpiece.PlayPiece.repositories.EnderecoRepository;
 
@@ -83,6 +83,9 @@ public class ClienteService {
         cliente.setSenha(senhaCripto);
         enderecoService.postEndereco(0L, cliente.getEnderecoFaturamento());
         cliente = clienteRespository.save(cliente);
+
+        // var carrinho = carrinhoRepository.save(new CarrinhoModel());
+
         var endFat = enderecoRepository.save(cliente.getEnderecoFaturamento());
         cliente.setEnderecoFaturamento(enderecoService.getEnderecoById(endFat.getId()));
         cliente.getEnderecoFaturamento().setIdCliente(cliente.getId());

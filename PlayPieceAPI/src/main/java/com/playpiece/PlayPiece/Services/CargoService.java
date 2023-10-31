@@ -1,10 +1,10 @@
-package com.playpiece.PlayPiece.Services;
+package com.playpiece.PlayPiece.services;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.playpiece.PlayPiece.Models.CargoModel;
+import com.playpiece.PlayPiece.models.CargoModel;
 import com.playpiece.PlayPiece.repositories.CargoRepository;
 
 @Service

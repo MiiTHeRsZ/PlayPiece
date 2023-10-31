@@ -1,4 +1,4 @@
-package com.playpiece.PlayPiece.Services;
+package com.playpiece.PlayPiece.services;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.playpiece.PlayPiece.Models.ImagemModel;
+import com.playpiece.PlayPiece.models.ImagemModel;
 import com.playpiece.PlayPiece.repositories.ImagemRepository;
 
 @Service

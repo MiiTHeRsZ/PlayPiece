@@ -121,7 +121,7 @@ async function getProduct() {
             <button disabled>Adicionar ao carrinho</button>
         </div>
         <h4 for="descricao">Descrição:</h4>
-        <p id="descricao">${produto.descricao}</p>
+        <p style="white-space:pre-line" id="descricao">${produto.descricao}</p>
         </section>
         `;
 

@@ -1,4 +1,4 @@
-package com.playpiece.PlayPiece.Controllers;
+package com.playpiece.PlayPiece.controllers;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.playpiece.PlayPiece.Services.ImagemService;
+import com.playpiece.PlayPiece.services.ImagemService;
 
 @RestController
 @CrossOrigin("*")

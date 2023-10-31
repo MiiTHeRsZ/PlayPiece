@@ -1,11 +1,11 @@
-package com.playpiece.PlayPiece.Services;
+package com.playpiece.PlayPiece.services;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.playpiece.PlayPiece.Models.EnderecoModel;
+import com.playpiece.PlayPiece.models.EnderecoModel;
 import com.playpiece.PlayPiece.repositories.EnderecoRepository;
 
 @Service

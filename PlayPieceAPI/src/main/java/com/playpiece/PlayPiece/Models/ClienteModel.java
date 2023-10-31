@@ -1,10 +1,12 @@
-package com.playpiece.PlayPiece.Models;
+package com.playpiece.PlayPiece.models;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.playpiece.PlayPiece.models.pedido.PedidoModel;
 import com.playpiece.validations.interfaces.IValidarNome;
 
 import jakarta.persistence.*;
@@ -19,7 +21,6 @@ import lombok.*;
 @Entity(name = "cliente")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class ClienteModel {
@@ -49,11 +50,23 @@ public class ClienteModel {
     private String email;
 
     private String senha;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "end_fat", referencedColumnName = "id")
     private EnderecoModel enderecoFaturamento;
+
     @Transient
     private List<EnderecoModel> listaEndereco;
 
+    @Transient
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", orphanRemoval = true)
+    @JsonManagedReference
+    private List<PedidoModel> pedidos;
+
     private Boolean ativo;
+
+    public ClienteModel() {
+
+    }
+
 }
