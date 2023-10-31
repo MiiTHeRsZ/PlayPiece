@@ -45,7 +45,7 @@ async function criaCarrinho() {
     const carrinho = sessionStorage.getItem("carrinho");
     limparCarrinho();
     if (carrinho != "" && carrinho != null && carrinho != undefined) {
-        let produtos = "";
+        let preco = 0;
 
         if (carrinho.length > 3) {
             let quantidadeItens = 0;
@@ -61,11 +61,13 @@ async function criaCarrinho() {
 
                 let id = document.createElement("td");
                 let item = document.createElement("td");
+                item.setAttribute("class", "itemProduto");
                 let nomeProduto = document.createElement("td");
                 nomeProduto.setAttribute("class", "nomeProduto");
                 let quantidade = document.createElement("td");
                 let precoUnitario = document.createElement("td");
                 let precoTotal = document.createElement("td");
+                precoTotal.setAttribute("class", "precoTotalProduto");
                 let removerCarrinho = document.createElement("td");
 
                 id.style.display = "none";
@@ -84,6 +86,8 @@ async function criaCarrinho() {
                 tr.appendChild(precoUnitario);
                 tr.appendChild(precoTotal);
                 tr.appendChild(removerCarrinho);
+
+                subtotal();
             });
         } else {
             let quantidadeItens = 0;
@@ -98,11 +102,13 @@ async function criaCarrinho() {
 
             let id = document.createElement("td");
             let item = document.createElement("td");
+            item.setAttribute("class", "itemProduto");
             let nomeProduto = document.createElement("td");
             nomeProduto.setAttribute("class", "nomeProduto");
             let quantidade = document.createElement("td");
             let precoUnitario = document.createElement("td");
             let precoTotal = document.createElement("td");
+            precoTotal.setAttribute("class", "precoTotalProduto");
             let removerCarrinho = document.createElement("td");
 
             id.style.display = "none";
@@ -121,10 +127,24 @@ async function criaCarrinho() {
             tr.appendChild(precoUnitario);
             tr.appendChild(precoTotal);
             tr.appendChild(removerCarrinho);
+
+            subtotal();
         }
     }
 }
 criaCarrinho();
+
+function subtotal() {
+    let precosTotais = document.querySelectorAll(".precoTotalProduto");
+    let total = 0.0;
+
+    precosTotais.forEach(item => {
+        total += Number(item.textContent.replace(",", "."));
+    });
+
+    let subtotal = document.getElementById("subtotalTabela");
+    subtotal.textContent = `${parseFloat(total).toFixed(2).replace(".", ",")}`;
+}
 
 function limparCarrinho() {
     const tr = document.querySelectorAll(".itemTabela")
@@ -135,7 +155,52 @@ function limparCarrinho() {
 }
 
 function subtrairProduto(idProduto) {
-    
+    let carrinho = sessionStorage.getItem("carrinho");
+    let carrinhoFinal = "";
+
+    if (carrinho != null && carrinho != "" && carrinho != undefined) {
+        carrinho.split(",").forEach(item => {
+            prod = item.split("-");
+            if (Number(prod[0]) != idProduto) {
+                carrinhoFinal += `${item},`;
+            } else {
+                if (Number(prod[1]) > 1) {
+                    carrinhoFinal += `${prod[0]}-${(Number(prod[1]) - 1)},`;
+                } else {
+                    carrinhoFinal += `${item},`;
+                    alert("Não pode diminuir mais a quantidade desse produto\nClique em remover do carrinho, se for o caso!")
+                }
+            }
+        });
+    }
+
+    carrinhoFinal = carrinhoFinal.slice(0, -1);
+
+    sessionStorage.setItem('carrinho', carrinhoFinal);
+
+    criaCarrinho();
+}
+
+function adicionarProduto(idProduto) {
+    let carrinho = sessionStorage.getItem("carrinho");
+    let carrinhoFinal = "";
+
+    if (carrinho != null && carrinho != "" && carrinho != undefined) {
+        carrinho.split(",").forEach(item => {
+            prod = item.split("-");
+            if (Number(prod[0]) != idProduto) {
+                carrinhoFinal += `${item},`;
+            } else {
+                carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
+            }
+        });
+    }
+
+    carrinhoFinal = carrinhoFinal.slice(0, -1);
+
+    sessionStorage.setItem('carrinho', carrinhoFinal);
+
+    criaCarrinho();
 }
 
 function removerItem(idProduto) {
@@ -154,4 +219,21 @@ function removerItem(idProduto) {
     });
 
     criaCarrinho();
+}
+
+async function calcularFrete() {
+    const enderecoEntrega = document.getElementById("enderecoEntrega").value;
+    const resultado = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${enderecoEntrega}&origins=04696000&units=meters&key=AIzaSyAyOwTAOLLcGW4nLqehdC0J8vPYS4Noj8w`);
+    const quantidadeProdutos = document.getElementById("produtosTabela").lastChild.querySelector(".itemProduto").textContent;
+    const distancia = resultado.rows[0].elements[0].distance.value * .001;
+
+    const frete01 = (quantidadeProdutos * 500 + .91) * distancia;
+    const frete02 = (quantidadeProdutos * 500 + .61) * distancia;
+    const frete03 = (quantidadeProdutos * 500 + .31) * distancia;
+
+    document.getElementById("frete1").innerHTML = frete01;
+    document.getElementById("frete2").innerHTML = frete02;
+    document.getElementById("frete3").innerHTML = frete03;
+
+    document.getElementById("opcoesFrete").display = "inline";
 }

@@ -234,7 +234,7 @@ function adicionarAoCarrinho(idProduto) {
                 if (Number(prod[0]) != idProduto) {
                     carrinhoFinal += `${item},`;
                 } else {
-                    carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`
+                    carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
                     check = true;
                 }
             });
@@ -243,16 +243,15 @@ function adicionarAoCarrinho(idProduto) {
             if (Number(prod[0]) != idProduto) {
                 carrinhoFinal += `${carrinho},`;
             } else {
-                carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`
+                carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
                 check = true;
             }
         }
         carrinhoFinal += !check ? `${idProduto}-1,` : "";
         carrinhoFinal = carrinhoFinal.slice(0, -1);
 
-        /* carrinhoFinal = carrinhoFinal.substring(0, carrinhoFinal.length - 1); */
-
         sessionStorage.setItem('carrinho', carrinhoFinal);
+        /* carrinhoFinal = carrinhoFinal.substring(0, carrinhoFinal.length - 1); */
     } else {
         sessionStorage.setItem('carrinho', `${idProduto}-1`);
     }

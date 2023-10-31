@@ -49,14 +49,40 @@
                 <tbody id="produtosTabela">
 
                 </tbody>
-                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">Subtotal: R$</td>
+                        <td colspan="2" id="subtotalTabela"></td>
+                    </tr>
+                </tfoot>
             </table>
         </section>
         <section id="frete">
+            <label for="enderecoEntrega">Calcular frete</label>
+            <input type="number" name="enderecoEntrega" id="enderecoEntrega" placeholder="Ex: 04696000">
+            <button onclick="calcularFrete()">Calcular</button>
 
+            <div id="opcoesFrete" style="display: none;">
+                <p>Selecione um dos fretes</p>
+                <div>
+                    <label for="frete01">Frete 01</label>
+                    <label for="frete01" id="frete1"></label>
+                    <input type="radio" name="frete" id="frete01">
+                </div>
+                <div>
+                    <label for="frete02">Frete 02</label>
+                    <label for="frete02" id="frete2"></label>
+                    <input type="radio" name="frete" id="frete02">
+                </div>
+                <div>
+                    <label for="frete03">Frete 03</label>
+                    <label for="frete03" id="frete3"></label>
+                    <input type="radio" name="frete" id="frete03">
+                </div>
+            </div>
         </section>
         <section id="totalCompra">
-
+            <h2 id="valorTotal"></h2>
         </section>
     </main>
 
