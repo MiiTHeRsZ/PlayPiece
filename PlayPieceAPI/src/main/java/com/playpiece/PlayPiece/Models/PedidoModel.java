@@ -1,4 +1,4 @@
-package com.playpiece.PlayPiece.Models;
+/* package com.playpiece.PlayPiece.Models;
 
 import java.util.List;
 
@@ -14,7 +14,10 @@ import lombok.*;
 @ToString
 public class PedidoModel {
 
+    @Id
+    private long id;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_itemCarrrinho", referencedColumnName = "id")
     private List<ItemPedidoModel> itens;
-}
+} */

@@ -1,0 +1,145 @@
+@import url("./var.css");
+@import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
+
+body {
+    font-family: var(--font);
+}
+
+main {
+    padding-top: 100px;
+}
+
+#menuBar {
+    width: 100vw;
+    height: 10vh;
+    z-index: 1;
+    padding: 0 20px;
+    border-bottom: 2px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    position: fixed;
+}
+
+#menuBar .logo {
+    width: 60px;
+}
+
+#menuBar .icon {
+    text-decoration: none;
+    color: #000;
+    font-size: 40px;
+    margin-right: 16px;
+}
+
+h1 {
+    font-size: 32px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 100px;
+}
+
+#form div {
+    padding: 20px 0;
+}
+
+.enderecoSpace>div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.enderecoSpace>div>div {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    gap: 2px;
+}
+
+.enderecoSpace>div>div>label {
+    text-align: center;
+}
+
+.enderecoSpace>div>div>input,
+.passInput {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+
+#divEnderecoNovo #botoes {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+
+#showPassword {
+    cursor: pointer;
+}
+
+#showPassword:hover {
+    color: var(--txt-accent-color-ternary);
+}
+
+/* Henrique */
+#containerCadastro {
+    margin: 0 15vw 5vh;
+    padding: 5vh 0;
+    border-radius: 25px;
+    background-color: #e0e7e9;
+    box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
+}
+
+.nomeCpf div {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 120px;
+}
+
+.infoEnderecoFaturamento {
+    display: flex;
+    flex-direction: column;
+}
+
+.infoEnderecoFaturamento div {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 120px;
+}
+
+.endEntregForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.endEntregForm div {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 120px;
+}
+
+.senhaForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.senhaForm div {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 120px;
+}
+
+#alterar-info {
+    align-self: center;
+    width: 20%;
+    font-size: 16px;
+    border-radius: 5px;
+}

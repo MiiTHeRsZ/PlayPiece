@@ -40,7 +40,7 @@ public class ClienteModel {
     @PastOrPresent
     private LocalDate dt_nascimento;
 
-    @Size(min = 2, max = 2)
+    @Size(min = 0, max = 2)
     @Pattern(regexp = "^[a-zA-Z \\s]+$")
     private String genero;
 
@@ -49,9 +49,11 @@ public class ClienteModel {
     private String email;
 
     private String senha;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "end_fat", referencedColumnName = "id")
     private EnderecoModel enderecoFaturamento;
+    
     @Transient
     private List<EnderecoModel> listaEndereco;
 
