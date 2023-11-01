@@ -40,12 +40,30 @@ function menu() {
         login_perfil.href = "./perfilCliente.html";
         sair.style.display = '';
     }
+
+    let carrinho = sessionStorage.getItem('carrinho');
+
+    if (carrinho != "" && carrinho != null && carrinho != undefined) {
+        let cont = 0;
+
+        if (carrinho.length > 3) {
+            carrinho.split(",").forEach(item => {
+                cont++;
+            });
+        } else {
+            cont++;
+        }
+
+        document.getElementById("notificacaoCarrinho").innerHTML = cont;
+        document.getElementById("notificacaoCarrinho").style.display = "inline";
+    }
 }
 menu();
 
 function desconectar() {
     Cookies.remove('sessaoId');
     Cookies.remove('nome');
+    sessionStorage.removeItem("carrinho");
     window.location.reload();
 }
 
@@ -227,6 +245,7 @@ function adicionarAoCarrinho(idProduto) {
     if (carrinho != "" && carrinho != null && carrinho != undefined) {
         let carrinhoFinal = "";
         let check = false;
+        let cont = 0;
 
         if (carrinho.length > 3) {
             carrinho.split(",").forEach(item => {
@@ -237,6 +256,7 @@ function adicionarAoCarrinho(idProduto) {
                     carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
                     check = true;
                 }
+                cont++;
             });
         } else {
             prod = carrinho.split("-");
@@ -246,13 +266,22 @@ function adicionarAoCarrinho(idProduto) {
                 carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
                 check = true;
             }
+            cont++;
         }
-        carrinhoFinal += !check ? `${idProduto}-1,` : "";
+        if (!check) {
+            carrinhoFinal += `${idProduto}-1,`;
+            cont++;
+        }
+        // carrinhoFinal += !check ? `${idProduto}-1,` : "";
         carrinhoFinal = carrinhoFinal.slice(0, -1);
 
         sessionStorage.setItem('carrinho', carrinhoFinal);
+
+        document.getElementById("notificacaoCarrinho").innerHTML = cont;
         /* carrinhoFinal = carrinhoFinal.substring(0, carrinhoFinal.length - 1); */
     } else {
         sessionStorage.setItem('carrinho', `${idProduto}-1`);
+        document.getElementById("notificacaoCarrinho").innerHTML = 1;
     }
+    document.getElementById("notificacaoCarrinho").style.display = "inline";
 }

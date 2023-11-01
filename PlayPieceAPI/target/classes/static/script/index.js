@@ -20,7 +20,7 @@ function menu() {
     let nome_perfil = document.getElementById("nome-perfil");
     let login_perfil = document.getElementById("login-perfil");
     let sair = document.getElementById("sair");
-    
+
     if (idCliente == undefined) {
         nome_perfil.innerHTML = "Seja Bem-Vindo(a)!";
         login_perfil.innerHTML = "Login";
@@ -32,13 +32,30 @@ function menu() {
         login_perfil.href = "./pages/perfilCliente.html";
         sair.style.display = '';
     }
+
+    let carrinho = sessionStorage.getItem('carrinho');
+
+    if (carrinho != "" && carrinho != null && carrinho != undefined) {
+        let cont = 0;
+
+        if (carrinho.length > 3) {
+            carrinho.split(",").forEach(item => {
+                cont++;
+            });
+        } else {
+            cont++;
+        }
+
+        document.getElementById("notificacaoCarrinho").innerHTML = cont;
+        document.getElementById("notificacaoCarrinho").style.display = "inline";
+    }
 }
 menu();
 
 function desconectar() {
     Cookies.remove('sessaoId');
     Cookies.remove('nome');
-
+    sessionStorage.removeItem("carrinho");
     window.location.reload();
 }
 

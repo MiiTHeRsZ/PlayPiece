@@ -35,8 +35,26 @@ body {
     margin-right: 16px;
 }
 
+#notificacaoCarrinho {
+    position: fixed;
+    top: 10px;
+    right: 100px;
+    background-color: #0000FF;
+    color: #FFF;
+    font-size: 15px;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: none;
+}
+
 .user {
     cursor: pointer;
+}
+
+main {
+    padding-top: 70px;
 }
 
 main>div {

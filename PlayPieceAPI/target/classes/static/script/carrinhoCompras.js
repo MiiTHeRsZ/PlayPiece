@@ -26,11 +26,13 @@ function menu() {
         login_perfil.innerHTML = "Login";
         login_perfil.href = "./loginCliente.html";
         sair.style.display = 'none';
+        document.getElementById("enderecoEntregaLogado").style.display = "none";
     } else {
         nome_perfil.innerHTML = `Olá, ${getCookie("nome")}!`;
         login_perfil.innerHTML = "Perfil";
         login_perfil.href = "./perfilCliente.html";
         sair.style.display = '';
+        document.getElementById("enderecoEntrega").style.display = "none";
     }
 }
 menu();
@@ -38,6 +40,7 @@ menu();
 function desconectar() {
     Cookies.remove('sessaoId');
     Cookies.remove('nome');
+    sessionStorage.removeItem("carrinho");
     window.location.reload();
 }
 
@@ -131,8 +134,29 @@ async function criaCarrinho() {
             subtotal();
         }
     }
+
+    preencheEnderecos();    
 }
 criaCarrinho();
+
+async function preencheEnderecos() {
+    const dados = await fetch(`/cliente/${idCliente}`).then(data => data.json());
+
+    dados.listaEndereco.forEach(endereco => {
+        let opcao = document.createElement("option");
+        opcao.value = endereco.cep;
+        if (endereco.padrao) {
+            opcao.toggleAttribute("selected");
+        }
+        opcao.textContent = endereco.cep;
+        if (endereco.padrao) {
+            opcao.textContent += ` \u2B50`
+        }
+        document.getElementById("enderecoEntregaLogado").appendChild(opcao);
+    });
+
+
+}
 
 function subtotal() {
     let precosTotais = document.querySelectorAll(".precoTotalProduto");
@@ -142,8 +166,12 @@ function subtotal() {
         total += Number(item.textContent.replace(",", "."));
     });
 
-    let subtotal = document.getElementById("subtotalTabela");
-    subtotal.textContent = `${parseFloat(total).toFixed(2).replace(".", ",")}`;
+    let subtotal = document.getElementById("subtotal");
+    subtotal.textContent = `Subtotal: R$ ${parseFloat(total).toFixed(2).replace(".", ",")}`;
+
+    document.getElementById("freteFinal").textContent = "Frete ainda não calculado";
+
+    calcularTotal();
 }
 
 function limparCarrinho() {
@@ -223,62 +251,76 @@ function removerItem(idProduto) {
 
 async function calcularFrete() {
 
-    let distancia;
-    const service = new google.maps.DistanceMatrixService();
-    const origin = "04696000";
-    const destination = document.getElementById("enderecoEntrega").value;
-    service.getDistanceMatrix(
-        {
-            origins: [origin],
-            destinations: [destination],
-            travelMode: google.maps.TravelMode.DRIVING,
-            unitSystem: google.maps.UnitSystem.METRIC,
-            avoidHighways: false,
-            avoidTolls: false,
-        }, callback);
+    const cep = idCliente == undefined ? document.getElementById("enderecoEntrega").value : document.getElementById("enderecoEntregaLogado").value;
 
-    function callback(response, status) {
-        if (status == "OK") {
-            distancia = response.rows[0].elements[0].distance.value * .001;
-            console.log(distancia);
+    if (cep.length == 8) {
+        const consultaCep = await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(data => data.json());
+        if (consultaCep.erro) {
+            alert("CEP inválido!");
         } else {
-            alert("rip")
+            let distancia;
+            const service = new google.maps.DistanceMatrixService();
+            const origin = "04696000";
+            const destination = cep;
+            service.getDistanceMatrix(
+                {
+                    origins: [origin],
+                    destinations: [destination],
+                    travelMode: google.maps.TravelMode.DRIVING,
+                    unitSystem: google.maps.UnitSystem.METRIC,
+                    avoidHighways: false,
+                    avoidTolls: false,
+                }, callback);
+
+            function callback(response, status) {
+                if (status == "OK") {
+                    distancia = response.rows[0].elements[0].distance.value * .001;
+
+                    const quantidadeProdutos = document.getElementById("produtosTabela").lastChild.querySelector(".itemProduto").textContent;
+
+                    const frete01 = (quantidadeProdutos * .5 + .91) * distancia;
+                    const frete02 = (quantidadeProdutos * .5 + .61) * distancia;
+                    const frete03 = (quantidadeProdutos * .5 + .31) * distancia;
+
+                    document.getElementById("frete1").innerHTML = `R$ ${parseFloat(frete01).toFixed(2).replace(".", ",")}`;
+                    document.getElementById("frete01").value = parseFloat(frete01).toFixed(2);
+                    document.getElementById("frete2").innerHTML = `R$ ${parseFloat(frete02).toFixed(2).replace(".", ",")}`;
+                    document.getElementById("frete02").value = parseFloat(frete02).toFixed(2);
+                    document.getElementById("frete3").innerHTML = `R$ ${parseFloat(frete03).toFixed(2).replace(".", ",")}`;
+                    document.getElementById("frete03").value = parseFloat(frete03).toFixed(2);
+
+                    document.getElementById("opcoesFrete").style.display = "inline";
+                } else {
+                    alert("rip")
+                }
+            }
         }
+    } else {
+        alert("CEP inválido!");
     }
-
-    const quantidadeProdutos = document.getElementById("produtosTabela").lastChild.querySelector(".itemProduto").textContent;
-
-    const frete01 = (quantidadeProdutos * .5 + .91) * distancia;
-    const frete02 = (quantidadeProdutos * .5 + .61) * distancia;
-    const frete03 = (quantidadeProdutos * .5 + .31) * distancia;
-
-    document.getElementById("frete1").innerHTML = `R$ ${parseFloat(frete01).toFixed(2).replace(".", ",")}`;
-    document.getElementById("frete01").value = parseFloat(frete01).toFixed(2);
-    document.getElementById("frete2").innerHTML = `R$ ${parseFloat(frete02).toFixed(2).replace(".", ",")}`;
-    document.getElementById("frete02").value = parseFloat(frete02).toFixed(2);
-    document.getElementById("frete3").innerHTML = `R$ ${parseFloat(frete03).toFixed(2).replace(".", ",")}`;
-    document.getElementById("frete03").value = parseFloat(frete03).toFixed(2);
-
-    document.getElementById("opcoesFrete").style.display = "inline";
 }
 
 function calcularTotal() {
-    let sub = document.getElementById("subtotalTabela").textContent;
+    let sub = document.getElementById("subtotal").textContent.slice(13);
     let fretes = document.querySelectorAll('input[type="radio"]');
-    let freteEscolhido;
+    let freteEscolhido = 0;
 
     for (let index = 0; index < fretes.length; index++) {
         if (fretes[index].checked) {
             freteEscolhido = fretes[index].value;
         }
-
     }
 
-    document.getElementById("valorTotal")
+    let total = parseFloat(Number(sub.replace(",", ".")) + Number(freteEscolhido)).toFixed(2).replace(".", ",");
+
+    document.getElementById("freteFinal").innerHTML = `Frete: R$ ${freteEscolhido}`;
+    document.getElementById("valorTotal").innerHTML = `Total: R$ ${total}`;
 }
 
 const radioBtns = document.querySelectorAll('input[type="radio"]');
 
 radioBtns.forEach(radioBtn => {
-    radioBtn.addEventListener('click', () => calcularTotal());
+    radioBtn.addEventListener('click', () => {
+        calcularTotal()
+    });
 });
