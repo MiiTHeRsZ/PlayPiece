@@ -3,6 +3,7 @@ package com.playpiece.PlayPiece.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import com.playpiece.PlayPiece.models.carrinho.ItemCarrinhoModel;
 import com.playpiece.PlayPiece.services.CarrinhoService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @CrossOrigin("*")
@@ -46,7 +48,7 @@ public class CarrinhoController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity addItemCarrinho(@PathVariable Long idCarrinho, @RequestBody ItemCarrinhoModel item) {
+    public ResponseEntity<?> addItemCarrinho(@PathVariable Long idCarrinho, @RequestBody ItemCarrinhoModel item) {
         try {
 
             CarrinhoModel carrinho = null;
@@ -67,4 +69,20 @@ public class CarrinhoController {
         }
 
     }
+
+    @PostMapping(value = "/remove", params = { "codCarrinho", "codProduto" })
+    public ResponseEntity<?> removerItemCarrinho(@RequestParam Long codCarrinho, @RequestParam Long codProduto) {
+
+        var carrinho = carrinhoService.removerItemCarrinho(codCarrinho, codProduto);
+
+        if (carrinho == null) {
+            return new ResponseEntity<>(
+                    "{\"erro\":\"Falha ao remover produto\",\n\"code\":" + HttpStatus.INTERNAL_SERVER_ERROR.value()
+                            + "}",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<CarrinhoModel>(carrinho, HttpStatus.OK);
+    }
+
 }

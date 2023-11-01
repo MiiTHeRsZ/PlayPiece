@@ -108,3 +108,36 @@ async function getProducts() {
 }
 
 getProducts();
+
+var service = new google.maps.DistanceMatrixService();
+async function testeAPI() {
+
+    service.getDistanceMatrix(
+        {
+            origins: ["04671-071"],
+            destinations: ["02042-030"],
+            travelMode: 'DRIVING',
+            transitOptions: {
+
+                modes: ['BUS', 'TRAIN', 'SUBWAY'],
+                routingPreference: 'FEWER_TRANSFERS'
+            },
+            unitSystem: google.maps.UnitSystem.METRIC,
+            avoidHighways: false,
+            avoidTolls: false,
+        }, callback);
+
+    function callback(response, status) {
+
+        if (status == 'OK') {
+            console.log("Distância: " + response.rows[0].elements[0].distance.text);
+            console.log("Tempo estimado: " + response.rows[0].elements[0].duration.text);
+
+        } else {
+            console.log('O que aconteceu?');
+        }
+    };
+
+}
+
+testeAPI()

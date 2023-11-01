@@ -57,7 +57,20 @@ public class CarrinhoService {
 
     }
 
-    // public CarrinhoModel removeItemCarrinho(Long idCarrinho, Long idItem){
+    public CarrinhoModel removerItemCarrinho(Long idCarrinho, Long idItemCarrinho) {
+        try {
+            var carrinho = carrinhoRepository.findById(idCarrinho).get();
+            var listaItens = carrinho.getItens();
 
-    // }
+            for (ItemCarrinhoModel item : listaItens) {
+                if (item.getId() == idItemCarrinho) {
+                    listaItens.remove(item);
+                }
+            }
+            return carrinhoRepository.save(carrinho);
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
