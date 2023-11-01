@@ -222,18 +222,63 @@ function removerItem(idProduto) {
 }
 
 async function calcularFrete() {
-    const enderecoEntrega = document.getElementById("enderecoEntrega").value;
-    const resultado = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${enderecoEntrega}&origins=04696000&units=meters&key=AIzaSyAyOwTAOLLcGW4nLqehdC0J8vPYS4Noj8w`);
+
+    let distancia;
+    const service = new google.maps.DistanceMatrixService();
+    const origin = "04696000";
+    const destination = document.getElementById("enderecoEntrega").value;
+    service.getDistanceMatrix(
+        {
+            origins: [origin],
+            destinations: [destination],
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            avoidHighways: false,
+            avoidTolls: false,
+        }, callback);
+
+    function callback(response, status) {
+        if (status == "OK") {
+            distancia = response.rows[0].elements[0].distance.value * .001;
+            console.log(distancia);
+        } else {
+            alert("rip")
+        }
+    }
+
     const quantidadeProdutos = document.getElementById("produtosTabela").lastChild.querySelector(".itemProduto").textContent;
-    const distancia = resultado.rows[0].elements[0].distance.value * .001;
 
-    const frete01 = (quantidadeProdutos * 500 + .91) * distancia;
-    const frete02 = (quantidadeProdutos * 500 + .61) * distancia;
-    const frete03 = (quantidadeProdutos * 500 + .31) * distancia;
+    const frete01 = (quantidadeProdutos * .5 + .91) * distancia;
+    const frete02 = (quantidadeProdutos * .5 + .61) * distancia;
+    const frete03 = (quantidadeProdutos * .5 + .31) * distancia;
 
-    document.getElementById("frete1").innerHTML = frete01;
-    document.getElementById("frete2").innerHTML = frete02;
-    document.getElementById("frete3").innerHTML = frete03;
+    document.getElementById("frete1").innerHTML = `R$ ${parseFloat(frete01).toFixed(2).replace(".", ",")}`;
+    document.getElementById("frete01").value = parseFloat(frete01).toFixed(2);
+    document.getElementById("frete2").innerHTML = `R$ ${parseFloat(frete02).toFixed(2).replace(".", ",")}`;
+    document.getElementById("frete02").value = parseFloat(frete02).toFixed(2);
+    document.getElementById("frete3").innerHTML = `R$ ${parseFloat(frete03).toFixed(2).replace(".", ",")}`;
+    document.getElementById("frete03").value = parseFloat(frete03).toFixed(2);
 
-    document.getElementById("opcoesFrete").display = "inline";
+    document.getElementById("opcoesFrete").style.display = "inline";
 }
+
+function calcularTotal() {
+    let sub = document.getElementById("subtotalTabela").textContent;
+    let fretes = document.querySelectorAll('input[type="radio"]');
+    let freteEscolhido;
+
+    for (let index = 0; index < fretes.length; index++) {
+        if (fretes[index].checked) {
+            freteEscolhido = fretes[index].value;
+        }
+
+    }
+
+    document.getElementById("valorTotal")
+}
+
+const radioBtns = document.querySelectorAll('input[type="radio"]');
+
+radioBtns.forEach(radioBtn => {
+    radioBtn.addEventListener('click', () => calcularTotal());
+});
