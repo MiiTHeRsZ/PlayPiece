@@ -3,7 +3,8 @@ package com.playpiece.PlayPiece.models.carrinho;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.playpiece.PlayPiece.models.ClienteModel;
 
 import jakarta.persistence.*;
@@ -11,6 +12,7 @@ import lombok.*;
 
 @Table(name = "carrinho")
 @Entity(name = "carrinho")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @AllArgsConstructor
 @ToString
 
@@ -20,13 +22,14 @@ public class CarrinhoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
     private ClienteModel cliente;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carrinho", orphanRemoval = true)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL)
     private List<ItemCarrinhoModel> itens;
+
+    private Boolean ativo;
 
     public CarrinhoModel() {
         itens = new ArrayList<>();
@@ -54,6 +57,14 @@ public class CarrinhoModel {
 
     public List<ItemCarrinhoModel> getItens() {
         return itens;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
 }

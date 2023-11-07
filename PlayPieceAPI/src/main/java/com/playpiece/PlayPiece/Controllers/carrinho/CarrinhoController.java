@@ -1,9 +1,8 @@
-package com.playpiece.PlayPiece.controllers;
+package com.playpiece.PlayPiece.controllers.carrinho;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.playpiece.PlayPiece.models.carrinho.CarrinhoModel;
-import com.playpiece.PlayPiece.models.carrinho.ItemCarrinhoModel;
-import com.playpiece.PlayPiece.services.CarrinhoService;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
+import com.playpiece.PlayPiece.services.carrinho.CarrinhoService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
@@ -34,7 +31,7 @@ public class CarrinhoController {
         CarrinhoModel carrinho = null;
 
         try {
-            carrinho = carrinhoService.getCarrinhoByClienteId(cliente);
+            carrinho = carrinhoService.getCarrinhoAtivoByClienteId(cliente);
 
             if (carrinho != null) {
                 return new ResponseEntity<CarrinhoModel>(carrinho, HttpStatus.OK);
@@ -47,13 +44,14 @@ public class CarrinhoController {
         }
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<?> addItemCarrinho(@PathVariable Long idCarrinho, @RequestBody ItemCarrinhoModel item) {
+    @PutMapping(params = { "codProduto", "quantidade", "codCarrinho" })
+    public ResponseEntity<?> addItemCarrinho(@RequestParam Long codProduto,
+            @RequestParam int quantidade, @RequestParam Long codCarrinho) {
         try {
 
             CarrinhoModel carrinho = null;
 
-            carrinho = carrinhoService.addItemCarrinho(idCarrinho, item);
+            carrinho = carrinhoService.addItemCarrinho(codCarrinho, codProduto, quantidade);
 
             if (carrinho != null) {
                 return new ResponseEntity<CarrinhoModel>(carrinho, HttpStatus.OK);
@@ -70,19 +68,29 @@ public class CarrinhoController {
 
     }
 
-    @PostMapping(value = "/remove", params = { "codCarrinho", "codProduto" })
-    public ResponseEntity<?> removerItemCarrinho(@RequestParam Long codCarrinho, @RequestParam Long codProduto) {
+    @PostMapping(value = "/update", params = { "codCarrinho", "codItem", "quantidade" })
+    public ResponseEntity<?> atualizarQuantidadeItemCarrinho(@RequestParam Long codCarrinho,
+            @RequestParam Long codItem,
+            @RequestParam int quantidade) {
 
-        var carrinho = carrinhoService.removerItemCarrinho(codCarrinho, codProduto);
+        try {
+            var carrinho = carrinhoService.atualizarQuantidadeItemCarrinho(codCarrinho, codItem,
+                    quantidade);
 
-        if (carrinho == null) {
+            if (carrinho == null) {
+                return new ResponseEntity<>(
+                        "{\"erro\":\"Falha ao remover produto\",\n\"code\":" + HttpStatus.INTERNAL_SERVER_ERROR.value()
+                                + "}",
+                        HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            return new ResponseEntity<CarrinhoModel>(carrinho, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e);
             return new ResponseEntity<>(
-                    "{\"erro\":\"Falha ao remover produto\",\n\"code\":" + HttpStatus.INTERNAL_SERVER_ERROR.value()
+                    "{\"erro\":\"" + e.getMessage() + "\",\n\"code\":" + HttpStatus.INTERNAL_SERVER_ERROR.value()
                             + "}",
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity<CarrinhoModel>(carrinho, HttpStatus.OK);
     }
-
 }

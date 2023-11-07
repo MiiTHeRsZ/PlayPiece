@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.playpiece.PlayPiece.models.pedido.PedidoModel;
 import com.playpiece.validations.interfaces.IValidarNome;
 
@@ -19,6 +21,7 @@ import lombok.*;
 
 @Table(name = "cliente")
 @Entity(name = "cliente")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -58,9 +61,7 @@ public class ClienteModel {
     @Transient
     private List<EnderecoModel> listaEndereco;
 
-    @Transient
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente", orphanRemoval = true)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<PedidoModel> pedidos;
 
     private Boolean ativo;
