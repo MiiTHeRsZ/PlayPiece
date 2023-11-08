@@ -107,7 +107,6 @@ create table cartao_credito(
         nome_titular varchar(255) not null,
         data_validade date not null,
         parcelas tinyint not null,
-        juros decimal(5,2) not null default 0,
         valor_parcela decimal(15,2) not null,
     
         foreign key (id_pagamento) references pagamento(id)
