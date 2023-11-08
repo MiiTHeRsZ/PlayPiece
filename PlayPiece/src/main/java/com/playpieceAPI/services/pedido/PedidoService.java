@@ -1,6 +1,7 @@
 package com.playpieceAPI.services.pedido;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -57,6 +58,17 @@ public class PedidoService {
         pedido.setCliente(novoCliente);
 
         return pedidoRepository.save(pedido);
+    }
+
+    public List<PedidoModel> getListaPedidosCliente(Long id) {
+        List<PedidoModel> pedidos = new ArrayList<>();
+
+        try {
+            pedidos = pedidoRepository.findAllByClienteId(id);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return pedidos;
     }
 
 }

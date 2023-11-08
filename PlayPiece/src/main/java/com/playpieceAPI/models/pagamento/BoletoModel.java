@@ -1,29 +1,33 @@
-package com.playpieceAPI.models.pagamento;
+// package com.playpieceAPI.models.pagamento;
 
-import java.util.Date;
+// import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+// import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+// import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jakarta.persistence.*;
-import lombok.*;
+// import jakarta.persistence.*;
+// import lombok.*;
 
-@Table(name = "boleto")
-@Entity(name = "boleto")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@Getter
-@Setter
-@AllArgsConstructor
-@ToString
-public class BoletoModel {
+// @Table(name = "boleto")
+// @Entity(name = "boleto")
+// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+// property = "id")
+// @Getter
+// @Setter
+// @AllArgsConstructor
+// @ToString
+// public class BoletoModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+// @Id
+// @GeneratedValue(strategy = GenerationType.IDENTITY)
+// private Long id;
 
-    private PagamentoModel pagamento;
+// @JoinColumn(name = "id_pagamento", referencedColumnName = "id")
+// private PagamentoModel pagamento;
 
-    private String numeroBoleto;
+// @Column(name = "numero_boleto")
+// private String numeroBoleto;
 
-    private Date dataVencimento;
-}
+// @Column(name = "data_vencimento")
+// private Date dataVencimento;
+// }

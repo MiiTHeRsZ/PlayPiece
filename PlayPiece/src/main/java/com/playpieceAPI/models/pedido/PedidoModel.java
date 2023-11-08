@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.playpieceAPI.models.ClienteModel;
 import com.playpieceAPI.models.EnderecoModel;
-import com.playpieceAPI.models.pagamento.PagamentoModel;
+// import com.playpieceAPI.models.pagamento.PagamentoModel;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -45,11 +45,11 @@ public class PedidoModel {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedidoModel> itens;
 
-    @JoinColumn(name = "id_end_entrega", referencedColumnName = "id")
-    private EnderecoModel enderecoEntrega;
+    // @JoinColumn(name = "id_end_entrega", referencedColumnName = "id")
+    // private EnderecoModel enderecoEntrega;
 
-    @JoinColumn(name = "id_pagamento", referencedColumnName = "id")
-    private PagamentoModel pagamento;
+    // @JoinColumn(name = "id_pagamento", referencedColumnName = "id")
+    // private PagamentoModel pagamento;
 
     @Column(name = "valor_frete")
     private Double valorFrete;
