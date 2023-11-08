@@ -71,16 +71,29 @@ create table endereco(
 drop table if exists pedido;
 create table pedido(
 	id bigint primary key auto_increment,
-	preco decimal(15,2) not null,
+	valor_total decimal(15,2) not null,
 	id_cliente bigint not null,
 	foreign key (id_cliente) references cliente(id)
 );
 
-drop table if exists carrinho;
-create table carrinho(
+drop table if exists item_pedido;
+create table item_pedido(
 	id bigint primary key auto_increment,
-	id_cliente bigint not null,
-	foreign key (id_cliente) references cliente(id)
+	id_produto bigint not null,
+	quantidade int not null,
+	id_pedido bigint not null,
+	valor_total decimal(15,2) not null,
+	valor_unitario decimal(15,2) not null,
+	foreign key (id_produto) references produto(id),
+	foreign key (id_pedido) references pedido(id)
+);
+
+DROP TABLE IF EXISTS carrinho;
+CREATE TABLE carrinho (
+  id bigint NOT NULL primary key AUTO_INCREMENT,
+  id_cliente bigint,
+  ativo bool,
+  FOREIGN KEY (id_cliente) REFERENCES cliente (id)
 );
 
 drop table if exists item_carrinho;
@@ -89,10 +102,8 @@ create table item_carrinho(
 	id_produto bigint not null,
 	quantidade int not null,
 	id_carrinho bigint not null,
-	id_pedido bigint,
 	foreign key (id_produto) references produto(id),
-	foreign key (id_carrinho) references carrinho(id),
-	foreign key (id_pedido) references pedido(id)
+	foreign key (id_carrinho) references carrinho(id)
 );
 
 
@@ -131,8 +142,8 @@ insert into endereco (id_cliente,cep,logradouro,numero,complemento,bairro,cidade
 
 insert into cliente (cpf, nome,dt_nascimento,genero,email,senha,end_fat,ativo) values('43183345897', 'Leonardo Fujimura', '2002-03-30', 'M', 'l.fujimura@teste.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 1, true);
 
-insert into carrinho(id_cliente)values(1);
+INSERT INTO carrinho VALUES (1,1,true);
 
-insert into item_carrinho(id_produto,quantidade,id_carrinho,id_pedido) values(1,2,1,null),(2,1,1,null);
+INSERT INTO item_carrinho VALUES (1,1,1,1);
 
 SET FOREIGN_KEY_CHECKS=1;

@@ -30,4 +30,7 @@ public class PedidoModel {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedidoModel> itens;
 
+    @Column(name = "valor_total")
+    private double valorTotal;
+
 }
