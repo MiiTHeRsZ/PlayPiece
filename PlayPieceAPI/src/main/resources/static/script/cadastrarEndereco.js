@@ -12,7 +12,6 @@ const botaoNovoEndereco = document.getElementById("novo-endereco");
 botaoNovoEndereco.addEventListener("click", () => {
     document.getElementById("divEndereco").style.display = "none"
     document.getElementById("divEnderecoNovo").style.display = "block"
-
 });
 
 document.getElementById("cep-novo").addEventListener("focusout", () => {

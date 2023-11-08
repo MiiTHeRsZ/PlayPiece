@@ -49,16 +49,6 @@ document.getElementById("sair-perfil").addEventListener("click", (e) => {
 
 let dados;
 
-document.getElementById("sair-perfil").addEventListener("click", (e) => {
-    e.preventDefault();
-
-    const resp = window.confirm("Deseja encerrar a sessão?");
-    if (resp == 1) {
-        Cookies.remove('sessaoId');
-        window.open("../index.html", "_self")
-    }
-});
-
 const conectAPI = async () => {
     dados = await fetch(`/cliente/${idCliente}`).then(data => data.json());
     preecheDados();

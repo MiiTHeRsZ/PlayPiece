@@ -363,7 +363,11 @@ function finalizarPedido() {
             let idProduto = linha.querySelector(".idProduto").textContent;
             let qntdProduto = linha.querySelector(".qntdProduto").textContent;
 
-            const item = await fetch(`/itemcarrinho/create?codProduto=${idProduto}&quantidade=${qntdProduto}&codCliente=${idCliente}`);
+            const item = await fetch(`/itemcarrinho/create?codProduto=${idProduto}&quantidade=${qntdProduto}&codCliente=${idCliente}`, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: "",
+            });
         }
     });
 }
