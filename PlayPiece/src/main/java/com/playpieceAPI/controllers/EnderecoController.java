@@ -1,4 +1,4 @@
-package com.playpiece.controllers;
+package com.playpieceAPI.controllers;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.playpiece.models.EnderecoModel;
-import com.playpiece.services.EnderecoService;
+import com.playpieceAPI.models.EnderecoModel;
+import com.playpieceAPI.services.EnderecoService;
 
 @RestController
 @CrossOrigin("*")

@@ -1,9 +1,9 @@
-package com.playpiece.repositories;
+package com.playpieceAPI.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.playpiece.models.ImagemModel;
+import com.playpieceAPI.models.ImagemModel;
 
 @Repository
 public interface ImagemRepository extends JpaRepository<ImagemModel, Long> {

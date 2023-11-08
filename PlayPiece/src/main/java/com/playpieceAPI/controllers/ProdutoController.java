@@ -1,7 +1,7 @@
-package com.playpiece.controllers;
+package com.playpieceAPI.controllers;
 
-import com.playpiece.models.ProdutoModel;
-import com.playpiece.services.ProdutoService;
+import com.playpieceAPI.models.ProdutoModel;
+import com.playpieceAPI.services.ProdutoService;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

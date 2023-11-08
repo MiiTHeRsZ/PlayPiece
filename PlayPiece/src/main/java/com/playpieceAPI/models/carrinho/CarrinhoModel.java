@@ -1,11 +1,11 @@
-package com.playpiece.models.carrinho;
+package com.playpieceAPI.models.carrinho;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.playpiece.models.ClienteModel;
+import com.playpieceAPI.models.ClienteModel;
 
 import jakarta.persistence.*;
 import lombok.*;

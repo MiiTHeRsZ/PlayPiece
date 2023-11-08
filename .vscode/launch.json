@@ -8,6 +8,20 @@
             "type": "java",
             "name": "PlayPieceApplication",
             "request": "launch",
+            "mainClass": "com.playpieceAPI.PlayPieceApplication",
+            "projectName": "PlayPiece"
+        },
+        {
+            "type": "java",
+            "name": "PlayPieceApplication",
+            "request": "launch",
+            "mainClass": "com.playpiece.PlayPieceApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "PlayPieceApplication",
+            "request": "launch",
             "mainClass": "com.playpiece.PlayPieceApplication",
             "projectName": "PlayPiece"
         },

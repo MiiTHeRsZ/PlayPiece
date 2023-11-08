@@ -1,17 +1,17 @@
-package com.playpiece.services.pedido;
+package com.playpieceAPI.services.pedido;
 
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
-import com.playpiece.models.ClienteModel;
-import com.playpiece.models.carrinho.CarrinhoModel;
-import com.playpiece.models.carrinho.ItemCarrinhoModel;
-import com.playpiece.models.pedido.ItemPedidoModel;
-import com.playpiece.models.pedido.PedidoModel;
-import com.playpiece.repositories.ClienteRespository;
-import com.playpiece.repositories.pedido.PedidoRepository;
-import com.playpiece.services.carrinho.CarrinhoService;
+import com.playpieceAPI.models.ClienteModel;
+import com.playpieceAPI.models.carrinho.CarrinhoModel;
+import com.playpieceAPI.models.carrinho.ItemCarrinhoModel;
+import com.playpieceAPI.models.pedido.ItemPedidoModel;
+import com.playpieceAPI.models.pedido.PedidoModel;
+import com.playpieceAPI.repositories.ClienteRespository;
+import com.playpieceAPI.repositories.pedido.PedidoRepository;
+import com.playpieceAPI.services.carrinho.CarrinhoService;
 
 @Service
 public class PedidoService {

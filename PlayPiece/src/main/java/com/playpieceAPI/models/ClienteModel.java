@@ -1,4 +1,4 @@
-package com.playpiece.models;
+package com.playpieceAPI.models;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.playpiece.models.pedido.PedidoModel;
+import com.playpieceAPI.models.pedido.PedidoModel;
 import com.validations.interfaces.IValidarNome;
 
 import jakarta.persistence.*;

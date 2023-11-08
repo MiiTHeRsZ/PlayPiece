@@ -1,11 +1,11 @@
-package com.playpiece.controllers;
+package com.playpieceAPI.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.playpiece.models.LoginDto;
-import com.playpiece.models.UsuarioModel;
-import com.playpiece.services.UsuarioService;
+import com.playpieceAPI.models.LoginDto;
+import com.playpieceAPI.models.UsuarioModel;
+import com.playpieceAPI.services.UsuarioService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

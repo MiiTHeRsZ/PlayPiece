@@ -1,9 +1,9 @@
-package com.playpiece.repositories;
+package com.playpieceAPI.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.playpiece.models.UsuarioModel;
+import com.playpieceAPI.models.UsuarioModel;
 
 import java.util.List;
 

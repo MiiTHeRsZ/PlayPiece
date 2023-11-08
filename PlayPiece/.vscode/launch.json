@@ -5,7 +5,7 @@
             "name": "Spring Boot-PlayPieceApplication<PlayPiece>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "mainClass": "com.playpiece.PlayPiece.PlayPieceApplication",
+            "mainClass": "com.playpieceAPI.PlayPiece.PlayPieceApplication",
             "projectName": "PlayPiece",
             "args": "",
             "envFile": "${workspaceFolder}/.env"

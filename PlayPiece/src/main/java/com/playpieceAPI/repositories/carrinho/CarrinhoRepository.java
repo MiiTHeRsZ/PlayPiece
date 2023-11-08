@@ -1,10 +1,10 @@
-package com.playpiece.repositories.carrinho;
+package com.playpieceAPI.repositories.carrinho;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.playpiece.models.carrinho.CarrinhoModel;
+import com.playpieceAPI.models.carrinho.CarrinhoModel;
 
 @Repository
 public interface CarrinhoRepository extends JpaRepository<CarrinhoModel, Long> {

@@ -1,10 +1,12 @@
-package com.playpiece.models.pedido;
+package com.playpieceAPI.models.pedido;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.playpiece.models.ClienteModel;
+import com.playpieceAPI.models.ClienteModel;
+import com.playpieceAPI.models.EnderecoModel;
+import com.playpieceAPI.models.pagamento.PagamentoModel;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,6 +31,15 @@ public class PedidoModel {
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedidoModel> itens;
+
+    @JoinColumn(name = "id_end_entrega", referencedColumnName = "id")
+    private EnderecoModel enderecoEntrega;
+
+    @JoinColumn(name = "id_pagamento", referencedColumnName = "id")
+    private PagamentoModel pagamento;
+
+    @Column(name = "valor_frete")
+    private Double valorFrete;
 
     @Column(name = "valor_total")
     private double valorTotal;

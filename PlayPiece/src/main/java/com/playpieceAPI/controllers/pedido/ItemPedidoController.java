@@ -1,4 +1,4 @@
-package com.playpiece.controllers.pedido;
+package com.playpieceAPI.controllers.pedido;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.playpiece.controllers.pedido;
+package com.playpieceAPI.controllers.pedido;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.playpiece.models.pedido.PedidoModel;
-import com.playpiece.services.pedido.PedidoService;
+import com.playpieceAPI.models.pedido.PedidoModel;
+import com.playpieceAPI.services.pedido.PedidoService;
 
 @RestController
 @RequestMapping(value = "pedido")

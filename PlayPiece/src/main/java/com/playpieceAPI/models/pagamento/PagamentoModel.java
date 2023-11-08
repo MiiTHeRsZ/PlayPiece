@@ -1,31 +1,24 @@
-package com.playpieceAPI.models.carrinho;
+package com.playpieceAPI.models.pagamento;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.playpieceAPI.models.ProdutoModel;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "item_carrinho")
-@Entity(name = "item_carrinho")
+@Table(name = "pagamento")
+@Entity(name = "pagamento")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ItemCarrinhoModel {
+public class PagamentoModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_produto")
-    private ProdutoModel produto;
-
-    private int quantidade;
-
-    @ManyToOne
-    private CarrinhoModel carrinho;
+    @Column(name = "pg_status")
+    private String pgStatus;
 }

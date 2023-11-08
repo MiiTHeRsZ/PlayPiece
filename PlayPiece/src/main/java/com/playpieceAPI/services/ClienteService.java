@@ -1,4 +1,4 @@
-package com.playpiece.services;
+package com.playpieceAPI.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.playpiece.models.ClienteModel;
-import com.playpiece.models.EnderecoModel;
-import com.playpiece.models.LoginDto;
-import com.playpiece.repositories.ClienteRespository;
-import com.playpiece.repositories.EnderecoRepository;
+import com.playpieceAPI.models.ClienteModel;
+import com.playpieceAPI.models.EnderecoModel;
+import com.playpieceAPI.models.LoginDto;
+import com.playpieceAPI.repositories.ClienteRespository;
+import com.playpieceAPI.repositories.EnderecoRepository;
 
 @Service
 public class ClienteService {

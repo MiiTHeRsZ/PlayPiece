@@ -1,4 +1,4 @@
-package com.playpiece.models;
+package com.playpieceAPI.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

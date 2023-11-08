@@ -1,13 +1,13 @@
-package com.playpiece.services.carrinho;
+package com.playpieceAPI.services.carrinho;
 
 import org.springframework.stereotype.Service;
 
-import com.playpiece.models.ClienteModel;
-import com.playpiece.models.carrinho.CarrinhoModel;
-import com.playpiece.models.carrinho.ItemCarrinhoModel;
-import com.playpiece.repositories.carrinho.CarrinhoRepository;
-import com.playpiece.services.ClienteService;
-import com.playpiece.services.ProdutoService;
+import com.playpieceAPI.models.ClienteModel;
+import com.playpieceAPI.models.carrinho.CarrinhoModel;
+import com.playpieceAPI.models.carrinho.ItemCarrinhoModel;
+import com.playpieceAPI.repositories.carrinho.CarrinhoRepository;
+import com.playpieceAPI.services.ClienteService;
+import com.playpieceAPI.services.ProdutoService;
 
 @Service
 public class CarrinhoService {

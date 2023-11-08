@@ -68,8 +68,8 @@ create table endereco(
 	ativo bool not null
 );
 
-drop table if exists pagamentos;
-create table pagamentos(
+drop table if exists pagamento;
+create table pagamento(
         id bigint primary key auto_increment,
 		pg_status varchar(2) not null
 );
@@ -85,7 +85,7 @@ create table pedido(
 
         foreign key (id_end_entrega) references endereco(id),
         foreign key (id_cliente) references cliente(id),
-        foreign key (id_pagamento) references pagamentos(id)
+        foreign key (id_pagamento) references pagamento(id)
 );
 
 drop table if exists boleto;
@@ -95,7 +95,7 @@ create table boleto(
         numero_boleto varchar(44) not null,
         data_vencimento date not null,
     
-        foreign key (id_pagamento) references pagamentos(id)
+        foreign key (id_pagamento) references pagamento(id)
 );
 
 drop table if exists cartao_credito;
@@ -110,7 +110,7 @@ create table cartao_credito(
         juros decimal(5,2) not null default 0,
         valor_parcela decimal(15,2) not null,
     
-        foreign key (id_pagamento) references pagamentos(id)
+        foreign key (id_pagamento) references pagamento(id)
 );
 
 drop table if exists item_pedido;
