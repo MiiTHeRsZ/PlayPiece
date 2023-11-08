@@ -1,8 +1,7 @@
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
-# Created by https://www.toptal.com/developers/gitignore/api/java,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=java,visualstudiocode
-
-### Java ###
+# Created by https://www.toptal.com/developers/gitignor/java,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?ttes=java,visualstudioco
+### Java 
 # Compiled class file
 *.class
 
@@ -47,13 +46,9 @@ replay_pid*
 .history
 .ionide
 
-# End of https://www.toptal.com/developers/gitignore/api/java,visualstudiocode
-
-# Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
-
+# End of https://www.toptal.com/developers/gitignor/java,visualstudioco
+# Custom rules (everything added below won't be oven by 'Generate .gitignore File' if you use 'Update' optio
 .vscode/launch.json
 
-PlayPieceAPI/target/classes/application.properties
-PlayPieceAPI/src/main/resources/application.properties
-PlayPieceAPI/target/classes/application.properties
-PlayPieceAPI/target/classes/application.properties
+PlayPiece/target/classes/application.properties
+PlayPiece/src/main/resources/application.properties
