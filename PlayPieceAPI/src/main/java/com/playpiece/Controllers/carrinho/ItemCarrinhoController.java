@@ -1,4 +1,4 @@
-package com.playpiece.Controllers.carrinho;
+package com.playpiece.controllers.carrinho;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

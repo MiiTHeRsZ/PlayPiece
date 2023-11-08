@@ -1,4 +1,4 @@
-package com.playpiece.Controllers;
+package com.playpiece.controllers;
 
 import com.playpiece.models.ProdutoModel;
 import com.playpiece.services.ProdutoService;

@@ -1,4 +1,4 @@
-package com.playpiece.Controllers;
+package com.playpiece.controllers;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.playpiece.Controllers.pedido;
+package com.playpiece.controllers.pedido;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

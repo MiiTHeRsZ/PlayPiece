@@ -1,4 +1,4 @@
-package com.playpiece.Controllers;
+package com.playpiece.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
