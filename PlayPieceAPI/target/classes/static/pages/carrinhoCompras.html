@@ -33,7 +33,7 @@
 
     <main>
         <section id="carrinho">
-            <h1>Meu Carrinho</h1>
+            <h1 class="titleCarrinho">Meu Carrinho</h1>
             <table id="tabelaProdutos">
                 <thead>
                     <tr>
@@ -58,37 +58,43 @@
                 </tfoot>
             </table>
         </section>
-        <section id="frete">
-            <label for="enderecoEntrega">Calcular frete</label>
-            <input type="number" name="enderecoEntrega" id="enderecoEntrega" placeholder="Ex: 04696000">
-            <select name="enderecoEntregaLogado" id="enderecoEntregaLogado">
-            </select>
-            <button onclick="calcularFrete()">Calcular</button>
-
-            <div id="opcoesFrete" style="display: none;">
-                <p>Selecione um dos fretes</p>
-                <div>
-                    <label for="frete01">Frete 01</label>
-                    <label for="frete01" id="frete1"></label>
-                    <input type="radio" name="frete" id="frete01" value="">
-                </div>
-                <div>
-                    <label for="frete02">Frete 02</label>
-                    <label for="frete02" id="frete2"></label>
-                    <input type="radio" name="frete" id="frete02" value="">
-                </div>
-                <div>
-                    <label for="frete03">Frete 03</label>
-                    <label for="frete03" id="frete3"></label>
-                    <input type="radio" name="frete" id="frete03" value="">
-                </div>
+        
+        <section id="totalCompra">
+            <div class="content-total-compra">
+                <h5 id="subtotal"></h5>
+                <h5 id="freteFinal"></h5>
+                <h2 id="valorTotal"></h2>
+                <button class="btn-final-pedido" onclick="finalizarPedido()">Finalizar Pedido</button>
             </div>
         </section>
-        <section id="totalCompra">
-            <h5 id="subtotal"></h5>
-            <h5 id="freteFinal"></h5>
-            <h2 id="valorTotal"></h2>
-            <button onclick="finalizarPedido()">Finalizar Pedido</button>
+
+        <section id="frete">
+            <div class="content-frete">
+                <label for="enderecoEntrega">Calcular frete</label>
+                <input type="number" name="enderecoEntrega" id="enderecoEntrega" placeholder="Ex: 04696000">
+                <select name="enderecoEntregaLogado" id="enderecoEntregaLogado">
+                </select>
+                <button onclick="calcularFrete()">Calcular</button>
+
+                <div id="opcoesFrete" style="display: none;">
+                    <p>Selecione um dos fretes</p>
+                    <div>
+                        <label for="frete01">Frete 01</label>
+                        <label for="frete01" id="frete1"></label>
+                        <input type="radio" name="frete" id="frete01" value="">
+                    </div>
+                    <div>
+                        <label for="frete02">Frete 02</label>
+                        <label for="frete02" id="frete2"></label>
+                        <input type="radio" name="frete" id="frete02" value="">
+                    </div>
+                    <div>
+                        <label for="frete03">Frete 03</label>
+                        <label for="frete03" id="frete3"></label>
+                        <input type="radio" name="frete" id="frete03" value="">
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 

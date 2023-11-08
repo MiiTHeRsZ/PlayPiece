@@ -1,7 +1,14 @@
 @import url("./var.css");
 @import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
 
+
 body {
+    background-image: url(../images/background-image.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
     font-family: var(--font);
 }
 
