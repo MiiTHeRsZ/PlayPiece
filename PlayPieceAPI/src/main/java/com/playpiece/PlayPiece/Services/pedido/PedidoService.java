@@ -11,7 +11,6 @@ import com.playpiece.PlayPiece.models.pedido.ItemPedidoModel;
 import com.playpiece.PlayPiece.models.pedido.PedidoModel;
 import com.playpiece.PlayPiece.repositories.ClienteRespository;
 import com.playpiece.PlayPiece.repositories.pedido.PedidoRepository;
-import com.playpiece.PlayPiece.services.ClienteService;
 import com.playpiece.PlayPiece.services.carrinho.CarrinhoService;
 
 @Service
