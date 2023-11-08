@@ -73,9 +73,11 @@ async function criaCarrinho() {
                 let quantidade = document.createElement("td");
                 quantidade.setAttribute("class", "quantidadeProduto")
                 let precoUnitario = document.createElement("td");
+                precoUnitario.setAttribute("class", "precoUnitarioProduto")
                 let precoTotal = document.createElement("td");
                 precoTotal.setAttribute("class", "precoTotalProduto");
                 let removerCarrinho = document.createElement("td");
+                removerCarrinho.setAttribute("class", "removerProduto")
 
                 let newLink;
                 produto.listaImagens.forEach(imagem => {
@@ -129,9 +131,11 @@ async function criaCarrinho() {
             let quantidade = document.createElement("td");
             quantidade.setAttribute("class", "quantidadeProduto")
             let precoUnitario = document.createElement("td");
+            precoUnitario.setAttribute("class", "precoUnitarioProduto")
             let precoTotal = document.createElement("td");
             precoTotal.setAttribute("class", "precoTotalProduto");
             let removerCarrinho = document.createElement("td");
+            removerCarrinho.setAttribute("class", "removerProduto")
 
             let newLink;
             produto.listaImagens.forEach(imagem => {
