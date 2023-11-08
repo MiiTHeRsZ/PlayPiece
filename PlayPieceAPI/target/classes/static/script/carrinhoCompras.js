@@ -324,3 +324,7 @@ radioBtns.forEach(radioBtn => {
         calcularTotal()
     });
 });
+
+function finalizarPedido() {
+    
+}
