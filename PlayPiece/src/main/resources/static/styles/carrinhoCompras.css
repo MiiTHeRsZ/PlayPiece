@@ -49,10 +49,6 @@ main {
     background-color: #fff;
 }
 
-.imgProduto {
-    
-}
-
 .nomeProduto {
     /* height: 30px;
     overflow: hidden; */
@@ -61,8 +57,70 @@ main {
 .quantidadeProduto {
     display: flex;
     align-items: baseline;
+    justify-content: center;
+}
+
+.qntdProduto {
+    width: 30px;
+}
+
+.removerProduto button {
+    background: transparent;
+    border: 2px solid #f00;
+    color: #f00;
 }
 
 .btn-qntd {
     cursor: pointer;
+    border-radius: 50%;
+    width: 35%;
+    background: transparent;
+}
+
+.btn-final-pedido {
+    background: #0f0;
+    width: 170px;
+    height: 45px;
+}
+
+#tabelaProdutos {
+    margin: 0 auto;
+}
+
+.titleCarrinho {
+    text-align: center;
+}
+
+table,
+th,
+td {
+  padding: 10px 5px 0;
+  border: 2px solid #000;
+}
+
+
+tr th {
+    border: 2px solid #000;
+    text-align: center;
+    font-weight: bold;
+}
+
+tr td {
+    border: 2px solid #000;
+    text-align: center;
+    padding: 0 auto;
+}
+
+tfoot tr td {
+    text-align: start;
+}
+
+.content-total-compra {
+    width: 250px;
+    margin: 10px 317px  auto auto;
+}
+
+.content-frete {
+    width: 250px;
+    margin: 10px 317px  auto auto;
 }

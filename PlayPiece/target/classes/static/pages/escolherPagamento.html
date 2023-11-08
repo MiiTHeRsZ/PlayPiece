@@ -54,24 +54,32 @@
                     </div>
                 </section>
                 <section id="infoCartao" style="display: none;">
-                    <label for="numeroCartao">Número do Cartão:</label>
-                    <input type="number" id="numeroCartao" maxlength="16" />
-                    <label for="cvvCartao">CVV:</label>
-                    <input type="number" id="cvvCartao" maxlength="4" />
-                    <label for="nomeCartao">Nome:</label>
-                    <input type="text" id="nomeCartao" />
-                    <label for="validadeCartao">Data de Validade:</label>
-                    <input type="date" id="validadeCartao" />
-                    <label for="parcelas">Parcelas:</label>
-                    <select name="parcelas" id="parcelas">
-                        <option value="1" selected>1x</option>
-                        <option value="2">2x</option>
-                        <option value="3">3x</option>
-                        <option value="4">4x</option>
-                        <option value="5">5x</option>
-                        <option value="6">6x</option>
-                    </select>
-                    <label class="valorTotal"></label>
+                    <div class="content-info-cartao">
+                        <label for="numeroCartao">Número do Cartão:</label>
+                        <input type="number" id="numeroCartao" class="space-input" maxlength="16" />
+
+                        <label for="nomeCartao">Nome:</label>
+                        <input type="text" class="space-input" id="nomeCartao" />
+                        
+                        <label for="cvvCartao">CVV:</label>
+                        <input type="number" id="cvvCartao" maxlength="4" />
+
+                        <label for="validadeCartao">Data de Validade:</label>
+                        <input type="date" id="validadeCartao" />
+
+                        <label for="parcelas">Parcelas:</label>
+                        <select name="parcelas" id="parcelas">
+                            <option value="1" selected>1x</option>
+                            <option value="2">2x</option>
+                            <option value="3">3x</option>
+                            <option value="4">4x</option>
+                            <option value="5">5x</option>
+                            <option value="6">6x</option>
+                        </select>
+
+                        <label class="valorTotal"></label>
+
+                    </div>
                 </section>
             </section>
             <button id="confirmar-pagamento">Confirmar</button>

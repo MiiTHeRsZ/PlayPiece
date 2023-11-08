@@ -79,3 +79,34 @@ main {
     font-size: 12px;
     cursor: pointer;
 }
+
+.content-info-cartao {
+    display: grid;
+    text-align: center;
+    justify-items: center
+}
+
+input {
+    border-radius: 5px;
+}
+
+#cartao {
+    margin-bottom: 20px;
+}
+
+.space-input {
+    width: 250px;
+}
+
+#cvvCartao {
+    width: 137px;
+}
+
+#parcelas {
+    width: 50px;
+}
+
+#confirmar-pagamento {
+    margin: 0 35%;
+    border-radius: 5px;
+}
