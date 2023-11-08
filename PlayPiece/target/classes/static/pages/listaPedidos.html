@@ -36,68 +36,25 @@
     </header>
 
     <main>
-        <section id="carrinho">
-            <h1>Meu Carrinho</h1>
-            <table id="tabelaProdutos">
+        <section id="pedidos">
+            <h1>Meus Pedidos</h1>
+            <table id="tabelaPedidos">
                 <thead>
                     <tr>
-                        <th style="display: none;">ID</th>
-                        <th>Item</th>
-                        <th>Imagem</th>
-                        <th>Nome do Produto</th>
-                        <th>Quantidade</th>
-                        <th>Preço Unitário</th>
-                        <th>Preço Total</th>
-                        <th>Remover do Carrinho</th>
+                        <th>Número</th>
+                        <th>Data</th>
+                        <th>Valor Total</th>
+                        <th>Status</th>
+                        <th>Detalhes</th>
                     </tr>
                 </thead>
-                <tbody id="produtosTabela">
+                <tbody id="itensPedidos">
 
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="4">Subtotal: R$</td>
-                        <td colspan="2" id="subtotalTabela"></td>
-                    </tr>
-                </tfoot>
             </table>
-        </section>
-        <section id="frete">
-            <label for="enderecoEntrega">Calcular frete</label>
-            <input type="number" name="enderecoEntrega" id="enderecoEntrega" placeholder="Ex: 04696000">
-            <select name="enderecoEntregaLogado" id="enderecoEntregaLogado">
-            </select>
-            <button onclick="calcularFrete()">Calcular</button>
-
-            <div id="opcoesFrete" style="display: none;">
-                <p>Selecione um dos fretes</p>
-                <div>
-                    <label for="frete01">Frete 01</label>
-                    <label for="frete01" id="frete1"></label>
-                    <input type="radio" name="frete" id="frete01" value="">
-                </div>
-                <div>
-                    <label for="frete02">Frete 02</label>
-                    <label for="frete02" id="frete2"></label>
-                    <input type="radio" name="frete" id="frete02" value="">
-                </div>
-                <div>
-                    <label for="frete03">Frete 03</label>
-                    <label for="frete03" id="frete3"></label>
-                    <input type="radio" name="frete" id="frete03" value="">
-                </div>
-            </div>
-        </section>
-        <section id="totalCompra">
-            <h5 id="subtotal"></h5>
-            <h5 id="freteFinal"></h5>
-            <h2 id="valorTotal"></h2>
-            <button onclick="finalizarPedido()">Finalizar Pedido</button>
         </section>
     </main>
 
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxdeXS0uulUUJHKJFHDYedl6If6HN15e4&v=weekly"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
