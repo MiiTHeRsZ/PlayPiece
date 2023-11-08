@@ -34,6 +34,68 @@
     <main>
         <section class="container">
             <h1>Resumo do pedido:</h1>
+            <table id="tabelaProdutos">
+                <thead>
+                    <tr>
+                        <th style="display: none;">ID</th>
+                        <th>Item</th>
+                        <th>Imagem</th>
+                        <th>Nome do Produto</th>
+                        <th>Quantidade</th>
+                        <th>Preço Unitário</th>
+                        <th>Preço Total</th>
+                    </tr>
+                </thead>
+                <tbody id="produtosTabela">
+
+                </tbody>
+            </table>
+        </section>
+        <section id="entrega">
+            <h3>Endereço de Entrega:</h3>
+            <br>
+            <div>
+                <div>
+                    <label for="cep">CEP:</label>
+                    <input type="text" name="cep" id="cep" required readonly />
+                    <span class="alert cep"></span>
+                    <label for="frete">Frete escolhido:</label>
+                    <input type="text" name="frete" id="frete" required readonly />
+                </div>
+                <div>
+                    <label for="logradouro">Logradouro:</label>
+                    <input type="text" name="logradouro" id="logradouro" required readonly />
+                </div>
+                <div>
+                    <label for="numero">Número:</label>
+                    <input type="text" name="numero" id="numero" required readonly />
+                </div>
+                <div>
+                    <label for="complemento">Complemento:</label>
+                    <input type="text" name="complemento" id="complemento" required readonly />
+                </div>
+                <div>
+                    <label for="bairro">Bairro:</label>
+                    <input type="text" name="bairro" id="bairro" required readonly />
+                </div>
+                <div>
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" name="cidade" id="cidade" required readonly />
+                </div>
+                <div>
+                    <label for="uf">UF:</label>
+                    <input type="text" name="uf" id="uf" required readonly />
+                </div>
+            </div>
+        </section>
+        <section id="pagamento">
+            <h3>Forma de Pagamento:</h3>
+        </section>
+        <section id="totalCompra">
+            <h5 id="subtotal"></h5>
+            <h5 id="freteFinal"></h5>
+            <h2 id="valorTotal"></h2>
+            <button onclick="finalizarPedido()">Finalizar Pedido</button>
         </section>
     </main>
 

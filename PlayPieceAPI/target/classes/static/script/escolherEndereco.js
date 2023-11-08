@@ -107,17 +107,20 @@ document.getElementById("enderecoEntrega").addEventListener("change", () => {
 document.getElementById("selecionar-endereco").addEventListener("click", () => {
     const idCep = document.getElementById('enderecoEntrega').value;
     const fretes = document.querySelectorAll('input[type="radio"]');
-    let freteEscolhido = 0;
+    let freteEscolhido;
+    let valorFrete = 0;
 
     for (let index = 0; index < fretes.length; index++) {
         if (fretes[index].checked) {
-            freteEscolhido = fretes[index].value;
+            freteEscolhido = fretes[index].id;
+            valorFrete = fretes[index].value;
         }
     }
 
     const dadosFrete = {
         idEndEntrega: idCep,
-        valorFrete: freteEscolhido
+        freteEscolhido: freteEscolhido,
+        valorFrete: valorFrete
     }
 
     const resp = window.confirm("Deseja selecionar o endereço atual?");
