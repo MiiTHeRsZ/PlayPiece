@@ -1,13 +1,13 @@
-package com.playpiece.services.pedido;
+package com.playpieceAPI.services.pedido;
 
 import org.springframework.stereotype.Service;
 
-import com.playpiece.models.carrinho.ItemCarrinhoModel;
-import com.playpiece.models.pedido.ItemPedidoModel;
-import com.playpiece.models.pedido.PedidoModel;
-import com.playpiece.repositories.ProdutoRepository;
-import com.playpiece.repositories.pedido.ItemPedidoRepository;
-import com.playpiece.repositories.pedido.PedidoRepository;
+import com.playpieceAPI.models.carrinho.ItemCarrinhoModel;
+import com.playpieceAPI.models.pedido.ItemPedidoModel;
+import com.playpieceAPI.models.pedido.PedidoModel;
+import com.playpieceAPI.repositories.ProdutoRepository;
+import com.playpieceAPI.repositories.pedido.ItemPedidoRepository;
+import com.playpieceAPI.repositories.pedido.PedidoRepository;
 
 @Service
 public class ItemPedidoService {
