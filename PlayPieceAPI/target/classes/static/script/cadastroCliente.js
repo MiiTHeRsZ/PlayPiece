@@ -1,3 +1,24 @@
+
+function menu() {
+    let carrinho = sessionStorage.getItem('carrinho');
+
+    if (carrinho != "" && carrinho != null && carrinho != undefined) {
+        let cont = 0;
+
+        if (carrinho.length > 3) {
+            carrinho.split(",").forEach(item => {
+                cont++;
+            });
+        } else {
+            cont++;
+        }
+
+        document.getElementById("notificacaoCarrinho").innerHTML = cont;
+        document.getElementById("notificacaoCarrinho").style.display = "inline";
+    }
+}
+menu();
+
 var jaCpf = null
 
 document.getElementById("cpf").onchange = async (e) => {
@@ -305,6 +326,27 @@ function validaCPF(cpf) {
     return true
 }
 
+
+// // nova função assincrona getJson
+// async function getJson(url) {
+//     fetch(url)
+//         .then(response => {
+//             const statusCode = response.status;
+//             if (response.ok) {
+//                 return response.json();
+//             } else {
+//                 throw new Error("Erro na requisição. Código de Status: " + statusCode);
+//             }
+//         })
+//         .then(responseData => {
+//             console.log(responseData);
+//         })
+//         .catch(error => {
+//             console.error(error);
+//         });
+// }
+
+// função getJson antiga
 function getJson(url) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
@@ -314,12 +356,12 @@ function getJson(url) {
                 resolve(JSON.parse(xhr.responseText));
             } else {
                 const erro = {
-                    "codigo": xhr.status,
-                    "mensagem": 'Erro na requisição'
-                };
+                    codigo: xhr.status,
+                    mensagem: 'Erro na requisição'
+                }
                 reject(erro);
             }
-        };
+        }
         xhr.send();
     });
 }

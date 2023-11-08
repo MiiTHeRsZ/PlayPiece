@@ -16,7 +16,7 @@ function checkCookie(nome) {
         if (resp == 1) {
             location.href = `./perfilCliente.html`
         } else if (resp == 0) {
-            Cookies.remove("sessaoId")
+            Cookies.remove("sessaoId");
         }
     }
 }
@@ -53,6 +53,7 @@ const conect_api = async () => {
     // validar se usuario e senha digitados batem com o usuario e senha cadastrado no banco de dados
     if (status == 200) {
         setCookie("sessaoId", result.id, 1)
+        setCookie("nome", result.nome, 1)
         location.href = `../index.html`;
     } else {
         setTimeout(() => {

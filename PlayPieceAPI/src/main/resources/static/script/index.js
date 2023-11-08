@@ -1,8 +1,9 @@
-function getCookie(nome) {
-    return Cookies.get(nome)
-}
 function setCookie(nome, info, exdays) {
     Cookies.set(nome, info, exdays)
+}
+
+function getCookie(nome) {
+    return Cookies.get(nome)
 }
 
 function checkCookie(nome) {
@@ -11,66 +12,52 @@ function checkCookie(nome) {
         document.getElementById("perfil").href = `./pages/perfilCliente.html`;
     }
 }
-checkCookie('sessaoId')
+checkCookie('sessaoId');
 
-var idCliente = getCookie('sessaoId')
+var idCliente = getCookie('sessaoId');
 
-document.getElementById("perfil").addEventListener("click", async () => {
-    let check = false
-    if (document.getElementById("menuBox").style.display == "none") {
+function menu() {
+    let nome_perfil = document.getElementById("nome-perfil");
+    let login_perfil = document.getElementById("login-perfil");
+    let sair = document.getElementById("sair");
 
-        if (idCliente == undefined) {
-            document.querySelector("#box").innerHTML = `<div class="Deslogado boxInfo">
-            <h5 class="nome">Seja Bem-Vindo(a)!</h5>
-            <a href="./pages/loginCliente.html">Login/Cadastro</a>
-            <a href="./pages/loginBackoffice.html">Backoffice</a>
-            </div>`
-            check = true
-        }
-        else {
+    if (idCliente == undefined) {
+        nome_perfil.innerHTML = "Seja Bem-Vindo(a)!";
+        login_perfil.innerHTML = "Login";
+        login_perfil.href = "./pages/loginCliente.html";
+        sair.style.display = 'none';
+    } else {
+        nome_perfil.innerHTML = `Olá, ${getCookie("nome")}!`;
+        login_perfil.innerHTML = "Perfil";
+        login_perfil.href = "./pages/perfilCliente.html";
+        sair.style.display = '';
+    }
 
-            const cliente = await fetch(`/cliente/${idCliente}`).then((data) => data.json())
-            let nome = cliente.nome.split(" ")
-            document.querySelector("#box").innerHTML = `<div class="Logado boxInfo">
-            <h5 class="nome">Eai, ${nome[0]}!</h5>
-            <a href="./pages/perfilCliente.html">Meu perfil</a>
-            <a href="" id="sair-perfil">Sair</a>
-            </div>`
+    let carrinho = sessionStorage.getItem('carrinho');
 
-            check = true
+    if (carrinho != "" && carrinho != null && carrinho != undefined) {
+        let cont = 0;
 
-            document.getElementById("sair-perfil").addEventListener("click", (e) => {
-                e.preventDefault();
-
-                const resp = window.confirm("Deseja encerrar a sessão?");
-                if (resp == 1) {
-                    Cookies.remove('sessaoId');
-                    window.open("../index.html", "_self")
-                }
+        if (carrinho.length > 3) {
+            carrinho.split(",").forEach(item => {
+                cont++;
             });
-
+        } else {
+            cont++;
         }
 
-        document.addEventListener('click', (event) => {
-            const box = document.getElementById('menuBox');
-            console.log(event.target.className);
-
-            if (!document.getElementById("box").contains(event.target) && event.target.className != 'fi fi-br-user') {
-                console.log(document.getElementById("menuBox").style.display);
-                console.log("esconde");
-                box.style.display = 'none';
-            }
-        });
-
-        document.getElementById("menuBox").style.display = "block"
-        console.log("mosta");
-
+        document.getElementById("notificacaoCarrinho").innerHTML = cont;
+        document.getElementById("notificacaoCarrinho").style.display = "inline";
     }
-    else {
-        document.getElementById("menuBox").style.display = "none"
-    }
-})
+}
+menu();
 
+function desconectar() {
+    Cookies.remove('sessaoId');
+    Cookies.remove('nome');
+    sessionStorage.removeItem("carrinho");
+    window.location.reload();
+}
 
 const container_cards = document.getElementById("produtos");
 

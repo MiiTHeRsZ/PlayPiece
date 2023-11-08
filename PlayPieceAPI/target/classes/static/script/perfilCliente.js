@@ -16,6 +16,37 @@ checkCookie('sessaoId')
 
 idCliente = getCookie('sessaoId')
 
+function menu() {
+    let carrinho = sessionStorage.getItem('carrinho');
+
+    if (carrinho != "" && carrinho != null && carrinho != undefined) {
+        let cont = 0;
+
+        if (carrinho.length > 3) {
+            carrinho.split(",").forEach(item => {
+                cont++;
+            });
+        } else {
+            cont++;
+        }
+
+        document.getElementById("notificacaoCarrinho").innerHTML = cont;
+        document.getElementById("notificacaoCarrinho").style.display = "inline";
+    }
+}
+menu();
+
+document.getElementById("sair-perfil").addEventListener("click", (e) => {
+    e.preventDefault();
+    const resp = window.confirm("Deseja encerrar a sessão?");
+    if (resp == 1) {
+        Cookies.remove('sessaoId');
+        Cookies.remove('nome');
+        sessionStorage.removeItem("carrinho");
+        window.open("../index.html", "_self");
+    }
+});
+
 let dados;
 
 document.getElementById("sair-perfil").addEventListener("click", (e) => {

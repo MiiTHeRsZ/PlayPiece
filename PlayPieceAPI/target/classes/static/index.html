@@ -15,15 +15,22 @@
 <body>
     <header id="menuBar">
         <a href="./index.html" id="logo"><img src="./images/Logo.png" alt="Logo" class="logo" /></a>
-        <div>
-            <a href="" class="icon shopping_cart"><i class="fi fi-br-shopping-cart"></i></a>
-            <i class="icon user" id="perfil"><i class="fi fi-br-user"></i></i>
-        </div>
-        <div id="menuBox" style="display: none;">
-            <div id="box">
+        <div class="dropdown">
+            <a href="./pages/carrinhoCompras.html" class="icon shopping_cart">
+                <i class="fi fi-br-shopping-cart"></i>
+                <span id="notificacaoCarrinho"></span>
+            </a>
+            <a class="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="perfil"><i
+                    class="icon user"><i class="fi fi-br-user"></i></i>
+            </a>
 
-            </div>
-
+            <ul class="dropdown-menu">
+                <li>
+                    <p class="dropdown-item" id="nome-perfil"></p>
+                </li>
+                <li><a class="dropdown-item" href="#" id="login-perfil"></a></li>
+                <li><a class="dropdown-item" href="#" onclick="desconectar()" id="sair">Desconectar</a></li>
+            </ul>
         </div>
     </header>
 

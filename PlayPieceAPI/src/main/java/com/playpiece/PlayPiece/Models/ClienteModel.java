@@ -44,7 +44,7 @@ public class ClienteModel {
     @PastOrPresent
     private LocalDate dt_nascimento;
 
-    @Size(min = 2, max = 2)
+    @Size(min = 0, max = 2)
     @Pattern(regexp = "^[a-zA-Z \\s]+$")
     private String genero;
 

@@ -9,6 +9,7 @@ try {
 function getCookie(nome) {
     return Cookies.get(nome)
 }
+
 function setCookie(nome, info, exdays) {
     Cookies.set(nome, info, exdays)
 }
@@ -22,6 +23,49 @@ function checkCookie(nome) {
 checkCookie('sessaoId')
 
 var idCliente = getCookie('sessaoId')
+
+function menu() {
+    let nome_perfil = document.getElementById("nome-perfil");
+    let login_perfil = document.getElementById("login-perfil");
+    let sair = document.getElementById("sair");
+
+    if (idCliente == undefined) {
+        nome_perfil.innerHTML = "Seja Bem-Vindo(a)!";
+        login_perfil.innerHTML = "Login";
+        login_perfil.href = "./loginCliente.html";
+        sair.style.display = 'none';
+    } else {
+        nome_perfil.innerHTML = `Olá, ${getCookie("nome")}!`;
+        login_perfil.innerHTML = "Perfil";
+        login_perfil.href = "./perfilCliente.html";
+        sair.style.display = '';
+    }
+
+    let carrinho = sessionStorage.getItem('carrinho');
+
+    if (carrinho != "" && carrinho != null && carrinho != undefined) {
+        let cont = 0;
+
+        if (carrinho.length > 3) {
+            carrinho.split(",").forEach(item => {
+                cont++;
+            });
+        } else {
+            cont++;
+        }
+
+        document.getElementById("notificacaoCarrinho").innerHTML = cont;
+        document.getElementById("notificacaoCarrinho").style.display = "inline";
+    }
+}
+menu();
+
+function desconectar() {
+    Cookies.remove('sessaoId');
+    Cookies.remove('nome');
+    sessionStorage.removeItem("carrinho");
+    window.location.reload();
+}
 
 document.getElementById("perfil").addEventListener("click", async () => {
     let check = false
@@ -118,7 +162,7 @@ async function getProduct() {
         </div>
         <div id="div-valor">
             <p id="valor">R$ ${parseFloat(produto.preco).toFixed(2).replace(".", ",")}</p>
-            <button disabled>Adicionar ao carrinho</button>
+            <button onclick="adicionarAoCarrinho(${produto.id})">Adicionar ao carrinho</button>
         </div>
         <h4 for="descricao">Descrição:</h4>
         <p style="white-space:pre-line" id="descricao">${produto.descricao}</p>
@@ -194,3 +238,50 @@ function criarEstrelas(produto) {
 }
 
 getProduct()
+
+function adicionarAoCarrinho(idProduto) {
+    let carrinho = sessionStorage.getItem('carrinho');
+
+    if (carrinho != "" && carrinho != null && carrinho != undefined) {
+        let carrinhoFinal = "";
+        let check = false;
+        let cont = 0;
+
+        if (carrinho.length > 3) {
+            carrinho.split(",").forEach(item => {
+                prod = item.split("-");
+                if (Number(prod[0]) != idProduto) {
+                    carrinhoFinal += `${item},`;
+                } else {
+                    carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
+                    check = true;
+                }
+                cont++;
+            });
+        } else {
+            prod = carrinho.split("-");
+            if (Number(prod[0]) != idProduto) {
+                carrinhoFinal += `${carrinho},`;
+            } else {
+                carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
+                check = true;
+            }
+            cont++;
+        }
+        if (!check) {
+            carrinhoFinal += `${idProduto}-1,`;
+            cont++;
+        }
+        // carrinhoFinal += !check ? `${idProduto}-1,` : "";
+        carrinhoFinal = carrinhoFinal.slice(0, -1);
+
+        sessionStorage.setItem('carrinho', carrinhoFinal);
+
+        document.getElementById("notificacaoCarrinho").innerHTML = cont;
+        /* carrinhoFinal = carrinhoFinal.substring(0, carrinhoFinal.length - 1); */
+    } else {
+        sessionStorage.setItem('carrinho', `${idProduto}-1`);
+        document.getElementById("notificacaoCarrinho").innerHTML = 1;
+    }
+    document.getElementById("notificacaoCarrinho").style.display = "inline";
+}
