@@ -1,4 +1,4 @@
-cargocreate database if not exists playpiece;
+create database if not exists playpiece;
 use playpiece;
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -68,25 +68,94 @@ create table endereco(
 	ativo bool not null
 );
 
+drop table if exists pagamentos;
+create table pagamentos(
+        id bigint primary key auto_increment,
+		pg_status varchar(2) not null
+);
+
+drop table if exists pedido;
+create table pedido(
+        id bigint primary key auto_increment,
+        valor_total decimal(15,2) not null,
+        id_cliente bigint not null,
+        id_end_entrega bigint not null,
+        valor_frete decimal(5,2) not null,
+        id_pagamento bigint not null,
+
+        foreign key (id_end_entrega) references endereco(id),
+        foreign key (id_cliente) references cliente(id),
+        foreign key (id_pagamento) references pagamentos(id)
+);
+
+drop table if exists boleto;
+create table boleto(
+        id bigint primary key auto_increment,
+        id_pagamento bigint not null,
+        numero_boleto varchar(44) not null,
+        data_vencimento date not null,
+    
+        foreign key (id_pagamento) references pagamentos(id)
+);
+
+drop table if exists cartao_credito;
+create table cartao_credito(
+        id bigint primary key auto_increment,
+        id_pagamento bigint not null,
+        numero_cartao varchar(16) not null,
+        cvv_cartao varchar(4) not null,
+        nome_titular varchar(255) not null,
+        data_validade date not null,
+        parcelas tinyint not null,
+        juros decimal(5,2) not null default 0,
+        valor_parcela decimal(15,2) not null,
+    
+        foreign key (id_pagamento) references pagamentos(id)
+);
+
+drop table if exists item_pedido;
+create table item_pedido(
+	id bigint primary key auto_increment,
+	id_produto bigint not null,
+	quantidade int not null,
+	id_pedido bigint not null,
+	valor_total decimal(15,2) not null,
+	valor_unitario decimal(15,2) not null,
+	foreign key (id_produto) references produto(id),
+	foreign key (id_pedido) references pedido(id)
+);
+
+DROP TABLE IF EXISTS carrinho;
+CREATE TABLE carrinho (
+  id bigint NOT NULL primary key AUTO_INCREMENT,
+  id_cliente bigint,
+  ativo bool,
+  FOREIGN KEY (id_cliente) REFERENCES cliente (id)
+);
+
+drop table if exists item_carrinho;
+create table item_carrinho(
+	id bigint primary key auto_increment,
+	id_produto bigint not null,
+	quantidade int not null,
+	id_carrinho bigint not null,
+	foreign key (id_produto) references produto(id),
+	foreign key (id_carrinho) references carrinho(id)
+);
+
+
 
 insert into cargo (nome) value ("Administrador"), ("Estoquista");
 insert into usuario (nome, cpf, id_cargo, email, senha, ativo) values('Leonardo Noboru Machado Fujimura', '43183345897', 1, 'lfujimura.pp1@playpiece.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', true), ('Vinicios Mendes', '97876694993', 2, 'vmendes.pp2@playpiece.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', true);
 insert into produto(nome, avaliacao, descricao, preco, quantidade, ativo) values ('Dungeons & Dragons: Kit Essencial', 5, 'Kit Essencial Dungeons Dragons Rpg Dnd Português Inicial Original
 Tudo o que você precisa para criar personagens e jogar as novas aventuras nesta introdução ao maior RPG do mundo.
 
-
-
 Dungeons & Dragons é um jogo cooperativo de narrativa que explora sua imaginação e o convida a explorar um fantástico mundo de aventuras, onde heróis lutam contra monstros, encontram tesouros e superam missões. O D&D Essentials Kit é um novo produto introdutório destinado a levar o D&D ao público interessado em mergulhar em uma história de fantasia.
-
-
 
 Esta caixa contém o essencial que você precisa para executar um jogo de D&D com um Dungeon Master e um a cinco aventureiros. Um livro de regras recém-projetado integra os jogadores, ensinando-os a criar personagens, e a aventura incluída, Dragon of Icespire Peak , apresenta uma nova variante de regras 1 contra 1.
 
 
-
-CONTEÚDO
-
-
+CONTEÚDO:
 
 1 Livro de Regras de 72 Páginas que ensina como criar personagens dos níveis 1 a 6 e como jogar
 
@@ -109,5 +178,9 @@ insert into imagem(id_produto, caminho, padrao, ativo) values (1, 'PlayPieceAPI/
 insert into endereco (id_cliente,cep,logradouro,numero,complemento,bairro,cidade,uf,padrao,ativo) values (1, '04671071','Rua Sócrates','853', 'apt. 193 D', 'Vila Sofia', 'São Paulo', 'SP', true, true ), (1, '04671071','Rua Sócrates','853', 'apt. 44 C', 'Vila Sofia', 'São Paulo', 'SP', false, true );
 
 insert into cliente (cpf, nome,dt_nascimento,genero,email,senha,end_fat,ativo) values('43183345897', 'Leonardo Fujimura', '2002-03-30', 'M', 'l.fujimura@teste.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 1, true);
+
+INSERT INTO carrinho VALUES (1,1,true);
+
+INSERT INTO item_carrinho VALUES (1,1,1,1);
 
 SET FOREIGN_KEY_CHECKS=1;
