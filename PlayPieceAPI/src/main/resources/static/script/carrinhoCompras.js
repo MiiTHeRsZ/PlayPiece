@@ -63,27 +63,42 @@ async function criaCarrinho() {
                 tabela.appendChild(tr);
 
                 let id = document.createElement("td");
+                id.setAttribute("class", "idProduto");
                 let item = document.createElement("td");
                 item.setAttribute("class", "itemProduto");
+                let img = document.createElement("td");
+                img.setAttribute("class", "imgProduto");
                 let nomeProduto = document.createElement("td");
                 nomeProduto.setAttribute("class", "nomeProduto");
                 let quantidade = document.createElement("td");
+                quantidade.setAttribute("class", "quantidadeProduto")
                 let precoUnitario = document.createElement("td");
                 let precoTotal = document.createElement("td");
                 precoTotal.setAttribute("class", "precoTotalProduto");
                 let removerCarrinho = document.createElement("td");
 
+                let newLink;
+                produto.listaImagens.forEach(imagem => {
+                    if (imagem.padrao) {
+                        let caminho = imagem.caminho;
+                        let link = caminho.split("/");
+                        newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8];
+                    }
+                })
+
                 id.style.display = "none";
                 id.textContent = `${produto.id}`;
                 item.textContent = ++quantidadeItens;
+                img.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
                 nomeProduto.textContent = `${produto.nome}`;
-                quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.id})">-</button>${prod[1]}<button class="btn-qntd" onclick="adicionarProduto(${produto.id})">+</button>`;
+                quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.id})">-</button><p class="qntdProduto">${prod[1]}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.id})">+</button>`;
                 precoUnitario.textContent = `${parseFloat(produto.preco).toFixed(2).replace(".", ",")}`;
                 precoTotal.textContent = `${parseFloat(produto.preco * Number(prod[1])).toFixed(2).replace(".", ",")}`;
                 removerCarrinho.innerHTML = `<button onclick="removerItem(${produto.id})">Remover</button>`;
 
                 tr.appendChild(id);
                 tr.appendChild(item);
+                tr.appendChild(img);
                 tr.appendChild(nomeProduto);
                 tr.appendChild(quantidade);
                 tr.appendChild(precoUnitario);
@@ -104,27 +119,42 @@ async function criaCarrinho() {
             tabela.appendChild(tr);
 
             let id = document.createElement("td");
+            id.setAttribute("class", "idProduto");
             let item = document.createElement("td");
             item.setAttribute("class", "itemProduto");
+            let img = document.createElement("td");
+            img.setAttribute("class", "imgProduto");
             let nomeProduto = document.createElement("td");
             nomeProduto.setAttribute("class", "nomeProduto");
             let quantidade = document.createElement("td");
+            quantidade.setAttribute("class", "quantidadeProduto")
             let precoUnitario = document.createElement("td");
             let precoTotal = document.createElement("td");
             precoTotal.setAttribute("class", "precoTotalProduto");
             let removerCarrinho = document.createElement("td");
 
+            let newLink;
+            produto.listaImagens.forEach(imagem => {
+                if (imagem.padrao) {
+                    let caminho = imagem.caminho;
+                    let link = caminho.split("/");
+                    newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8];
+                }
+            })
+
             id.style.display = "none";
             id.textContent = `${produto.id}`;
             item.textContent = ++quantidadeItens;
+            img.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
             nomeProduto.textContent = `${produto.nome}`;
-            quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.id})">-</button>${prod[1]}<button class="btn-qntd" onclick="adicionarProduto(${produto.id})">+</button>`;
+            quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.id})">-</button><p class="qntdProduto">${prod[1]}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.id})">+</button>`;
             precoUnitario.textContent = `${parseFloat(produto.preco).toFixed(2).replace(".", ",")}`;
             precoTotal.textContent = `${parseFloat(produto.preco * Number(prod[1])).toFixed(2).replace(".", ",")}`;
             removerCarrinho.innerHTML = `<button onclick="removerItem(${produto.id})">Remover</button>`;
 
             tr.appendChild(id);
             tr.appendChild(item);
+            tr.appendChild(img);
             tr.appendChild(nomeProduto);
             tr.appendChild(quantidade);
             tr.appendChild(precoUnitario);
@@ -135,7 +165,7 @@ async function criaCarrinho() {
         }
     }
 
-    preencheEnderecos();    
+    preencheEnderecos();
 }
 criaCarrinho();
 
@@ -154,8 +184,6 @@ async function preencheEnderecos() {
         }
         document.getElementById("enderecoEntregaLogado").appendChild(opcao);
     });
-
-
 }
 
 function subtotal() {
@@ -326,5 +354,16 @@ radioBtns.forEach(radioBtn => {
 });
 
 function finalizarPedido() {
-    
+    var tabela = document.getElementById("tabelaProdutos");
+    var linhasTabela = tabela.querySelectorAll("tr");
+
+    linhasTabela.forEach(async (linha, index) => {
+        if (index != 0 && index != linhasTabela.length - 1) {
+            // ! verificar coerencia com API
+            let idProduto = linha.querySelector(".idProduto").textContent;
+            let qntdProduto = linha.querySelector(".qntdProduto").textContent;
+
+            const item = await fetch(`/itemcarrinho/create?codProduto=${idProduto}&quantidade=${qntdProduto}&codCliente=${idCliente}`);
+        }
+    });
 }

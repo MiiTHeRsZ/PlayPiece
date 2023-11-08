@@ -114,7 +114,6 @@ btnSalvarProduto.addEventListener("submit", async (e) => {
         let fav = 0;
         let el = document.querySelectorAll(".fav")
         el.forEach((item, i) => {
-            console.log(el[index])
             el[index].textContent == "✭" ? fav = 1 : fav = 0
         })
         let formData = new FormData()

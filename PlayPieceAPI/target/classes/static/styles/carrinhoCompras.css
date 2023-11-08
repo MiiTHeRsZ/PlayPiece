@@ -49,9 +49,18 @@ main {
     background-color: #fff;
 }
 
+.imgProduto {
+    
+}
+
 .nomeProduto {
     /* height: 30px;
     overflow: hidden; */
+}
+
+.quantidadeProduto {
+    display: flex;
+    align-items: baseline;
 }
 
 .btn-qntd {

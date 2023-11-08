@@ -176,8 +176,8 @@ async function getProduct() {
 
 async function gerarCarousel(imagens) {
     imagens.forEach(imagem => {
-        let link = imagem.caminho.split("/")
-        let newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8]
+        let link = imagem.caminho.split("/");
+        let newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8];
         let img = document.createElement("div")
         img.className = "carousel-item"
         img.innerHTML = `

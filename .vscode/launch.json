@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PlayPieceApplication",
+            "request": "launch",
+            "mainClass": "com.playpiece.PlayPieceApplication",
+            "projectName": "PlayPiece"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
