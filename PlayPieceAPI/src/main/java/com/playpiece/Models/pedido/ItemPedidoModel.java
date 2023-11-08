@@ -1,8 +1,8 @@
-package com.playpiece.Models.pedido;
+package com.playpiece.models.pedido;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.playpiece.Models.ProdutoModel;
+import com.playpiece.models.ProdutoModel;
 
 import jakarta.persistence.*;
 import lombok.*;

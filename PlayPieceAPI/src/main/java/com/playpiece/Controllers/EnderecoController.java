@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.playpiece.Models.EnderecoModel;
-import com.playpiece.Services.EnderecoService;
+import com.playpiece.models.EnderecoModel;
+import com.playpiece.services.EnderecoService;
 
 @RestController
 @CrossOrigin("*")

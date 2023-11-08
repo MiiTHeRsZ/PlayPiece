@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.playpiece.Models.ClienteModel;
-import com.playpiece.Models.LoginDto;
-import com.playpiece.Services.ClienteService;
+import com.playpiece.models.ClienteModel;
+import com.playpiece.models.LoginDto;
+import com.playpiece.services.ClienteService;
 
 @RestController
 @CrossOrigin("*")

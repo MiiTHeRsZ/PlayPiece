@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.playpiece.Models.pedido.PedidoModel;
-import com.playpiece.Services.pedido.PedidoService;
+import com.playpiece.models.pedido.PedidoModel;
+import com.playpiece.services.pedido.PedidoService;
 
 @RestController
 @RequestMapping(value = "pedido")

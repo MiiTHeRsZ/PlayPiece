@@ -3,7 +3,7 @@ package com.playpiece.repositories.carrinho;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.playpiece.Models.carrinho.ItemCarrinhoModel;
+import com.playpiece.models.carrinho.ItemCarrinhoModel;
 
 public interface ItemCarrinhoRepository extends JpaRepository<ItemCarrinhoModel, Long> {
 

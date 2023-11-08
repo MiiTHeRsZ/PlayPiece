@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.playpiece.Models.CargoModel;
-import com.playpiece.Services.CargoService;
+import com.playpiece.models.CargoModel;
+import com.playpiece.services.CargoService;
 
 @RestController
 @CrossOrigin("*")

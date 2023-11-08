@@ -3,7 +3,7 @@ package com.playpiece.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.playpiece.Models.UsuarioModel;
+import com.playpiece.models.UsuarioModel;
 
 import java.util.List;
 

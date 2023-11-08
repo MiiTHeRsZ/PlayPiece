@@ -1,4 +1,4 @@
-package com.playpiece.Models;
+package com.playpiece.models;
 
 import org.hibernate.validator.constraints.br.CPF;
 

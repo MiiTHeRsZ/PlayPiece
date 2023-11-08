@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.playpiece.Models.carrinho.ItemCarrinhoModel;
-import com.playpiece.Services.carrinho.ItemCarrinhoService;
+import com.playpiece.models.carrinho.ItemCarrinhoModel;
 import com.playpiece.repositories.carrinho.ItemCarrinhoRepository;
+import com.playpiece.services.carrinho.ItemCarrinhoService;
 
 @RestController
 @CrossOrigin("*")

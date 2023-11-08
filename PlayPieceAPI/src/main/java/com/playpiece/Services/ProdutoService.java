@@ -1,4 +1,4 @@
-package com.playpiece.Services;
+package com.playpiece.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.playpiece.Models.ImagemModel;
-import com.playpiece.Models.ProdutoModel;
+import com.playpiece.models.ImagemModel;
+import com.playpiece.models.ProdutoModel;
 import com.playpiece.repositories.ProdutoRepository;
 
 @Service

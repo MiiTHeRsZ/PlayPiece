@@ -1,12 +1,12 @@
-package com.playpiece.Services;
+package com.playpiece.services;
 
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.playpiece.Models.LoginDto;
-import com.playpiece.Models.UsuarioModel;
+import com.playpiece.models.LoginDto;
+import com.playpiece.models.UsuarioModel;
 import com.playpiece.repositories.CargoRepository;
 import com.playpiece.repositories.UsuarioRepository;
 

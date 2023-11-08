@@ -3,9 +3,9 @@ package com.playpiece.Controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.playpiece.Models.LoginDto;
-import com.playpiece.Models.UsuarioModel;
-import com.playpiece.Services.UsuarioService;
+import com.playpiece.models.LoginDto;
+import com.playpiece.models.UsuarioModel;
+import com.playpiece.services.UsuarioService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

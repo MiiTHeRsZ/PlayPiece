@@ -1,4 +1,4 @@
-package com.playpiece.Models;
+package com.playpiece.models;
 
 import java.util.List;
 

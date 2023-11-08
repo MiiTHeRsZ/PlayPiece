@@ -1,10 +1,10 @@
-package com.playpiece.Services.pedido;
+package com.playpiece.services.pedido;
 
 import org.springframework.stereotype.Service;
 
-import com.playpiece.Models.carrinho.ItemCarrinhoModel;
-import com.playpiece.Models.pedido.ItemPedidoModel;
-import com.playpiece.Models.pedido.PedidoModel;
+import com.playpiece.models.carrinho.ItemCarrinhoModel;
+import com.playpiece.models.pedido.ItemPedidoModel;
+import com.playpiece.models.pedido.PedidoModel;
 import com.playpiece.repositories.ProdutoRepository;
 import com.playpiece.repositories.pedido.ItemPedidoRepository;
 import com.playpiece.repositories.pedido.PedidoRepository;
