@@ -49,6 +49,3 @@ replay_pid*
 # End of https://www.toptal.com/developers/gitignor/java,visualstudioco
 # Custom rules (everything added below won't be oven by 'Generate .gitignore File' if you use 'Update' optio
 .vscode/launch.json
-
-PlayPiece/target/classes/application.properties
-PlayPiece/src/main/resources/application.properties
