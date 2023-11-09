@@ -55,6 +55,7 @@ public class CarrinhoService {
         CarrinhoModel carrinho = null;
         try {
             carrinho = carrinhoRepository.findById(codCarrinho).get();
+            var cliente = carrinho.getCliente();
             var listaItens = carrinho.getItens();
             var novoItem = new ItemCarrinhoModel();
 
@@ -66,7 +67,7 @@ public class CarrinhoService {
             }
 
             try {
-                novoItem = itemCarrinhoService.criarItemCarrinho(codProduto, quantidade);
+                novoItem = itemCarrinhoService.criarItemCarrinho(codProduto, quantidade, cliente.getId());
                 novoItem.setCarrinho(carrinho);
                 novoItem = itemCarrinhoService.atualizarItem(novoItem);
                 carrinho.getItens().add(novoItem);

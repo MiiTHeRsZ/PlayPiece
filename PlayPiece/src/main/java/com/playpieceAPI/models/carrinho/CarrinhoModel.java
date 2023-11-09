@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.playpieceAPI.models.ClienteModel;
 
@@ -33,6 +34,7 @@ public class CarrinhoModel {
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
+    // @JsonIgnore
     private ClienteModel cliente;
 
     @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL)

@@ -61,9 +61,12 @@ document.getElementById("boleto").addEventListener("change", verificaPagamento);
 document.getElementById("cartao").addEventListener("change", verificaPagamento);
 
 async function total() {
-    // ! fazer requisiçãp para pegar o total
-    const valorTotal = 1500.0 //await fetch(`/carrinho/search?cliente=${idCliente}`).then(data => data.json().valorTotal);
-    document.querySelectorAll(".valorTotal").forEach(item => item.textContent = `R$ ${valorTotal}`);
+    const valorTotal = await fetch(`/carrinho/search?cliente=${idCliente}`).then(data => data.json());
+    let total = 0;
+    valorTotal.itens.forEach(item => {
+        total += item.produto.preco * item.quantidade;
+    })
+    document.querySelectorAll(".valorTotal").forEach(item => item.textContent = `Total: R$ ${parseFloat(total).toFixed(2).replace(".", ",")}`);
 }
 total();
 

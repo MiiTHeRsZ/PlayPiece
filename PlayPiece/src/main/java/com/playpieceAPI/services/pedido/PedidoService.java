@@ -40,7 +40,9 @@ public class PedidoService {
 
             for (ItemCarrinhoModel itemCarrinho : listaItens) {
                 var itemPedido = itemPedidoService.criarItemPedido(itemCarrinho, pedido);
-                pedido.setItens(new ArrayList<ItemPedidoModel>());
+                if (pedido.getItens() == null) {
+                    pedido.setItens(new ArrayList<ItemPedidoModel>());
+                }
                 pedido.getItens().add(itemPedido);
             }
 

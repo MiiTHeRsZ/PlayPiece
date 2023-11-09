@@ -362,16 +362,20 @@ function finalizarPedido() {
     var linhasTabela = tabela.querySelectorAll("tr");
 
     linhasTabela.forEach(async (linha, index) => {
-        if (index != 0 && index != linhasTabela.length - 1) {
+        if (index != 0) {
             // ! verificar coerencia com API
             let idProduto = linha.querySelector(".idProduto").textContent;
             let qntdProduto = linha.querySelector(".qntdProduto").textContent;
 
-            const item = await fetch(`/itemcarrinho/create?codProduto=${idProduto}&quantidade=${qntdProduto}&codCliente=${idCliente}`, {
+            const item = await fetch(`/itemcarrinho/create?codProduto=${idProduto}&quantidade=${qntdProduto}&idCliente=${idCliente}`, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: "",
             });
+
+            if (item.status == 200 || item.status == 201) {
+                window.open("./escolherEndereco.html","_sefl");
+            }
         }
     });
 }

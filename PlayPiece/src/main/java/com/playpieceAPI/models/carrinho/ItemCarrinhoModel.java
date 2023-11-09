@@ -1,6 +1,7 @@
 package com.playpieceAPI.models.carrinho;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.playpieceAPI.models.ProdutoModel;
 
@@ -37,5 +38,7 @@ public class ItemCarrinhoModel {
     private int quantidade;
 
     @ManyToOne
+    @JoinColumn(name = "id_carrinho")
+    @JsonIgnore
     private CarrinhoModel carrinho;
 }

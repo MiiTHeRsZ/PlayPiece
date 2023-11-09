@@ -3,6 +3,7 @@ package com.playpieceAPI.models.pedido;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.playpieceAPI.models.ClienteModel;
 import com.playpieceAPI.models.EnderecoModel;
@@ -26,7 +27,6 @@ import lombok.ToString;
 
 @Table(name = "pedido")
 @Entity(name = "pedido")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -40,6 +40,7 @@ public class PedidoModel {
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
+    @JsonIgnore
     private ClienteModel cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)

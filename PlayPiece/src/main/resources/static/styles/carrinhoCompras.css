@@ -111,10 +111,6 @@ tr td {
     padding: 0 auto;
 }
 
-tfoot tr td {
-    text-align: start;
-}
-
 .content-total-compra {
     width: 250px;
     margin: 10px 317px  auto auto;

@@ -44,11 +44,11 @@ public class ItemCarrinhoController {
     }
 
     // ! adicionar como parâmetro o idCliente
-    @PostMapping(value = "/create", params = { "codProduto", "quantidade" })
+    @PostMapping(value = "/create", params = { "codProduto", "quantidade", "idCliente" })
     public ResponseEntity<?> criarItemCarrinho(@RequestParam Long codProduto,
-            @RequestParam int quantidade) {
+            @RequestParam int quantidade,@RequestParam Long idCliente) {
         try {
-            var novoItem = itemCarrinhoService.criarItemCarrinho(codProduto, quantidade);
+            var novoItem = itemCarrinhoService.criarItemCarrinho(codProduto, quantidade, idCliente);
             return new ResponseEntity<ItemCarrinhoModel>(novoItem, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>(

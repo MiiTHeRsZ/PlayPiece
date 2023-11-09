@@ -2,6 +2,7 @@ package com.playpieceAPI.services.carrinho;
 
 import org.springframework.stereotype.Service;
 
+import com.playpieceAPI.models.carrinho.CarrinhoModel;
 import com.playpieceAPI.models.carrinho.ItemCarrinhoModel;
 import com.playpieceAPI.repositories.ProdutoRepository;
 import com.playpieceAPI.repositories.carrinho.CarrinhoRepository;
@@ -31,13 +32,16 @@ public class ItemCarrinhoService {
         return item;
     }
 
-    public ItemCarrinhoModel criarItemCarrinho(Long codProduto, int quantidade) {
+    public ItemCarrinhoModel criarItemCarrinho(Long codProduto, int quantidade, Long cliente) {
         ItemCarrinhoModel novoItem = new ItemCarrinhoModel();
+
+        CarrinhoModel carrinho = null;
         try {
+            carrinho = carrinhoRepository.findByClienteIdAndAtivo(cliente);
             novoItem.setId(null);
             novoItem.setProduto(produtoRepository.findById(codProduto).get());
             novoItem.setQuantidade(quantidade);
-            novoItem.setCarrinho(null);
+            novoItem.setCarrinho(carrinho);
         } catch (Exception e) {
             System.out.println(e);
         }

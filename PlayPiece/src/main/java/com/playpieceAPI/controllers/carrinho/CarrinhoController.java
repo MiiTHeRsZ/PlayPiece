@@ -32,10 +32,7 @@ public class CarrinhoController {
         try {
             carrinho = carrinhoService.getCarrinhoAtivoByClienteId(cliente);
 
-            if (carrinho != null) {
                 return new ResponseEntity<CarrinhoModel>(carrinho, HttpStatus.OK);
-            }
-            throw new Exception();
         } catch (Exception e) {
             return new ResponseEntity<String>(
                     "{\"erro\":\"Carrinho não encontrado\",\n\"code\":" + HttpStatus.NOT_FOUND.value() + "}",
