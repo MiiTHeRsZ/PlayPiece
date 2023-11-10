@@ -39,17 +39,17 @@ public class PedidoModel {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "cliente_id")
     @JsonIgnore
     private ClienteModel cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedidoModel> itens;
 
-    // @JoinColumn(name = "id_end_entrega", referencedColumnName = "id")
+    // @JoinColumn(name = "end_entrega_id", referencedColumnName = "id")
     // private EnderecoModel enderecoEntrega;
 
-    // @JoinColumn(name = "id_pagamento", referencedColumnName = "id")
+    // @JoinColumn(name = "pagamento_id", referencedColumnName = "id")
     // private PagamentoModel pagamento;
 
     @Column(name = "valor_frete")

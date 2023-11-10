@@ -30,7 +30,7 @@ public class UsuarioModel {
     private String cpf;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_cargo", referencedColumnName = "id")
+    @JoinColumn(name = "cargo_id", referencedColumnName = "id")
     @Enumerated(EnumType.STRING)
     private CargoModel cargo;
 

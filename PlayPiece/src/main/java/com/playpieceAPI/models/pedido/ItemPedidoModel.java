@@ -44,7 +44,7 @@ public class ItemPedidoModel {
     private double valorTotal;
 
     @ManyToOne
-    @JoinColumn(name = "id_pedido")
+    @JoinColumn(name = "pedido_id")
     private PedidoModel pedido;
 
 }

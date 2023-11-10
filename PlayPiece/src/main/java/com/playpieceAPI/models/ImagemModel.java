@@ -15,7 +15,7 @@ public class ImagemModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "id_produto")
+    @Column(name = "produto_id")
     private Long produtoId;
     private String caminho;
     private boolean padrao;

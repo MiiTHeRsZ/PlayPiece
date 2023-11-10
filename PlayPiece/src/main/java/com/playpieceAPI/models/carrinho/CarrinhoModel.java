@@ -33,7 +33,7 @@ public class CarrinhoModel {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "cliente_id")
     // @JsonIgnore
     private ClienteModel cliente;
 

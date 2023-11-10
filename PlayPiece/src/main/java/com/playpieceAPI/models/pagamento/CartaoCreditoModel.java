@@ -10,37 +10,38 @@
 
 // @Table(name = "cartao_credito")
 // @Entity(name = "cartao_credito")
-// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+// property = "id")
 // @Getter
 // @Setter
 // @AllArgsConstructor
 // @ToString
 // public class CartaoCreditoModel {
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+// @Id
+// @GeneratedValue(strategy = GenerationType.IDENTITY)
+// private Long id;
 
-//     @JoinColumn(name = "id_pagamento", referencedColumnName = "id")
-//     private PagamentoModel pagamento;
+// @JoinColumn(name = "pagamento_id", referencedColumnName = "id")
+// private PagamentoModel pagamento;
 
-//     @Column(name = "numero_cartao")
-//     private String numeroCartao;
+// @Column(name = "numero_cartao")
+// private String numeroCartao;
 
-//     @Column(name = "cvv_cartao")
-//     private String cvv;
+// @Column(name = "cvv_cartao")
+// private String cvv;
 
-//     @Column(name = "nome_titular")
-//     private String nomeTitular;
+// @Column(name = "nome_titular")
+// private String nomeTitular;
 
-//     @Column(name = "data_validade")
-//     private Date dataValidade;
+// @Column(name = "data_validade")
+// private Date dataValidade;
 
-//     @Column(name = "parcelas")
-//     private int parcelas;
+// @Column(name = "parcelas")
+// private int parcelas;
 
-//     @Column(name = "valor_parcela")
-//     private Double valorParcela;
+// @Column(name = "valor_parcela")
+// private Double valorParcela;
 
-//     @Column(name = "data_vencimento")
-//     private Date dataVencimento;
+// @Column(name = "data_vencimento")
+// private Date dataVencimento;
 // }

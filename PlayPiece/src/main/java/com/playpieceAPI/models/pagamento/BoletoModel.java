@@ -22,7 +22,7 @@
 // @GeneratedValue(strategy = GenerationType.IDENTITY)
 // private Long id;
 
-// @JoinColumn(name = "id_pagamento", referencedColumnName = "id")
+// @JoinColumn(name = "pagamento_id", referencedColumnName = "id")
 // private PagamentoModel pagamento;
 
 // @Column(name = "numero_boleto")

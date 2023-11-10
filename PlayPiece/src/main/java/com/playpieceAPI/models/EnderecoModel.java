@@ -18,7 +18,7 @@ public class EnderecoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "id_cliente")
+    @Column(name = "cliente_id")
     private Long idCliente;
     @NotBlank
     @Pattern(regexp = "^[0-9]+$", message = "CEP deve conter apenas letras")

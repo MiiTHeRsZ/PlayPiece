@@ -32,13 +32,13 @@ public class ItemCarrinhoModel {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_produto")
+    @JoinColumn(name = "produto_id")
     private ProdutoModel produto;
 
     private int quantidade;
 
     @ManyToOne
-    @JoinColumn(name = "id_carrinho")
+    @JoinColumn(name = "carrinho_id")
     @JsonIgnore
     private CarrinhoModel carrinho;
 }
