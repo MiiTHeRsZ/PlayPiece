@@ -1,5 +1,6 @@
 package com.playpieceAPI.services.carrinho;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.playpieceAPI.models.ClienteModel;
@@ -10,6 +11,7 @@ import com.playpieceAPI.services.ClienteService;
 import com.playpieceAPI.services.ProdutoService;
 
 @Service
+
 public class CarrinhoService {
 
     final CarrinhoRepository carrinhoRepository;
@@ -17,8 +19,8 @@ public class CarrinhoService {
     final ProdutoService produtoService;
     final ClienteService clienteService;
 
-    public CarrinhoService(CarrinhoRepository carrinhoRepository, ItemCarrinhoService itemCarrinhoService,
-            ProdutoService produtoService, ClienteService clienteService) {
+    public CarrinhoService(@Lazy CarrinhoRepository carrinhoRepository, @Lazy ItemCarrinhoService itemCarrinhoService,
+            @Lazy ProdutoService produtoService, @Lazy ClienteService clienteService) {
         this.carrinhoRepository = carrinhoRepository;
         this.itemCarrinhoService = itemCarrinhoService;
         this.produtoService = produtoService;
@@ -29,9 +31,9 @@ public class CarrinhoService {
         try {
             var carrinho = carrinhoRepository.findByClienteIdAndAtivo(idCliente);
 
-            if (carrinho == null) {
-                carrinho = criarCarrinho(idCliente);
-            }
+            // if (carrinho == null) {
+            // carrinho = criarCarrinho(idCliente);
+            // }
 
             return carrinho;
         } catch (Exception e) {
@@ -40,28 +42,28 @@ public class CarrinhoService {
         }
     }
 
-    public CarrinhoModel criarCarrinho(Long codCliente) {
-        CarrinhoModel carrinho = new CarrinhoModel();
-        ClienteModel cliente = clienteService.getClienteById(codCliente);
+    // public CarrinhoModel criarCarrinho(Long codCliente) {
+    // CarrinhoModel carrinho = new CarrinhoModel();
+    // ClienteModel cliente = clienteService.getClienteById(codCliente);
 
-        carrinho.setCliente(cliente);
-        carrinho.setAtivo(true);
+    // carrinho.setCliente(cliente);
+    // carrinho.setAtivo(true);
 
-        return carrinhoRepository.save(carrinho);
-    }
+    // return carrinhoRepository.save(carrinho);
+    // }
 
-    public CarrinhoModel addItemCarrinho(Long codCarrinho, Long codProduto, int quantidade) {
+    public CarrinhoModel addItemCarrinho(Long codCliente, Long codProduto, int quantidade) {
 
         CarrinhoModel carrinho = null;
         try {
-            carrinho = carrinhoRepository.findById(codCarrinho).get();
+            carrinho = carrinhoRepository.findByClienteIdAndAtivo(codCliente);
             var cliente = carrinho.getCliente();
             var listaItens = carrinho.getItens();
             var novoItem = new ItemCarrinhoModel();
 
             for (ItemCarrinhoModel item : listaItens) {
-                if (item.getId() == codProduto) {
-                    var attItem = atualizarQuantidadeItemCarrinho(codCarrinho, codProduto, quantidade);
+                if (item.getProduto().getId() == codProduto) {
+                    var attItem = atualizarQuantidadeItemCarrinho(codCliente, codProduto, quantidade);
                     return attItem;
                 }
             }
@@ -69,13 +71,13 @@ public class CarrinhoService {
             try {
                 novoItem = itemCarrinhoService.criarItemCarrinho(codProduto, quantidade, cliente.getId());
                 novoItem.setCarrinho(carrinho);
-                novoItem = itemCarrinhoService.atualizarItem(novoItem);
+                itemCarrinhoService.atualizarItem(novoItem);
                 carrinho.getItens().add(novoItem);
+                return carrinhoRepository.save(carrinho);
             } catch (Exception e) {
                 System.out.println(e);
+                return null;
             }
-
-            return carrinhoRepository.save(carrinho);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -84,10 +86,9 @@ public class CarrinhoService {
 
     }
 
-    public CarrinhoModel atualizarQuantidadeItemCarrinho(Long carrinhoId, Long itemId,
+    public CarrinhoModel atualizarQuantidadeItemCarrinho(Long codCliente, Long itemId,
             int novaQuantidade) {
-        CarrinhoModel carrinho = carrinhoRepository.findById(carrinhoId)
-                .orElseThrow(() -> new RuntimeException("Carrinho não encontrado"));
+        CarrinhoModel carrinho = carrinhoRepository.findByClienteIdAndAtivo(codCliente);
 
         var listaItens = carrinho.getItens();
 
@@ -109,14 +110,12 @@ public class CarrinhoService {
                 }
             }
         }
-        itemCarrinhoService.atualizarQuantidadeItemCarrinho(carrinhoId, itemId, novaQuantidade);
-
         return carrinhoRepository.save(carrinho);
     }
 
-    public CarrinhoModel desativarCarrinho(CarrinhoModel carrinho) {
-        carrinho.setAtivo(false);
+    // public CarrinhoModel desativarCarrinho(CarrinhoModel carrinho) {
+    // carrinho.setAtivo(false);
 
-        return carrinhoRepository.save(carrinho);
-    }
+    // return carrinhoRepository.save(carrinho);
+    // }
 }

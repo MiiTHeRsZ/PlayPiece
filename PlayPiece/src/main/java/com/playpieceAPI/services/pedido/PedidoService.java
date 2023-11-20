@@ -46,7 +46,7 @@ public class PedidoService {
                 pedido.getItens().add(itemPedido);
             }
 
-            carrinhoService.desativarCarrinho(carrinho);
+            // carrinhoService.desativarCarrinho(carrinho);
 
         } catch (Exception e) {
             System.out.println(e);

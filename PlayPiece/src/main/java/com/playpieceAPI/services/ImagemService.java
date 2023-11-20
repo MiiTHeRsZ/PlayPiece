@@ -6,19 +6,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.playpieceAPI.models.ImagemModel;
+import com.playpieceAPI.models.ProdutoModel;
 import com.playpieceAPI.repositories.ImagemRepository;
 
 @Service
 public class ImagemService {
 
     final ImagemRepository imagemRepository;
+    final ProdutoService produtoService;
 
-    public ImagemService(ImagemRepository imagemRepository) {
+    public ImagemService(@Lazy ImagemRepository imagemRepository, @Lazy ProdutoService produtoService) {
         this.imagemRepository = imagemRepository;
+        this.produtoService = produtoService;
     }
 
     public List<ImagemModel> getImagemList() {
@@ -40,6 +44,9 @@ public class ImagemService {
     }
 
     public void saveImage(MultipartFile imagem, Long produtoID, String nome, int fav) throws IOException {
+
+        ProdutoModel produto = produtoService.getProdutoById(produtoID);
+
         String folder = "src/main/resources/static/images/Produtos/" + produtoID + "/";
         byte[] bytes = imagem.getBytes();
         Path path = Paths.get(folder);
@@ -52,7 +59,7 @@ public class ImagemService {
         } else {
             isFav = false;
         }
-        ImagemModel imagemSalva = new ImagemModel(null, produtoID, folder + nome, isFav, true);
+        ImagemModel imagemSalva = new ImagemModel(null, produto, folder + nome, isFav, true);
         postImagem(imagemSalva);
     }
 

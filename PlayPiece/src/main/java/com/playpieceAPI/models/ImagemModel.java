@@ -1,5 +1,9 @@
 package com.playpieceAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,9 +19,14 @@ public class ImagemModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "produto_id")
-    private Long produtoId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "produto_id", referencedColumnName = "id")
+    @JsonIgnore
+    private ProdutoModel produto;
+
     private String caminho;
+
     private boolean padrao;
+
     private boolean ativo;
 }

@@ -3,6 +3,7 @@ package com.playpieceAPI.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class ClienteService {
     final EnderecoRepository enderecoRepository;
     final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);
 
-    public ClienteService(ClienteRespository clienteRespository, EnderecoService enderecoService,
+    public ClienteService(ClienteRespository clienteRespository, @Lazy EnderecoService enderecoService,
             EnderecoRepository enderecoRepository) {
         this.clienteRespository = clienteRespository;
         this.enderecoService = enderecoService;
@@ -30,7 +31,7 @@ public class ClienteService {
     public ClienteModel getClienteById(Long id) {
         try {
             ClienteModel cliente = clienteRespository.findById(id).get();
-            cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
+            // cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
             return cliente;
         } catch (Exception e) {
             System.out.println(e);
@@ -41,7 +42,7 @@ public class ClienteService {
     public ClienteModel getClienteByCpf(String cpf) {
         try {
             ClienteModel cliente = clienteRespository.findByCpf(cpf);
-            cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
+            // cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
             return cliente;
         } catch (Exception e) {
             System.out.println(e);
@@ -52,7 +53,7 @@ public class ClienteService {
     public ClienteModel getClienteByEmail(String email) {
         try {
             ClienteModel cliente = clienteRespository.findByEmail(email);
-            cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
+            // cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
             return cliente;
         } catch (Exception e) {
             System.out.println(e);
@@ -63,7 +64,7 @@ public class ClienteService {
     public ClienteModel getClienteLogin(LoginDto login) {
         try {
             ClienteModel cliente = clienteRespository.findByEmail(login.getEmail());
-            cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
+            // cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
             var result = encoder.matches(login.getSenha(), cliente.getSenha());
             if (result && login.getEmail().equalsIgnoreCase(cliente.getEmail())) {
                 return cliente;
@@ -88,9 +89,9 @@ public class ClienteService {
 
         var endFat = enderecoRepository.save(cliente.getEnderecoFaturamento());
         cliente.setEnderecoFaturamento(enderecoService.getEnderecoById(endFat.getId()));
-        cliente.getEnderecoFaturamento().setIdCliente(cliente.getId());
+        cliente.getEnderecoFaturamento().setCliente(cliente);
 
-        cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
+        // cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
 
         return cliente;
     }
@@ -112,7 +113,7 @@ public class ClienteService {
 
         cliente = clienteRespository.save(cliente);
 
-        cliente.setListaEndereco(adicionarEnderecosCliente(id));
+        // cliente.setListaEndereco(adicionarEnderecosCliente(id));
 
         return cliente;
     }
@@ -125,26 +126,26 @@ public class ClienteService {
         return clienteRespository.save(cliente);
     }
 
-    private List<EnderecoModel> adicionarEnderecosCliente(Long id) {
-        ClienteModel cliente = clienteRespository.findById(id).get();
-        List<EnderecoModel> listaEndereco = enderecoService.getEnderecoList();
-        List<EnderecoModel> enderecos = new ArrayList<EnderecoModel>();
+    // private List<EnderecoModel> adicionarEnderecosCliente(Long id) {
+    // ClienteModel cliente = clienteRespository.findById(id).get();
+    // List<EnderecoModel> listaEndereco = enderecoService.getEnderecoList();
+    // List<EnderecoModel> enderecos = new ArrayList<EnderecoModel>();
 
-        for (EnderecoModel endereco : listaEndereco) {
-            if (endereco.getIdCliente() == cliente.getId())
-                enderecos.add(endereco);
-        }
+    // for (EnderecoModel endereco : listaEndereco) {
+    // if (endereco.getIdCliente() == cliente.getId())
+    // enderecos.add(endereco);
+    // }
 
-        if (enderecos.size() == 1) {
-            var endPadrao = enderecos.get(0);
-            cliente.setEnderecoFaturamento(endPadrao);
-            endPadrao.setAtivo(true);
-            endPadrao.setPadrao(true);
-            clienteRespository.save(cliente);
-            enderecoRepository.save(endPadrao);
-        }
+    // if (enderecos.size() == 1) {
+    // var endPadrao = enderecos.get(0);
+    // cliente.setEnderecoFaturamento(endPadrao);
+    // endPadrao.setAtivo(true);
+    // endPadrao.setPadrao(true);
+    // clienteRespository.save(cliente);
+    // enderecoRepository.save(endPadrao);
+    // }
 
-        return enderecos;
+    // return enderecos;
 
-    }
+    // }
 }

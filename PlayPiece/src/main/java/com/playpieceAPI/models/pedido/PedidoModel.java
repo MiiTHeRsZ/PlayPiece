@@ -1,13 +1,12 @@
 package com.playpieceAPI.models.pedido;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.playpieceAPI.models.ClienteModel;
 import com.playpieceAPI.models.EnderecoModel;
-// import com.playpieceAPI.models.pagamento.PagamentoModel;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -18,10 +17,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -29,7 +28,6 @@ import lombok.ToString;
 @Entity(name = "pedido")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class PedidoModel {
@@ -38,24 +36,32 @@ public class PedidoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private ClienteModel cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedidoModel> itens;
 
-    // @JoinColumn(name = "end_entrega_id", referencedColumnName = "id")
-    // private EnderecoModel enderecoEntrega;
-
-    // @JoinColumn(name = "pagamento_id", referencedColumnName = "id")
-    // private PagamentoModel pagamento;
+    @OneToOne
+    @JoinColumn(name = "end_entrega_id", referencedColumnName = "id")
+    private EnderecoModel enderecoEntrega;
 
     @Column(name = "valor_frete")
     private Double valorFrete;
 
+    @Column(name = "modo_pagamento")
+    private String modoPagamento;
+
+    @Column(name = "pg_status")
+    private String statusPagamento;
+
     @Column(name = "valor_total")
     private double valorTotal;
+
+    public PedidoModel() {
+        itens = new ArrayList<>();
+    }
 
 }

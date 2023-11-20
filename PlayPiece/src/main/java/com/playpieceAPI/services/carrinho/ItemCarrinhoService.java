@@ -1,25 +1,22 @@
 package com.playpieceAPI.services.carrinho;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import com.playpieceAPI.models.carrinho.CarrinhoModel;
 import com.playpieceAPI.models.carrinho.ItemCarrinhoModel;
-import com.playpieceAPI.repositories.ProdutoRepository;
-import com.playpieceAPI.repositories.carrinho.CarrinhoRepository;
 import com.playpieceAPI.repositories.carrinho.ItemCarrinhoRepository;
+import com.playpieceAPI.services.ProdutoService;
 
 @Service
 public class ItemCarrinhoService {
 
     final ItemCarrinhoRepository itemCarrinhoRepository;
-    final CarrinhoRepository carrinhoRepository;
-    final ProdutoRepository produtoRepository;
+    final ProdutoService produtoService;
 
-    public ItemCarrinhoService(ItemCarrinhoRepository itemCarrinhoRepository, CarrinhoRepository carrinhoRepository,
-            ProdutoRepository produtoRepository) {
+    public ItemCarrinhoService(ItemCarrinhoRepository itemCarrinhoRepository,
+            @Lazy ProdutoService produtoService) {
         this.itemCarrinhoRepository = itemCarrinhoRepository;
-        this.carrinhoRepository = carrinhoRepository;
-        this.produtoRepository = produtoRepository;
+        this.produtoService = produtoService;
     }
 
     public ItemCarrinhoModel getItemCarrinhoById(Long id) {
@@ -35,17 +32,22 @@ public class ItemCarrinhoService {
     public ItemCarrinhoModel criarItemCarrinho(Long codProduto, int quantidade, Long cliente) {
         ItemCarrinhoModel novoItem = new ItemCarrinhoModel();
 
-        CarrinhoModel carrinho = null;
         try {
-            carrinho = carrinhoRepository.findByClienteIdAndAtivo(cliente);
             novoItem.setId(null);
-            novoItem.setProduto(produtoRepository.findById(codProduto).get());
-            novoItem.setQuantidade(quantidade);
-            novoItem.setCarrinho(carrinho);
+            var produto = produtoService.getProdutoById(codProduto);
+            novoItem.setProduto(produto);
+
+            if (quantidade > produto.getQuantidade())
+                throw new RuntimeException("Quantidade maior que estoque");
+            else
+                novoItem.setQuantidade(quantidade);
+
+            novoItem.setCarrinho(null);
+            return itemCarrinhoRepository.save(novoItem);
         } catch (Exception e) {
             System.out.println(e);
+            return null;
         }
-        return itemCarrinhoRepository.save(novoItem);
     }
 
     public ItemCarrinhoModel atualizarItem(ItemCarrinhoModel novoItem) {
@@ -56,21 +58,30 @@ public class ItemCarrinhoService {
         }
     }
 
-    public ItemCarrinhoModel adicionarItemAoCarrinho(ItemCarrinhoModel itemCarrinho) {
-        ItemCarrinhoModel itemExistente = itemCarrinhoRepository
-                .findByCarrinhoIdAndProdutoId(itemCarrinho.getCarrinho().getId(), itemCarrinho.getProduto().getId());
+    // public ItemCarrinhoModel adicionarItemAoCarrinho(ItemCarrinhoModel
+    // itemCarrinho, Long clienteId) {
 
-        if (itemExistente != null) {
-            itemExistente.setQuantidade(itemExistente.getQuantidade() + itemCarrinho.getQuantidade());
+    // CarrinhoModel carrinho =
+    // carrinhoService.getCarrinhoAtivoByClienteId(clienteId);
+    // ItemCarrinhoModel itemExistente = itemCarrinhoRepository
+    // .findByCarrinhoIdAndProdutoId(carrinho.getId(),
+    // itemCarrinho.getProduto().getId());
 
-            return itemCarrinhoRepository.save(itemExistente);
-        } else {
-            itemCarrinho.setId(null);
-            itemCarrinho.setProduto(produtoRepository.findById(itemCarrinho.getProduto().getId()).orElse(null));
-            itemCarrinho.setCarrinho(carrinhoRepository.findById(itemCarrinho.getCarrinho().getId()).orElse(null));
-            return itemCarrinhoRepository.save(itemCarrinho);
-        }
-    }
+    // if (itemExistente != null) {
+    // itemExistente.setQuantidade(itemExistente.getQuantidade() +
+    // itemCarrinho.getQuantidade());
+
+    // return itemCarrinhoRepository.save(itemExistente);
+    // } else {
+    // ItemCarrinhoModel novoItem = new ItemCarrinhoModel();
+    // novoItem.setId(null);
+    // var produto =
+    // produtoService.getProdutoById(itemCarrinho.getProduto().getId());
+    // novoItem.setProduto(produto);
+    // novoItem.setCarrinho(carrinho);
+    // return itemCarrinhoRepository.save(itemCarrinho);
+    // }
+    // }
 
     public void atualizarQuantidadeItemCarrinho(Long idCarrinho, Long itemId, int quantidade) {
         ItemCarrinhoModel itemCarrinho = itemCarrinhoRepository.findById(itemId)

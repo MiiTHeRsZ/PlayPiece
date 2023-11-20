@@ -3,6 +3,7 @@ package com.playpieceAPI.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class ProdutoService {
     final ProdutoRepository produtoRepository;
     final ImagemService imagemService;
 
-    public ProdutoService(ProdutoRepository produtoRepository, ImagemService imagemService) {
+    public ProdutoService(@Lazy ProdutoRepository produtoRepository, @Lazy ImagemService imagemService) {
         this.produtoRepository = produtoRepository;
         this.imagemService = imagemService;
     }
@@ -26,9 +27,9 @@ public class ProdutoService {
 
         Page<ProdutoModel> produtos = produtoRepository.findAllByOrderByIdDesc(pageable);
 
-        for (ProdutoModel produto : produtos) {
-            produto.setListaImagens(adicionarImagensProduto(produto.getId()));
-        }
+        // for (ProdutoModel produto : produtos) {
+        // produto.setListaImagens(adicionarImagensProduto(produto.getId()));
+        // }
 
         return produtos;
     }
@@ -37,25 +38,25 @@ public class ProdutoService {
 
         List<ProdutoModel> produtos = produtoRepository.findAllByOrderByIdDesc();
 
-        for (ProdutoModel produto : produtos) {
-            produto.setListaImagens(adicionarImagensProduto(produto.getId()));
-        }
+        // for (ProdutoModel produto : produtos) {
+        // produto.setListaImagens(adicionarImagensProduto(produto.getId()));
+        // }
 
         return produtos;
     }
 
     public ProdutoModel getProdutoById(Long id) {
         ProdutoModel produto = produtoRepository.findById(id).get();
-        produto.setListaImagens(adicionarImagensProduto(produto.getId()));
+        // produto.setListaImagens(adicionarImagensProduto(produto.getId()));
 
         return produto;
     }
 
     public Page<ProdutoModel> getProdutoByNome(String nome, Pageable pageable) {
         Page<ProdutoModel> produtos = produtoRepository.findByNomeContaining(nome, pageable);
-        for (ProdutoModel produto : produtos) {
-            produto.setListaImagens(adicionarImagensProduto(produto.getId()));
-        }
+        // for (ProdutoModel produto : produtos) {
+        // produto.setListaImagens(adicionarImagensProduto(produto.getId()));
+        // }
 
         return produtos;
     }
@@ -124,7 +125,7 @@ public class ProdutoService {
         ProdutoModel produto = produtoRepository.findById(id).get();
 
         produto.setAtivo(!produto.isAtivo());
-        produto.setListaImagens(adicionarImagensProduto(produto.getId()));
+        // produto.setListaImagens(adicionarImagensProduto(produto.getId()));
         List<ImagemModel> listaImagem = produto.getListaImagens();
 
         if (!produto.isAtivo()) {
@@ -140,16 +141,16 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
-    private List<ImagemModel> adicionarImagensProduto(Long id) {
-        ProdutoModel produto = produtoRepository.findById(id).get();
-        List<ImagemModel> listaImagens = imagemService.getImagemList();
-        List<ImagemModel> imagens = new ArrayList<ImagemModel>();
+    // private List<ImagemModel> adicionarImagensProduto(Long id) {
+    // ProdutoModel produto = produtoRepository.findById(id).get();
+    // List<ImagemModel> listaImagens = imagemService.getImagemList();
+    // List<ImagemModel> imagens = new ArrayList<ImagemModel>();
 
-        for (ImagemModel imagem : listaImagens) {
-            if (imagem.getProdutoId() == produto.getId())
-                imagens.add(imagem);
-        }
+    // for (ImagemModel imagem : listaImagens) {
+    // if (imagem.getProduto() == produto.getId())
+    // imagens.add(imagem);
+    // }
 
-        return imagens;
-    }
+    // return imagens;
+    // }
 }

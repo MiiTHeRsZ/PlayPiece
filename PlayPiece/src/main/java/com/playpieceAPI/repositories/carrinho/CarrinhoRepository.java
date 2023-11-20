@@ -9,7 +9,7 @@ import com.playpieceAPI.models.carrinho.CarrinhoModel;
 @Repository
 public interface CarrinhoRepository extends JpaRepository<CarrinhoModel, Long> {
 
-    @Query(value = "SELECT c FROM carrinho c WHERE c.cliente.id = ?1 AND c.ativo = true", nativeQuery = false)
+    @Query(value = "SELECT c FROM carrinho c WHERE c.cliente.id = ?1", nativeQuery = false)
     public CarrinhoModel findByClienteIdAndAtivo(Long idCliente);
 
 }

@@ -15,26 +15,39 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class EnderecoModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "cliente_id")
-    private Long idCliente;
+
+    @OneToOne
+    @JoinColumn(name = "cliente_id")
+    private ClienteModel cliente;
+
     @NotBlank
     @Pattern(regexp = "^[0-9]+$", message = "CEP deve conter apenas letras")
     private String cep;
+
     @NotBlank
     private String logradouro;
+
     private int numero;
+
     @Nullable
     private String complemento;
+
     @NotBlank
     private String bairro;
+
     @NotBlank
     private String cidade;
+
     @NotBlank
     @Size(max = 2, min = 2)
     private String uf;
+
     private boolean padrao;
+
     private boolean ativo;
+
 }

@@ -2,6 +2,9 @@ package com.playpieceAPI.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -15,6 +18,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ProdutoModel {
 
     @Id
@@ -28,15 +32,18 @@ public class ProdutoModel {
     @Min(1)
     @Max(5)
     private double avaliacao;
+
     @Column(name = "descricao", columnDefinition = "TEXT")
     @Size(min = 1, max = 2000, message = "A descrição deve contar entre 1 a 2000 caracteres")
     private String descricao;
+
     @Column(name = "preco", columnDefinition = "DECIMAL(10,2)")
     private double preco;
+
     @Column(name = "quantidade", columnDefinition = "INT")
     private int quantidade;
 
-    @Transient
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<ImagemModel> listaImagens;
 
     private boolean ativo;

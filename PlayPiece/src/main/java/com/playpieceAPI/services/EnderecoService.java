@@ -3,8 +3,10 @@ package com.playpieceAPI.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import com.playpieceAPI.models.ClienteModel;
 import com.playpieceAPI.models.EnderecoModel;
 import com.playpieceAPI.repositories.EnderecoRepository;
 
@@ -12,9 +14,11 @@ import com.playpieceAPI.repositories.EnderecoRepository;
 public class EnderecoService {
 
     final EnderecoRepository enderecoRepository;
+    final ClienteService clienteService;
 
-    public EnderecoService(EnderecoRepository enderecoRepository) {
+    public EnderecoService(EnderecoRepository enderecoRepository, @Lazy ClienteService clienteService) {
         this.enderecoRepository = enderecoRepository;
+        this.clienteService = clienteService;
     }
 
     public List<EnderecoModel> getEnderecoList() {
@@ -45,7 +49,8 @@ public class EnderecoService {
                 List<EnderecoModel> enderecoList = enderecoRepository.findAll();
                 for (EnderecoModel enderecoModel : enderecoList) {
                     if (enderecoModel.getId() != endereco.getId()) {
-                        if (enderecoModel.isPadrao() && enderecoModel.getIdCliente() == endereco.getIdCliente()) {
+                        if (enderecoModel.isPadrao()
+                                && enderecoModel.getCliente().getId() == endereco.getCliente().getId()) {
                             enderecoModel.setPadrao(false);
                         }
                     }
@@ -60,9 +65,12 @@ public class EnderecoService {
     }
 
     public EnderecoModel postEndereco(Long idCliente, EnderecoModel novoEndereco) {
+
+        ClienteModel cliente = clienteService.getClienteById(idCliente);
+
         novoEndereco.setId(null);
         novoEndereco.setAtivo(true);
-        novoEndereco.setIdCliente(idCliente);
+        novoEndereco.setCliente(cliente);
         novoEndereco.setPadrao(false);
 
         return enderecoRepository.save(novoEndereco);

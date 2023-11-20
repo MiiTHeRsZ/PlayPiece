@@ -18,12 +18,17 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Table(name = "carrinho")
 @Entity(name = "carrinho")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @AllArgsConstructor
+@Getter
+@Setter
 @ToString
 
 public class CarrinhoModel {
@@ -32,50 +37,15 @@ public class CarrinhoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    // @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private ClienteModel cliente;
 
     @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL)
     private List<ItemCarrinhoModel> itens;
 
-    private Boolean ativo;
-
     public CarrinhoModel() {
         itens = new ArrayList<>();
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setCliente(ClienteModel cliente) {
-        this.cliente = cliente;
-    }
-
-    public void setItens(List<ItemCarrinhoModel> itens) {
-        this.itens = itens;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public ClienteModel getCliente() {
-        return cliente;
-    }
-
-    public List<ItemCarrinhoModel> getItens() {
-        return itens;
-    }
-
-    public Boolean getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
-    }
-
 }
