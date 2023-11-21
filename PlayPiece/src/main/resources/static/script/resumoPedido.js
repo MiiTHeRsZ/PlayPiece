@@ -52,7 +52,7 @@ async function carregarDados() {
         let tr = document.createElement("tr");
         tr.setAttribute("class", "itemTabela");
         tabela.appendChild(tr);
-    
+
         let prod = document.createElement("td");
         prod.setAttribute("class", "itemProduto");
         let imagem = document.createElement("td");
@@ -65,16 +65,23 @@ async function carregarDados() {
         precoUnitario.setAttribute("class", "precoUnitarioProduto")
         let precoTotal = document.createElement("td");
         precoTotal.setAttribute("class", "precoTotalProduto");
-
         
-    
+        let newLink;
+        item.produto.listaImagens.forEach(imagem => {
+            if (imagem.padrao) {
+                let caminho = imagem.caminho;
+                let link = caminho.split("/");
+                newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8];
+            }
+        });
+
         prod.textContent = ++quantidadeItens;
-        imagem.innerHTML = `<img src="./img/${item.imagem}">`;
+        imagem.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
         nomeProduto.textContent = `${item.produto.nome}`;
         quantidade.innerHTML = `${item.quantidade}`;
         precoUnitario.textContent = `${parseFloat(item.produto.preco).toFixed(2).replace(".", ",")}`;
         precoTotal.textContent = `${parseFloat(item.produto.preco * item.quantidade).toFixed(2).replace(".", ",")}`;
-    
+
         tr.appendChild(prod);
         tr.appendChild(imagem)
         tr.appendChild(nomeProduto);
@@ -85,9 +92,9 @@ async function carregarDados() {
 
     const endEntrega = JSON.parse(sessionStorage.getItem("endEntrega"));
     document.getElementById("frete").value = `R$ ${parseFloat(endEntrega.valorFrete).toFixed(2).replace(".", ",")}`;
-    
+
     const dadosFrete = await fetch(`/endereco/${endEntrega.idEndEntrega}`).then(response => response.json());
-    
+
     let pagamento = sessionStorage.getItem('pagamento');
 
     dados.listaEndereco.forEach(endereco => {
