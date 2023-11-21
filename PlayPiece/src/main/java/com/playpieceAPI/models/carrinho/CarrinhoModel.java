@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.playpieceAPI.models.ClienteModel;
 
@@ -37,9 +38,9 @@ public class CarrinhoModel {
     @Column(name = "carrinho_id")
     private Long carrinhoId;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_cliente_id", referencedColumnName = "cliente_id")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "clienteId")
     private ClienteModel cliente;
 
     @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL)

@@ -58,7 +58,6 @@ public class PedidoService {
             cliente.setPedidos(new ArrayList<PedidoModel>());
         }
         pedido.getCliente().getPedidos().add(pedido);
-
         return pedidoRepository.save(pedido);
     }
 

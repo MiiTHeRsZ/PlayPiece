@@ -65,6 +65,8 @@ async function carregarDados() {
         precoUnitario.setAttribute("class", "precoUnitarioProduto")
         let precoTotal = document.createElement("td");
         precoTotal.setAttribute("class", "precoTotalProduto");
+
+        
     
         prod.textContent = ++quantidadeItens;
         imagem.innerHTML = `<img src="./img/${item.imagem}">`;

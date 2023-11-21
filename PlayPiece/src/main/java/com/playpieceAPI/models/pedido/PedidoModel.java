@@ -51,16 +51,16 @@ public class PedidoModel {
     @JoinColumn(name = "end_entrega_id", referencedColumnName = "endereco_id", nullable = true)
     private EnderecoModel enderecoEntrega;
 
-    @Column(name = "valor_frete")
+    @Column(name = "valor_frete", nullable = true)
     private Double valorFrete;
 
-    @Column(name = "modo_pagamento")
+    @Column(name = "modo_pagamento", nullable = true)
     private String modoPagamento;
 
-    @Column(name = "pg_status")
+    @Column(name = "pg_status", nullable = true)
     private String statusPagamento;
 
-    @Column(name = "valor_total")
+    @Column(name = "valor_total", nullable = true)
     private double valorTotal;
 
     public PedidoModel() {
