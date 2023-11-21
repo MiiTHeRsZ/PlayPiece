@@ -26,7 +26,7 @@ public class ItemPedidoService {
     public ItemPedidoModel criarItemPedido(ItemCarrinhoModel itemCarrinho, PedidoModel pedido) {
         ItemPedidoModel itemPedido = new ItemPedidoModel();
 
-        itemPedido.setId(null);
+        itemPedido.setItemPedidoId(null);
         itemPedido.setProduto(itemCarrinho.getProduto());
         itemPedido.setQuantidade(itemCarrinho.getQuantidade());
         itemPedido.setValorUnitario(itemCarrinho.getProduto().getPreco());
@@ -46,9 +46,9 @@ public class ItemPedidoService {
 
     public ItemPedidoModel importarCarrinho(ItemPedidoModel itemPedido) {
         try {
-            itemPedido.setId(null);
-            itemPedido.setProduto(produtoRepository.findById(itemPedido.getProduto().getId()).orElse(null));
-            itemPedido.setPedido(pedidoRepository.findById(itemPedido.getPedido().getId()).orElse(null));
+            itemPedido.setItemPedidoId(null);
+            itemPedido.setProduto(produtoRepository.findById(itemPedido.getProduto().getProdutoId()).orElse(null));
+            itemPedido.setPedido(pedidoRepository.findById(itemPedido.getPedido().getPedidoId()).orElse(null));
 
         } catch (Exception e) {
             System.out.println(e);

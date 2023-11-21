@@ -14,7 +14,8 @@ import lombok.*;
 public class CargoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "cargo_id")
+    private Integer cargoId;
     @NotBlank
     private String nome;
 }

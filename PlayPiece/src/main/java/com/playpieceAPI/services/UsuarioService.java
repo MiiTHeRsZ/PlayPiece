@@ -56,8 +56,8 @@ public class UsuarioService {
     public UsuarioModel postUsuario(UsuarioModel usuario) {
         var senhaCripto = encoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCripto);
-        usuario.setId(null);
-        usuario.setCargo(cargoRepository.findById(usuario.getCargo().getId()).get());
+        usuario.setUsuarioId(null);
+        usuario.setCargo(cargoRepository.findById(usuario.getCargo().getCargoId()).get());
         usuario.setAtivo(true);
 
         return usuarioRepository.save(usuario);
@@ -79,11 +79,11 @@ public class UsuarioService {
             novoUsuario.setSenha(senhaCripto);
         }
 
-        novoUsuario.setId(usuario.getId());
+        novoUsuario.setUsuarioId(usuario.getUsuarioId());
         novoUsuario.setEmailUsuario(usuario.getEmailUsuario());
         usuario = novoUsuario;
 
-        usuario.setCargo(cargoRepository.findById(usuario.getCargo().getId()).get());
+        usuario.setCargo(cargoRepository.findById(usuario.getCargo().getCargoId()).get());
 
         return usuarioRepository.save(usuario);
     }

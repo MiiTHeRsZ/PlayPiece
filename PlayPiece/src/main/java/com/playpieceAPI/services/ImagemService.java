@@ -32,13 +32,13 @@ public class ImagemService {
     public ImagemModel updateImagem(Long id, ImagemModel novaImagem) {
         ImagemModel imagem = imagemRepository.findById(id).get();
 
-        novaImagem.setId(imagem.getId());
+        novaImagem.setImagemId(imagem.getImagemId());
 
         return imagemRepository.save(novaImagem);
     }
 
     public ImagemModel postImagem(ImagemModel novaImagem) {
-        novaImagem.setId(null);
+        novaImagem.setImagemId(null);
 
         return imagemRepository.save(novaImagem);
     }

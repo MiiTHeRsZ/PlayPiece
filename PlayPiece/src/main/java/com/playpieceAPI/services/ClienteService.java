@@ -79,7 +79,7 @@ public class ClienteService {
 
     public ClienteModel postClient(ClienteModel cliente) {
         var senhaCripto = encoder.encode(cliente.getSenha());
-        cliente.setId(null);
+        cliente.setClienteId(null);
         cliente.setAtivo(true);
         cliente.setSenha(senhaCripto);
         enderecoService.postEndereco(0L, cliente.getEnderecoFaturamento());
@@ -88,7 +88,7 @@ public class ClienteService {
         // var carrinho = carrinhoRepository.save(new CarrinhoModel());
 
         var endFat = enderecoRepository.save(cliente.getEnderecoFaturamento());
-        cliente.setEnderecoFaturamento(enderecoService.getEnderecoById(endFat.getId()));
+        cliente.setEnderecoFaturamento(enderecoService.getEnderecoById(endFat.getEnderecoId()));
         cliente.getEnderecoFaturamento().setCliente(cliente);
 
         // cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
@@ -103,13 +103,14 @@ public class ClienteService {
             var senhaCripto = encoder.encode(novoCliente.getSenha());
             novoCliente.setSenha(senhaCripto);
         }
-        novoCliente.setId(cliente.getId());
+        novoCliente.setClienteId(cliente.getClienteId());
         novoCliente.setEmail(cliente.getEmail());
         novoCliente.setCpf(cliente.getCpf());
 
         cliente = novoCliente;
 
-        cliente.setEnderecoFaturamento(enderecoService.getEnderecoById(cliente.getEnderecoFaturamento().getId()));
+        cliente.setEnderecoFaturamento(
+                enderecoService.getEnderecoById(cliente.getEnderecoFaturamento().getEnderecoId()));
 
         cliente = clienteRespository.save(cliente);
 

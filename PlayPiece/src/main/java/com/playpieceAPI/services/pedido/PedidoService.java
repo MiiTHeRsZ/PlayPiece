@@ -31,10 +31,13 @@ public class PedidoService {
 
     }
 
-    public PedidoModel importarCarrinho(Long cliente) {
+    public PedidoModel importarCarrinho(Long clienteId) {
         PedidoModel pedido = new PedidoModel();
+        var cliente = clienteRespository.findById(clienteId).get();
+        pedido.setCliente(cliente);
+        pedido.setEnderecoEntrega(cliente.getEnderecoFaturamento());
         pedido = pedidoRepository.save(pedido);
-        CarrinhoModel carrinho = carrinhoService.getCarrinhoAtivoByClienteId(cliente);
+        CarrinhoModel carrinho = carrinhoService.getCarrinhoAtivoByClienteId(clienteId);
         var listaItens = carrinho.getItens();
         try {
 
@@ -46,18 +49,15 @@ public class PedidoService {
                 pedido.getItens().add(itemPedido);
             }
 
-            // carrinhoService.desativarCarrinho(carrinho);
+            carrinho = carrinhoService.limparCarrinho(carrinho);
 
         } catch (Exception e) {
             System.out.println(e);
         }
-
-        ClienteModel novoCliente = carrinho.getCliente();
-        if (novoCliente.getPedidos() == null) {
-            novoCliente.setPedidos(new ArrayList<PedidoModel>());
+        if (cliente.getPedidos() == null) {
+            cliente.setPedidos(new ArrayList<PedidoModel>());
         }
-        novoCliente.getPedidos().add(pedido);
-        pedido.setCliente(novoCliente);
+        pedido.getCliente().getPedidos().add(pedido);
 
         return pedidoRepository.save(pedido);
     }

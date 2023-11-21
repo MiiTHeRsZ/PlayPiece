@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.playpieceAPI.models.ClienteModel;
 import com.playpieceAPI.models.EnderecoModel;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,18 +36,19 @@ public class PedidoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "pedido_id")
+    private Long pedidoId;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JoinColumn(name = "fk_cliente_id", referencedColumnName = "cliente_id", nullable = true)
+    @JsonIgnore
     private ClienteModel cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedidoModel> itens;
 
     @OneToOne
-    @JoinColumn(name = "end_entrega_id", referencedColumnName = "id")
+    @JoinColumn(name = "end_entrega_id", referencedColumnName = "endereco_id", nullable = true)
     private EnderecoModel enderecoEntrega;
 
     @Column(name = "valor_frete")

@@ -18,12 +18,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "produtoId")
 public class ProdutoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "produto_id")
+    private Long produtoId;
 
     @Column(name = "nome", columnDefinition = "VARCHAR(40)")
     @Size(max = 40, message = "Nome deve conter até 40 caracteres")

@@ -5,10 +5,10 @@ SET FOREIGN_KEY_CHECKS=0;
 
 drop table if exists usuario;
 create table usuario(
-id bigint primary key auto_increment,
+usuario_id bigint primary key auto_increment,
 nome varchar(50) not null,
 cpf varchar(14) not null unique,
-cargo_id smallint not null,
+fk_cargo_id smallint not null,
 email varchar(60) not null unique,
 senha varchar(255) not null,
 ativo bool not null
@@ -16,13 +16,13 @@ ativo bool not null
 
 drop table if exists cargo;
 create table cargo(
-id smallint primary key auto_increment,
+cargo_id smallint primary key auto_increment,
 nome varchar(25) not null unique
 );
 
 drop table if exists produto;
 create table produto(
-id bigint auto_increment primary key,
+produto_id bigint auto_increment primary key,
 nome varchar(200) not null,
 avaliacao decimal(2,1) not null,
 descricao text not null,
@@ -33,8 +33,8 @@ ativo bool not null
 
 drop table if exists imagem;
 create table imagem(
-id bigint auto_increment primary key,
-produto_id bigint not null,
+imagem_id bigint auto_increment primary key,
+fk_produto_id bigint not null,
 caminho varchar(200) not null,
 padrao bool not null,
 ativo bool not null
@@ -42,7 +42,7 @@ ativo bool not null
 
 drop table if exists cliente;
 create table cliente(
-	id bigint primary key auto_increment,
+	cliente_id bigint primary key auto_increment,
 	cpf varchar(14) not null unique,
 	nome varchar(100) not null,
 	dt_nascimento Date not null,
@@ -55,8 +55,8 @@ create table cliente(
 
 drop table if exists endereco;
 create table endereco(
-	id bigint primary key auto_increment,
-	cliente_id bigint not null,
+	endereco_id bigint primary key auto_increment,
+	fk_cliente_id bigint not null,
 	cep varchar(8) not null,
 	logradouro varchar(255) not null,
 	numero int not null,
@@ -70,51 +70,51 @@ create table endereco(
 
 drop table if exists pedido;
 create table pedido(
-        id bigint primary key auto_increment,
+        pedido_id bigint primary key auto_increment,
         valor_total decimal(15,2) not null,
-        cliente_id bigint not null,
+        fk_cliente_id bigint not null,
         end_entrega_id bigint not null,
         valor_frete decimal(5,2) not null,
         modo_pagamento varchar(2),
 		pg_status varchar(2) not null,
 
-        foreign key (end_entrega_id) references endereco(id),
-        foreign key (cliente_id) references cliente(id)
+        foreign key (end_entrega_id) references endereco(endereco_id),
+        foreign key (fk_cliente_id) references cliente(cliente_id)
 );
 
 drop table if exists item_pedido;
 create table item_pedido(
-	id bigint primary key auto_increment,
-	produto_id bigint not null,
+	item_pedido_id bigint primary key auto_increment,
+	fk_produto_id bigint not null,
 	quantidade int not null,
 	valor_unitario decimal(15,2) not null,
 	valor_total decimal(15,2) not null,
-	pedido_id bigint not null,
-	foreign key (produto_id) references produto(id),
-	foreign key (pedido_id) references pedido(id)
+	fk_pedido_id bigint not null,
+	foreign key (fk_produto_id) references produto(produto_id),
+	foreign key (fk_pedido_id) references pedido(pedido_id)
 );
 
 DROP TABLE IF EXISTS carrinho;
 CREATE TABLE carrinho (
-  id bigint NOT NULL primary key AUTO_INCREMENT,
-  cliente_id bigint,
-  FOREIGN KEY (cliente_id) REFERENCES cliente (id)
+  carrinho_id bigint NOT NULL primary key AUTO_INCREMENT,
+  fk_cliente_id bigint,
+  FOREIGN KEY (fk_cliente_id) REFERENCES cliente (cliente_id)
 );
 
 drop table if exists item_carrinho;
 create table item_carrinho(
-	id bigint primary key auto_increment,
-	produto_id bigint not null,
+	item_carrinho_id bigint primary key auto_increment,
+	fk_produto_id bigint not null,
 	quantidade int not null,
-	carrinho_id bigint not null,
-	foreign key (produto_id) references produto(id),
-	foreign key (carrinho_id) references carrinho(id)
+	fk_carrinho_id bigint not null,
+	foreign key (fk_produto_id) references produto(produto_id),
+	foreign key (fk_carrinho_id) references carrinho(carrinho_id)
 );
 
 
 
 insert into cargo (nome) value ("Administrador"), ("Estoquista");
-insert into usuario (nome, cpf, cargo_id, email, senha, ativo) values('Leonardo Noboru Machado Fujimura', '43183345897', 1, 'lfujimura.pp1@playpiece.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', true), ('Vinicios Mendes', '97876694993', 2, 'vmendes.pp2@playpiece.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', true);
+insert into usuario (nome, cpf, fk_cargo_id, email, senha, ativo) values('Leonardo Noboru Machado Fujimura', '43183345897', 1, 'lfujimura.pp1@playpiece.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', true), ('Vinicios Mendes', '97876694993', 2, 'vmendes.pp2@playpiece.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', true);
 insert into produto(nome, avaliacao, descricao, preco, quantidade, ativo) values ('Dungeons & Dragons: Kit Essencial', 5, 'Kit Essencial Dungeons Dragons Rpg Dnd Português Inicial Original
 Tudo o que você precisa para criar personagens e jogar as novas aventuras nesta introdução ao maior RPG do mundo.
 
@@ -141,9 +141,9 @@ Escudo do Dungeon Master
 
 O domínio do sobrenatural não se manifesta em nosso mundo de maneira simples. Uma membrana oculta separa e resguarda a Realidade do Outro Lado, uma dimensão habitada por criaturas monstruosas e demônios. No entanto, essa fronteira pode ser enfraquecida pelo Medo. Aproveitando-se dessa vulnerabilidade, cultistas executam rituais sinistros para romper essa barreira e convocar seres sobrenaturais, desencadeando um caos avassalador. Para frustrar esses nefastos intentos, várias organizações de investigadores operam em escala global. Contra as forças paranormais, esses agentes constituem nossa primeira e última defesa. Neste RPG, você incorporará um agente da Ordo Realitas, uma dessas organizações, levando uma vida dupla enquanto luta tenazmente para prevenir a ascensão do caos. Seja utilizando sua astúcia, um arsenal tecnológico de ponta ou mesmo poderes advindos do Outro Lado, a responsabilidade de proteger nosso mundo recai sobre seus ombros. Este jogo oferece todos os elementos necessários para que o seu grupo vivencie suas próprias missões no cenário criado por Cellbit e lapidado por uma equipe de game designers renomados e veteranos, com mais de uma década de experiência na publicação de jogos de RPG. Agora, o destino do mundo está em suas mãos, pronto para ser moldado por suas decisões e ações.', 239.90,1,true);
 
-insert into imagem(produto_id, caminho, padrao, ativo) values (1, 'PlayPieceAPI/src/main/resources/static/images/Produtos/1/81Yz2C9wsfL.jpg', true, true), (1, 'PlayPieceAPI/src/main/resources/static/images/Produtos/1/02.jpg', false, true), (2, 'PlayPieceAPI/src/main/resources/static/images/Produtos/2/ordem_paranormal_rpg_versao_fisica_25462281_1_a00c3520424507b6535cce8b6569a131.webp', true, true), (2,'PlayPieceAPI/src/main/resources/static/images/Produtos/2/ordem_paranormal_rpg_versao_fisica_25462281_4_ec28873155858efab0833cbe85ed2bf7.webp', false, true);
+insert into imagem(fk_produto_id, caminho, padrao, ativo) values (1, 'PlayPieceAPI/src/main/resources/static/images/Produtos/1/81Yz2C9wsfL.jpg', true, true), (1, 'PlayPieceAPI/src/main/resources/static/images/Produtos/1/02.jpg', false, true), (2, 'PlayPieceAPI/src/main/resources/static/images/Produtos/2/ordem_paranormal_rpg_versao_fisica_25462281_1_a00c3520424507b6535cce8b6569a131.webp', true, true), (2,'PlayPieceAPI/src/main/resources/static/images/Produtos/2/ordem_paranormal_rpg_versao_fisica_25462281_4_ec28873155858efab0833cbe85ed2bf7.webp', false, true);
 
-insert into endereco (cliente_id,cep,logradouro,numero,complemento,bairro,cidade,uf,padrao,ativo) values (1, '04671071','Rua Sócrates','853', 'apt. 193 D', 'Vila Sofia', 'São Paulo', 'SP', true, true ), (1, '04671071','Rua Sócrates','853', 'apt. 44 C', 'Vila Sofia', 'São Paulo', 'SP', false, true );
+insert into endereco (fk_cliente_id,cep,logradouro,numero,complemento,bairro,cidade,uf,padrao,ativo) values (1, '04671071','Rua Sócrates','853', 'apt. 193 D', 'Vila Sofia', 'São Paulo', 'SP', true, true ), (1, '04671071','Rua Sócrates','853', 'apt. 44 C', 'Vila Sofia', 'São Paulo', 'SP', false, true );
 
 insert into cliente (cpf, nome,dt_nascimento,genero,email,senha,end_fat,ativo) values('43183345897', 'Leonardo Fujimura', '2002-03-30', 'M', 'l.fujimura@teste.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 1, true);
 

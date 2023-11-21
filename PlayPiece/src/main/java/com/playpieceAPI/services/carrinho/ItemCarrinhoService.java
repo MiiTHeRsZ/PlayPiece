@@ -3,6 +3,7 @@ package com.playpieceAPI.services.carrinho;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import com.playpieceAPI.models.carrinho.CarrinhoModel;
 import com.playpieceAPI.models.carrinho.ItemCarrinhoModel;
 import com.playpieceAPI.repositories.carrinho.ItemCarrinhoRepository;
 import com.playpieceAPI.services.ProdutoService;
@@ -22,7 +23,7 @@ public class ItemCarrinhoService {
     public ItemCarrinhoModel getItemCarrinhoById(Long id) {
         ItemCarrinhoModel item = new ItemCarrinhoModel();
         try {
-            item = itemCarrinhoRepository.findById(id).get();
+            item = itemCarrinhoRepository.findByItemId(id);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -33,7 +34,7 @@ public class ItemCarrinhoService {
         ItemCarrinhoModel novoItem = new ItemCarrinhoModel();
 
         try {
-            novoItem.setId(null);
+            novoItem.setItemCarrinhoId(null);
             var produto = produtoService.getProdutoById(codProduto);
             novoItem.setProduto(produto);
 
@@ -92,6 +93,17 @@ public class ItemCarrinhoService {
         } else {
             itemCarrinho.setQuantidade(quantidade);
             itemCarrinhoRepository.save(itemCarrinho);
+        }
+    }
+
+    public void excluirItemCarrinho(Long itemCarrinhoId) {
+        try {
+            var itemCarrinho = itemCarrinhoRepository.findById(itemCarrinhoId).get();
+            System.out.println("sem delete");
+            itemCarrinhoRepository.deleteById(itemCarrinho.getItemCarrinhoId());
+            System.out.println("com delete");
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 }

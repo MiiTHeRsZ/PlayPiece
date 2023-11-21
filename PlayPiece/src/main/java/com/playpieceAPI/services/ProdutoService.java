@@ -25,7 +25,7 @@ public class ProdutoService {
 
     public Page<ProdutoModel> getProdutoList(Pageable pageable) {
 
-        Page<ProdutoModel> produtos = produtoRepository.findAllByOrderByIdDesc(pageable);
+        Page<ProdutoModel> produtos = produtoRepository.findAllByOrderByProdutoIdDesc(pageable);
 
         // for (ProdutoModel produto : produtos) {
         // produto.setListaImagens(adicionarImagensProduto(produto.getId()));
@@ -36,7 +36,7 @@ public class ProdutoService {
 
     public List<ProdutoModel> getProdutoListImagem() {
 
-        List<ProdutoModel> produtos = produtoRepository.findAllByOrderByIdDesc();
+        List<ProdutoModel> produtos = produtoRepository.findAllByOrderByProdutoIdDesc();
 
         // for (ProdutoModel produto : produtos) {
         // produto.setListaImagens(adicionarImagensProduto(produto.getId()));
@@ -62,14 +62,14 @@ public class ProdutoService {
     }
 
     public ProdutoModel postProduto(ProdutoModel produto) {
-        produto.setId(null);
+        produto.setProdutoId(null);
         produto.setAtivo(true);
         return produtoRepository.save(produto);
     }
 
     public ProdutoModel updateProduto(Long id, ProdutoModel novoProduto) {
         ProdutoModel produto = getProdutoById(id);
-        novoProduto.setId(produto.getId());
+        novoProduto.setProdutoId(produto.getProdutoId());
         List<ImagemModel> listaImagens = produto.getListaImagens();
         List<ImagemModel> listaImagensNovoProduto = novoProduto.getListaImagens();
         List<ImagemModel> novasImagens = new ArrayList<ImagemModel>();
@@ -78,7 +78,7 @@ public class ProdutoService {
             int count = 0;
             while (count < listaImagens.size()) {
                 novasImagens
-                        .add(imagemService.updateImagem(listaImagens.get(count).getId(),
+                        .add(imagemService.updateImagem(listaImagens.get(count).getImagemId(),
                                 novoProduto.getListaImagens().get(count)));
                 count++;
             }
@@ -94,14 +94,14 @@ public class ProdutoService {
             int count = 0;
             while (count < listaImagensNovoProduto.size()) {
                 novasImagens
-                        .add(imagemService.updateImagem(listaImagensNovoProduto.get(count).getId(),
+                        .add(imagemService.updateImagem(listaImagensNovoProduto.get(count).getImagemId(),
                                 novoProduto.getListaImagens().get(count)));
                 count++;
             }
 
             while (count < listaImagens.size()) {
                 novasImagens
-                        .add(imagemService.statusImagem(listaImagens.get(count).getId()));
+                        .add(imagemService.statusImagem(listaImagens.get(count).getImagemId()));
                 count++;
             }
 
@@ -109,7 +109,7 @@ public class ProdutoService {
             for (int i = 0; i < listaImagens.size(); i++) {
 
                 novasImagens
-                        .add(imagemService.updateImagem(listaImagens.get(i).getId(),
+                        .add(imagemService.updateImagem(listaImagens.get(i).getImagemId(),
                                 novoProduto.getListaImagens().get(i)));
             }
         }

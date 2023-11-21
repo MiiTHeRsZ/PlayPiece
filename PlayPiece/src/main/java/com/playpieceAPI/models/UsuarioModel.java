@@ -18,7 +18,8 @@ import lombok.*;
 public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "usuario_id")
+    private Long usuarioId;
 
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z \\s]+$", message = "Nome deve conter apenas letras")
@@ -30,7 +31,7 @@ public class UsuarioModel {
     private String cpf;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cargo_id", referencedColumnName = "id")
+    @JoinColumn(name = "fk_cargo_id", referencedColumnName = "cargo_id")
     @Enumerated(EnumType.STRING)
     private CargoModel cargo;
 

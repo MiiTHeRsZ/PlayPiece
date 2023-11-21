@@ -17,10 +17,11 @@ import lombok.*;
 public class ImagemModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "imagem_id")
+    private Long imagemId;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "produto_id", referencedColumnName = "id")
+    @JoinColumn(name = "fk_produto_id", referencedColumnName = "produto_id")
     @JsonIgnore
     private ProdutoModel produto;
 

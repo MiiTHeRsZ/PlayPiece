@@ -1,6 +1,7 @@
 package com.playpieceAPI.models.pedido;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.playpieceAPI.models.ProdutoModel;
 
@@ -21,7 +22,7 @@ import lombok.ToString;
 
 @Table(name = "item_pedido")
 @Entity(name = "item_pedido")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "itemPedidoId")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,9 +32,11 @@ public class ItemPedidoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "item_pedido_id")
+    private Long itemPedidoId;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_produto_id", referencedColumnName = "produto_id")
     private ProdutoModel produto;
 
     private int quantidade;
@@ -45,7 +48,8 @@ public class ItemPedidoModel {
     private double valorTotal;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pedido_id")
+    @JoinColumn(name = "fk_pedido_id", referencedColumnName = "pedido_id")
+    @JsonIgnore
     private PedidoModel pedido;
 
 }

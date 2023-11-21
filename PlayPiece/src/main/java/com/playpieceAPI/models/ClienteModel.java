@@ -37,7 +37,7 @@ import lombok.ToString;
 
 @Table(name = "cliente")
 @Entity(name = "cliente")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "clienteId")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -45,7 +45,8 @@ import lombok.ToString;
 public class ClienteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "cliente_id")
+    private Long clienteId;
 
     @CPF
     @NotBlank
@@ -70,8 +71,8 @@ public class ClienteModel {
 
     private String senha;
 
-    @OneToOne(mappedBy = "cliente")
-    @JoinColumn(name = "end_fat", referencedColumnName = "id")
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JoinColumn(name = "end_fat", referencedColumnName = "endereco_id")
     private EnderecoModel enderecoFaturamento;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)

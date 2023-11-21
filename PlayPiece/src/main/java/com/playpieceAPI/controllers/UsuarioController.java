@@ -63,10 +63,10 @@ public class UsuarioController {
             return new ResponseEntity<>("Usuário não encontrado", HttpStatus.NOT_FOUND);
 
         List<String> resuList = new ArrayList<>();
-        resuList.add(usuario.getId().toString());
+        resuList.add(usuario.getUsuarioId().toString());
         resuList.add(usuario.getEmailUsuario());
         resuList.add(usuario.getSenha());
-        resuList.add(usuario.getCargo().getId().toString());
+        resuList.add(usuario.getCargo().getCargoId().toString());
         return new ResponseEntity<>(resuList, HttpStatus.OK);
     }
 

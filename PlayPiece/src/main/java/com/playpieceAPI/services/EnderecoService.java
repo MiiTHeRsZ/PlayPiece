@@ -48,9 +48,9 @@ public class EnderecoService {
             if (endereco.isPadrao()) {
                 List<EnderecoModel> enderecoList = enderecoRepository.findAll();
                 for (EnderecoModel enderecoModel : enderecoList) {
-                    if (enderecoModel.getId() != endereco.getId()) {
+                    if (enderecoModel.getEnderecoId() != endereco.getEnderecoId()) {
                         if (enderecoModel.isPadrao()
-                                && enderecoModel.getCliente().getId() == endereco.getCliente().getId()) {
+                                && enderecoModel.getCliente().getClienteId() == endereco.getCliente().getClienteId()) {
                             enderecoModel.setPadrao(false);
                         }
                     }
@@ -68,7 +68,7 @@ public class EnderecoService {
 
         ClienteModel cliente = clienteService.getClienteById(idCliente);
 
-        novoEndereco.setId(null);
+        novoEndereco.setEnderecoId(null);
         novoEndereco.setAtivo(true);
         novoEndereco.setCliente(cliente);
         novoEndereco.setPadrao(false);
