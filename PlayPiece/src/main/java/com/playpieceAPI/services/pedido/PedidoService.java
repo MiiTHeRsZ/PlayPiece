@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.playpieceAPI.models.ClienteModel;
 import com.playpieceAPI.models.carrinho.CarrinhoModel;
 import com.playpieceAPI.models.carrinho.ItemCarrinhoModel;
 import com.playpieceAPI.models.pedido.ItemPedidoModel;
 import com.playpieceAPI.models.pedido.PedidoModel;
 import com.playpieceAPI.repositories.ClienteRespository;
 import com.playpieceAPI.repositories.pedido.PedidoRepository;
+import com.playpieceAPI.services.EnderecoService;
 import com.playpieceAPI.services.carrinho.CarrinhoService;
 
 @Service
@@ -21,17 +21,19 @@ public class PedidoService {
     final ItemPedidoService itemPedidoService;
     final CarrinhoService carrinhoService;
     final ClienteRespository clienteRespository;
+    final EnderecoService enderecoService;
 
     public PedidoService(PedidoRepository pedidoRepository, ItemPedidoService itemPedidoService,
-            CarrinhoService carrinhoService, ClienteRespository clienteRespository) {
+            CarrinhoService carrinhoService, ClienteRespository clienteRespository, EnderecoService enderecoService) {
         this.pedidoRepository = pedidoRepository;
         this.itemPedidoService = itemPedidoService;
         this.carrinhoService = carrinhoService;
         this.clienteRespository = clienteRespository;
+        this.enderecoService = enderecoService;
 
     }
 
-    public PedidoModel importarCarrinho(Long clienteId) {
+    public PedidoModel importarCarrinho(Long clienteId, Long enderecoId, Double frete, String modoPagamento) {
         PedidoModel pedido = new PedidoModel();
         var cliente = clienteRespository.findById(clienteId).get();
         pedido.setCliente(cliente);
@@ -57,7 +59,13 @@ public class PedidoService {
         if (cliente.getPedidos() == null) {
             cliente.setPedidos(new ArrayList<PedidoModel>());
         }
+
+        var endereco = enderecoService.getEnderecoById(enderecoId);
+
         pedido.getCliente().getPedidos().add(pedido);
+        pedido.setEnderecoEntrega(endereco);
+        pedido.setModoPagamento(modoPagamento);
+        pedido.setValorFrete(frete);
         return pedidoRepository.save(pedido);
     }
 
