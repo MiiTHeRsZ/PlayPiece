@@ -116,10 +116,9 @@ async function carregarDados() {
         if (endereco.padrao) {
             opcao.textContent += ` \u2B50`
         }
-        document.getElementById("enderecoEntrega").appendChild(opcao);
     });
 
-    document.getElementById("pagamento").textContent = pagamento == "BO" ? "Boleto" : "Cartão de Crédito";
+    document.getElementById("pagamentoOpc").textContent = pagamento == "BO" ? "Boleto" : "Cartão de Crédito";
 }
 carregarDados()
 
@@ -166,6 +165,9 @@ async function finalizarPedido() {
 
     if (checkout.status == 200 || checkout.status == 201) {
         alert("Pedido realizado com sucesso!");
+        sessionStorage.removeItem("pagamento")
+        sessionStorage.removeItem("carrinho")
+        sessionStorage.removeItem("endEntrega")
         window.open("../index.html", "_self");
     } else {
         alert("Erro ao realizar o pedido!");
