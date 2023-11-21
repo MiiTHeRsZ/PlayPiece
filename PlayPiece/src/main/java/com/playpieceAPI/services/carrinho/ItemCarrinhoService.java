@@ -5,17 +5,20 @@ import org.springframework.stereotype.Service;
 
 import com.playpieceAPI.models.carrinho.CarrinhoModel;
 import com.playpieceAPI.models.carrinho.ItemCarrinhoModel;
+import com.playpieceAPI.repositories.ClienteRespository;
 import com.playpieceAPI.repositories.carrinho.ItemCarrinhoRepository;
 import com.playpieceAPI.services.ProdutoService;
 
 @Service
 public class ItemCarrinhoService {
 
+    final CarrinhoService carrinhoService;
     final ItemCarrinhoRepository itemCarrinhoRepository;
     final ProdutoService produtoService;
 
-    public ItemCarrinhoService(ItemCarrinhoRepository itemCarrinhoRepository,
+    public ItemCarrinhoService(CarrinhoService carrinhoService, ItemCarrinhoRepository itemCarrinhoRepository,
             @Lazy ProdutoService produtoService) {
+        this.carrinhoService = carrinhoService;
         this.itemCarrinhoRepository = itemCarrinhoRepository;
         this.produtoService = produtoService;
     }
@@ -30,7 +33,6 @@ public class ItemCarrinhoService {
         return item;
     }
 
-    // ! Não tem utilidade para o "cliente"
     public ItemCarrinhoModel criarItemCarrinho(Long codProduto, int quantidade, Long cliente) {
         ItemCarrinhoModel novoItem = new ItemCarrinhoModel();
 
@@ -44,7 +46,8 @@ public class ItemCarrinhoService {
             else
                 novoItem.setQuantidade(quantidade);
 
-            novoItem.setCarrinho(null);
+            var carrinho = carrinhoService.getCarrinhoAtivoByClienteId(cliente);
+            novoItem.setCarrinho(carrinho);
             return itemCarrinhoRepository.save(novoItem);
         } catch (Exception e) {
             System.out.println(e);
@@ -97,16 +100,18 @@ public class ItemCarrinhoService {
         }
     }
 
-    // ! Dá uma olhada no CarrinhoService, eu mudei lá 
-    /* public void excluirItemCarrinho(Long itemCarrinhoId) {
-        try {
-            var itemCarrinho = itemCarrinhoRepository.findById(itemCarrinhoId).get();
-            System.out.println("sem delete");
-
-            itemCarrinhoRepository.deleteById(itemCarrinho.getItemCarrinhoId());
-            System.out.println("com delete");
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    } */
+    // ! Dá uma olhada no CarrinhoService, eu mudei lá
+    /*
+     * public void excluirItemCarrinho(Long itemCarrinhoId) {
+     * try {
+     * var itemCarrinho = itemCarrinhoRepository.findById(itemCarrinhoId).get();
+     * System.out.println("sem delete");
+     * 
+     * itemCarrinhoRepository.deleteById(itemCarrinho.getItemCarrinhoId());
+     * System.out.println("com delete");
+     * } catch (Exception e) {
+     * System.out.println(e);
+     * }
+     * }
+     */
 }

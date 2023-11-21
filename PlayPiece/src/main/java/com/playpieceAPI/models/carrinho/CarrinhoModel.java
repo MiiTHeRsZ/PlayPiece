@@ -35,7 +35,6 @@ public class CarrinhoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "carrinho_id")
-    // ! Mudei de Long > int
     private Long carrinhoId;
 
     @ManyToOne(cascade = CascadeType.ALL)
