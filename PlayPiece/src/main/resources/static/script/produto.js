@@ -162,7 +162,7 @@ async function getProduct() {
         </div>
         <div id="div-valor">
             <p id="valor">R$ ${parseFloat(produto.preco).toFixed(2).replace(".", ",")}</p>
-            <button onclick="adicionarAoCarrinho(${produto.id})">Adicionar ao carrinho</button>
+            <button onclick="adicionarAoCarrinho(${produto.produtoId})">Adicionar ao carrinho</button>
         </div>
         <h4 for="descricao">Descrição:</h4>
         <p style="white-space:pre-line" id="descricao">${produto.descricao}</p>

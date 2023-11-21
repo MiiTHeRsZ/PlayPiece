@@ -25,7 +25,6 @@ sessao = checkCookie("sessaoId")
 
 const conect_api = async () => {
     const nickname = document.getElementById("nickname").value;
-    // converte senha fornecida pelo usuario e ja transforma essa senha em hashcode
     const password = document.getElementById("password").value;
 
     let login = {
@@ -52,7 +51,7 @@ const conect_api = async () => {
     }
     // validar se usuario e senha digitados batem com o usuario e senha cadastrado no banco de dados
     if (status == 200) {
-        setCookie("sessaoId", result.id, 1)
+        setCookie("sessaoId", result.clienteId, 1)
         setCookie("nome", result.nome, 1)
         location.href = `../index.html`;
     } else {

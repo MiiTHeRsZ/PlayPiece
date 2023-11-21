@@ -89,7 +89,7 @@ async function criaCarrinho() {
                 })
 
                 id.style.display = "none";
-                id.textContent = `${produto.id}`;
+                id.textContent = `${produto.produtoId}`;
                 item.textContent = ++quantidadeItens;
                 img.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
                 nomeProduto.textContent = `${produto.nome}`;
@@ -147,7 +147,7 @@ async function criaCarrinho() {
             })
 
             id.style.display = "none";
-            id.textContent = `${produto.id}`;
+            id.textContent = `${produto.produtoId}`;
             item.textContent = ++quantidadeItens;
             img.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
             nomeProduto.textContent = `${produto.nome}`;
@@ -358,24 +358,30 @@ radioBtns.forEach(radioBtn => {
 });
 
 function finalizarPedido() {
-    var tabela = document.getElementById("tabelaProdutos");
-    var linhasTabela = tabela.querySelectorAll("tr");
+    if (idCliente == undefined) {
+        location.href = "./loginCliente.html";
+    } else {
+        var tabela = document.getElementById("tabelaProdutos");
+        var linhasTabela = tabela.querySelectorAll("tr");
 
-    linhasTabela.forEach(async (linha, index) => {
-        if (index != 0) {
-            // ! verificar coerencia com API
-            let idProduto = linha.querySelector(".idProduto").textContent;
-            let qntdProduto = linha.querySelector(".qntdProduto").textContent;
+        linhasTabela.forEach(async (linha, index) => {
+            if (index != 0) {
+                // ! verificar coerencia com API
+                let idProduto = linha.querySelector(".idProduto").textContent;
+                let qntdProduto = linha.querySelector(".qntdProduto").textContent;
 
-            const item = await fetch(`/itemcarrinho/create?codProduto=${idProduto}&quantidade=${qntdProduto}&idCliente=${idCliente}`, {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: "",
-            });
+                const item = await fetch(`/itemcarrinho/create?codProduto=${idProduto}&quantidade=${qntdProduto}&idCliente=${idCliente}`, {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: "",
+                });
 
-            if (item.status == 200 || item.status == 201) {
-                window.open("./escolherEndereco.html","_sefl");
+                if (item.status == 200 || item.status == 201) {
+                    window.open("./escolherEndereco.html", "_self");
+                } else {
+                    alert(`Erro ao adicionar produtos ao carrinho!`);
+                }
             }
-        }
-    });
+        });
+    }
 }

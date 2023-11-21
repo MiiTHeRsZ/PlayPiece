@@ -250,7 +250,7 @@ async function calcularFrete() {
                 if (status == "OK") {
                     distancia = response.rows[0].elements[0].distance.value * .001;
 
-                    const quantidadeProdutos = 10//await fetch(`/carrinho/search?cliente=${idCliente}`).then(data => data.json().itens.length);
+                    const quantidadeProdutos = 2//await fetch(`/carrinho/search?cliente=${idCliente}`).then(data => data.json().itens.length);
 
                     const frete01 = (quantidadeProdutos * .5 + .91) * distancia;
                     const frete02 = (quantidadeProdutos * .5 + .61) * distancia;

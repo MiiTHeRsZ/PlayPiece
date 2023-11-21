@@ -81,12 +81,12 @@ async function getProducts() {
             let card = document.createElement("div")
             card.className = "card"
             card.innerHTML = `
-            <a href="./pages/produto.html?id=${produto.id}"><img src="${newLink}" class="card-img-top" alt="..."></a>
+            <a href="./pages/produto.html?id=${produto.produtoId}"><img src="${newLink}" class="card-img-top" alt="..."></a>
                 <hr>
                 <div class="card-body">
-                <a href="./pages/produto.html?id=${produto.id}"><h5 class="card-title">${produto.nome}</h5></a>
+                <a href="./pages/produto.html?id=${produto.produtoId}"><h5 class="card-title">${produto.nome}</h5></a>
                     <p class="card-text">R$ ${parseFloat(produto.preco).toFixed(2).replace(".", ",")}</p>
-                    <a href="./pages/produto.html?id=${produto.id}" class="btn btn-primary">Detalhes</a>
+                    <a href="./pages/produto.html?id=${produto.produtoId}" class="btn btn-primary">Detalhes</a>
                 </div>
             `
             container_cards.appendChild(card)
@@ -95,36 +95,3 @@ async function getProducts() {
 }
 
 getProducts();
-
-var service = new google.maps.DistanceMatrixService();
-async function testeAPI() {
-
-    service.getDistanceMatrix(
-        {
-            origins: ["04671-071"],
-            destinations: ["02042-030"],
-            travelMode: 'DRIVING',
-            transitOptions: {
-
-                modes: ['BUS', 'TRAIN', 'SUBWAY'],
-                routingPreference: 'FEWER_TRANSFERS'
-            },
-            unitSystem: google.maps.UnitSystem.METRIC,
-            avoidHighways: false,
-            avoidTolls: false,
-        }, callback);
-
-    function callback(response, status) {
-
-        if (status == 'OK') {
-            console.log("Distância: " + response.rows[0].elements[0].distance.text);
-            console.log("Tempo estimado: " + response.rows[0].elements[0].duration.text);
-
-        } else {
-            console.log('O que aconteceu?');
-        }
-    };
-
-}
-
-testeAPI()

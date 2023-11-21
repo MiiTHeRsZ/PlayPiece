@@ -43,7 +43,6 @@ public class ItemCarrinhoController {
         }
     }
 
-    // ! adicionar como parâmetro o idCliente
     @PostMapping(value = "/create", params = { "codProduto", "quantidade", "idCliente" })
     public ResponseEntity<?> criarItemCarrinho(@RequestParam Long codProduto,
             @RequestParam int quantidade,@RequestParam Long idCliente) {

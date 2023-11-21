@@ -30,6 +30,7 @@ public class ItemCarrinhoService {
         return item;
     }
 
+    // ! Não tem utilidade para o "cliente"
     public ItemCarrinhoModel criarItemCarrinho(Long codProduto, int quantidade, Long cliente) {
         ItemCarrinhoModel novoItem = new ItemCarrinhoModel();
 
@@ -96,14 +97,16 @@ public class ItemCarrinhoService {
         }
     }
 
-    public void excluirItemCarrinho(Long itemCarrinhoId) {
+    // ! Dá uma olhada no CarrinhoService, eu mudei lá 
+    /* public void excluirItemCarrinho(Long itemCarrinhoId) {
         try {
             var itemCarrinho = itemCarrinhoRepository.findById(itemCarrinhoId).get();
             System.out.println("sem delete");
+
             itemCarrinhoRepository.deleteById(itemCarrinho.getItemCarrinhoId());
             System.out.println("com delete");
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
+    } */
 }

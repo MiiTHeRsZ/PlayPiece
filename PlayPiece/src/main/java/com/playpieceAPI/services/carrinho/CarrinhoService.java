@@ -102,10 +102,14 @@ public class CarrinhoService {
 
     public CarrinhoModel limparCarrinho(CarrinhoModel carrinho) {
         var itens = carrinho.getItens();
-        System.out.println("carrinhi=" + carrinho.getCarrinhoId());
+        System.out.println("carrinho=" + carrinho.getCarrinhoId());
         try {
-            Long idItem = carrinho.getItens().get(0).getItemCarrinhoId();
-            itemCarrinhoService.excluirItemCarrinho(idItem);
+            // * Long idItem = itens.get(0).getItemCarrinhoId();
+
+            // ! Mudei aqui, ao invés de excluir item por item, é só excluir todos os itens que tem como FK o ID do carrinho
+            carrinhoRepository.delByIdCarrinho(carrinho.getCarrinhoId());
+
+            // * itemCarrinhoService.excluirItemCarrinho(idItem);
 
             carrinho.setItens(new ArrayList<>());
         } catch (Exception e) {

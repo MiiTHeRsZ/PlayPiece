@@ -67,11 +67,12 @@ public class ClienteModel {
 
     @NotBlank
     @Email
+    @Column(unique = true)
     private String email;
 
     private String senha;
 
-    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "end_fat", referencedColumnName = "endereco_id")
     private EnderecoModel enderecoFaturamento;
 
