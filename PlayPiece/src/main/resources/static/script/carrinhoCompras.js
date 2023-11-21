@@ -366,7 +366,6 @@ function finalizarPedido() {
 
         linhasTabela.forEach(async (linha, index) => {
             if (index != 0) {
-                // ! verificar coerencia com API
                 let idProduto = linha.querySelector(".idProduto").textContent;
                 let qntdProduto = linha.querySelector(".qntdProduto").textContent;
 
