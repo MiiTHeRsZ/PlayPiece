@@ -122,7 +122,7 @@ btnSalvarProduto.addEventListener("submit", async (e) => {
         const produto = await fetch(`/produto`).then(data => data.json())
         let separa = imagem.type.split("/")
         let tipo = separa[1]
-        const resultImagem = await fetch(`/imagem/${produto[0].id}?nome=${index.toString()}.${tipo}&fav=${fav}`, {
+        const resultImagem = await fetch(`/imagem/${produto[0].produtoId}?nome=${index.toString()}.${tipo}&fav=${fav}`, {
             method: "POST",
             body: formData
         })

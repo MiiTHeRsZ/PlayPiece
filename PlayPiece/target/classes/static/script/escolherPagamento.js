@@ -124,26 +124,10 @@ document.getElementById("confirmar-pagamento").addEventListener("click", () => {
         alert("Selecione um método de pagamento!");
     } else {
         if (boleto) {
-            let numeroBoleto = document.getElementById("numeroBoleto").textContent;
-            let vencimento = document.getElementById("validadeCartao").value;
-            const dadosBoleto = {
-                numero: numeroBoleto,
-                vencimento: vencimento,
-            };
-            sessionStorage.setItem("dadosBoletos", JSON.stringify(dadosBoleto));
+            sessionStorage.setItem("pagamento", "BO");
             window.location.href = "./resumoPedido.html";
         } else if (cartao) {
-            let numCart = document.getElementById("numeroCartao").value;
-            let cvvCart = document.getElementById("cvvCartao").value;
-            let nomeCart = document.getElementById("nomeCartao").value;
-            let vencCart = document.getElementById("validadeCartao").value;
-            const dadosCartao = {
-                numeroCartao: numCart,
-                cvvCartao: cvvCart,
-                nomeCartao: nomeCart,
-                validadeCartao: vencCart
-            };
-            sessionStorage.setItem("dadosCartao", JSON.stringify(dadosCartao));
+            sessionStorage.setItem("pagamento", "CC");
             window.open("./resumoPedido.html", "_self");
         }
     }

@@ -21,7 +21,7 @@ public class CarrinhoService {
     final ProdutoService produtoService;
     final ClienteService clienteService;
 
-    public CarrinhoService(@Lazy CarrinhoRepository carrinhoRepository, ItemCarrinhoService itemCarrinhoService,
+    public CarrinhoService(@Lazy CarrinhoRepository carrinhoRepository, @Lazy ItemCarrinhoService itemCarrinhoService,
             @Lazy ProdutoService produtoService, @Lazy ClienteService clienteService) {
         this.carrinhoRepository = carrinhoRepository;
         this.itemCarrinhoService = itemCarrinhoService;

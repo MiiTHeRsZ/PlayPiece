@@ -57,7 +57,7 @@ document.getElementById("salvar-novo-endereco").addEventListener("click", async 
 
     let endereco = {
         "id": 0,
-        "idCliente": Number(cliente.id),
+        "idCliente": Number(cliente.clienteId),
         "cep": document.getElementById("cep-novo").value,
         "logradouro": document.getElementById("logradouro-novo").value,
         "numero": Number(document.getElementById("numero-novo").value),
@@ -69,7 +69,7 @@ document.getElementById("salvar-novo-endereco").addEventListener("click", async 
         "ativo": true
     }
 
-    const result = await fetch(`/endereco/${cliente.id}`, {
+    const result = await fetch(`/endereco/${cliente.clienteId}`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

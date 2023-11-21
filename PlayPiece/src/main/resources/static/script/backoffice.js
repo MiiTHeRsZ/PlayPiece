@@ -69,7 +69,7 @@ async function createTbUsers() {
     for (var i = 0; i < response.length; i++) {
 
         let usuario = {
-            "Id": response[i].id,
+            "Id": response[i].usuarioId,
             "Nome": response[i].nome,
             "Email": response[i].emailUsuario,
             "Status": response[i].ativo,
@@ -135,7 +135,7 @@ async function createTbProducts() {
     for (var i = 0; i < response.length; i++) {
 
         let produto = {
-            "Id": response[i].id,
+            "Id": response[i].produtoId,
             "Nome": response[i].nome,
             "Avaliacao": response[i].avaliacao,
             "Descricao": response[i].descricao,
@@ -195,7 +195,7 @@ async function pesquisarPorNome(nome) {
     //Criando os campos da tabela usuario
     for (var i = 0; i < response.length; i++) {
         let usuario = {
-            "Id": response[i].id,
+            "Id": response[i].usuarioId,
             "Nome": response[i].nome,
             "Email": response[i].emailUsuario,
             "Status": response[i].ativo,
@@ -251,7 +251,7 @@ async function pesquisarPorNomeProduto(nome) {
     for (var i = 0; i < response.length; i++) {
 
         let produto = {
-            "Id": response[i].id,
+            "Id": response[i].produtoId,
             "Nome": response[i].nome,
             "Avaliacao": response[i].avaliacao,
             "Descricao": response[i].descricao,
@@ -332,7 +332,7 @@ async function checkSessao() {
     let funcionario = await fetch(`/usuario/${sessaoCode}`).then(data => data.json())
     console.log("checando");
     let cont = 1
-    let cargo = funcionario.cargo.id;
+    let cargo = funcionario.cargo.cargoId;
     for (cont = 1; cont <= 16; cont++) {
         cargo = String(cargo).hashCode()
     }

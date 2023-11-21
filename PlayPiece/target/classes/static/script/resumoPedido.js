@@ -55,6 +55,8 @@ async function carregarDados() {
     
         let prod = document.createElement("td");
         prod.setAttribute("class", "itemProduto");
+        let imagem = document.createElement("td");
+        imagem.setAttribute("class", "imagemProduto");
         let nomeProduto = document.createElement("td");
         nomeProduto.setAttribute("class", "nomeProduto");
         let quantidade = document.createElement("td");
@@ -65,12 +67,14 @@ async function carregarDados() {
         precoTotal.setAttribute("class", "precoTotalProduto");
     
         prod.textContent = ++quantidadeItens;
+        imagem.innerHTML = `<img src="./img/${item.imagem}">`;
         nomeProduto.textContent = `${item.produto.nome}`;
         quantidade.innerHTML = `${item.quantidade}`;
         precoUnitario.textContent = `${parseFloat(item.produto.preco).toFixed(2).replace(".", ",")}`;
         precoTotal.textContent = `${parseFloat(item.produto.preco * item.quantidade).toFixed(2).replace(".", ",")}`;
     
         tr.appendChild(prod);
+        tr.appendChild(imagem)
         tr.appendChild(nomeProduto);
         tr.appendChild(quantidade);
         tr.appendChild(precoUnitario);
@@ -79,28 +83,15 @@ async function carregarDados() {
 
     const endEntrega = JSON.parse(sessionStorage.getItem("endEntrega"));
     document.getElementById("frete").value = `R$ ${parseFloat(endEntrega.valorFrete).toFixed(2).replace(".", ",")}`;
+    
     const dadosFrete = await fetch(`/endereco/${endEntrega.idEndEntrega}`).then(response => response.json());
-    let dadosBoleto = "";
-    let dadosCartao = "";
-    if (sessionStorage.getItem("dadosBoleto") != null && sessionStorage.getItem("dadosBoleto") != undefined) {
-        dadosBoleto = JSON.parse(sessionStorage.getItem("dadosBoleto"));
-        /* const dadosBoleto = {
-            numero: numeroBoleto,
-            vencimento: vencimento,
-        }; */
-    } else {
-        dadosCartao = JSON.parse(sessionStorage.getItem("dadosCartao"));
-        /* const dadosCartao = {
-            numeroCartao: numCart,
-            cvvCartao: cvvCart,
-            nomeCartao: nomeCart,
-            validadeCartao: vencCart
-        }; */
-    }
+    
+    let pagamento = sessionStorage.getItem('pagamento');
+
     dados.listaEndereco.forEach(endereco => {
         let opcao = document.createElement("option");
-        opcao.value = endereco.id;
-        if (endereco.id == endEntrega.idEndEntrega) {
+        opcao.value = endereco.enderecoId;
+        if (endereco.enderecoId == endEntrega.idEndEntrega) {
             opcao.toggleAttribute("selected");
             document.getElementById("cep").value = endereco.cep;
             document.getElementById("logradouro").value = endereco.logradouro;
@@ -134,8 +125,8 @@ const preecheDados = async () => {
 
     dados.listaEndereco.forEach(endereco => {
         let opcao = document.createElement("option");
-        opcao.value = endereco.id;
-        if (endereco.id == endEntrega.idEndEntrega) {
+        opcao.value = endereco.enderecoId;
+        if (endereco.enderecoId == endEntrega.idEndEntrega) {
             opcao.toggleAttribute("selected");
             document.getElementById("cep").value = endereco.cep;
             document.getElementById("logradouro").value = endereco.logradouro;

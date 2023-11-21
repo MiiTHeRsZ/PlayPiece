@@ -54,7 +54,7 @@ const preecheDados = async () => {
 
     dados.listaEndereco.forEach(endereco => {
         let opcao = document.createElement("option");
-        opcao.value = endereco.id;
+        opcao.value = endereco.enderecoId;
         if (endereco.padrao) {
             opcao.toggleAttribute("selected");
             document.getElementById("cep").value = endereco.cep;
@@ -82,7 +82,7 @@ document.getElementById("enderecoEntrega").addEventListener("change", () => {
     
     dados.listaEndereco.forEach(endereco => {
         
-        if (document.getElementById("enderecoEntrega").value == endereco.id) {
+        if (document.getElementById("enderecoEntrega").value == endereco.enderecoId) {
             document.getElementById("cep").value = endereco.cep;
             document.getElementById("logradouro").value = endereco.logradouro;
             document.getElementById("numero").value = endereco.numero;
@@ -180,7 +180,7 @@ document.getElementById("salvar-novo-endereco").addEventListener("click", async 
 
     let endereco = {
         "id": 0,
-        "idCliente": Number(cliente.id),
+        "idCliente": Number(cliente.clienteId),
         "cep": document.getElementById("cep-novo").value,
         "logradouro": document.getElementById("logradouro-novo").value,
         "numero": Number(document.getElementById("numero-novo").value),
@@ -192,7 +192,7 @@ document.getElementById("salvar-novo-endereco").addEventListener("click", async 
         "ativo": true
     }
 
-    const result = await fetch(`/endereco/${cliente.id}`, {
+    const result = await fetch(`/endereco/${cliente.clienteId}`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -250,7 +250,8 @@ async function calcularFrete() {
                 if (status == "OK") {
                     distancia = response.rows[0].elements[0].distance.value * .001;
 
-                    const quantidadeProdutos = 2//await fetch(`/carrinho/search?cliente=${idCliente}`).then(data => data.json().itens.length);
+                    const produtosCarrinho = await fetch(`/carrinho/search?cliente=${idCliente}`).then(data => data.json());
+                    const quantidadeProdutos = produtosCarrinho.itens.length;
 
                     const frete01 = (quantidadeProdutos * .5 + .91) * distancia;
                     const frete02 = (quantidadeProdutos * .5 + .61) * distancia;

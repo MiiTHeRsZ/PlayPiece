@@ -8,7 +8,7 @@ async function getCargos() {
     let box = document.getElementById("cargo")
     responseCargo.forEach(cargo => {
         let option = document.createElement("option")
-        option.setAttribute("value", `${cargo.id}`)
+        option.setAttribute("value", `${cargo.cargoId}`)
         option.innerHTML = `${cargo.nome}`
         box.appendChild(option)
     });
@@ -23,7 +23,7 @@ async function getUser() {
     const result = await fetch(`/usuario/${idUsuario}`).then(response => response.json())
 
     usuario = {
-        "id": result.id,
+        "id": result.usuarioId,
         "nome": result.nome,
         "cpf": result.cpf,
         "cargo": result.cargo,
@@ -34,7 +34,7 @@ async function getUser() {
     document.getElementById("nome").value = result.nome
     document.getElementById("cpf").value = result.cpf
     document.getElementById("email_profissional").value = result.emailUsuario
-    document.getElementById("cargo").value = result.cargo.id
+    document.getElementById("cargo").value = result.cargo.cargoId
 }
 
 getUser()
@@ -241,7 +241,7 @@ botao.addEventListener("click", async (e) => {
         let senhaCripto = senha1.hashCode()
 
         usuario = {
-            "id": user.id,
+            "id": user.usuarioId,
             "nome": user.nome,
             "cpf": user.cpf,
             "cargo": user.cargo,

@@ -116,7 +116,7 @@ async function getProduct() {
     const result = await fetch(`/produto/${idProduto}`).then(response => response.json())
 
     produto = {
-        "id": result.id,
+        "id": result.produtoId,
         "nome": result.nome,
         "avaliacao": result.avaliacao,
         "descricao": result.descricao,
@@ -138,7 +138,7 @@ botaoSalvar.addEventListener("click", async (e) => {
     e.preventDefault()
 
     produto = {
-        "id": produto.id,
+        "id": produto.produtoId,
         "nome": document.getElementById("nome").value,
         "avaliacao": document.getElementById("avaliacao").value,
         "descricao": document.getElementById("descricao").value,

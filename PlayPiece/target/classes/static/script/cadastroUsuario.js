@@ -3,7 +3,7 @@ async function getCargos() {
     let box = document.getElementById("cargo")
     responseCargo.forEach(cargo => {
         let option = document.createElement("option")
-        option.setAttribute("value", `${cargo.id}`)
+        option.setAttribute("value", `${cargo.cargoId}`)
         option.innerHTML = `${cargo.nome}`
         box.appendChild(option)
     });
@@ -20,7 +20,7 @@ async function emailProfi() {
     let users = await fetch("/usuario").then(response => response.json())
     let id = 0;
     users.forEach(user => {
-        id = Number(user.id) + 1
+        id = Number(user.usuarioId) + 1
     })
     let arrayNome = document.getElementById("nome").value.split(" ")
     let nome = arrayNome[0].charAt(0).toLowerCase()

@@ -93,10 +93,10 @@ async function criaCarrinho() {
                 item.textContent = ++quantidadeItens;
                 img.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
                 nomeProduto.textContent = `${produto.nome}`;
-                quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.id})">-</button><p class="qntdProduto">${prod[1]}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.id})">+</button>`;
+                quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.produtoId})">-</button><p class="qntdProduto">${prod[1]}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.produtoId})">+</button>`;
                 precoUnitario.textContent = `${parseFloat(produto.preco).toFixed(2).replace(".", ",")}`;
                 precoTotal.textContent = `${parseFloat(produto.preco * Number(prod[1])).toFixed(2).replace(".", ",")}`;
-                removerCarrinho.innerHTML = `<button onclick="removerItem(${produto.id})">Remover</button>`;
+                removerCarrinho.innerHTML = `<button onclick="removerItem(${produto.produtoId})">Remover</button>`;
 
                 tr.appendChild(id);
                 tr.appendChild(item);
@@ -151,10 +151,10 @@ async function criaCarrinho() {
             item.textContent = ++quantidadeItens;
             img.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
             nomeProduto.textContent = `${produto.nome}`;
-            quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.id})">-</button><p class="qntdProduto">${prod[1]}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.id})">+</button>`;
+            quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.produtoId})">-</button><p class="qntdProduto">${prod[1]}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.produtoId})">+</button>`;
             precoUnitario.textContent = `${parseFloat(produto.preco).toFixed(2).replace(".", ",")}`;
             precoTotal.textContent = `${parseFloat(produto.preco * Number(prod[1])).toFixed(2).replace(".", ",")}`;
-            removerCarrinho.innerHTML = `<button onclick="removerItem(${produto.id})">Remover</button>`;
+            removerCarrinho.innerHTML = `<button onclick="removerItem(${produto.produtoId})">Remover</button>`;
 
             tr.appendChild(id);
             tr.appendChild(item);

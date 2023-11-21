@@ -57,7 +57,7 @@ conectAPI();
 
 const preecheDados = async () => {
     document.getElementById("nomeCliente").innerHTML = `Olá, ${dados.nome}!`;
-    document.getElementById("idCliente").innerHTML = dados.id;
+    document.getElementById("idCliente").innerHTML = dados.clienteId;
 
     document.getElementById("cpf").value = dados.cpf;
     document.getElementById("nome").value = dados.nome;
@@ -75,7 +75,7 @@ const preecheDados = async () => {
 
     dados.listaEndereco.forEach(endereco => {
         let opcao = document.createElement("option");
-        opcao.value = endereco.id;
+        opcao.value = endereco.enderecoId;
         if (endereco.padrao) {
             opcao.toggleAttribute("selected");
             document.getElementById("cep").value = endereco.cep;
@@ -103,7 +103,7 @@ document.getElementById("enderecoEntrega").addEventListener("change", () => {
 
     dados.listaEndereco.forEach(endereco => {
 
-        if (document.getElementById("enderecoEntrega").value == endereco.id) {
+        if (document.getElementById("enderecoEntrega").value == endereco.enderecoId) {
             document.getElementById("cep").value = endereco.cep;
             document.getElementById("logradouro").value = endereco.logradouro;
             document.getElementById("numero").value = endereco.numero;
