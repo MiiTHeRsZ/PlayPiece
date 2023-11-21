@@ -39,12 +39,13 @@ public class PedidoController {
         }
     }
 
-    @PostMapping(value = "import", params = "cliente")
-    public ResponseEntity<?> importarCarrinho(@RequestParam Long cliente) {
+    @PostMapping(value = "import", params = { "cliente", "endereco", "frete", "modoPagamento" })
+    public ResponseEntity<?> importarCarrinho(@RequestParam Long cliente, @RequestParam Long endereco,
+            @RequestParam Double frete, @RequestParam String modoPagamento) {
         PedidoModel pedido = new PedidoModel();
 
         try {
-            pedido = pedidoService.importarCarrinho(cliente);
+            pedido = pedidoService.importarCarrinho(cliente, endereco, frete, modoPagamento);
 
             return new ResponseEntity<PedidoModel>(pedido, HttpStatus.OK);
         } catch (Exception e) {

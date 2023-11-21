@@ -76,7 +76,7 @@ create table pedido(
         end_entrega_id bigint not null,
         valor_frete decimal(5,2) not null,
         modo_pagamento varchar(2),
-		pg_status varchar(2) not null,
+		pg_status varchar(2),
 
         foreign key (end_entrega_id) references endereco(endereco_id),
         foreign key (fk_cliente_id) references cliente(cliente_id)

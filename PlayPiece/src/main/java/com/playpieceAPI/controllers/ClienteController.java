@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.playpieceAPI.models.ClienteModel;
 import com.playpieceAPI.models.LoginDto;
 import com.playpieceAPI.services.ClienteService;
+import com.playpieceAPI.services.carrinho.CarrinhoService;
 
 @RestController
 @CrossOrigin("*")
@@ -24,9 +25,11 @@ import com.playpieceAPI.services.ClienteService;
 public class ClienteController {
 
     final ClienteService clienteService;
+    final CarrinhoService carrinhoService;
 
-    public ClienteController(ClienteService clienteService) {
+    public ClienteController(ClienteService clienteService, CarrinhoService carrinhoService) {
         this.clienteService = clienteService;
+        this.carrinhoService = carrinhoService;
     }
 
     @GetMapping("/{id}")
@@ -73,7 +76,11 @@ public class ClienteController {
                     "{\"erro\":\"Cliente não encontrado\",\n\"code\":" + HttpStatus.NOT_FOUND.value() + "}",
                     HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<ClienteModel>(cliente, HttpStatus.OK);
+        else {
+            var carrinho = carrinhoService.getCarrinhoAtivoByClienteId(cliente.getClienteId());
+            carrinhoService.limparCarrinho(carrinho);
+            return new ResponseEntity<ClienteModel>(cliente, HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = "login", params = { "senha" })
