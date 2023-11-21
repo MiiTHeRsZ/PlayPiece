@@ -42,6 +42,10 @@ function desconectar() {
     window.location.reload();
 }
 
+const endEntrega = JSON.parse(sessionStorage.getItem("endEntrega"));
+
+const pagamento = sessionStorage.getItem('pagamento');
+
 async function carregarDados() {
     const dadosPedido = await fetch(`/carrinho/search?cliente=${idCliente}`).then(response => response.json());
 
@@ -65,7 +69,7 @@ async function carregarDados() {
         precoUnitario.setAttribute("class", "precoUnitarioProduto")
         let precoTotal = document.createElement("td");
         precoTotal.setAttribute("class", "precoTotalProduto");
-        
+
         let newLink;
         item.produto.listaImagens.forEach(imagem => {
             if (imagem.padrao) {
@@ -90,12 +94,7 @@ async function carregarDados() {
         tr.appendChild(precoTotal);
     });
 
-    const endEntrega = JSON.parse(sessionStorage.getItem("endEntrega"));
     document.getElementById("frete").value = `R$ ${parseFloat(endEntrega.valorFrete).toFixed(2).replace(".", ",")}`;
-
-    const dadosFrete = await fetch(`/endereco/${endEntrega.idEndEntrega}`).then(response => response.json());
-
-    let pagamento = sessionStorage.getItem('pagamento');
 
     dados.listaEndereco.forEach(endereco => {
         let opcao = document.createElement("option");
@@ -119,6 +118,8 @@ async function carregarDados() {
         }
         document.getElementById("enderecoEntrega").appendChild(opcao);
     });
+
+    document.getElementById("pagamento").textContent = pagamento == "BO" ? "Boleto" : "Cartão de Crédito";
 }
 carregarDados()
 
@@ -154,4 +155,19 @@ const preecheDados = async () => {
         }
         document.getElementById("enderecoEntrega").appendChild(opcao);
     });
+}
+
+async function finalizarPedido() {
+    const checkout = await fetch(`/pedido/import?cliente=${idCliente}&endereco=${endEntrega.idEndEntrega}&frete=${endEntrega.valorFrete}&modoPagamento=${pagamento}`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: ""
+    });
+
+    if (checkout.status == 200 || checkout.status == 201) {
+        alert("Pedido realizado com sucesso!");
+        window.open("../index.html", "_self");
+    } else {
+        alert("Erro ao realizar o pedido!");
+    }
 }
