@@ -321,13 +321,13 @@ function alterarStatus() {
         changeStatusButton.forEach(element => {
             element.addEventListener("click", async () => {
                 let ped = {
-                    "id": `${element.value}`,
+                    "id": parseInt(element.value),
                     "sigla": `${document.getElementById("status").value}`
                 }
                 await fetch(`/pedido/update`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
-                    body: ped.json() 
+                    body: JSON.stringify(ped)
                 })
                 clearTable()
                 createTbPedidos()
@@ -416,13 +416,15 @@ async function createTbPedidos() {
         pedidoId.textContent = `${pedido.Id}`
         data.textContent = `${(pedido.Data).slice(0, 10).split("-").reverse().join(" - ")}`
         valorTotal.textContent = `R$ ${parseFloat(pedido.ValorTotal).toFixed(2).replace(".", ",")}`
+
+        console.log(pedido.Status);
         status.innerHTML = `<select name="status" id="status">
-            <option value="AP" ${pedido.Status == "Aguardando Pagamento" ? "selected" : ""}>Aguardando Pagamento</option>
-            <option value="PR" ${pedido.Status == "Pagamento Rejeitado" ? "selected" : ""}>Pagamento Rejeitado</option>
-            <option value="PS" ${pedido.Status == "Pagamento Com Sucesso" ? "selected" : ""}>Pagamento Com Sucesso</option>
-            <option value="AR" ${pedido.Status == "Aguardando Retirada" ? "selected" : ""}>Aguardando Retirada</option>
-            <option value="ET" ${pedido.Status == "Em Trânsito" ? "selected" : ""}>Em Trânsito</option>
-            <option value="EN" ${pedido.Status == "Entregue" ? "selected" : ""}>Entregue</option>
+            <option value="AP" ${pedido.Status == "AP" ? "selected" : ""}>Aguardando Pagamento</option>
+            <option value="PR" ${pedido.Status == "PR" ? "selected" : ""}>Pagamento Rejeitado</option>
+            <option value="PS" ${pedido.Status == "PS" ? "selected" : ""}>Pagamento Com Sucesso</option>
+            <option value="AR" ${pedido.Status == "AR" ? "selected" : ""}>Aguardando Retirada</option>
+            <option value="ET" ${pedido.Status == "ET" ? "selected" : ""}>Em Trânsito</option>
+            <option value="EN" ${pedido.Status == "EN" ? "selected" : ""}>Entregue</option>
         </select>`;
         alterar.innerHTML = `<button value=${pedido.Id}" class="btn btn-primary changeStatusButton">Mudar Status</button>`
 
