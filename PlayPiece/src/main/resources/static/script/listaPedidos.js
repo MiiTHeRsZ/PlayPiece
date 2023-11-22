@@ -80,11 +80,11 @@ async function criarListaPedidos() {
         let detalhes = document.createElement("td");
         detalhes.setAttribute("class", "detalhesPedido");
 
-        let dt = pedido.dataPedido;
+        let dt = (pedido.dataPedido).slice(0, 10).split("-").reverse().join(" / ");
 
         numero.textContent = `${pedido.pedidoId}`;
-        data.textContent = `${dt != null ? dt.slice(0, 10) : dt}`;
-        valor_total.textContent = `${pedido.valorTotal}`;
+        data.textContent = `${dt}`;
+        valor_total.textContent = `R$ ${parseFloat(pedido.valorTotal).toFixed(2).replace(".", ",")}`;
         status.textContent = `${pedido.statusPagamento}`;
         detalhes.innerHTML = `<a href="./detalhesPedido.html?id=${pedido.pedidoId}" class="btn btn-primary"><i class="fi fi-br-list-check"></i></a>`;
         tr.appendChild(numero);
@@ -93,7 +93,7 @@ async function criarListaPedidos() {
         tr.appendChild(status);
         tr.appendChild(detalhes);
 
-        if (pedido.statusPagamento == 'Aguardando') {
+        if (pedido.statusPagamento == 'Aguardando Pagamento') {
             status.style.color = "#ff9800"
         } else if (pedido.statusPagamento == 'Em preparo') {
             status.style.color = "#4caf50"

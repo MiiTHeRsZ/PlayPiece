@@ -110,23 +110,27 @@ async function carregarDados() {
         tr.appendChild(precoTotal);
     });
 
-    document.getElementById("valorTotal").textContent = `R$ ${parseFloat(dadosPedido.valorTotal).toFixed(2).replace(".", ",")}`;
-    document.getElementById("statusPag").textContent = dadosPedido.statusPagamento;
+    document.getElementById("valorTotal").textContent = `Valor total: R$ ${parseFloat(dadosPedido.valorTotal).toFixed(2).replace(".", ",")}`;
 
-    document.getElementById("frete").value = `R$ ${parseFloat(endEntrega.valorFrete).toFixed(2).replace(".", ",")}`;
+    document.getElementById("statusPag").textContent = `Status do pagamento: ${dadosPedido.statusPagamento}`;
 
-    dados.listaEndereco.forEach(endereco => {
-        if (endereco.enderecoId == endEntrega.idEndEntrega) {
-            document.getElementById("cep").value = endereco.cep;
-            document.getElementById("logradouro").value = endereco.logradouro;
-            document.getElementById("numero").value = endereco.numero;
-            document.getElementById("complemento").value = endereco.complemento;
-            document.getElementById("bairro").value = endereco.bairro;
-            document.getElementById("cidade").value = endereco.cidade;
-            document.getElementById("uf").value = endereco.uf;
-        }
-    });
+    if (dadosPedido.statusPagamento == 'Aguardando Pagamento') {
+        document.getElementById("statusPag").style.color = "#ff9800"
+    } else if (dadosPedido.statusPagamento == 'Em preparo') {
+        document.getElementById("statusPag").style.color = "#4caf50"
+    } else if (dadosPedido.statusPagamento == 'Entregue') {
+        document.getElementById("statusPag").style.color = "#2196F3"
+    }
 
+    document.getElementById("cep").value = dadosPedido.enderecoEntrega.cep;
+    document.getElementById("logradouro").value = dadosPedido.enderecoEntrega.logradouro;
+    document.getElementById("numero").value = dadosPedido.enderecoEntrega.numero;
+    document.getElementById("complemento").value = dadosPedido.enderecoEntrega.complemento;
+    document.getElementById("bairro").value = dadosPedido.enderecoEntrega.bairro;
+    document.getElementById("cidade").value = dadosPedido.enderecoEntrega.cidade;
+    document.getElementById("uf").value = dadosPedido.enderecoEntrega.uf;
+
+    document.getElementById("frete").value = `R$ ${parseFloat(dadosPedido.valorFrete).toFixed(2).replace(".", ",")}`;
     document.getElementById("pagamentoOpc").textContent = pagamento == "BO" ? "Boleto" : "Cartão de Crédito";
 }
 carregarDados()
