@@ -415,7 +415,7 @@ async function createTbPedidos() {
 
         pedidoId.textContent = `${pedido.Id}`
         data.textContent = `${(pedido.Data).slice(0, 10).split("-").reverse().join(" - ")}`
-        valorTotal.textContent = `${pedido.ValorTotal}`
+        valorTotal.textContent = `R$ ${parseFloat(pedido.ValorTotal).toFixed(2).replace(".", ",")}`
         status.innerHTML = `<select name="status" id="status">
             <option value="AP" ${pedido.Status == "Aguardando Pagamento" ? "selected" : ""}>Aguardando Pagamento</option>
             <option value="PR" ${pedido.Status == "Pagamento Rejeitado" ? "selected" : ""}>Pagamento Rejeitado</option>
