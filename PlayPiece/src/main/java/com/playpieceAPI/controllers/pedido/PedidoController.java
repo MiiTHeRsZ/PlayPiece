@@ -46,6 +46,7 @@ public class PedidoController {
     @GetMapping(value = "search", params = "id")
     public ResponseEntity<?> getPedidoById(@RequestParam Long id) {
         PedidoModel pedido = new PedidoModel();
+
         try {
             pedido = pedidoService.getPedidoById(id);
 
@@ -58,17 +59,20 @@ public class PedidoController {
         }
     }
 
-    @GetMapping(value = "search", params = "sigla")
-    public ResponseEntity<?> getTesdte(@RequestParam String sigla) {
-        for (StatusPedidoEnum e : StatusPedidoEnum.values()) {
-            if (sigla.equalsIgnoreCase(e.getValor()))
-                return new ResponseEntity<String>(e.getDescricao(), HttpStatus.OK);
-        }
+    @GetMapping
+    public ResponseEntity<?> getPedidos() {
+        List<PedidoModel> pedidos = new ArrayList<>();
 
-        return new ResponseEntity<>(
-                "{\"erro\":\" nada \",\n\"code\":" + HttpStatus.INTERNAL_SERVER_ERROR.value()
-                        + "}",
-                HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            pedidos = pedidoService.getPedidos();
+
+            return new ResponseEntity<List<PedidoModel>>(pedidos, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(
+                    "{\"erro\":\"" + e.getMessage() + "\",\n\"code\":" + HttpStatus.INTERNAL_SERVER_ERROR.value()
+                            + "}",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping(value = "import", params = { "cliente", "endereco", "frete", "modoPagamento" })

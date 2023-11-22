@@ -272,13 +272,11 @@ function adicionarAoCarrinho(idProduto) {
             carrinhoFinal += `${idProduto}-1,`;
             cont++;
         }
-        // carrinhoFinal += !check ? `${idProduto}-1,` : "";
         carrinhoFinal = carrinhoFinal.slice(0, -1);
 
         sessionStorage.setItem('carrinho', carrinhoFinal);
 
         document.getElementById("notificacaoCarrinho").innerHTML = cont;
-        /* carrinhoFinal = carrinhoFinal.substring(0, carrinhoFinal.length - 1); */
     } else {
         sessionStorage.setItem('carrinho', `${idProduto}-1`);
         document.getElementById("notificacaoCarrinho").innerHTML = 1;

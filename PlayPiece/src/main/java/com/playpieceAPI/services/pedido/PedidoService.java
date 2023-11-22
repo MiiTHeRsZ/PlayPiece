@@ -119,4 +119,16 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
     }
 
+    public List<PedidoModel> getPedidos() {
+        List<PedidoModel> pedidos = new ArrayList<>();
+
+        try {
+            pedidos = pedidoRepository.findAll();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return pedidos;
+    }
+
 }
