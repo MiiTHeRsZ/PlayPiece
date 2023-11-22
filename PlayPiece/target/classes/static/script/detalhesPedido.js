@@ -110,6 +110,9 @@ async function carregarDados() {
         tr.appendChild(precoTotal);
     });
 
+    document.getElementById("valorTotal").textContent = `R$ ${parseFloat(dadosPedido.valorTotal).toFixed(2).replace(".", ",")}`;
+    document.getElementById("statusPag").textContent = dadosPedido.statusPagamento;
+
     document.getElementById("frete").value = `R$ ${parseFloat(endEntrega.valorFrete).toFixed(2).replace(".", ",")}`;
 
     dados.listaEndereco.forEach(endereco => {
