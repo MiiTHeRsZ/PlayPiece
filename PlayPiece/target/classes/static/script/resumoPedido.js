@@ -145,14 +145,6 @@ const preecheDados = async () => {
             document.getElementById("cidade").value = endereco.cidade;
             document.getElementById("uf").value = endereco.uf;
         }
-        if (!endereco.ativo) {
-            opcao.toggleAttribute("disabled");
-        }
-        opcao.textContent = endereco.logradouro + ", N°" + endereco.numero;
-        if (endereco.padrao) {
-            opcao.textContent += ` \u2B50`
-        }
-        document.getElementById("enderecoEntrega").appendChild(opcao);
     });
 }
 
