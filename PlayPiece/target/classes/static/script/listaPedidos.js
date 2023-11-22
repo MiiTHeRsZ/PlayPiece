@@ -80,10 +80,8 @@ async function criarListaPedidos() {
         let detalhes = document.createElement("td");
         detalhes.setAttribute("class", "detalhesPedido");
 
-        let dt = (pedido.dataPedido).slice(0, 10).split("-").reverse().join(" / ");
-
         numero.textContent = `${pedido.pedidoId}`;
-        data.textContent = `${dt}`;
+        data.textContent = `${(pedido.dataPedido).slice(0, 10).split("-").reverse().join(" - ")}`;
         valor_total.textContent = `R$ ${parseFloat(pedido.valorTotal).toFixed(2).replace(".", ",")}`;
         status.textContent = `${pedido.statusPagamento}`;
         detalhes.innerHTML = `<a href="./detalhesPedido.html?id=${pedido.pedidoId}" class="btn btn-primary"><i class="fi fi-br-list-check"></i></a>`;

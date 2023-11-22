@@ -42,10 +42,27 @@ public class PedidoController {
     @GetMapping(value = "search", params = "id")
     public ResponseEntity<?> getPedidoById(@RequestParam Long id) {
         PedidoModel pedido = new PedidoModel();
+
         try {
             pedido = pedidoService.getPedidoById(id);
 
             return new ResponseEntity<PedidoModel>(pedido, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(
+                    "{\"erro\":\"" + e.getMessage() + "\",\n\"code\":" + HttpStatus.INTERNAL_SERVER_ERROR.value()
+                            + "}",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getPedidos() {
+        List<PedidoModel> pedidos = new ArrayList<>();
+
+        try {
+            pedidos = pedidoService.getPedidos();
+
+            return new ResponseEntity<List<PedidoModel>>(pedidos, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(
                     "{\"erro\":\"" + e.getMessage() + "\",\n\"code\":" + HttpStatus.INTERNAL_SERVER_ERROR.value()

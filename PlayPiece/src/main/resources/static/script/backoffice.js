@@ -43,9 +43,11 @@ document.getElementById("mostrarTbUsuarios").addEventListener("click", () => {
     checkSessao()
     const tabela = document.getElementById("secaoTabelaUsuario");
     const tabelaProduto = document.getElementById("secaoTabelaProduto");
+    const tabelaPedido = document.getElementById("secaoTabelaPedido");
 
-    if (tabelaProduto.style.display == "block") {
-        tabelaProduto.style.display = "none"
+    if (tabelaProduto.style.display == "block" || tabelaPedido.style.display == "block") {
+        tabelaProduto.style.display = "none";
+        tabelaPedido.style.display = "none";
     }
     if (tabela.style.display == "none") {
         createTbUsers();
@@ -108,9 +110,11 @@ document.getElementById("mostrarTbProdutos").addEventListener("click", () => {
     checkSessao()
     const tabela = document.getElementById("secaoTabelaProduto");
     const tabelaUsuario = document.getElementById("secaoTabelaUsuario");
+    const tabelaPedido = document.getElementById("secaoTabelaPedido");
 
-    if (tabelaUsuario.style.display == "block") {
-        tabelaUsuario.style.display = "none"
+    if (tabelaUsuario.style.display == "block" || tabelaPedido.style.display == "block") {
+        tabelaUsuario.style.display = "none";
+        tabelaPedido.style.display = "none";
     }
     if (tabela.style.display == "none") {
         createTbProducts();
@@ -313,6 +317,22 @@ function alterarStatus() {
                 createTbProducts()
             })
         });
+    } else if (document.getElementById("secaoTabelaPedido").style.display == "block") {
+        changeStatusButton.forEach(element => {
+            element.addEventListener("click", async () => {
+                let ped = {
+                    "id": `${element.value}`,
+                    "sigla": `${document.getElementById("status").value}`
+                }
+                await fetch(`/pedido/update`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: ped.json() 
+                })
+                clearTable()
+                createTbPedidos()
+            })
+        });
     }
 
 }
@@ -343,4 +363,76 @@ async function checkSessao() {
         Cookies.remove("cargo")
         location.href = "./loginBackoffice.html"
     }
+}
+
+document.getElementById("mostrarTbPedidos").addEventListener("click", () => {
+    checkSessao()
+    const tabela = document.getElementById("secaoTabelaPedido");
+    const tabelaProdutos = document.getElementById("secaoTabelaProduto");
+    const tabelaUsuarios = document.getElementById("secaoTabelaUsuario");
+
+    if (tabelaProdutos.style.display == "block" || tabelaUsuarios.style.display == "block") {
+        tabelaProdutos.style.display = "none";
+        tabelaUsuarios.style.display = "none";
+    }
+    if (tabela.style.display == "none") {
+        createTbPedidos();
+        tabela.style.display = "block";
+    } else {
+        tabela.style.display = "none";
+    }
+});
+
+async function createTbPedidos() {
+
+    const response = await fetch("/pedido").then((data) =>
+        data.json()
+    );
+
+    clearTable()
+
+    const tabela = document.getElementById("tabelaPedido");
+
+    //Criando os campos da tabela pedido
+    for (var i = 0; i < response.length; i++) {
+
+        let pedido = {
+            "Id": response[i].pedidoId,
+            "Data": response[i].dataPedido,
+            "ValorTotal": response[i].valorTotal,
+            "Status": response[i].statusPagamento,
+        }
+
+        let tr = document.createElement("tr")
+        tr.setAttribute("class", "linhaTabela")
+        tabela.appendChild(tr)
+
+        let pedidoId = document.createElement("td")
+        let data = document.createElement("td")
+        let valorTotal = document.createElement("td")
+        let status = document.createElement("td")
+        let alterar = document.createElement("td")
+
+        pedidoId.textContent = `${pedido.Id}`
+        data.textContent = `${(pedido.Data).slice(0, 10).split("-").reverse().join(" - ")}`
+        valorTotal.textContent = `${pedido.ValorTotal}`
+        status.innerHTML = `<select name="status" id="status">
+            <option value="AP" ${pedido.Status == "Aguardando Pagamento" ? "selected" : ""}>Aguardando Pagamento</option>
+            <option value="PR" ${pedido.Status == "Pagamento Rejeitado" ? "selected" : ""}>Pagamento Rejeitado</option>
+            <option value="PS" ${pedido.Status == "Pagamento Com Sucesso" ? "selected" : ""}>Pagamento Com Sucesso</option>
+            <option value="AR" ${pedido.Status == "Aguardando Retirada" ? "selected" : ""}>Aguardando Retirada</option>
+            <option value="ET" ${pedido.Status == "Em Trânsito" ? "selected" : ""}>Em Trânsito</option>
+            <option value="EN" ${pedido.Status == "Entregue" ? "selected" : ""}>Entregue</option>
+        </select>`;
+        alterar.innerHTML = `<button value=${pedido.Id}" class="btn btn-primary changeStatusButton">Mudar Status</button>`
+
+        tr.appendChild(pedidoId)
+        tr.appendChild(data)
+        tr.appendChild(valorTotal)
+        tr.appendChild(status)
+        tr.appendChild(alterar)
+    }
+
+    alterarStatus()
+
 }
