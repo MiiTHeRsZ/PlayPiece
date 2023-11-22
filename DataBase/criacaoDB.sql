@@ -75,6 +75,7 @@ create table pedido(
         fk_cliente_id bigint not null,
         end_entrega_id bigint not null,
         valor_frete decimal(5,2) not null,
+		data_pedido datetime not null,
         modo_pagamento varchar(2),
 		pg_status varchar(2),
 
@@ -143,9 +144,9 @@ O domínio do sobrenatural não se manifesta em nosso mundo de maneira simples. 
 
 insert into imagem(fk_produto_id, caminho, padrao, ativo) values (1, 'PlayPieceAPI/src/main/resources/static/images/Produtos/1/81Yz2C9wsfL.jpg', true, true), (1, 'PlayPieceAPI/src/main/resources/static/images/Produtos/1/02.jpg', false, true), (2, 'PlayPieceAPI/src/main/resources/static/images/Produtos/2/ordem_paranormal_rpg_versao_fisica_25462281_1_a00c3520424507b6535cce8b6569a131.webp', true, true), (2,'PlayPieceAPI/src/main/resources/static/images/Produtos/2/ordem_paranormal_rpg_versao_fisica_25462281_4_ec28873155858efab0833cbe85ed2bf7.webp', false, true);
 
-insert into endereco (fk_cliente_id,cep,logradouro,numero,complemento,bairro,cidade,uf,padrao,ativo) values (1, '04671071','Rua Sócrates','853', 'apt. 193 D', 'Vila Sofia', 'São Paulo', 'SP', true, true ), (1, '04671071','Rua Sócrates','853', 'apt. 44 C', 'Vila Sofia', 'São Paulo', 'SP', false, true );
+insert into endereco (fk_cliente_id,cep,logradouro,numero,complemento,bairro,cidade,uf,padrao,ativo) values (1, '04671071','Rua Sócrates','853', 'apt. 193 D', 'Vila Sofia', 'São Paulo', 'SP', true, true ), (1, '04671071','Rua Sócrates','853', 'apt. 44 C', 'Vila Sofia', 'São Paulo', 'SP', false, true), (2, '06331110','Rua São Lucas Evangelista','377', '', 'Jardim Cibele', 'Carapicuíba', 'SP', true, true), (2, '06331110','Rua São Lucas Evangelista','377', '', 'Jardim Cibele', 'Carapicuíba', 'SP', false, true);
 
-insert into cliente (cpf, nome,dt_nascimento,genero,email,senha,end_fat,ativo) values('43183345897', 'Leonardo Fujimura', '2002-03-30', 'M', 'l.fujimura@teste.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 1, true);
+insert into cliente (cpf,nome,dt_nascimento,genero,email,senha,end_fat,ativo) values('43183345897', 'Leonardo Fujimura', '2002-03-30', 'M', 'l.fujimura@teste.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 1, true), ('38479946890', 'Gustavo Leme', '1999-05-29', 'M', 'g.leme@test.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 3, true);
 
 INSERT INTO carrinho VALUES (1,1);
 

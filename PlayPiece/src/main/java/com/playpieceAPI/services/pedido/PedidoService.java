@@ -1,6 +1,7 @@
 package com.playpieceAPI.services.pedido;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class PedidoService {
         pedido = pedidoRepository.save(pedido);
         CarrinhoModel carrinho = carrinhoService.getCarrinhoAtivoByClienteId(clienteId);
         var listaItens = carrinho.getItens();
+        var total = 0;
         try {
 
             for (ItemCarrinhoModel itemCarrinho : listaItens) {
@@ -49,7 +51,9 @@ public class PedidoService {
                     pedido.setItens(new ArrayList<ItemPedidoModel>());
                 }
                 pedido.getItens().add(itemPedido);
+                total += itemCarrinho.getQuantidade() * itemCarrinho.getProduto().getPreco();
             }
+            total += frete;
 
             carrinho = carrinhoService.limparCarrinho(carrinho);
 
@@ -66,6 +70,9 @@ public class PedidoService {
         pedido.setEnderecoEntrega(endereco);
         pedido.setModoPagamento(modoPagamento);
         pedido.setValorFrete(frete);
+        pedido.setStatusPagamento("Aguardando Pagamento");
+        pedido.setValorTotal(total);
+        pedido.setDataPedido(new Date());
         return pedidoRepository.save(pedido);
     }
 
@@ -78,6 +85,17 @@ public class PedidoService {
             System.out.println(e);
         }
         return pedidos;
+    }
+
+    public PedidoModel getPedidoById(Long id) {
+        PedidoModel pedido = new PedidoModel();
+
+        try {
+            pedido = pedidoRepository.findById(id).get();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return pedido;
     }
 
 }

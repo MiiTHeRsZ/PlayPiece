@@ -39,6 +39,21 @@ public class PedidoController {
         }
     }
 
+    @GetMapping(value = "search", params = "id")
+    public ResponseEntity<?> getPedidoById(@RequestParam Long id) {
+        PedidoModel pedido = new PedidoModel();
+        try {
+            pedido = pedidoService.getPedidoById(id);
+
+            return new ResponseEntity<PedidoModel>(pedido, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(
+                    "{\"erro\":\"" + e.getMessage() + "\",\n\"code\":" + HttpStatus.INTERNAL_SERVER_ERROR.value()
+                            + "}",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping(value = "import", params = { "cliente", "endereco", "frete", "modoPagamento" })
     public ResponseEntity<?> importarCarrinho(@RequestParam Long cliente, @RequestParam Long endereco,
             @RequestParam Double frete, @RequestParam String modoPagamento) {

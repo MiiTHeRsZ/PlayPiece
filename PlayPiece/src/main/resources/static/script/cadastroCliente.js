@@ -1,5 +1,17 @@
 
 function menu() {
+
+    let nome_perfil = document.getElementById("nome-perfil");
+    let login_perfil = document.getElementById("login-perfil");
+    let sair = document.getElementById("sair");
+
+    if (idCliente == undefined) {
+        nome_perfil.innerHTML = "Seja Bem-Vindo(a)!";
+        login_perfil.innerHTML = "Login";
+        login_perfil.href = "./loginCliente.html";
+        sair.style.display = 'none';
+    }
+
     let carrinho = sessionStorage.getItem('carrinho');
 
     if (carrinho != "" && carrinho != null && carrinho != undefined) {

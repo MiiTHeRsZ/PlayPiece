@@ -26,13 +26,11 @@ function menu() {
         login_perfil.innerHTML = "Login";
         login_perfil.href = "./loginCliente.html";
         sair.style.display = 'none';
-        document.getElementById("enderecoEntregaLogado").style.display = "none";
     } else {
         nome_perfil.innerHTML = `Olá, ${getCookie("nome")}!`;
         login_perfil.innerHTML = "Perfil";
         login_perfil.href = "./perfilCliente.html";
         sair.style.display = '';
-        document.getElementById("enderecoEntrega").style.display = "none";
     }
 
     let carrinho = sessionStorage.getItem('carrinho');
@@ -62,10 +60,10 @@ function desconectar() {
 }
 
 async function criarListaPedidos() {
-    const listaPedidos = await fetch(`/pedidos/search?cliente=${idCliente}`).then(data => data.json());
+    const listaPedidos = await fetch(`/pedido/search?cliente=${idCliente}`).then(data => data.json());
 
     listaPedidos.forEach(pedido => {
-        const tabela = document.getElementById("itensPedido");
+        const tabela = document.getElementById("itensPedidos");
 
         let tr = document.createElement("tr");
         tr.setAttribute("class", "itemTabela");
@@ -82,23 +80,24 @@ async function criarListaPedidos() {
         let detalhes = document.createElement("td");
         detalhes.setAttribute("class", "detalhesPedido");
 
-        numero.textContent = `${pedido.numero}`;
-        data.textContent = `${pedido.data}`;
-        valor_total.textContent = `${pedido.valor_total}`;
-        status.textContent = `${pedido.status}`;
-        detalhes.textContent = `<button onclick="detalhePedido(${pedido.numero})"><i class="fi fi-br-list-check"></i></button>`;
+        let dt = pedido.dataPedido;
 
+        numero.textContent = `${pedido.pedidoId}`;
+        data.textContent = `${dt != null ? dt.slice(0, 10) : dt}`;
+        valor_total.textContent = `${pedido.valorTotal}`;
+        status.textContent = `${pedido.statusPagamento}`;
+        detalhes.innerHTML = `<a href="./detalhesPedido.html?id=${pedido.pedidoId}" class="btn btn-primary"><i class="fi fi-br-list-check"></i></a>`;
         tr.appendChild(numero);
         tr.appendChild(data);
         tr.appendChild(valor_total);
         tr.appendChild(status);
         tr.appendChild(detalhes);
 
-        if (pedido.status == 'Aguardando') {
+        if (pedido.statusPagamento == 'Aguardando') {
             status.style.color = "#ff9800"
-        } else if (pedido.status == 'Em preparo') {
+        } else if (pedido.statusPagamento == 'Em preparo') {
             status.style.color = "#4caf50"
-        } else if (pedido.status == 'Entregue') {
+        } else if (pedido.statusPagamento == 'Entregue') {
             status.style.color = "#2196F3"
         }
     });

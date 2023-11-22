@@ -100,7 +100,6 @@ async function carregarDados() {
         let opcao = document.createElement("option");
         opcao.value = endereco.enderecoId;
         if (endereco.enderecoId == endEntrega.idEndEntrega) {
-            opcao.toggleAttribute("selected");
             document.getElementById("cep").value = endereco.cep;
             document.getElementById("logradouro").value = endereco.logradouro;
             document.getElementById("numero").value = endereco.numero;
@@ -108,13 +107,6 @@ async function carregarDados() {
             document.getElementById("bairro").value = endereco.bairro;
             document.getElementById("cidade").value = endereco.cidade;
             document.getElementById("uf").value = endereco.uf;
-        }
-        if (!endereco.ativo) {
-            opcao.toggleAttribute("disabled");
-        }
-        opcao.textContent = endereco.logradouro + ", N°" + endereco.numero;
-        if (endereco.padrao) {
-            opcao.textContent += ` \u2B50`
         }
     });
 
@@ -136,7 +128,6 @@ const preecheDados = async () => {
         let opcao = document.createElement("option");
         opcao.value = endereco.enderecoId;
         if (endereco.enderecoId == endEntrega.idEndEntrega) {
-            opcao.toggleAttribute("selected");
             document.getElementById("cep").value = endereco.cep;
             document.getElementById("logradouro").value = endereco.logradouro;
             document.getElementById("numero").value = endereco.numero;

@@ -1,6 +1,7 @@
 package com.playpieceAPI.models.pedido;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -62,6 +63,9 @@ public class PedidoModel {
 
     @Column(name = "valor_total", nullable = true)
     private double valorTotal;
+
+    @Column(name = "data_pedido", nullable = true)
+    private Date dataPedido;
 
     public PedidoModel() {
         itens = new ArrayList<>();

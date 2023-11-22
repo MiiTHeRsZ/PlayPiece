@@ -2,10 +2,6 @@
 @import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
 
 body {
-    font-family: 'Roboto Mono', monospace;
-    color: var(--txt-color);
-    background-color: var(--bg-color);
-    transition: all .3s ease-in-out;
     background-image: url(../images/background-image.jpg);
     background-position: center;
     background-repeat: no-repeat;
@@ -36,6 +32,24 @@ body {
     color: #000;
     font-size: 40px;
     margin-right: 16px;
+}
+
+#notificacaoCarrinho {
+    position: fixed;
+    top: 10px;
+    right: 100px;
+    background-color: #0000FF;
+    color: #FFF;
+    font-size: 15px;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: none;
+}
+
+.user {
+    cursor: pointer;
 }
 
 #form {

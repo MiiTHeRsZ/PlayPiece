@@ -1,3 +1,6 @@
+const urlParams = new URLSearchParams(window.location.search);
+idPedido = urlParams.get('id');
+
 function setCookie(nome, info, exdays) {
     Cookies.set(nome, info, exdays)
 }
@@ -32,6 +35,23 @@ function menu() {
         login_perfil.href = "./perfilCliente.html";
         sair.style.display = '';
     }
+
+    let carrinho = sessionStorage.getItem('carrinho');
+
+    if (carrinho != "" && carrinho != null && carrinho != undefined) {
+        let cont = 0;
+
+        if (carrinho.length > 3) {
+            carrinho.split(",").forEach(item => {
+                cont++;
+            });
+        } else {
+            cont++;
+        }
+
+        document.getElementById("notificacaoCarrinho").innerHTML = cont;
+        document.getElementById("notificacaoCarrinho").style.display = "inline";
+    }
 }
 menu();
 
@@ -42,12 +62,8 @@ function desconectar() {
     window.location.reload();
 }
 
-const endEntrega = JSON.parse(sessionStorage.getItem("endEntrega"));
-
-const pagamento = sessionStorage.getItem('pagamento');
-
 async function carregarDados() {
-    const dadosPedido = await fetch(`/carrinho/search?cliente=${idCliente}`).then(response => response.json());
+    const dadosPedido = await fetch(`/pedido/search?id=${idPedido}`).then(response => response.json());
 
     const tabela = document.getElementById("produtosTabela");
 
@@ -83,8 +99,8 @@ async function carregarDados() {
         imagem.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
         nomeProduto.textContent = `${item.produto.nome}`;
         quantidade.innerHTML = `${item.quantidade}`;
-        precoUnitario.textContent = `${parseFloat(item.produto.preco).toFixed(2).replace(".", ",")}`;
-        precoTotal.textContent = `${parseFloat(item.produto.preco * item.quantidade).toFixed(2).replace(".", ",")}`;
+        precoUnitario.textContent = `${parseFloat(item.valorUnitario).toFixed(2).replace(".", ",")}`;
+        precoTotal.textContent = `${parseFloat(item.valorTotal).toFixed(2).replace(".", ",")}`;
 
         tr.appendChild(prod);
         tr.appendChild(imagem)
@@ -97,8 +113,6 @@ async function carregarDados() {
     document.getElementById("frete").value = `R$ ${parseFloat(endEntrega.valorFrete).toFixed(2).replace(".", ",")}`;
 
     dados.listaEndereco.forEach(endereco => {
-        let opcao = document.createElement("option");
-        opcao.value = endereco.enderecoId;
         if (endereco.enderecoId == endEntrega.idEndEntrega) {
             document.getElementById("cep").value = endereco.cep;
             document.getElementById("logradouro").value = endereco.logradouro;
@@ -113,46 +127,3 @@ async function carregarDados() {
     document.getElementById("pagamentoOpc").textContent = pagamento == "BO" ? "Boleto" : "Cartão de Crédito";
 }
 carregarDados()
-
-let dados;
-
-const conectAPI = async () => {
-    dados = await fetch(`/cliente/${idCliente}`).then(data => data.json());
-    preecheDados();
-}
-conectAPI();
-
-const preecheDados = async () => {
-
-    dados.listaEndereco.forEach(endereco => {
-        let opcao = document.createElement("option");
-        opcao.value = endereco.enderecoId;
-        if (endereco.enderecoId == endEntrega.idEndEntrega) {
-            document.getElementById("cep").value = endereco.cep;
-            document.getElementById("logradouro").value = endereco.logradouro;
-            document.getElementById("numero").value = endereco.numero;
-            document.getElementById("complemento").value = endereco.complemento;
-            document.getElementById("bairro").value = endereco.bairro;
-            document.getElementById("cidade").value = endereco.cidade;
-            document.getElementById("uf").value = endereco.uf;
-        }
-    });
-}
-
-async function finalizarPedido() {
-    const checkout = await fetch(`/pedido/import?cliente=${idCliente}&endereco=${endEntrega.idEndEntrega}&frete=${endEntrega.valorFrete}&modoPagamento=${pagamento}`, {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: ""
-    });
-
-    if (checkout.status == 200 || checkout.status == 201) {
-        alert("Pedido realizado com sucesso!");
-        sessionStorage.removeItem("pagamento")
-        sessionStorage.removeItem("carrinho")
-        sessionStorage.removeItem("endEntrega")
-        window.open("../index.html", "_self");
-    } else {
-        alert("Erro ao realizar o pedido!");
-    }
-}
