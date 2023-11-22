@@ -3,6 +3,7 @@ package com.playpieceAPI.controllers.carrinho;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,7 +33,7 @@ public class CarrinhoController {
         try {
             carrinho = carrinhoService.getCarrinhoAtivoByClienteId(cliente);
 
-                return new ResponseEntity<CarrinhoModel>(carrinho, HttpStatus.OK);
+            return new ResponseEntity<CarrinhoModel>(carrinho, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>(
                     "{\"erro\":\"Carrinho não encontrado\",\n\"code\":" + HttpStatus.NOT_FOUND.value() + "}",
@@ -81,6 +82,21 @@ public class CarrinhoController {
             }
 
             return new ResponseEntity<CarrinhoModel>(carrinho, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(
+                    "{\"erro\":\"" + e.getMessage() + "\",\n\"code\":" + HttpStatus.INTERNAL_SERVER_ERROR.value()
+                            + "}",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping(value = "/clean", params = "codCliente")
+    public ResponseEntity<?> limparCarrinho(@RequestParam Long codCliente) {
+
+        try {
+            carrinhoService.limparCarrinho(codCliente);
+            return new ResponseEntity<String>("Carrinho limpo!", HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e);
             return new ResponseEntity<>(

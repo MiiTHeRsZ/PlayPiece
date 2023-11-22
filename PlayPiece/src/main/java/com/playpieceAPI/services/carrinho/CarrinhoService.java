@@ -101,20 +101,25 @@ public class CarrinhoService {
     }
 
     public CarrinhoModel limparCarrinho(CarrinhoModel carrinho) {
-        var itens = carrinho.getItens();
-        System.out.println("carrinho=" + carrinho.getCarrinhoId());
         try {
-            // * Long idItem = itens.get(0).getItemCarrinhoId();
-
-            // ! Mudei aqui, ao invés de excluir item por item, é só excluir todos os itens que tem como FK o ID do carrinho
             carrinhoRepository.delByIdCarrinho(carrinho.getCarrinhoId());
-
-            // * itemCarrinhoService.excluirItemCarrinho(idItem);
-
             carrinho.setItens(new ArrayList<>());
         } catch (Exception e) {
             System.out.println(e);
-            return null;
+            throw new RuntimeException("Falha ao limpar carrinho!");
+        }
+
+        return carrinhoRepository.save(carrinho);
+    }
+
+    public CarrinhoModel limparCarrinho(Long codCliente) {
+        var carrinho = getCarrinhoAtivoByClienteId(codCliente);
+        try {
+            carrinhoRepository.delByIdCarrinho(carrinho.getCarrinhoId());
+            carrinho.setItens(new ArrayList<>());
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new RuntimeException("Falha ao limpar carrinho!");
         }
 
         return carrinhoRepository.save(carrinho);

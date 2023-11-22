@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.playpieceAPI.models.carrinho.CarrinhoModel;
 import com.playpieceAPI.models.carrinho.ItemCarrinhoModel;
+import com.playpieceAPI.models.pedido.AtualizarStatusDTO;
 import com.playpieceAPI.models.pedido.ItemPedidoModel;
 import com.playpieceAPI.models.pedido.PedidoModel;
+import com.playpieceAPI.models.pedido.enums.StatusPedidoEnum;
 import com.playpieceAPI.repositories.ClienteRespository;
 import com.playpieceAPI.repositories.pedido.PedidoRepository;
 import com.playpieceAPI.services.EnderecoService;
@@ -70,7 +72,7 @@ public class PedidoService {
         pedido.setEnderecoEntrega(endereco);
         pedido.setModoPagamento(modoPagamento);
         pedido.setValorFrete(frete);
-        pedido.setStatusPagamento("Aguardando Pagamento");
+        pedido.setStatusPagamento(StatusPedidoEnum.AGUARDANDO_PAGAMENTO.getValor());
         pedido.setValorTotal(total);
         pedido.setDataPedido(new Date());
         return pedidoRepository.save(pedido);
@@ -96,6 +98,25 @@ public class PedidoService {
             System.out.println(e);
         }
         return pedido;
+    }
+
+    public PedidoModel atualizarStatus(AtualizarStatusDTO novoPedido) {
+        PedidoModel pedido = pedidoRepository.findById(novoPedido.getId()).get();
+
+        String sigla = null;
+
+        for (StatusPedidoEnum item : StatusPedidoEnum.values()) {
+            if (novoPedido.getSigla().equalsIgnoreCase(item.getValor())) {
+                sigla = item.getValor();
+            }
+        }
+
+        if (sigla == null)
+            throw new RuntimeException("Status não existe");
+
+        pedido.setStatusPagamento(sigla);
+
+        return pedidoRepository.save(pedido);
     }
 
 }
