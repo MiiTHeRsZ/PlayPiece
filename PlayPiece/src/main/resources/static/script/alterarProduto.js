@@ -158,7 +158,9 @@ botaoSalvar.addEventListener("click", async (e) => {
         "ativo": produto.ativo
     }
 
-    const result = await fetch(`/produto/${idProduto}`, {
+    let result = null
+    let status = null
+    result = await fetch(`/produto/${idProduto}`, {
         method: "PUT",
         headers: {
             'Content-Type':
@@ -166,43 +168,38 @@ botaoSalvar.addEventListener("click", async (e) => {
         },
         body: JSON.stringify(produto),
 
+    }).then((data) => {
+        status = data.status
+        return data.json()
     })
-    if (result.status == 200) {
+    if (status == 200) {
 
         alert("Produto atualizado com sucesso! Aguarde até a janela se fechar")
 
-    } else {
-        document.querySelector("body").style = "background-color:#ffcbcb;"
-        alert("Falha ao atualizar produto\nTente novamente")
-    }
-
-    let cont = 0;
-    listaInput.forEach(async (imagem, index) => {
-        let fav = 0;
-        let el = document.querySelectorAll(".fav")
-        el.forEach((item, i) => {
-            el[index].textContent == "✭" ? fav = 1 : fav = 0
-        })
+        var fav = 0;
         let formData = new FormData()
-        formData.append("imageFile", imagem)
-        const produto = await fetch(`/produto`).then(data => data.json())
-        let separa = imagem.type.split("/")
-        let tipo = separa[1]
-        const resultImagem = await fetch(`/imagem/${idProduto}?nome=${index.toString()}.${tipo}&fav=${fav}`, {
+        listaInput.forEach(async (imagem, index) => {
+            let el = document.querySelectorAll(".fav")
+            el.forEach((item, i) => {
+                el[index].textContent == "✭" ? fav = i : ""
+            })
+            formData.append("imageFiles", imagem)
+        });
+
+        const resultImagem = await fetch(`/imagem/${result.produtoId}?tipo=jpeg&fav=${fav}`, {
             method: "POST",
             body: formData
         })
         if (resultImagem.status == "201") {
-            cont++
-            if (cont != listaInput.length)
-                await new Promise(result => setTimeout(result, 1000))
-            else {
-                window.close()
-            }
+
+            window.close()
         } else {
             alert("falha ao criar imagens. Tente alterar o produto em breve")
             window.close()
         }
 
-    });
+    } else {
+        document.querySelector("body").style = "background-color:#ffcbcb;"
+        alert("Falha ao atualizar Produto\nTente novamente")
+    }
 })

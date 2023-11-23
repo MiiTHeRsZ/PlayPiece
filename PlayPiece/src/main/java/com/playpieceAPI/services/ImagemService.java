@@ -45,26 +45,40 @@ public class ImagemService {
         return imagemRepository.save(novaImagem);
     }
 
-    public void saveImage(MultipartFile imagem, Long produtoID, String nome, int fav) throws IOException {
+    public void saveImage(List<MultipartFile> listaImagens, String tipo, Long produtoID, Long fav) throws IOException {
 
         ProdutoModel produto = produtoService.getProdutoById(produtoID);
-
         String folder = "PlayPiece/src/main/resources/static/images/Produtos/" + produtoID + "/";
-        byte[] bytes = imagem.getBytes();
         Path path = Paths.get(folder);
-        Files.createDirectories(path);
-        path = Paths.get(folder + nome);
-        Files.write(path, bytes);
-        boolean isFav = false;
-        if (fav == 1) {
-            isFav = true;
-        } else {
-            isFav = false;
+        Boolean existe = Files.exists(path);
+        if (existe) {
+            File diretorio = new File(folder);
+            File[] arquivos = diretorio.listFiles();
+            for (File arquivo : arquivos) {
+                arquivo.delete();
+            }
         }
+        Files.deleteIfExists(path);
+        Files.createDirectories(path);
 
-        String caminho = "/src/main/resources/static/images/Produtos/" + produtoID + "/";
-        ImagemModel imagemSalva = new ImagemModel(null, produto, caminho + nome, isFav, true);
-        postImagem(imagemSalva);
+        for (int i = 0; i < listaImagens.size(); i++) {
+            var imagem = listaImagens.get(i);
+
+            byte[] bytes = imagem.getBytes();
+            String nome = String.format("%03d", i) + "." + tipo;
+            path = Paths.get(folder + nome);
+            Files.write(path, bytes);
+            boolean isFav = false;
+            if (fav == i) {
+                isFav = true;
+            } else {
+                isFav = false;
+            }
+
+            String caminho = "/src/main/resources/static/images/Produtos/" + produtoID + "/";
+            ImagemModel imagemSalva = new ImagemModel(null, produto, caminho + nome, isFav, true);
+            postImagem(imagemSalva);
+        }
     }
 
     public ImagemModel statusImagem(Long id) {
