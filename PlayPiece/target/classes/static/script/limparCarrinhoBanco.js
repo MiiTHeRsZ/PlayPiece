@@ -8,5 +8,5 @@ function getCookie(nome) {
 
 var idCliente = getCookie('sessaoId');
 if (idCliente != undefined) {
-    fetch(`/carrinho/clean?codCliente=${idCliente}`)
+    fetch(`/carrinho/clean?codCliente=${idCliente}`, { method: "DELETE" })
 }
