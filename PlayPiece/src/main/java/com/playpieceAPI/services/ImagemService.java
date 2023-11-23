@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.annotation.Lazy;
@@ -47,7 +48,7 @@ public class ImagemService {
 
         ProdutoModel produto = produtoService.getProdutoById(produtoID);
 
-        String folder = "src/main/resources/static/images/Produtos/" + produtoID + "/";
+        String folder = "PlayPiece/src/main/resources/static/images/Produtos/" + produtoID + "/";
         byte[] bytes = imagem.getBytes();
         Path path = Paths.get(folder);
         Files.createDirectories(path);
@@ -59,7 +60,9 @@ public class ImagemService {
         } else {
             isFav = false;
         }
-        ImagemModel imagemSalva = new ImagemModel(null, produto, folder + nome, isFav, true);
+
+        String caminho = "/src/main/resources/static/images/Produtos/" + produtoID + "/";
+        ImagemModel imagemSalva = new ImagemModel(null, produto, caminho + nome, isFav, true);
         postImagem(imagemSalva);
     }
 

@@ -1,6 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 group = urlParams.get('group')
 idProduto = urlParams.get('id')
+console.log(idProduto);
 let imagens;
 
 //#region imagens
@@ -16,8 +17,14 @@ async function getImagens() {
     imagens = produto.listaImagens
 
     imagens.forEach(async imagem => {
-        console.log(imagem.caminho)
-        listaInput.push(imagem.caminho)
+
+        let link = imagem.caminho.split("/")
+        let caminhoNovo = link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8]
+        let novoNome = link[8].split(".")
+
+        const imagemR = await fetch(`/./${caminhoNovo}`).then(data => data.blob()).then(blob => new File([blob], novoNome[0], { type: blob.type }))
+
+        listaInput.push(imagemR)
         mostarImagensInput()
     });
     console.log(listaInput)
@@ -28,7 +35,6 @@ async function getImagens() {
         for (let i = 0; i < files.length; i++) {
             listaInput.push(files[i])
         }
-        console.log(listaInput)
         mostarImagensInput()
     })
 
@@ -39,8 +45,14 @@ async function getImagens() {
         for (let i = 0; i < files.length; i++) {
             if (!files[i].type.match("image")) continue
 
-            if (listaInput.every(imagem => imagem.name !== files[i].name))
-                listaInput.push(URL.createObjectURL(files[i]))
+            if (listaInput.every(imagem => imagem.name != files[i].name)) {
+
+                console.log(files[i]);
+                listaInput.push(files[i])
+                imagens.push(
+                    { padrao: false }
+                )
+            }
         }
 
         mostarImagensInput()
@@ -61,10 +73,9 @@ function mostarImagensInput() {
         text.style.display = "inline"
     }
     listaInput.forEach((imagem, index) => {
-        let link = imagem.split("/")
-        let newLink = "../" + link[4] + "/" + link[5] + "/" + link[6] + "/" + link[7]
+        console.log(URL.createObjectURL(imagem));
         imgs += `<div class="imagem-input">
-        <img src="${newLink}" alt="imagem">
+        <img src="${URL.createObjectURL(imagem)}" alt="imagem">
         <span class="fav" onclick="favoritarInput(${index})">${imagens[index].padrao ? "&#10029;" : "&#10025;"}</span>
         <span class="del" onclick="removerInput(${index})">&times;</span>
         </div>`
@@ -158,11 +169,40 @@ botaoSalvar.addEventListener("click", async (e) => {
     })
     if (result.status == 200) {
 
-        alert("Produto atualizado com sucesso!")
-        window.close()
+        alert("Produto atualizado com sucesso! Aguarde até a janela se fechar")
+
     } else {
         document.querySelector("body").style = "background-color:#ffcbcb;"
         alert("Falha ao atualizar produto\nTente novamente")
     }
 
+    let cont = 0;
+    listaInput.forEach(async (imagem, index) => {
+        let fav = 0;
+        let el = document.querySelectorAll(".fav")
+        el.forEach((item, i) => {
+            el[index].textContent == "✭" ? fav = 1 : fav = 0
+        })
+        let formData = new FormData()
+        formData.append("imageFile", imagem)
+        const produto = await fetch(`/produto`).then(data => data.json())
+        let separa = imagem.type.split("/")
+        let tipo = separa[1]
+        const resultImagem = await fetch(`/imagem/${idProduto}?nome=${index.toString()}.${tipo}&fav=${fav}`, {
+            method: "POST",
+            body: formData
+        })
+        if (resultImagem.status == "201") {
+            cont++
+            if (cont != listaInput.length)
+                await new Promise(result => setTimeout(result, 1000))
+            else {
+                window.close()
+            }
+        } else {
+            alert("falha ao criar imagens. Tente alterar o produto em breve")
+            window.close()
+        }
+
+    });
 })

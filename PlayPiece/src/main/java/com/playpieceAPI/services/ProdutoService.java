@@ -25,38 +25,26 @@ public class ProdutoService {
 
     public Page<ProdutoModel> getProdutoList(Pageable pageable) {
 
-        Page<ProdutoModel> produtos = produtoRepository.findAllByOrderByProdutoIdDesc(pageable);
-
-        // for (ProdutoModel produto : produtos) {
-        // produto.setListaImagens(adicionarImagensProduto(produto.getId()));
-        // }
+        Page<ProdutoModel> produtos = produtoRepository.findAllByOrderByProdutoIdDescAndImagemPadrao(pageable);
 
         return produtos;
     }
 
     public List<ProdutoModel> getProdutoListImagem() {
 
-        List<ProdutoModel> produtos = produtoRepository.findAllByOrderByProdutoIdDesc();
-
-        // for (ProdutoModel produto : produtos) {
-        // produto.setListaImagens(adicionarImagensProduto(produto.getId()));
-        // }
+        List<ProdutoModel> produtos = produtoRepository.findAllByOrderByProdutoIdDescAndImagemPadrao();
 
         return produtos;
     }
 
     public ProdutoModel getProdutoById(Long id) {
-        ProdutoModel produto = produtoRepository.findById(id).get();
-        // produto.setListaImagens(adicionarImagensProduto(produto.getId()));
+        ProdutoModel produto = produtoRepository.findByIdOrderByPadrao(id);
 
         return produto;
     }
 
     public Page<ProdutoModel> getProdutoByNome(String nome, Pageable pageable) {
         Page<ProdutoModel> produtos = produtoRepository.findByNomeContaining(nome, pageable);
-        // for (ProdutoModel produto : produtos) {
-        // produto.setListaImagens(adicionarImagensProduto(produto.getId()));
-        // }
 
         return produtos;
     }
@@ -70,52 +58,8 @@ public class ProdutoService {
     public ProdutoModel updateProduto(Long id, ProdutoModel novoProduto) {
         ProdutoModel produto = getProdutoById(id);
         novoProduto.setProdutoId(produto.getProdutoId());
-        List<ImagemModel> listaImagens = produto.getListaImagens();
-        List<ImagemModel> listaImagensNovoProduto = novoProduto.getListaImagens();
-        List<ImagemModel> novasImagens = new ArrayList<ImagemModel>();
-
-        if (listaImagensNovoProduto.size() > listaImagens.size()) {
-            int count = 0;
-            while (count < listaImagens.size()) {
-                novasImagens
-                        .add(imagemService.updateImagem(listaImagens.get(count).getImagemId(),
-                                novoProduto.getListaImagens().get(count)));
-                count++;
-            }
-
-            while (count < listaImagensNovoProduto.size()) {
-                novasImagens
-                        .add(imagemService.postImagem(listaImagensNovoProduto.get(count)));
-                count++;
-            }
-
-        } else if (listaImagensNovoProduto.size() < listaImagens.size()) {
-
-            int count = 0;
-            while (count < listaImagensNovoProduto.size()) {
-                novasImagens
-                        .add(imagemService.updateImagem(listaImagensNovoProduto.get(count).getImagemId(),
-                                novoProduto.getListaImagens().get(count)));
-                count++;
-            }
-
-            while (count < listaImagens.size()) {
-                novasImagens
-                        .add(imagemService.statusImagem(listaImagens.get(count).getImagemId()));
-                count++;
-            }
-
-        } else {
-            for (int i = 0; i < listaImagens.size(); i++) {
-
-                novasImagens
-                        .add(imagemService.updateImagem(listaImagens.get(i).getImagemId(),
-                                novoProduto.getListaImagens().get(i)));
-            }
-        }
-
-        novoProduto.setListaImagens(novasImagens);
-
+        novoProduto.setListaImagens(new ArrayList<>());
+        limparImagensDoProduto(produto.getProdutoId());
         produtoRepository.save(novoProduto);
 
         return novoProduto;
@@ -125,7 +69,6 @@ public class ProdutoService {
         ProdutoModel produto = produtoRepository.findById(id).get();
 
         produto.setAtivo(!produto.isAtivo());
-        // produto.setListaImagens(adicionarImagensProduto(produto.getId()));
         List<ImagemModel> listaImagem = produto.getListaImagens();
 
         if (!produto.isAtivo()) {
@@ -141,16 +84,17 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
-    // private List<ImagemModel> adicionarImagensProduto(Long id) {
-    // ProdutoModel produto = produtoRepository.findById(id).get();
-    // List<ImagemModel> listaImagens = imagemService.getImagemList();
-    // List<ImagemModel> imagens = new ArrayList<ImagemModel>();
+    public ProdutoModel limparImagensDoProduto(Long idProduto) {
+        var produto = getProdutoById(idProduto);
 
-    // for (ImagemModel imagem : listaImagens) {
-    // if (imagem.getProduto() == produto.getId())
-    // imagens.add(imagem);
-    // }
+        try {
+            produtoRepository.delByIdProduto(produto.getProdutoId());
+            produto.setListaImagens(new ArrayList<>());
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new RuntimeException("Falha ao limpar imagens!");
+        }
 
-    // return imagens;
-    // }
+        return produtoRepository.save(produto);
+    }
 }

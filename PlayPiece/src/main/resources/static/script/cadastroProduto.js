@@ -84,61 +84,71 @@ const btnSalvarProduto = document.querySelector("#form")
 btnSalvarProduto.addEventListener("submit", async (e) => {
     e.preventDefault()
 
-    let produto = {
-        "nome": document.querySelector("#nome").value,
-        "avaliacao": document.querySelector("#avaliacao").value,
-        "descricao": document.querySelector("#descricao").value,
-        "preco": document.querySelector("#preco").value,
-        "quantidade": document.querySelector("#quantidade").value
-    }
-
-    let result = await fetch("/produto", {
-        method: "POST",
-        headers: {
-            'Content-Type':
-                'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(produto),
-
-    })
-    if (result.status == 201) {
-
-        alert("Produto criado com sucesso! Aguarde até a janela se fechar")
-    } else {
-        document.querySelector("body").style = "background-color:#ffcbcb;"
-        alert("Falha ao cadastrar Produto\nTente novamente")
-    }
-
+    var hasFav = false
 
     listaInput.forEach(async (imagem, index) => {
-        let fav = 0;
         let el = document.querySelectorAll(".fav")
         el.forEach((item, i) => {
-            el[index].textContent == "✭" ? fav = 1 : fav = 0
+            el[index].textContent == "✭" ? hasFav = true : ""
         })
-        let formData = new FormData()
-        formData.append("imageFile", imagem)
-        console.log(imagem)
-        const produto = await fetch(`/produto`).then(data => data.json())
-        let separa = imagem.type.split("/")
-        let tipo = separa[1]
-        const resultImagem = await fetch(`/imagem/${produto[0].produtoId}?nome=${index.toString()}.${tipo}&fav=${fav}`, {
-            method: "POST",
-            body: formData
-        })
-        if (resultImagem.status == "201") {
-
-            console.log(resultImagem.url)
-            // window.close()
-        } else {
-            alert("falha ao criar imagens. Tente alterar o produto em breve")
-            // window.close()
-        }
-
     });
 
+    if (hasFav) {
+        let produto = {
+            "nome": document.querySelector("#nome").value,
+            "avaliacao": document.querySelector("#avaliacao").value,
+            "descricao": document.querySelector("#descricao").value,
+            "preco": document.querySelector("#preco").value,
+            "quantidade": document.querySelector("#quantidade").value
+        }
+
+        let result = await fetch("/produto", {
+            method: "POST",
+            headers: {
+                'Content-Type':
+                    'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(produto),
+
+        })
+        if (result.status == 201) {
+
+            alert("Produto criado com sucesso! Aguarde até a janela se fechar")
+        } else {
+            document.querySelector("body").style = "background-color:#ffcbcb;"
+            alert("Falha ao cadastrar Produto\nTente novamente")
+        }
 
 
+        listaInput.forEach(async (imagem, index) => {
+            let fav = 0;
+            let el = document.querySelectorAll(".fav")
+            el.forEach((item, i) => {
+                el[index].textContent == "✭" ? fav = 1 : fav = 0
+            })
+            let formData = new FormData()
+            formData.append("imageFile", imagem)
+            console.log(imagem)
+            const produto = await fetch(`/produto`).then(data => data.json())
+            let separa = imagem.type.split("/")
+            let tipo = separa[1]
+            const resultImagem = await fetch(`/imagem/${produto[0].produtoId}?nome=${index.toString()}.${tipo}&fav=${fav}`, {
+                method: "POST",
+                body: formData
+            })
+            if (resultImagem.status == "201") {
+
+                console.log(resultImagem.url)
+                window.close()
+            } else {
+                alert("falha ao criar imagens. Tente alterar o produto em breve")
+                window.close()
+            }
+
+        });
+    } else {
+        alert("Você deve selecionar uma imagem para ser a padrão!")
+    }
 })
 
 
