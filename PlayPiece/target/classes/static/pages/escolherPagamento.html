@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/escolherPagamento.css">
+    <title>Checkout</title>
+    <script src="../script/escolherPagamento.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+
+    <header id="menuBar">
+        <a href="../index.html" id="logo"><img src="../images/Logo.png" alt="Logo" class="logo" /></a>
+        <div class="dropdown">
+            <a class="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="perfil"><i
+                    class="icon user"><i class="fi fi-br-user"></i></i>
+            </a>
+
+            <ul class="dropdown-menu">
+                <li>
+                    <p class="dropdown-item" id="nome-perfil"></p>
+                </li>
+                <li><a class="dropdown-item" href="#" id="login-perfil"></a></li>
+                <li><a class="dropdown-item" href="#" onclick="desconectar()" id="sair">Desconectar</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section id="pagamento">
+            <h3>Forma de Pagamento:</h3>
+            <br>
+            <div id="opcoes">
+                <label for="boleto">Boleto</label>
+                <input type="radio" name="pagamento" id="boleto" value="boleto">
+
+                <label for="cartao">Cartão</label>
+                <input type="radio" name="pagamento" id="cartao" value="cartao">
+            </div>
+            <section id="info">
+                <section id="infoBoleto" style="display: none;">
+                    <p>Número do Boleto:</p>
+                    <span id="numeroBoleto"></span>
+                    <div>
+                        <p>Validade:</p>
+                        <span id="validadeBoleto"></span>
+                        <br>
+                        <span class="valorTotal"></span>
+                    </div>
+                </section>
+                <section id="infoCartao" style="display: none;">
+                    <div class="content-info-cartao">
+                        <label for="numeroCartao">Número do Cartão:</label>
+                        <input type="number" id="numeroCartao" class="space-input" maxlength="16" />
+
+                        <label for="nomeCartao">Nome:</label>
+                        <input type="text" class="space-input" id="nomeCartao" />
+
+                        <label for="cvvCartao">CVV:</label>
+                        <input type="number" id="cvvCartao" maxlength="4" />
+
+                        <label for="validadeCartao">Data de Validade:</label>
+                        <input type="date" id="validadeCartao" />
+
+                        <label for="parcelas">Parcelas:</label>
+                        <select name="parcelas" id="parcelas">
+                            <option value="1" selected>1x</option>
+                            <option value="2">2x</option>
+                            <option value="3">3x</option>
+                            <option value="4">4x</option>
+                            <option value="5">5x</option>
+                            <option value="6">6x</option>
+                        </select>
+
+                        <label class="valorTotal"></label>
+
+                    </div>
+                </section>
+            </section>
+            <button id="confirmar-pagamento">Confirmar</button>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+</body>
+
+</html>
