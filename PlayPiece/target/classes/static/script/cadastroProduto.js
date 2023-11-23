@@ -128,7 +128,6 @@ btnSalvarProduto.addEventListener("submit", async (e) => {
             })
             let formData = new FormData()
             formData.append("imageFile", imagem)
-            console.log(imagem)
             const produto = await fetch(`/produto`).then(data => data.json())
             let separa = imagem.type.split("/")
             let tipo = separa[1]
@@ -139,10 +138,8 @@ btnSalvarProduto.addEventListener("submit", async (e) => {
             if (resultImagem.status == "201") {
 
                 console.log(resultImagem.url)
-                window.close()
             } else {
                 alert("falha ao criar imagens. Tente alterar o produto em breve")
-                window.close()
             }
 
         });

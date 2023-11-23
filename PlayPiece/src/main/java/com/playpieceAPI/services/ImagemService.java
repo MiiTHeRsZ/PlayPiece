@@ -52,15 +52,6 @@ public class ImagemService {
         String folder = "PlayPiece/src/main/resources/static/images/Produtos/" + produtoID + "/";
         byte[] bytes = imagem.getBytes();
         Path path = Paths.get(folder);
-        Boolean existe = Files.exists(path);
-        if (existe) {
-            File diretorio = new File(folder);
-            File[] arquivos = diretorio.listFiles();
-            for (File arquivo : arquivos) {
-                arquivo.delete();
-            }
-        }
-        Files.deleteIfExists(path);
         Files.createDirectories(path);
         path = Paths.get(folder + nome);
         Files.write(path, bytes);
