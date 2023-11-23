@@ -29,7 +29,7 @@ public class ProdutoModel {
     @Size(max = 40, message = "Nome deve conter até 40 caracteres")
     private String nome;
 
-    @Min(1)
+    @Min(0)
     @Max(5)
     private double avaliacao;
 

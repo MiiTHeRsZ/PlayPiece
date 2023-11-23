@@ -114,13 +114,29 @@ async function criarListaPedidos() {
         tr.appendChild(status);
         tr.appendChild(detalhes);
 
-        if (pedido.statusPagamento == 'Aguardando Pagamento') {
-            status.style.color = "#ff9800"
-        } else if (pedido.statusPagamento == 'Em preparo') {
-            status.style.color = "#4caf50"
-        } else if (pedido.statusPagamento == 'Entregue') {
-            status.style.color = "#2196F3"
+        switch (pedido.statusPagamento) {
+            case "AP":
+                status.style.color = "#f5cb67"
+                status.style.fontWeight = "bold"
+                break;
+            case "PR":
+                status.style.color = "red";
+                break;
+            case "PS":
+                status.style.color = "springgreen"
+                break;
+            case "AR":
+                status.style.color = "rgb(111 171 181)"
+                break;
+            case "ET":
+                status.style.color = "blue"
+                break;
+            case "EN":
+                status.style.color = "blueviolet"
+                break;
         }
+
+        status.style.fontWeight = "bold"
     });
 }
 

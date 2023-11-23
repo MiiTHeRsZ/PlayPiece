@@ -350,15 +350,22 @@ function clearTable() {
 async function checkSessao() {
     let cargoId = getCookie("cargo")
     let sessaoCode = getCookie("jobSession")
-    let funcionario = await fetch(`/usuario/${sessaoCode}`).then(data => data.json())
-    let cont = 1
-    let cargo = funcionario.cargo.cargoId;
-    for (cont = 1; cont <= 16; cont++) {
-        cargo = String(cargo).hashCode()
-    }
+    if (sessaoCode != undefined) {
+        let funcionario = await fetch(`/usuario/${parseInt(sessaoCode)}`).then(data => data.json())
+        let cont = 1
+        let cargo = funcionario.cargo.cargoId;
+        for (cont = 1; cont <= 16; cont++) {
+            cargo = String(cargo).hashCode()
+        }
 
-    if (cargo != cargoId) {
-        alert("Sessão inválida")
+        if (cargo != cargoId) {
+            alert("Sessão inválida")
+            Cookies.remove("jobSession")
+            Cookies.remove("cargo")
+            location.href = "./loginBackoffice.html"
+        }
+    } else {
+        alert("Inicie sua sessão")
         Cookies.remove("jobSession")
         Cookies.remove("cargo")
         location.href = "./loginBackoffice.html"
