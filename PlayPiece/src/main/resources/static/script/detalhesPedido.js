@@ -112,14 +112,32 @@ async function carregarDados() {
 
     document.getElementById("valorTotal").textContent = `Valor total: R$ ${parseFloat(dadosPedido.valorTotal).toFixed(2).replace(".", ",")}`;
 
-    document.getElementById("statusPag").textContent = `Status do pagamento: ${dadosPedido.statusPagamento}`;
 
-    if (dadosPedido.statusPagamento == 'Aguardando Pagamento') {
-        document.getElementById("statusPag").style.color = "#ff9800"
-    } else if (dadosPedido.statusPagamento == 'Em preparo') {
-        document.getElementById("statusPag").style.color = "#4caf50"
-    } else if (dadosPedido.statusPagamento == 'Entregue') {
-        document.getElementById("statusPag").style.color = "#2196F3"
+    switch (dadosPedido.statusPagamento) {
+        case "AP":
+            document.getElementById("statusPag").style.color = "#ff9800"
+            document.getElementById("statusPag").textContent = `Status do Pedido: Aguardando Pagamento`;
+            break;
+        case "PR":
+            document.getElementById("statusPag").style.color = "red";
+            document.getElementById("statusPag").textContent = `Status do Pedido: Pagamento Rejeitado`;
+            break;
+        case "PS":
+            document.getElementById("statusPag").style.color = "green"
+            document.getElementById("statusPag").textContent = `Status do Pedido: Pagamento Com Sucesso`;
+            break;
+        case "AR":
+            document.getElementById("statusPag").style.color = "yellow"
+            document.getElementById("statusPag").textContent = `Status do Pedido: Aguardando Retirada`;
+            break;
+        case "ET":
+            document.getElementById("statusPag").style.color = "blue"
+            document.getElementById("statusPag").textContent = `Status do Pedido: Em Trânsito`;
+            break;
+        case "EN":
+            document.getElementById("statusPag").style.color = "green"
+            document.getElementById("statusPag").textContent = `Status do Pedido: Entregue`;
+            break;
     }
 
     document.getElementById("cep").value = dadosPedido.enderecoEntrega.cep;
@@ -130,7 +148,7 @@ async function carregarDados() {
     document.getElementById("cidade").value = dadosPedido.enderecoEntrega.cidade;
     document.getElementById("uf").value = dadosPedido.enderecoEntrega.uf;
 
-    document.getElementById("frete").value = `R$ ${parseFloat(dadosPedido.valorFrete).toFixed(2).replace(".", ",")}`;
-    document.getElementById("pagamentoOpc").textContent = pagamento == "BO" ? "Boleto" : "Cartão de Crédito";
+    document.getElementById("frete").value = `R$ ${parseFloat(dadosPedido.valorFrete).toFixed(2).replace(".", ",")} `;
+    document.getElementById("pagamentoOpc").textContent = dadosPedido.modoPagamento == "BO" ? "Boleto" : "Cartão de Crédito";
 }
 carregarDados()

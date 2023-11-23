@@ -322,8 +322,9 @@ function alterarStatus() {
             element.addEventListener("click", async () => {
                 let ped = {
                     "id": parseInt(element.value),
-                    "sigla": `${document.getElementById("status").value}`
+                    "sigla": `${document.getElementsByClassName(`pedido${parseInt(element.value)}`)[0].value}`
                 }
+                console.table(ped)
                 await fetch(`/pedido/update`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
@@ -350,7 +351,6 @@ async function checkSessao() {
     let cargoId = getCookie("cargo")
     let sessaoCode = getCookie("jobSession")
     let funcionario = await fetch(`/usuario/${sessaoCode}`).then(data => data.json())
-    console.log("checando");
     let cont = 1
     let cargo = funcionario.cargo.cargoId;
     for (cont = 1; cont <= 16; cont++) {
@@ -413,20 +413,19 @@ async function createTbPedidos() {
         let status = document.createElement("td")
         let alterar = document.createElement("td")
 
-        pedidoId.textContent = `${pedido.Id}`
-        data.textContent = `${(pedido.Data).slice(0, 10).split("-").reverse().join(" - ")}`
-        valorTotal.textContent = `R$ ${parseFloat(pedido.ValorTotal).toFixed(2).replace(".", ",")}`
+        pedidoId.textContent = `${response[i].pedidoId}`
+        data.textContent = `${(response[i].dataPedido).slice(0, 10).split("-").reverse().join(" - ")}`
+        valorTotal.textContent = `R$ ${parseFloat(response[i].valorTotal).toFixed(2).replace(".", ",")}`
 
-        console.log(pedido.Status);
-        status.innerHTML = `<select name="status" id="status">
-            <option value="AP" ${pedido.Status == "AP" ? "selected" : ""}>Aguardando Pagamento</option>
-            <option value="PR" ${pedido.Status == "PR" ? "selected" : ""}>Pagamento Rejeitado</option>
-            <option value="PS" ${pedido.Status == "PS" ? "selected" : ""}>Pagamento Com Sucesso</option>
-            <option value="AR" ${pedido.Status == "AR" ? "selected" : ""}>Aguardando Retirada</option>
-            <option value="ET" ${pedido.Status == "ET" ? "selected" : ""}>Em Trânsito</option>
-            <option value="EN" ${pedido.Status == "EN" ? "selected" : ""}>Entregue</option>
+        status.innerHTML = `<select name="status" class="status pedido${response[i].pedidoId}">
+            <option value="AP" ${response[i].statusPagamento == "AP" ? "selected" : ""}>Aguardando Pagamento</option>
+            <option value="PR" ${response[i].statusPagamento == "PR" ? "selected" : ""}>Pagamento Rejeitado</option>
+            <option value="PS" ${response[i].statusPagamento == "PS" ? "selected" : ""}>Pagamento Com Sucesso</option>
+            <option value="AR" ${response[i].statusPagamento == "AR" ? "selected" : ""}>Aguardando Retirada</option>
+            <option value="ET" ${response[i].statusPagamento == "ET" ? "selected" : ""}>Em Trânsito</option>
+            <option value="EN" ${response[i].statusPagamento == "EN" ? "selected" : ""}>Entregue</option>
         </select>`;
-        alterar.innerHTML = `<button value=${pedido.Id}" class="btn btn-primary changeStatusButton">Mudar Status</button>`
+        alterar.innerHTML = `<button value=${response[i].pedidoId}" class="btn btn-primary changeStatusButton">Mudar Status</button>`
 
         tr.appendChild(pedidoId)
         tr.appendChild(data)

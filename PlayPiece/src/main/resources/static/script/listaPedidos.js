@@ -80,10 +80,33 @@ async function criarListaPedidos() {
         let detalhes = document.createElement("td");
         detalhes.setAttribute("class", "detalhesPedido");
 
+        let statusPed = "";
+
+        switch (pedido.statusPagamento) {
+            case "AP":
+                statusPed = `Aguardando Pagamento`;
+                break;
+            case "PR":
+                statusPed = `Pagamento Rejeitado`;
+                break;
+            case "PS":
+                statusPed = `Pagamento Com Sucesso`;
+                break;
+            case "AR":
+                statusPed = `Aguardando Retirada`;
+                break;
+            case "ET":
+                statusPed = `Em Trânsito`;
+                break;
+            case "EN":
+                statusPed = `Entregue`;
+                break;
+        }
+
         numero.textContent = `${pedido.pedidoId}`;
         data.textContent = `${(pedido.dataPedido).slice(0, 10).split("-").reverse().join(" - ")}`;
         valor_total.textContent = `R$ ${parseFloat(pedido.valorTotal).toFixed(2).replace(".", ",")}`;
-        status.textContent = `${pedido.statusPagamento}`;
+        status.textContent = `${statusPed}`;
         detalhes.innerHTML = `<a href="./detalhesPedido.html?id=${pedido.pedidoId}" class="btn btn-primary"><i class="fi fi-br-list-check"></i></a>`;
         tr.appendChild(numero);
         tr.appendChild(data);
