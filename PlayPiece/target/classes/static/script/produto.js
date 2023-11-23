@@ -133,8 +133,6 @@ const container = document.getElementById("container");
 async function getProduct() {
     let produto = await fetch(`/produto/${id}`).then(response => response.json())
 
-    console.log(produto);
-
     let conteudo = document.createElement("div")
 
     conteudo.innerHTML = `
@@ -173,7 +171,6 @@ async function getProduct() {
 
     container.appendChild(conteudo)
     gerarCarousel(produto.listaImagens)
-    console.log(produto.listaImagens);
     criarEstrelas(produto)
 }
 

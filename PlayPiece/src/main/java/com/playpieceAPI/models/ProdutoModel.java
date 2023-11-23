@@ -25,8 +25,8 @@ public class ProdutoModel {
     @Column(name = "produto_id")
     private Long produtoId;
 
-    @Column(name = "nome", columnDefinition = "VARCHAR(40)")
-    @Size(max = 40, message = "Nome deve conter até 40 caracteres")
+    @Column(name = "nome", columnDefinition = "VARCHAR(200)")
+    @Size(max = 200, message = "Nome deve conter até 200 caracteres")
     private String nome;
 
     @Min(0)
@@ -34,7 +34,7 @@ public class ProdutoModel {
     private double avaliacao;
 
     @Column(name = "descricao", columnDefinition = "TEXT")
-    @Size(min = 1, max = 2000, message = "A descrição deve contar entre 1 a 2000 caracteres")
+    @Size(min = 1, max = 3000, message = "A descrição deve contar entre 1 a 3000 caracteres")
     private String descricao;
 
     @Column(name = "preco", columnDefinition = "DECIMAL(10,2)")
