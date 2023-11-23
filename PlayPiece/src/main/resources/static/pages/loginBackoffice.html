@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/loginBackoffice.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>PI - Desenvolvimento de Sistemas Orientados a WEB</title>
+    <script src="../script/loginBackoffice.js" defer></script>
+</head>
+
+<body>
+    <div class="form__container">
+        <form action="" id="form">
+            <label for=" #nickname" class="form__label">Usuário (e-mail):</label>
+            <input type="email" name="nickname" id="nickname" class="form__input-text" placeholder="exemplo@exemplo.com"
+                required />
+            <label for="#password" class="form__label">Senha:</label>
+            <div class="passBox">
+                <input type="password" name="password" id="password" class="form__input-text" placeholder="***********"
+                    minlength="8" required />
+                <i id="showPassword" class="fa-solid fa-eye-slash"></i>
+            </div>
+
+            <div class="btns">
+                <input type="submit" value="Entrar" id="form__btn-entrar" class="form__btn" />
+            </div>
+        </form>
+    </div>
+    <div id="loading">
+        <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+            <script src="../script/limparCarrinhoBanco.js"></script>
+</body>
+
+</html>
