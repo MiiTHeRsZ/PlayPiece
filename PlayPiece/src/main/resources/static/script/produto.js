@@ -3,7 +3,7 @@ id = urlParams.get('id');
 try {
     email = urlParams.get('email');
 } catch (error) {
-    console.log(error);
+    console.error(error);
 }
 
 function getCookie(nome) {
@@ -105,17 +105,13 @@ document.getElementById("perfil").addEventListener("click", async () => {
 
         document.addEventListener('click', (event) => {
             const box = document.getElementById('menuBox');
-            console.log(event.target.className);
 
             if (!document.getElementById("box").contains(event.target) && event.target.className != 'fi fi-br-user') {
-                console.log(document.getElementById("menuBox").style.display);
-                console.log("esconde");
                 box.style.display = 'none';
             }
         });
 
         document.getElementById("menuBox").style.display = "block"
-        console.log("mosta");
 
     }
     else {

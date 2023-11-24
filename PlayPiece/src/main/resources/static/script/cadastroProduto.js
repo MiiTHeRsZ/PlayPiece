@@ -1,16 +1,15 @@
 //registro de imagens
-let boxImagens = document.getElementById("input_imagens"),
-    inputImagens = document.querySelector("#imagens"),
-    form = document.getElementById("form")
+let boxImagens = document.getElementById("input_imagens")
+var inputImagens = document.getElementById("imagens")
+let form = document.getElementById("form")
 let listaInput = []
 
 inputImagens.addEventListener("change", () => {
-    const files = inputImagens.files
-
-    for (let i = 0; i < files.length; i++) {
-        listaInput.push(files[i])
+    let imagens = inputImagens.files
+    for (let i = 0; i < imagens.length; i++) {
+        listaInput.push(inputImagens.files[i])
     }
-    console.log(listaInput)
+
     mostarImagensInput()
 })
 
@@ -30,7 +29,6 @@ boxImagens.addEventListener("drop", (e) => {
 
 function mostarImagensInput() {
     limparImagensInput()
-    let a = document.querySelector("#imagens").files
     let imagens = ""
     let text = document.querySelector("#input_imagens p")
     text.style.display = "none"
@@ -39,15 +37,15 @@ function mostarImagensInput() {
         text.style.display = "inline"
     }
     listaInput.forEach((imagem, index) => {
-        imagens += `<div class="imagem-input">
-        <img src="${URL.createObjectURL(imagem)}" alt="imagem">
+
+        let divImagens = document.createElement("div")
+        divImagens.classList.add("imagem-input")
+        divImagens.innerHTML = `<img src="${URL.createObjectURL(imagem)}" alt="imagem">
         <span class="fav" onclick="favoritarInput(${index})">&#10025;</span>
-        <span class="del" onclick="removerInput(${index})">&times;</span>
-        </div>`
+        <span class="del" onclick="removerInput(${index})">&times;</span>`
+        boxImagens.appendChild(divImagens)
     })
 
-    boxImagens.innerHTML += imagens
-    inputImagens.value = ""
 }
 
 function favoritarInput(index) {
@@ -68,7 +66,6 @@ function favoritarInput(index) {
 
 function removerInput(index) {
     listaInput.splice(index, 1)
-    console.log(listaInput)
     mostarImagensInput()
 }
 function limparImagensInput() {
@@ -121,14 +118,15 @@ btnSalvarProduto.addEventListener("submit", async (e) => {
 
             var fav = 0;
             let formData = new FormData()
-            listaInput.forEach(async (imagem, index) => {
+            listaInput.forEach(imagem => {
                 let el = document.querySelectorAll(".fav")
                 el.forEach((item, i) => {
-                    el[index].textContent == "✭" ? fav = i : ""
+                    if (item.textContent == "✭") {
+                        fav = i
+                    }
                 })
                 formData.append("imageFiles", imagem)
             });
-
             const resultImagem = await fetch(`/imagem/${result.produtoId}?tipo=jpeg&fav=${fav}`, {
                 method: "POST",
                 body: formData

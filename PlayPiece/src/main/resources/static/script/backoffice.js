@@ -92,7 +92,7 @@ async function createTbUsers() {
         email.textContent = `${usuario.Email}`
         status.innerHTML = `<button class = "changeStatusButton" id="changeStatusButton" value=${usuario.Id}> ${usuario.Status ? "Ativo" : "Inativo"} </button>`
         grupo.textContent = `${usuario.Grupo}`
-        alterar.innerHTML = `<a onclick="window.open('../pages/alterarUsuario.html?id=${usuario.Id}','name','width=500,height=1000')"> <button class = "alterarUsuario"> alterar </button> <a>`
+        alterar.innerHTML = `<a onclick="window.open('../pages/alterarUsuario.html?id=${usuario.Id}','name','width=1500,height=1000')"> <button class = "alterarUsuario"> alterar </button> <a>`
 
         tr.appendChild(nome)
         tr.appendChild(email)
@@ -164,7 +164,7 @@ async function createTbProducts() {
         preco.textContent = `${parseFloat(produto.Preco).toFixed(2).replace(".", ",")}`
         quantidade.textContent = `${produto.Quantidade}`
         status.innerHTML = `<button class = "changeStatusButton" value=${produto.Id}> ${produto.Status ? "Ativo" : "Inativo"} </button>`
-        alterar.innerHTML = `<a onclick="window.open('../pages/alterarProduto.html?id=${produto.Id}&group=${group}','name','width=500,height=1000')"> <button class = "alterarProduto"> alterar </button> <a>`
+        alterar.innerHTML = `<a onclick="window.open('../pages/alterarProduto.html?id=${produto.Id}&group=${group}','name','width=1500,height=1000')"> <button class = "alterarProduto"> alterar </button> <a>`
         if (group == 2) {
             status.firstChild.setAttribute("disabled", "true")
         }
@@ -220,7 +220,7 @@ async function pesquisarPorNome(nome) {
         email.textContent = `${usuario.Email}`
         status.innerHTML = `<button class = "changeStatusButton" value=${usuario.Id}> ${usuario.Status ? "Ativo" : "Inativo"} </button>`
         grupo.textContent = `${usuario.Grupo}`
-        alterar.innerHTML = `<a onclick="window.open('../pages/alterarUsuario.html?id=${usuario.Id}','name','width=500,height=1000')"> <button class = "alterarUsuario"> alterar </button> <a>`
+        alterar.innerHTML = `<a onclick="window.open('../pages/alterarUsuario.html?id=${usuario.Id}','name','width=1500,height=1000')"> <button class = "alterarUsuario"> alterar </button> <a>`
 
         tr.appendChild(nome)
         tr.appendChild(email)
@@ -282,7 +282,7 @@ async function pesquisarPorNomeProduto(nome) {
         preco.textContent = `${produto.Preco}`
         quantidade.textContent = `${produto.Quantidade}`
         status.innerHTML = `<button class = "changeStatusButton" value=${produto.Id}> ${produto.Status ? "Ativo" : "Inativo"} </button>`
-        alterar.innerHTML = `<a onclick="window.open('../pages/alterarProduto.html?id=${produto.Id}','name','width=500,height=1000')"> <button class = "alterarProduto"> alterar </button> <a>`
+        alterar.innerHTML = `<a onclick="window.open('../pages/alterarProduto.html?id=${produto.Id}','name','width=1500,height=1000')"> <button class = "alterarProduto"> alterar </button> <a>`
 
         tr.appendChild(nome)
         tr.appendChild(avaliacao)
@@ -324,7 +324,6 @@ function alterarStatus() {
                     "id": parseInt(element.value),
                     "sigla": `${document.getElementsByClassName(`pedido${parseInt(element.value)}`)[0].value}`
                 }
-                console.table(ped)
                 await fetch(`/pedido/update`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },

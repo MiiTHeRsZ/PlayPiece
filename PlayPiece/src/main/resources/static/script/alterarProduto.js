@@ -1,8 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 group = urlParams.get('group')
 idProduto = urlParams.get('id')
-console.log(idProduto);
-let imagens;
+let imagens = [];
 
 //#region imagens
 
@@ -14,9 +13,12 @@ let listaInput = []
 async function getImagens() {
 
     let produto = await fetch(`/produto/${idProduto}`).then(response => response.json())
-    imagens = produto.listaImagens
 
-    imagens.forEach(async imagem => {
+    produto.listaImagens.forEach(imagem => {
+        imagens.push(imagem)
+    })
+
+    imagens.forEach(async (imagem, index) => {
 
         let link = imagem.caminho.split("/")
         let caminhoNovo = link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8]
@@ -25,15 +27,19 @@ async function getImagens() {
         const imagemR = await fetch(`/./${caminhoNovo}`).then(data => data.blob()).then(blob => new File([blob], novoNome[0], { type: blob.type }))
 
         listaInput.push(imagemR)
-        mostarImagensInput()
+        if (index == imagens.length - 1) {
+            mostarImagensInput()
+        }
     });
-    console.log(listaInput)
 
     inputImagens.addEventListener("change", () => {
         const files = inputImagens.files
 
         for (let i = 0; i < files.length; i++) {
             listaInput.push(files[i])
+            imagens.push(
+                { padrao: false }
+            )
         }
         mostarImagensInput()
     })
@@ -47,7 +53,6 @@ async function getImagens() {
 
             if (listaInput.every(imagem => imagem.name != files[i].name)) {
 
-                console.log(files[i]);
                 listaInput.push(files[i])
                 imagens.push(
                     { padrao: false }
@@ -60,7 +65,6 @@ async function getImagens() {
 }
 
 getImagens()
-
 function mostarImagensInput() {
     limparImagensInput()
 
@@ -73,16 +77,15 @@ function mostarImagensInput() {
         text.style.display = "inline"
     }
     listaInput.forEach((imagem, index) => {
-        console.log(URL.createObjectURL(imagem));
-        imgs += `<div class="imagem-input">
-        <img src="${URL.createObjectURL(imagem)}" alt="imagem">
-        <span class="fav" onclick="favoritarInput(${index})">${imagens[index].padrao ? "&#10029;" : "&#10025;"}</span>
-        <span class="del" onclick="removerInput(${index})">&times;</span>
-        </div>`
-    })
 
-    boxImagens.innerHTML += imgs
-    inputImagens.value = ""
+        let divImagens = document.createElement("div")
+        divImagens.classList.add("imagem-input")
+        divImagens.innerHTML = `<img src="${URL.createObjectURL(imagem)}" alt="imagem">
+        <span class="fav" onclick="favoritarInput(${index})">${imagens[index].padrao ? "&#10029;" : "&#10025;"}</span>
+        <span class="del" onclick="removerInput(${index})">&times;</span>`
+
+        boxImagens.appendChild(divImagens)
+    })
 }
 function limparImagensInput() {
     let imagens = document.querySelectorAll(".imagem-input")
@@ -109,7 +112,6 @@ function favoritarInput(index) {
 
 function removerInput(index) {
     listaInput.splice(index, 1)
-    console.log(listaInput)
     mostarImagensInput()
 }
 
@@ -178,10 +180,12 @@ botaoSalvar.addEventListener("click", async (e) => {
 
         var fav = 0;
         let formData = new FormData()
-        listaInput.forEach(async (imagem, index) => {
+        listaInput.forEach(imagem => {
             let el = document.querySelectorAll(".fav")
             el.forEach((item, i) => {
-                el[index].textContent == "✭" ? fav = i : ""
+                if (item.textContent == "✭") {
+                    fav = i
+                }
             })
             formData.append("imageFiles", imagem)
         });

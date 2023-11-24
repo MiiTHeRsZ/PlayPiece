@@ -351,7 +351,6 @@ function validaCPF(cpf) {
 //             }
 //         })
 //         .then(responseData => {
-//             console.log(responseData);
 //         })
 //         .catch(error => {
 //             console.error(error);
@@ -381,7 +380,6 @@ function getJson(url) {
 function getValidCep(input) {
     return new Promise((resolve, reject) => {
         const numeroCep = document.getElementById(input).value;
-        console.log(numeroCep);
 
         if (numeroCep.length === 8) {
             resolve(numeroCep);
@@ -409,7 +407,6 @@ async function buscarDadosCep(input) {
         const alert = document.querySelector(`.alert-${input}`);
         if (input === "cep-faturamento") {
             const valorCep = await getValidCep(input);
-            console.log(valorCep);
             const dadosArray = await getJson(`https://viacep.com.br/ws/${valorCep}/json/`);
             if (dadosArray.erro === true) {
                 alert.innerHTML = "CEP inválido!";
@@ -440,6 +437,6 @@ async function buscarDadosCep(input) {
 
 
     } catch (erro) {
-        console.log("Erro na busca do CEP: " + erro.message + "\nVerifique se o CEP fornecido é realmente válido");
+        console.error("Erro na busca do CEP: " + erro.message + "\nVerifique se o CEP fornecido é realmente válido");
     }
 }

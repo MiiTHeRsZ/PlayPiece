@@ -65,8 +65,6 @@ async function total() {
     let total = 0;
     valorTotal.itens.forEach(item => {
         total += item.produto.preco * item.quantidade;
-        console.log(item.produto.preco);
-        console.log("quant = " + item.quantidade);
     })
     document.querySelectorAll(".valorTotal").forEach(item => item.textContent = `Total: R$ ${parseFloat(total).toFixed(2).replace(".", ",")}`);
 }
