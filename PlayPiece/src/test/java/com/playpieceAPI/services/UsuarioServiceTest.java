@@ -12,15 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.management.RuntimeErrorException;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.playpieceAPI.models.CargoModel;
@@ -57,7 +54,7 @@ public class UsuarioServiceTest {
         // guardo o retorno da usuarioService em uma variável
         var result = usuarioService.getUsuarioList();
 
-        // veririco se o valor recebido pela execução do service é o mesmo que mockei
+        // verifico se o valor recebido pela execução do service é o mesmo que mockei
         assertEquals(lista, result);
     }
 
