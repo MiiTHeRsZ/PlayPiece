@@ -2,7 +2,6 @@ package com.playpieceAPI.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -81,14 +80,6 @@ public class ClienteController {
             carrinhoService.limparCarrinho(carrinho);
             return new ResponseEntity<ClienteModel>(cliente, HttpStatus.OK);
         }
-    }
-
-    @GetMapping(value = "login", params = { "senha" })
-    public ResponseEntity<?> trocasenha(@RequestParam String senha) {
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);
-        var novaSenha = encoder.encode(senha);
-        return new ResponseEntity<String>(novaSenha, HttpStatus.OK);
     }
 
     @PostMapping

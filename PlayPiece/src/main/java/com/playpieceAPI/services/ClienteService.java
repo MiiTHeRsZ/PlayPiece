@@ -8,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.playpieceAPI.models.ClienteModel;
-import com.playpieceAPI.models.EnderecoModel;
 import com.playpieceAPI.models.LoginDto;
 import com.playpieceAPI.repositories.ClienteRespository;
 import com.playpieceAPI.repositories.EnderecoRepository;
@@ -19,13 +18,14 @@ public class ClienteService {
     final ClienteRespository clienteRespository;
     final EnderecoService enderecoService;
     final EnderecoRepository enderecoRepository;
-    final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);
+    final BCryptPasswordEncoder encoder;
 
     public ClienteService(ClienteRespository clienteRespository, @Lazy EnderecoService enderecoService,
-            EnderecoRepository enderecoRepository) {
+            EnderecoRepository enderecoRepository, BCryptPasswordEncoder encoder) {
         this.clienteRespository = clienteRespository;
         this.enderecoService = enderecoService;
         this.enderecoRepository = enderecoRepository;
+        this.encoder = encoder;
     }
 
     public ClienteModel getClienteById(Long id) {

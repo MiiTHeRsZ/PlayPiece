@@ -1,5 +1,6 @@
 package com.playpieceAPI.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,91 +16,124 @@ public class UsuarioService {
 
     final UsuarioRepository usuarioRepository;
     final CargoRepository cargoRepository;
-    final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);
+    final BCryptPasswordEncoder encoder;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, CargoRepository cargoRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository, CargoRepository cargoRepository,
+            BCryptPasswordEncoder encoder) {
         this.usuarioRepository = usuarioRepository;
         this.cargoRepository = cargoRepository;
+        this.encoder = encoder;
     }
 
     public List<UsuarioModel> getUsuarioList() {
-        return usuarioRepository.findAll();
+        List<UsuarioModel> listaUsuario = new ArrayList<>();
+        try {
+            listaUsuario = usuarioRepository.findAll();
+            return listaUsuario;
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public UsuarioModel getUsuarioById(Long id) {
 
         try {
-            UsuarioModel usuario = usuarioRepository.findById(id).get();
+            UsuarioModel usuario = usuarioRepository.findById(id).orElse(null);
             return usuario;
         } catch (Exception e) {
             System.out.println(e);
-            return null;
+            throw e;
         }
 
     }
 
     public UsuarioModel getUsuarioByEmail(String email) {
         try {
-            UsuarioModel usuario = usuarioRepository.findByEmailUsuario(email).get(0);
+            UsuarioModel usuario = usuarioRepository.findByEmailUsuario(email);
             return usuario;
         } catch (Exception e) {
             System.out.println(e);
-            return null;
+            throw e;
         }
     }
 
     public List<UsuarioModel> getUsuarioByNome(String nome) {
-        List<UsuarioModel> usuarios = usuarioRepository.findByNomeContaining(nome);
-        return usuarios;
+        List<UsuarioModel> usuarios = new ArrayList<>();
+
+        try {
+            usuarios = usuarioRepository.findByNomeContaining(nome);
+            return usuarios;
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public UsuarioModel postUsuario(UsuarioModel usuario) {
-        var senhaCripto = encoder.encode(usuario.getSenha());
-        usuario.setSenha(senhaCripto);
-        usuario.setUsuarioId(null);
-        usuario.setCargo(cargoRepository.findById(usuario.getCargo().getCargoId()).get());
-        usuario.setAtivo(true);
+        try {
+            var senhaCripto = encoder.encode(usuario.getSenha());
+            usuario.setSenha(senhaCripto);
+            usuario.setUsuarioId(null);
+            usuario.setCargo(cargoRepository.findById(usuario.getCargo().getCargoId()).get());
+            usuario.setAtivo(true);
 
-        return usuarioRepository.save(usuario);
+            return usuarioRepository.save(usuario);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public UsuarioModel statusUsuario(Long id) {
-        UsuarioModel usuario = usuarioRepository.findById(id).get();
-        usuario.setAtivo(!usuario.getAtivo());
 
-        return usuarioRepository.save(usuario);
+        try {
+            UsuarioModel usuario = usuarioRepository.findById(id).get();
+            usuario.setAtivo(!usuario.getAtivo());
+
+            return usuarioRepository.save(usuario);
+
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public UsuarioModel updateUsuario(Long id, UsuarioModel novoUsuario) {
-        UsuarioModel usuario = usuarioRepository.findById(id).get();
+        try {
 
-        var res = encoder.matches(novoUsuario.getSenha(), usuario.getSenha());
-        if (!res) {
-            var senhaCripto = encoder.encode(novoUsuario.getSenha());
-            novoUsuario.setSenha(senhaCripto);
+            UsuarioModel usuario = usuarioRepository.findById(id).get();
+
+            var res = encoder.matches(novoUsuario.getSenha(), usuario.getSenha());
+            if (!res) {
+                var senhaCripto = encoder.encode(novoUsuario.getSenha());
+                novoUsuario.setSenha(senhaCripto);
+            }
+
+            novoUsuario.setUsuarioId(usuario.getUsuarioId());
+            novoUsuario.setEmailUsuario(usuario.getEmailUsuario());
+            usuario = novoUsuario;
+
+            usuario.setCargo(cargoRepository.findById(usuario.getCargo().getCargoId()).get());
+
+            return usuarioRepository.save(usuario);
+
+        } catch (Exception e) {
+            throw e;
         }
-
-        novoUsuario.setUsuarioId(usuario.getUsuarioId());
-        novoUsuario.setEmailUsuario(usuario.getEmailUsuario());
-        usuario = novoUsuario;
-
-        usuario.setCargo(cargoRepository.findById(usuario.getCargo().getCargoId()).get());
-
-        return usuarioRepository.save(usuario);
     }
 
     public UsuarioModel usuarioLogin(LoginDto login) {
         try {
-            UsuarioModel usuario = usuarioRepository.findByEmailUsuario(login.getEmail()).get(0);
-            var result = encoder.matches(login.getSenha(), usuario.getSenha());
-            if (result && login.getEmail().equalsIgnoreCase(usuario.getEmailUsuario())) {
-                return usuario;
-            } else {
-                return null;
+            UsuarioModel usuario = usuarioRepository.findByEmailUsuario(login.getEmail());
+            if (usuario != null) {
+                var result = encoder.matches(login.getSenha(), usuario.getSenha());
+                if (result && login.getEmail().equalsIgnoreCase(usuario.getEmailUsuario())) {
+                    return usuario;
+                } else {
+                    return null;
+                }
             }
+            return null;
         } catch (Exception e) {
             System.out.println(e);
-            return null;
+            throw e;
         }
     }
 }

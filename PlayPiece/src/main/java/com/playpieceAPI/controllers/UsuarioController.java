@@ -7,6 +7,7 @@ import com.playpieceAPI.models.LoginDto;
 import com.playpieceAPI.models.UsuarioModel;
 import com.playpieceAPI.services.UsuarioService;
 
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,10 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.playpieceAPI.models.LoginDto;
-import com.playpieceAPI.models.UsuarioModel;
-import com.playpieceAPI.services.UsuarioService;
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping(value = "/usuario")
@@ -36,63 +33,103 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity<?> getUsuarioList() {
-        List<UsuarioModel> usuarios = usuarioService.getUsuarioList();
-        if (usuarios.isEmpty())
-            return new ResponseEntity<>("Não há usuários", HttpStatus.NOT_FOUND);
+        List<UsuarioModel> usuarios = new ArrayList<>();
 
-        return new ResponseEntity<List<UsuarioModel>>(usuarios, HttpStatus.OK);
+        try {
+            usuarios = usuarioService.getUsuarioList();
+            if (usuarios.isEmpty())
+                return new ResponseEntity<>("Não há usuários", HttpStatus.NOT_FOUND);
+
+            return new ResponseEntity<List<UsuarioModel>>(usuarios, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUsuarioById(@PathVariable Long id) {
 
-        var usuario = usuarioService.getUsuarioById(id);
-        if (usuario == null)
-            return new ResponseEntity<>("Usuário não encontrado", HttpStatus.NOT_FOUND);
+        try {
 
-        return new ResponseEntity<>(usuario, HttpStatus.OK);
+            var usuario = usuarioService.getUsuarioById(id);
+            if (usuario == null)
+                return new ResponseEntity<>("Usuário não encontrado", HttpStatus.NOT_FOUND);
+
+            return new ResponseEntity<>(usuario, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
 
     }
 
     @PutMapping("/login")
     public ResponseEntity<?> getUsuarioByEmail(@RequestBody LoginDto login) {
 
-        var usuario = usuarioService.usuarioLogin(login);
+        UsuarioModel usuario;
+        try {
+            usuario = usuarioService.usuarioLogin(login);
+            if (usuario == null)
+                return new ResponseEntity<>("Usuário não encontrado", HttpStatus.NOT_FOUND);
 
-        if (usuario == null)
-            return new ResponseEntity<>("Usuário não encontrado", HttpStatus.NOT_FOUND);
+            List<String> resuList = new ArrayList<>();
+            resuList.add(usuario.getUsuarioId().toString());
+            resuList.add(usuario.getEmailUsuario());
+            resuList.add(usuario.getSenha());
+            resuList.add(usuario.getCargo().getCargoId().toString());
+            return new ResponseEntity<>(resuList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-        List<String> resuList = new ArrayList<>();
-        resuList.add(usuario.getUsuarioId().toString());
-        resuList.add(usuario.getEmailUsuario());
-        resuList.add(usuario.getSenha());
-        resuList.add(usuario.getCargo().getCargoId().toString());
-        return new ResponseEntity<>(resuList, HttpStatus.OK);
     }
 
     @GetMapping(value = "search", params = { "nome" })
     public ResponseEntity<?> getUsuarioByNome(@RequestParam String nome) {
-        List<UsuarioModel> usuarios = usuarioService.getUsuarioByNome(nome);
-        if (usuarios.isEmpty())
-            return new ResponseEntity<>("Usuários não encontrados", HttpStatus.NOT_FOUND);
+        try {
+            List<UsuarioModel> usuarios = usuarioService.getUsuarioByNome(nome);
+            if (usuarios.isEmpty())
+                return new ResponseEntity<>("Usuários não encontrados", HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<List<UsuarioModel>>(usuarios, HttpStatus.OK);
+            return new ResponseEntity<List<UsuarioModel>>(usuarios, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioModel> postUsuario(@RequestBody UsuarioModel usuario) {
-        return new ResponseEntity<>(usuarioService.postUsuario(usuario), HttpStatus.CREATED);
+    public ResponseEntity<?> postUsuario(@RequestBody UsuarioModel usuario) {
+        try {
+            UsuarioModel novoUsuario = usuarioService.postUsuario(usuario);
+            return new ResponseEntity<>(novoUsuario, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioModel> updateUsuario(@PathVariable Long id,
+    public ResponseEntity<?> updateUsuario(@PathVariable Long id,
             @RequestBody UsuarioModel novoUsuario) {
-        return new ResponseEntity<>(usuarioService.updateUsuario(id, novoUsuario),
-                HttpStatus.OK);
+
+        try {
+            return new ResponseEntity<>(usuarioService.updateUsuario(id, novoUsuario),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<UsuarioModel> statusUsuario(@PathVariable Long id) {
-        return new ResponseEntity<>(usuarioService.statusUsuario(id), HttpStatus.OK);
+    public ResponseEntity<?> statusUsuario(@PathVariable Long id) {
+
+        try {
+            return new ResponseEntity<>(usuarioService.statusUsuario(id), HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
