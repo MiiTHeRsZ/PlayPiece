@@ -1,5 +1,6 @@
 package com.playpieceAPI.services.pedido;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.playpieceAPI.models.carrinho.ItemCarrinhoModel;
@@ -12,36 +13,32 @@ import com.playpieceAPI.repositories.pedido.PedidoRepository;
 @Service
 public class ItemPedidoService {
 
-    final ItemPedidoRepository itemPedidoRepository;
-    final ProdutoRepository produtoRepository;
-    final PedidoRepository pedidoRepository;
-
-    public ItemPedidoService(ItemPedidoRepository itemPedidoRepository, ProdutoRepository produtoRepository,
-            PedidoRepository pedidoRepository) {
-        this.itemPedidoRepository = itemPedidoRepository;
-        this.produtoRepository = produtoRepository;
-        this.pedidoRepository = pedidoRepository;
-    }
+    @Autowired
+    private ItemPedidoRepository itemPedidoRepository;
+    @Autowired
+    private ProdutoRepository produtoRepository;
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     public ItemPedidoModel criarItemPedido(ItemCarrinhoModel itemCarrinho, PedidoModel pedido) {
-        ItemPedidoModel itemPedido = new ItemPedidoModel();
-
-        itemPedido.setItemPedidoId(null);
-        itemPedido.setProduto(itemCarrinho.getProduto());
-        itemPedido.setQuantidade(itemCarrinho.getQuantidade());
-        itemPedido.setValorUnitario(itemCarrinho.getProduto().getPreco());
-        itemPedido.setValorTotal(itemCarrinho.getProduto().getPreco() * itemCarrinho.getQuantidade());
-        itemPedido.setPedido(pedido);
-
-        ItemPedidoModel itemSalvo = null;
-
         try {
-            itemSalvo = itemPedidoRepository.save(itemPedido);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+            ItemPedidoModel itemPedido = new ItemPedidoModel();
 
-        return itemSalvo;
+            itemPedido.setItemPedidoId(null);
+            itemPedido.setProduto(itemCarrinho.getProduto());
+            itemPedido.setQuantidade(itemCarrinho.getQuantidade());
+            itemPedido.setValorUnitario(itemCarrinho.getProduto().getPreco());
+            itemPedido.setValorTotal(itemCarrinho.getProduto().getPreco() * itemCarrinho.getQuantidade());
+            itemPedido.setPedido(pedido);
+
+            ItemPedidoModel itemSalvo = null;
+
+            itemSalvo = itemPedidoRepository.save(itemPedido);
+            return itemSalvo;
+
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public ItemPedidoModel importarCarrinho(ItemPedidoModel itemPedido) {
@@ -50,10 +47,10 @@ public class ItemPedidoService {
             itemPedido.setProduto(produtoRepository.findById(itemPedido.getProduto().getProdutoId()).orElse(null));
             itemPedido.setPedido(pedidoRepository.findById(itemPedido.getPedido().getPedidoId()).orElse(null));
 
+            return itemPedidoRepository.save(itemPedido);
         } catch (Exception e) {
-            System.out.println(e);
+            throw e;
         }
-        return itemPedidoRepository.save(itemPedido);
     }
 
 }

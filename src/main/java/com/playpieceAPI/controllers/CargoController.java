@@ -2,6 +2,8 @@ package com.playpieceAPI.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,15 +18,16 @@ import com.playpieceAPI.services.CargoService;
 @RequestMapping(value = "cargo")
 public class CargoController {
 
-    final CargoService cargoService;
-
-    public CargoController(CargoService cargoService) {
-        this.cargoService = cargoService;
-    }
+    @Autowired
+    private CargoService cargoService;
 
     @GetMapping
-    public ResponseEntity<List<CargoModel>> getContatos() {
-        return ResponseEntity.ok().body(cargoService.getAllCargos());
+    public ResponseEntity<?> getCargos() {
+        try {
+            return new ResponseEntity<List<CargoModel>>(cargoService.getAllCargos(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

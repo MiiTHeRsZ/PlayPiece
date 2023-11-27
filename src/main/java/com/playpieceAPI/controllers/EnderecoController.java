@@ -1,7 +1,6 @@
 package com.playpieceAPI.controllers;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,53 +21,52 @@ import com.playpieceAPI.services.EnderecoService;
 @RequestMapping(value = "/endereco")
 public class EnderecoController {
 
-    final EnderecoService enderecoService;
-
-    public EnderecoController(EnderecoService enderecoService) {
-        this.enderecoService = enderecoService;
-    }
-
-    @GetMapping
-    public ResponseEntity<?> getEnderecoList() {
-        List<EnderecoModel> listaEnderecos = enderecoService.getEnderecoList();
-        if (listaEnderecos.isEmpty())
-            return new ResponseEntity<String>("Nenhum endereço cadastrado", HttpStatus.NOT_FOUND);
-
-        return new ResponseEntity<List<EnderecoModel>>(listaEnderecos, HttpStatus.OK);
-    }
+    @Autowired
+    private EnderecoService enderecoService;
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getEnderecoById(@PathVariable Long id) {
-        EnderecoModel endereco = enderecoService.getEnderecoById(id);
-        if (endereco == null)
-            return new ResponseEntity<String>("Nenhum endereço cadastrado", HttpStatus.NOT_FOUND);
+        try {
+            EnderecoModel endereco = enderecoService.getEnderecoById(id);
+            if (endereco == null)
+                return new ResponseEntity<String>("Nenhum endereço cadastrado", HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<EnderecoModel>(endereco, HttpStatus.OK);
+            return new ResponseEntity<EnderecoModel>(endereco, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/{idCliente}")
     public ResponseEntity<?> postEndereco(@PathVariable Long idCliente, @RequestBody EnderecoModel endereco) {
-        EnderecoModel novoEndereco = enderecoService.postEndereco(idCliente, endereco);
-        if (novoEndereco == null)
-            return new ResponseEntity<String>("Falha ao criar endereco", HttpStatus.BAD_REQUEST);
+        try {
+            EnderecoModel novoEndereco = enderecoService.postEndereco(idCliente, endereco);
 
-        return new ResponseEntity<EnderecoModel>(novoEndereco, HttpStatus.CREATED);
+            return new ResponseEntity<EnderecoModel>(novoEndereco, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updatePadraoEndereco(@PathVariable Long id) {
-        EnderecoModel novoEndereco = enderecoService.updatePadraoEndereco(id);
 
-        if (novoEndereco == null)
-            return new ResponseEntity<String>("Falha ao atualizar endereço",
-                    HttpStatus.BAD_REQUEST);
+        try {
+            EnderecoModel novoEndereco = enderecoService.updatePadraoEndereco(id);
 
-        return new ResponseEntity<EnderecoModel>(novoEndereco, HttpStatus.CREATED);
+            return new ResponseEntity<EnderecoModel>(novoEndereco, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> statusEndereco(@PathVariable Long id) {
-        return new ResponseEntity<EnderecoModel>(enderecoService.statusEndereco(id), HttpStatus.OK);
+        try {
+            return new ResponseEntity<EnderecoModel>(enderecoService.statusEndereco(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

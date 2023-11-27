@@ -1,9 +1,8 @@
 package com.playpieceAPI.controllers;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,11 +23,8 @@ import com.playpieceAPI.services.ImagemService;
 @RequestMapping(value = "/imagem")
 public class ImagemController {
 
-    final ImagemService imagemService;
-
-    public ImagemController(ImagemService imagemService) {
-        this.imagemService = imagemService;
-    }
+    @Autowired
+    private ImagemService imagemService;
 
     @PostMapping(value = "/{id}", params = { "tipo", "fav" })
     public ResponseEntity<?> uploadImagem(@RequestPart("imageFiles") List<MultipartFile> imageFiles,
@@ -38,9 +34,8 @@ public class ImagemController {
         try {
             imagemService.saveImage(imageFiles, tipo, id, fav);
             return new ResponseEntity<String>("OK", HttpStatus.CREATED);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<String>("ERRO", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -50,9 +45,8 @@ public class ImagemController {
         try {
             imagemService.saveImage(imageFile, tipo, id, fav);
             return new ResponseEntity<String>("OK", HttpStatus.CREATED);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<String>("ERRO", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

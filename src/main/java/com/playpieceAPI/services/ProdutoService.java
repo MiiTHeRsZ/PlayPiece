@@ -3,6 +3,7 @@ package com.playpieceAPI.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,19 +16,22 @@ import com.playpieceAPI.repositories.ProdutoRepository;
 @Service
 public class ProdutoService {
 
-    final ProdutoRepository produtoRepository;
-    final ImagemService imagemService;
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
-    public ProdutoService(@Lazy ProdutoRepository produtoRepository, @Lazy ImagemService imagemService) {
-        this.produtoRepository = produtoRepository;
-        this.imagemService = imagemService;
-    }
+    // public ProdutoService(@Lazy ProdutoRepository produtoRepository) {
+    // this.produtoRepository = produtoRepository;
+    // }
 
     public Page<ProdutoModel> getProdutoList(Pageable pageable) {
 
-        Page<ProdutoModel> produtos = produtoRepository.findAllByOrderByProdutoIdDescAndImagemPadrao(pageable);
+        try {
+            Page<ProdutoModel> produtos = produtoRepository.findAllByOrderByProdutoIdDescAndImagemPadrao(pageable);
 
-        return produtos;
+            return produtos;
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public List<ProdutoModel> getProdutoListImagem() {

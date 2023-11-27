@@ -19,7 +19,7 @@ import com.playpieceAPI.services.carrinho.CarrinhoService;
 @RequestMapping(value = "/carrinho")
 public class CarrinhoController {
 
-    final CarrinhoService carrinhoService;
+    private final CarrinhoService carrinhoService;
 
     public CarrinhoController(CarrinhoService carrinhoService) {
         this.carrinhoService = carrinhoService;

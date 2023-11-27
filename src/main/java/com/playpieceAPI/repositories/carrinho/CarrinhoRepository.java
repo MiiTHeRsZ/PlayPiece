@@ -14,7 +14,6 @@ public interface CarrinhoRepository extends JpaRepository<CarrinhoModel, Long> {
     @Query(value = "SELECT c FROM carrinho c WHERE c.cliente.id = ?1", nativeQuery = false)
     public CarrinhoModel findByClienteIdAndAtivo(Long idCliente);
 
-    // ! Para excluir por ID do Carrinho
     @Modifying
     @Transactional
     @Query("DELETE FROM item_carrinho i WHERE i.carrinho.id = ?1")

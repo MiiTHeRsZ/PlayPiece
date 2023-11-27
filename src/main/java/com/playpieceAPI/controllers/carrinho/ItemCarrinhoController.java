@@ -1,5 +1,6 @@
 package com.playpieceAPI.controllers.carrinho;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,21 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.playpieceAPI.models.carrinho.ItemCarrinhoModel;
-import com.playpieceAPI.repositories.carrinho.ItemCarrinhoRepository;
 import com.playpieceAPI.services.carrinho.ItemCarrinhoService;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping(value = "itemcarrinho")
 public class ItemCarrinhoController {
-    final ItemCarrinhoRepository itemCarrinhoRepository;
-    final ItemCarrinhoService itemCarrinhoService;
 
-    public ItemCarrinhoController(ItemCarrinhoRepository itemCarrinhoRepository,
-            ItemCarrinhoService itemCarrinhoService) {
-        this.itemCarrinhoRepository = itemCarrinhoRepository;
-        this.itemCarrinhoService = itemCarrinhoService;
-    }
+    @Autowired
+    private ItemCarrinhoService itemCarrinhoService;
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getItemCarrinhoById(@PathVariable Long id) {
@@ -45,7 +40,7 @@ public class ItemCarrinhoController {
 
     @PostMapping(value = "/create", params = { "codProduto", "quantidade", "idCliente" })
     public ResponseEntity<?> criarItemCarrinho(@RequestParam Long codProduto,
-            @RequestParam int quantidade,@RequestParam Long idCliente) {
+            @RequestParam int quantidade, @RequestParam Long idCliente) {
         try {
             var novoItem = itemCarrinhoService.criarItemCarrinho(codProduto, quantidade, idCliente);
             return new ResponseEntity<ItemCarrinhoModel>(novoItem, HttpStatus.CREATED);

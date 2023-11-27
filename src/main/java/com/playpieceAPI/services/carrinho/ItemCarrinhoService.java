@@ -1,42 +1,36 @@
 package com.playpieceAPI.services.carrinho;
 
-import org.springframework.context.annotation.Lazy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.playpieceAPI.models.carrinho.CarrinhoModel;
 import com.playpieceAPI.models.carrinho.ItemCarrinhoModel;
-import com.playpieceAPI.repositories.ClienteRespository;
 import com.playpieceAPI.repositories.carrinho.ItemCarrinhoRepository;
 import com.playpieceAPI.services.ProdutoService;
 
 @Service
 public class ItemCarrinhoService {
 
-    final CarrinhoService carrinhoService;
-    final ItemCarrinhoRepository itemCarrinhoRepository;
-    final ProdutoService produtoService;
-
-    public ItemCarrinhoService(CarrinhoService carrinhoService, ItemCarrinhoRepository itemCarrinhoRepository,
-            @Lazy ProdutoService produtoService) {
-        this.carrinhoService = carrinhoService;
-        this.itemCarrinhoRepository = itemCarrinhoRepository;
-        this.produtoService = produtoService;
-    }
+    @Autowired
+    private CarrinhoService carrinhoService;
+    @Autowired
+    private ItemCarrinhoRepository itemCarrinhoRepository;
+    @Autowired
+    private ProdutoService produtoService;
 
     public ItemCarrinhoModel getItemCarrinhoById(Long id) {
-        ItemCarrinhoModel item = new ItemCarrinhoModel();
         try {
+            ItemCarrinhoModel item = new ItemCarrinhoModel();
             item = itemCarrinhoRepository.findByItemId(id);
+            return item;
         } catch (Exception e) {
-            System.out.println(e);
+            throw e;
         }
-        return item;
     }
 
     public ItemCarrinhoModel criarItemCarrinho(Long codProduto, int quantidade, Long cliente) {
-        ItemCarrinhoModel novoItem = new ItemCarrinhoModel();
 
         try {
+            ItemCarrinhoModel novoItem = new ItemCarrinhoModel();
             novoItem.setItemCarrinhoId(null);
             var produto = produtoService.getProdutoById(codProduto);
             novoItem.setProduto(produto);
@@ -49,9 +43,9 @@ public class ItemCarrinhoService {
             var carrinho = carrinhoService.getCarrinhoAtivoByClienteId(cliente);
             novoItem.setCarrinho(carrinho);
             return itemCarrinhoRepository.save(novoItem);
+
         } catch (Exception e) {
-            System.out.println(e);
-            return null;
+            throw e;
         }
     }
 
@@ -59,7 +53,7 @@ public class ItemCarrinhoService {
         try {
             return itemCarrinhoRepository.save(novoItem);
         } catch (Exception e) {
-            return null;
+            throw e;
         }
     }
 
@@ -89,29 +83,18 @@ public class ItemCarrinhoService {
     // }
 
     public void atualizarQuantidadeItemCarrinho(Long idCarrinho, Long itemId, int quantidade) {
-        ItemCarrinhoModel itemCarrinho = itemCarrinhoRepository.findById(itemId)
-                .orElseThrow(() -> new RuntimeException("Item do carrinho não encontrado"));
+        try {
+            ItemCarrinhoModel itemCarrinho = itemCarrinhoRepository.findById(itemId)
+                    .orElseThrow(() -> new RuntimeException("Item do carrinho não encontrado"));
 
-        if (quantidade <= 0) {
-            itemCarrinhoRepository.delete(itemCarrinho);
-        } else {
-            itemCarrinho.setQuantidade(quantidade);
-            itemCarrinhoRepository.save(itemCarrinho);
+            if (quantidade <= 0) {
+                itemCarrinhoRepository.delete(itemCarrinho);
+            } else {
+                itemCarrinho.setQuantidade(quantidade);
+                itemCarrinhoRepository.save(itemCarrinho);
+            }
+        } catch (Exception e) {
+            throw e;
         }
     }
-
-    // ! Dá uma olhada no CarrinhoService, eu mudei lá
-    /*
-     * public void excluirItemCarrinho(Long itemCarrinhoId) {
-     * try {
-     * var itemCarrinho = itemCarrinhoRepository.findById(itemCarrinhoId).get();
-     * System.out.println("sem delete");
-     * 
-     * itemCarrinhoRepository.deleteById(itemCarrinho.getItemCarrinhoId());
-     * System.out.println("com delete");
-     * } catch (Exception e) {
-     * System.out.println(e);
-     * }
-     * }
-     */
 }

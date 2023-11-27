@@ -7,6 +7,7 @@ import com.playpieceAPI.models.LoginDto;
 import com.playpieceAPI.models.UsuarioModel;
 import com.playpieceAPI.services.UsuarioService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RequestMapping(value = "/usuario")
 public class UsuarioController {
-    final UsuarioService usuarioService;
 
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
-    }
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping
     public ResponseEntity<?> getUsuarioList() {

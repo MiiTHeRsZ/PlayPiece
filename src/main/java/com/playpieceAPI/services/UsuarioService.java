@@ -3,6 +3,7 @@ package com.playpieceAPI.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +15,12 @@ import com.playpieceAPI.repositories.UsuarioRepository;
 @Service
 public class UsuarioService {
 
-    final UsuarioRepository usuarioRepository;
-    final CargoRepository cargoRepository;
-    final BCryptPasswordEncoder encoder;
-
-    public UsuarioService(UsuarioRepository usuarioRepository, CargoRepository cargoRepository,
-            BCryptPasswordEncoder encoder) {
-        this.usuarioRepository = usuarioRepository;
-        this.cargoRepository = cargoRepository;
-        this.encoder = encoder;
-    }
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+    @Autowired
+    private CargoRepository cargoRepository;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     public List<UsuarioModel> getUsuarioList() {
         List<UsuarioModel> listaUsuario = new ArrayList<>();
@@ -132,7 +129,6 @@ public class UsuarioService {
             }
             return null;
         } catch (Exception e) {
-            System.out.println(e);
             throw e;
         }
     }

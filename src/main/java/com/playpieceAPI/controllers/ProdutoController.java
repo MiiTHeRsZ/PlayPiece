@@ -5,7 +5,10 @@ import com.playpieceAPI.services.ProdutoService;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,46 +29,67 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class ProdutoController {
 
-    final ProdutoService produtoService;
-    final ImagemController imagemController;
+    @Autowired
+    private ProdutoService produtoService;
 
-    public ProdutoController(ProdutoService produtoService, ImagemController imagemController) {
-        this.produtoService = produtoService;
-        this.imagemController = imagemController;
-    }
+    // public ProdutoController(ProdutoService produtoService) {
+    // this.produtoService = produtoService;
+    // }
 
     @GetMapping
-    public ResponseEntity<List<ProdutoModel>> getProdutoList(@PageableDefault(value = 10) Pageable pageable) {
-        return new ResponseEntity<List<ProdutoModel>>(produtoService.getProdutoList(pageable).getContent(),
-                HttpStatus.OK);
+    public ResponseEntity<?> getProdutoList(
+            @PageableDefault(size = 10) Pageable pageable) {
+        try {
+            Pageable page = PageRequest.of(pageable.getPageNumber(), 10, Sort.unsorted());
+            return new ResponseEntity<List<ProdutoModel>>(produtoService.getProdutoList(page).getContent(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProdutoModel> getProdutoById(@PathVariable Long id) {
+    public ResponseEntity<?> getProdutoById(@PathVariable Long id) {
         return new ResponseEntity<ProdutoModel>(produtoService.getProdutoById(id), HttpStatus.OK);
     }
 
     @GetMapping(value = "search", params = { "nome" })
-    public ResponseEntity<List<ProdutoModel>> getProdutoByNome(@RequestParam String nome,
-            @PageableDefault(value = 10) Pageable pageable) {
-        return new ResponseEntity<List<ProdutoModel>>(produtoService.getProdutoByNome(nome, pageable).getContent(),
-                HttpStatus.OK);
+    public ResponseEntity<?> getProdutoByNome(@RequestParam String nome,
+            @PageableDefault(size = 10) Pageable pageable) {
+        try {
+            Pageable page = PageRequest.of(pageable.getPageNumber(), 10, Sort.unsorted());
+            return new ResponseEntity<List<ProdutoModel>>(produtoService.getProdutoByNome(nome, page).getContent(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping
-    public ResponseEntity<ProdutoModel> postProduto(@RequestBody ProdutoModel produto) {
-        return new ResponseEntity<ProdutoModel>(produtoService.postProduto(produto), HttpStatus.CREATED);
+    public ResponseEntity<?> postProduto(@RequestBody ProdutoModel produto) {
+        try {
+            return new ResponseEntity<ProdutoModel>(produtoService.postProduto(produto), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProdutoModel> updateProduto(
-            @PathVariable Long id, @RequestBody ProdutoModel produto) {
-        return new ResponseEntity<ProdutoModel>(produtoService.updateProduto(id, produto), HttpStatus.OK);
+    public ResponseEntity<?> updateProduto(@PathVariable Long id, @RequestBody ProdutoModel produto) {
+        try {
+            return new ResponseEntity<ProdutoModel>(produtoService.updateProduto(id, produto), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ProdutoModel> deleteProduto(@PathVariable Long id) {
-        return new ResponseEntity<ProdutoModel>(produtoService.statusProduto(id), HttpStatus.OK);
+    public ResponseEntity<?> deleteProduto(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<ProdutoModel>(produtoService.statusProduto(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

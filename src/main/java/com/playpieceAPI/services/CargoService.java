@@ -2,6 +2,7 @@ package com.playpieceAPI.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.playpieceAPI.models.CargoModel;
@@ -10,13 +11,14 @@ import com.playpieceAPI.repositories.CargoRepository;
 @Service
 public class CargoService {
 
-    final CargoRepository cargoRepository;
-
-    public CargoService(CargoRepository cargoRepository) {
-        this.cargoRepository = cargoRepository;
-    }
+    @Autowired
+    private CargoRepository cargoRepository;
 
     public List<CargoModel> getAllCargos() {
-        return cargoRepository.findAll();
+        try {
+            return cargoRepository.findAll();
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }
