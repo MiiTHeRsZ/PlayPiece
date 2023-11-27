@@ -235,7 +235,7 @@ function criarEstrelas(produto) {
 
 getProduct()
 
-function adicionarAoCarrinho(idProduto) {
+async function adicionarAoCarrinho(idProduto) {
     let carrinho = sessionStorage.getItem('carrinho');
 
     if (carrinho != "" && carrinho != null && carrinho != undefined) {
@@ -244,16 +244,22 @@ function adicionarAoCarrinho(idProduto) {
         let cont = 0;
 
         if (carrinho.length > 3) {
-            carrinho.split(",").forEach(item => {
+            for (const item of carrinho.split(",")) {
                 prod = item.split("-");
                 if (Number(prod[0]) != idProduto) {
                     carrinhoFinal += `${item},`;
                 } else {
-                    carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
+                    var result = await alterQuantidadeItem(prod[0], (Number(prod[1]) + 1))
+                    if (result === true) {
+                        carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
+                    } else {
+                        carrinhoFinal += `${item},`;
+                        alert("Quantidade indisponível em estoque");
+                    }
                     check = true;
                 }
                 cont++;
-            });
+            };
         } else {
             prod = carrinho.split("-");
             if (Number(prod[0]) != idProduto) {
@@ -278,4 +284,15 @@ function adicionarAoCarrinho(idProduto) {
         document.getElementById("notificacaoCarrinho").innerHTML = 1;
     }
     document.getElementById("notificacaoCarrinho").style.display = "inline";
+}
+
+async function alterQuantidadeItem(idProd, novaQuant) {
+    let prod;
+    const result = await fetch(`/produto/${idProd}`).then(data => data.json())
+
+    if (novaQuant > result.quantidade) {
+        return false;
+    } else {
+        return true;
+    }
 }

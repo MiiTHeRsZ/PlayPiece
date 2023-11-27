@@ -65,13 +65,13 @@ public class CarrinhoController {
 
     }
 
-    @PostMapping(value = "/update", params = { "codCarrinho", "codItem", "quantidade" })
-    public ResponseEntity<?> atualizarQuantidadeItemCarrinho(@RequestParam Long codCarrinho,
+    @PostMapping(value = "/update", params = { "codCliente", "codItem", "quantidade" })
+    public ResponseEntity<?> atualizarQuantidadeItemCarrinho(@RequestParam Long codCliente,
             @RequestParam Long codItem,
             @RequestParam int quantidade) {
 
         try {
-            var carrinho = carrinhoService.atualizarQuantidadeItemCarrinho(codCarrinho, codItem,
+            var carrinho = carrinhoService.atualizarQuantidadeItemCarrinho(codCliente, codItem,
                     quantidade);
 
             if (carrinho == null) {

@@ -46,15 +46,31 @@ function desconectar() {
 
 async function criaCarrinho() {
     const carrinho = sessionStorage.getItem("carrinho");
+    let finalCart = [];
     limparCarrinho();
     if (carrinho != "" && carrinho != null && carrinho != undefined) {
         let preco = 0;
+        carrinhoSplit = carrinho.split(",")
+        carrinhoSplit.forEach(item => {
+            let itemSplit = item.split("-")
+            let prod = {
+                "id": itemSplit[0],
+                "quantidade": itemSplit[1]
+            }
+
+            finalCart.push(prod)
+        })
+
+        finalCart.sort(function (a, b) {
+            return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+        })
+
+        console.table(finalCart)
 
         if (carrinho.length > 3) {
             let quantidadeItens = 0;
-            carrinho.split(",").forEach(async info => {
-                let prod = info.split("-");
-                const produto = await fetch(`/produto/${prod[0]}`).then(data => data.json());
+            for (info of finalCart) {
+                const produto = await fetch(`/produto/${info.id}`).then(data => data.json());
 
                 const tabela = document.getElementById("produtosTabela");
 
@@ -93,9 +109,9 @@ async function criaCarrinho() {
                 item.textContent = ++quantidadeItens;
                 img.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
                 nomeProduto.textContent = `${produto.nome}`;
-                quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.produtoId})">-</button><p class="qntdProduto">${prod[1]}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.produtoId})">+</button>`;
+                quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.produtoId})">-</button><p class="qntdProduto">${info.quantidade}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.produtoId})">+</button>`;
                 precoUnitario.textContent = `${parseFloat(produto.preco).toFixed(2).replace(".", ",")}`;
-                precoTotal.textContent = `${parseFloat(produto.preco * Number(prod[1])).toFixed(2).replace(".", ",")}`;
+                precoTotal.textContent = `${parseFloat(produto.preco * Number(info.quantidade)).toFixed(2).replace(".", ",")}`;
                 removerCarrinho.innerHTML = `<button onclick="removerItem(${produto.produtoId})">Remover</button>`;
 
                 tr.appendChild(id);
@@ -108,11 +124,11 @@ async function criaCarrinho() {
                 tr.appendChild(removerCarrinho);
 
                 subtotal();
-            });
+            }
         } else {
             let quantidadeItens = 0;
             prod = carrinho.split("-");
-            const produto = await fetch(`/produto/${prod[0]}`).then(data => data.json());
+            const produto = await fetch(`/produto/${info.id}`).then(data => data.json());
 
             const tabela = document.getElementById("produtosTabela");
 
@@ -151,9 +167,9 @@ async function criaCarrinho() {
             item.textContent = ++quantidadeItens;
             img.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
             nomeProduto.textContent = `${produto.nome}`;
-            quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.produtoId})">-</button><p class="qntdProduto">${prod[1]}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.produtoId})">+</button>`;
+            quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.produtoId})">-</button><p class="qntdProduto">${info.quantidade}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.produtoId})">+</button>`;
             precoUnitario.textContent = `${parseFloat(produto.preco).toFixed(2).replace(".", ",")}`;
-            precoTotal.textContent = `${parseFloat(produto.preco * Number(prod[1])).toFixed(2).replace(".", ",")}`;
+            precoTotal.textContent = `${parseFloat(produto.preco * Number(info.quantidade)).toFixed(2).replace(".", ",")}`;
             removerCarrinho.innerHTML = `<button onclick="removerItem(${produto.produtoId})">Remover</button>`;
 
             tr.appendChild(id);
@@ -214,7 +230,7 @@ function limparCarrinho() {
     })
 }
 
-function subtrairProduto(idProduto) {
+async function subtrairProduto(idProduto) {
     let carrinho = sessionStorage.getItem("carrinho");
     let carrinhoFinal = "";
 
@@ -227,8 +243,18 @@ function subtrairProduto(idProduto) {
                 if (Number(prod[1]) > 1) {
                     carrinhoFinal += `${prod[0]}-${(Number(prod[1]) - 1)},`;
                 } else {
-                    carrinhoFinal += `${item},`;
-                    alert("Não pode diminuir mais a quantidade desse produto\nClique em remover do carrinho, se for o caso!")
+                    let carrinhoFinal = "";
+
+                    carrinho.split(",").forEach(item => {
+                        prod = item.split("-");
+
+                        if (Number(prod[0]) != idProduto) {
+                            carrinhoFinal += `${item},`;
+                        }
+
+                        carrinhoFinal = carrinhoFinal.slice(0, -1);
+                        sessionStorage.setItem('carrinho', carrinhoFinal);
+                    });
                 }
             }
         });
@@ -241,19 +267,25 @@ function subtrairProduto(idProduto) {
     criaCarrinho();
 }
 
-function adicionarProduto(idProduto) {
+async function adicionarProduto(idProduto) {
     let carrinho = sessionStorage.getItem("carrinho");
     let carrinhoFinal = "";
 
     if (carrinho != null && carrinho != "" && carrinho != undefined) {
-        carrinho.split(",").forEach(item => {
+        for (const item of carrinho.split(",")) {
             prod = item.split("-");
             if (Number(prod[0]) != idProduto) {
                 carrinhoFinal += `${item},`;
             } else {
-                carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
+                var result = await alterQuantidadeItem(prod[0], (Number(prod[1]) + 1))
+                if (result === true) {
+                    carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
+                } else {
+                    carrinhoFinal += `${item},`;
+                    alert("Quantidade indisponível em estoque");
+                }
             }
-        });
+        }
     }
 
     carrinhoFinal = carrinhoFinal.slice(0, -1);
@@ -261,6 +293,17 @@ function adicionarProduto(idProduto) {
     sessionStorage.setItem('carrinho', carrinhoFinal);
 
     criaCarrinho();
+}
+
+async function alterQuantidadeItem(idProd, novaQuant) {
+    let prod;
+    const result = await fetch(`/produto/${idProd}`).then(data => data.json())
+
+    if (novaQuant > result.quantidade) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 function removerItem(idProduto) {
