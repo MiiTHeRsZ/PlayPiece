@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PlayPieceAPI/PlayPiece.iml" filepath="$PROJECT_DIR$/PlayPieceAPI/PlayPiece.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../PlayPiece.iml" filepath="$PROJECT_DIR$/../PlayPiece.iml" />
     </modules>
   </component>
 </project>
