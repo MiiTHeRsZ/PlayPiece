@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/reset.css" />
+    <link rel="stylesheet" href="../styles/cadastroProduto.css">
+    <title>Cadastrar Produto</title>
+</head>
+
+<body>
+    <section id="containerCadastro">
+        <form action="#" id="form">
+
+            <div class="nomeAvaliacao space">
+                <div>
+                    <label for="#nome">Nome:</label>
+                    <input type="text" name="nome" id="nome" class="form__container" required>
+                </div>
+                <div>
+                    <label for="#avaliacao">Avaliação:</label>
+                    <input type="number" name="avaliacao" id="avaliacao" class="form__container" step=".5" min="0"
+                        max="5" value="0" required>
+                </div>
+            </div>
+
+            <div class="infoFlex space">
+                <div>
+                    <label for="#preco" class="tamMarg">Preço:</label>
+                    <input type="number" name="preco" id="preco" class="form__container" step=".01" min="0" value="0"
+                        required>
+                </div>
+
+                <div>
+                    <label for="#quantidade">Quantidade:</label>
+                    <input type="number" name="quantidade" id="quantidade" class="form__container" min="0" value="1"
+                        required>
+                </div>
+            </div>
+            <div class="desc space">
+                <div>
+                    <label for="#descricao">Descrição:</label>
+                    <textarea id="descricao" name="descricao" required maxlength="3000" rows="5" cols="30"
+                        placeholder="Descrição"></textarea>
+                </div>
+            </div>
+
+            <div id="input_imagens">
+                <p class="drop-text">Arraste e solte as imagens aqui</p>
+                <input type="file" name="imageFile" id="imagens" multiple>
+            </div>
+
+            <span class="alert"></span>
+
+            <div class="btnCenter">
+                <button type="submit" id="btn-salvar" class="button">Salvar</button>
+            </div>
+        </form>
+    </section>
+    <script src="../script/cadastroProduto.js"></script>
+</body>
+
+</html>
