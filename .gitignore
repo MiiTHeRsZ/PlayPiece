@@ -4,6 +4,8 @@
 ### Java 
 # Compiled class file
 *.class
+/target
+/.vscode
 
 # Log file
 *.log
