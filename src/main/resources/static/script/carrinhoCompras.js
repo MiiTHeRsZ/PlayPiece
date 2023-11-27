@@ -65,8 +65,6 @@ async function criaCarrinho() {
             return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
         })
 
-        console.table(finalCart)
-
         if (carrinho.length > 3) {
             let quantidadeItens = 0;
             for (info of finalCart) {
