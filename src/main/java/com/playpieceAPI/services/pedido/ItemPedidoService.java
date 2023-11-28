@@ -31,7 +31,11 @@ public class ItemPedidoService {
             itemPedido.setValorTotal(itemCarrinho.getProduto().getPreco() * itemCarrinho.getQuantidade());
             itemPedido.setPedido(pedido);
 
+            itemCarrinho.getProduto()
+                    .setQuantidade(itemCarrinho.getProduto().getQuantidade() - itemCarrinho.getQuantidade());
+
             ItemPedidoModel itemSalvo = null;
+            produtoRepository.save(itemCarrinho.getProduto());
 
             itemSalvo = itemPedidoRepository.save(itemPedido);
             return itemSalvo;
