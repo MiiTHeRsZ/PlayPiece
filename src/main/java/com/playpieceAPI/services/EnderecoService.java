@@ -57,14 +57,16 @@ public class EnderecoService {
         }
     }
 
-    public EnderecoModel postEndereco(Long idCliente, EnderecoModel novoEndereco) {
+    public EnderecoModel postEndereco(Long idCliente, EnderecoModel novoEndereco, boolean isPadrao) {
         try {
-            ClienteModel cliente = clienteService.getClienteById(idCliente);
 
             novoEndereco.setEnderecoId(null);
             novoEndereco.setAtivo(true);
-            novoEndereco.setCliente(cliente);
-            novoEndereco.setPadrao(false);
+            if (idCliente != 0L) {
+                ClienteModel cliente = clienteService.getClienteById(idCliente);
+                novoEndereco.setCliente(cliente);
+            }
+            novoEndereco.setPadrao(isPadrao);
 
             return enderecoRepository.save(novoEndereco);
         } catch (Exception e) {

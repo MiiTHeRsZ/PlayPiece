@@ -76,7 +76,7 @@ document.getElementById("senha2").onchange = () => {
 }
 // função que verifica se a senha fornceida é valida ou não
 function verificarSenhas(senha1, senha2) {
-    let alert = document.querySelector(".senha")
+    let alert = document.querySelector(".alert")
     if (senha1 !== senha2 || senha2 == null || senha2.length < 8 || senha2.length > 25) {
         if (senha2 == "") {
         }
@@ -144,10 +144,12 @@ botaoSalvar.addEventListener("click", async (e) => {
     e.preventDefault()
 
     let cargo = {
-        "id": document.getElementById("cargo").value
+        "cargoId": document.getElementById("cargo").value,
+        "nome": ""
     }
 
     let usuario = {
+        "usuarioId": 0,
         "nome": document.getElementById("nome").value,
         "cpf": document.getElementById("cpf").value,
         "cargo": cargo,

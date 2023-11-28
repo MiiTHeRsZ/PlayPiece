@@ -213,6 +213,24 @@ const botaoSalvar = document.getElementById("btn-salvar");
 botaoSalvar.addEventListener("click", async (e) => {
     e.preventDefault()
 
+    var listaEndereco = []
+
+    if (!document.getElementById("isEntrega").checked) {
+        listaEndereco = [{
+            "cep": document.getElementById("cep-entrega").value,
+            "logradouro": document.getElementById("logradouro-entrega").value,
+            "numero": document.getElementById("numero-entrega").value,
+            "complemento": document.getElementById("complemento-entrega").value,
+            "bairro": document.getElementById("bairro-entrega").value,
+            "cidade": document.getElementById("cidade-entrega").value,
+            "uf": document.getElementById("uf-entrega").value,
+            "padrao": false,
+            "ativo": true
+        }]
+    }
+
+    console.table(listaEndereco)
+
     let cliente = {
         "cpf": document.getElementById("cpf").value,
         "nome": document.getElementById("nome").value,
@@ -222,7 +240,7 @@ botaoSalvar.addEventListener("click", async (e) => {
         "enderecoFaturamento": {
             "cep": document.getElementById("cep-faturamento").value,
             "logradouro": document.getElementById("logradouro-faturamento").value,
-            "numero": document.getElementById("numero-faturamento").value,
+            "numero": Number(document.getElementById("numero-faturamento").value),
             "complemento": document.getElementById("complemento-faturamento").value,
             "bairro": document.getElementById("bairro-faturamento").value,
             "cidade": document.getElementById("cidade-faturamento").value,
@@ -230,13 +248,15 @@ botaoSalvar.addEventListener("click", async (e) => {
             "padrao": true,
             "ativo": true
         },
+        "listaEndereco": listaEndereco,
         "senha": document.getElementById("senha").value,
         "ativo": true
     }
+    console.table(cliente)
     const result = await fetch("/cliente", {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json;charset=utf-8'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(cliente),
     })
@@ -244,7 +264,7 @@ botaoSalvar.addEventListener("click", async (e) => {
     if (result.status == 201) {
 
         alert("Cliente criado com sucesso!")
-        location.href = "./loginCliente.html"
+        // location.href = "./loginCliente.html"
     } else {
         document.querySelector("body").style = "background-color:#ffcbcb;"
         alert("Falha ao cadastrar cliente\nTente novamente")

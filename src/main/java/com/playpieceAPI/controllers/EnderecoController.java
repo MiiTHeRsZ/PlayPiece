@@ -40,7 +40,7 @@ public class EnderecoController {
     @PostMapping("/{idCliente}")
     public ResponseEntity<?> postEndereco(@PathVariable Long idCliente, @RequestBody EnderecoModel endereco) {
         try {
-            EnderecoModel novoEndereco = enderecoService.postEndereco(idCliente, endereco);
+            EnderecoModel novoEndereco = enderecoService.postEndereco(idCliente, endereco, endereco.isPadrao());
 
             return new ResponseEntity<EnderecoModel>(novoEndereco, HttpStatus.CREATED);
         } catch (Exception e) {

@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.playpieceAPI.models.pedido.PedidoModel;
 import com.validations.interfaces.IValidarNome;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,7 +55,7 @@ public class ClienteModel {
     private String cpf;
 
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z \\s]+$", message = "Nome deve conter apenas letras")
+    @Pattern(regexp = "^[a-zA-Z-À-ú= \\s]+$", message = "Nome deve conter apenas letras")
     @IValidarNome
     private String nome;
 
@@ -74,9 +75,11 @@ public class ClienteModel {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "end_fat", referencedColumnName = "endereco_id")
+    @Nullable
     private EnderecoModel enderecoFaturamento;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @Nullable
     private List<EnderecoModel> listaEndereco;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)

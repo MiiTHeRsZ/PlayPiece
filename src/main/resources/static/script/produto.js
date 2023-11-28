@@ -254,7 +254,7 @@ async function adicionarAoCarrinho(idProduto) {
                         carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
                     } else {
                         carrinhoFinal += `${item},`;
-                        alert("Quantidade indisponível em estoque");
+
                     }
                     check = true;
                 }
@@ -265,7 +265,12 @@ async function adicionarAoCarrinho(idProduto) {
             if (Number(prod[0]) != idProduto) {
                 carrinhoFinal += `${carrinho},`;
             } else {
-                carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
+                var result = await alterQuantidadeItem(prod[0], (Number(prod[1]) + 1))
+                if (result === true) {
+                    carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
+                } else {
+                    carrinhoFinal += `${item},`;
+                }
                 check = true;
             }
             cont++;
@@ -291,6 +296,7 @@ async function alterQuantidadeItem(idProd, novaQuant) {
     const result = await fetch(`/produto/${idProd}`).then(data => data.json())
 
     if (novaQuant > result.quantidade) {
+        alert("Quantidade indisponível em estoque");
         return false;
     } else {
         return true;

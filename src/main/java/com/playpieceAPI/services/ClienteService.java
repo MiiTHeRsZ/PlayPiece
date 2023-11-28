@@ -71,12 +71,22 @@ public class ClienteService {
             cliente.setClienteId(null);
             cliente.setAtivo(true);
             cliente.setSenha(senhaCripto);
-            enderecoService.postEndereco(0L, cliente.getEnderecoFaturamento());
+            if (!cliente.getListaEndereco().isEmpty()) {
+                enderecoService.postEndereco(0L, cliente.getListaEndereco().get(0),
+                        cliente.getListaEndereco().get(0).isPadrao());
+            }
+            enderecoService.postEndereco(0L, cliente.getEnderecoFaturamento(),
+                    cliente.getEnderecoFaturamento().isPadrao());
             cliente = clienteRespository.save(cliente);
+            var endereco = cliente.getEnderecoFaturamento();
+            endereco.setCliente(cliente);
+            enderecoRepository.save(endereco);
 
-            var endFat = enderecoRepository.save(cliente.getEnderecoFaturamento());
-            cliente.setEnderecoFaturamento(enderecoService.getEnderecoById(endFat.getEnderecoId()));
-            cliente.getEnderecoFaturamento().setCliente(cliente);
+            if (!cliente.getListaEndereco().isEmpty()) {
+                cliente.getListaEndereco().get(0).setCliente(cliente);
+                enderecoRepository.save(cliente.getListaEndereco().get(0));
+            }
+            cliente = clienteRespository.save(cliente);
 
             return cliente;
         } catch (Exception e) {

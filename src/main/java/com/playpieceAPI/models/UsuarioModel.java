@@ -22,7 +22,7 @@ public class UsuarioModel {
     private Long usuarioId;
 
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z \\s]+$", message = "Nome deve conter apenas letras")
+    @Pattern(regexp = "^[a-zA-Z-À-ú= \\s]+$", message = "Nome deve conter apenas letras")
     private String nome;
 
     @CPF

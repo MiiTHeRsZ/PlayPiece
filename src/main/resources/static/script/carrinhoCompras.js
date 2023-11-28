@@ -126,7 +126,7 @@ async function criaCarrinho() {
         } else {
             let quantidadeItens = 0;
             prod = carrinho.split("-");
-            const produto = await fetch(`/produto/${info.id}`).then(data => data.json());
+            const produto = await fetch(`/produto/${prod[0]}`).then(data => data.json());
 
             const tabela = document.getElementById("produtosTabela");
 
@@ -165,9 +165,9 @@ async function criaCarrinho() {
             item.textContent = ++quantidadeItens;
             img.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
             nomeProduto.textContent = `${produto.nome}`;
-            quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.produtoId})">-</button><p class="qntdProduto">${info.quantidade}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.produtoId})">+</button>`;
+            quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.produtoId})">-</button><p class="qntdProduto">${prod[1]}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.produtoId})">+</button>`;
             precoUnitario.textContent = `${parseFloat(produto.preco).toFixed(2).replace(".", ",")}`;
-            precoTotal.textContent = `${parseFloat(produto.preco * Number(info.quantidade)).toFixed(2).replace(".", ",")}`;
+            precoTotal.textContent = `${parseFloat(produto.preco * Number(prod[1])).toFixed(2).replace(".", ",")}`;
             removerCarrinho.innerHTML = `<button onclick="removerItem(${produto.produtoId})">Remover</button>`;
 
             tr.appendChild(id);
@@ -280,7 +280,6 @@ async function adicionarProduto(idProduto) {
                     carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
                 } else {
                     carrinhoFinal += `${item},`;
-                    alert("Quantidade indisponível em estoque");
                 }
             }
         }
@@ -298,6 +297,7 @@ async function alterQuantidadeItem(idProd, novaQuant) {
     const result = await fetch(`/produto/${idProd}`).then(data => data.json())
 
     if (novaQuant > result.quantidade) {
+        alert("Quantidade indisponível em estoque");
         return false;
     } else {
         return true;

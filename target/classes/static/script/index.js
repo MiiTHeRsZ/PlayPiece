@@ -66,24 +66,21 @@ async function getProducts() {
     let produtos = await fetch('/produto').then(response => response.json())
 
     produtos.forEach(produto => {
-        if (produto.quantidade != 0) {
+        let imagens = produto.listaImagens;
+        let imagemPrincipal;
 
+        imagens.forEach(image => {
+            if (image.padrao) {
+                imagemPrincipal = image.caminho;
+            }
+        });
 
-            let imagens = produto.listaImagens;
-            let imagemPrincipal;
-
-            imagens.forEach(image => {
-                if (image.padrao) {
-                    imagemPrincipal = image.caminho;
-                }
-            });
-
-            if (produto.ativo) {
-                let link = imagemPrincipal.split("/")
-                let newLink = "./" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8]
-                let card = document.createElement("div")
-                card.className = "card"
-                card.innerHTML = `
+        if (produto.ativo) {
+            let link = imagemPrincipal.split("/")
+            let newLink = "./" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8]
+            let card = document.createElement("div")
+            card.className = "card"
+            card.innerHTML = `
             <a href="./pages/produto.html?id=${produto.produtoId}"><img src="${newLink}" class="card-img-top" alt="..."></a>
                 <hr>
                 <div class="card-body">
@@ -92,8 +89,7 @@ async function getProducts() {
                     <a href="./pages/produto.html?id=${produto.produtoId}" class="btn btn-primary">Detalhes</a>
                 </div>
             `
-                container_cards.appendChild(card)
-            }
+            container_cards.appendChild(card)
         }
     });
 }
