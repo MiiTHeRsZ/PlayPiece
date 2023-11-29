@@ -38,7 +38,9 @@ body {
 }
 
 #containerCadastro {
-  margin: 15vh 29vw;
+  margin: 0 auto;
+  max-width: 50%;
+  min-width: 400px;
   border-radius: 25px;
   padding: 20px;
   background-color: #e0e7e9;
