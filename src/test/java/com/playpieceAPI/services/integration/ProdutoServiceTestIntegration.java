@@ -2,19 +2,11 @@ package com.playpieceAPI.services.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.playpieceAPI.models.CargoModel;
-import com.playpieceAPI.models.ProdutoModel;
-import com.playpieceAPI.models.UsuarioModel;
-import com.playpieceAPI.repositories.ProdutoRepository;
-import com.playpieceAPI.services.ProdutoService;
-import com.playpieceAPI.services.UsuarioService;
+import com.playpieceAPI.models.*;
+import com.playpieceAPI.repositories.*;
 
 class ProdutoServiceTestIntegration {
 

@@ -8,7 +8,6 @@ import com.playpieceAPI.models.UsuarioModel;
 import com.playpieceAPI.services.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
