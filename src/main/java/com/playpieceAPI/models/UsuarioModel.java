@@ -35,7 +35,7 @@ public class UsuarioModel {
     @Enumerated(EnumType.STRING)
     private CargoModel cargo;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @NotBlank
     @Email
     private String emailUsuario;

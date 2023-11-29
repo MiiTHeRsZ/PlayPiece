@@ -6,9 +6,11 @@ body {
     background-color: var(--bg-color);
     transition: all .3s ease-in-out;
     background-image: url(../images/background-image.jpg);
-    background-position: top;
-    background-repeat: space;
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
 }
 
 .form__container {
