@@ -56,7 +56,7 @@ create table cliente(
 drop table if exists endereco;
 create table endereco(
 	endereco_id bigint primary key auto_increment,
-	fk_cliente_id bigint not null,
+	fk_cliente_id bigint,
 	cep varchar(8) not null,
 	logradouro varchar(255) not null,
 	numero int not null,
@@ -142,7 +142,7 @@ Escudo do Dungeon Master
 
 O domínio do sobrenatural não se manifesta em nosso mundo de maneira simples. Uma membrana oculta separa e resguarda a Realidade do Outro Lado, uma dimensão habitada por criaturas monstruosas e demônios. No entanto, essa fronteira pode ser enfraquecida pelo Medo. Aproveitando-se dessa vulnerabilidade, cultistas executam rituais sinistros para romper essa barreira e convocar seres sobrenaturais, desencadeando um caos avassalador. Para frustrar esses nefastos intentos, várias organizações de investigadores operam em escala global. Contra as forças paranormais, esses agentes constituem nossa primeira e última defesa. Neste RPG, você incorporará um agente da Ordo Realitas, uma dessas organizações, levando uma vida dupla enquanto luta tenazmente para prevenir a ascensão do caos. Seja utilizando sua astúcia, um arsenal tecnológico de ponta ou mesmo poderes advindos do Outro Lado, a responsabilidade de proteger nosso mundo recai sobre seus ombros. Este jogo oferece todos os elementos necessários para que o seu grupo vivencie suas próprias missões no cenário criado por Cellbit e lapidado por uma equipe de game designers renomados e veteranos, com mais de uma década de experiência na publicação de jogos de RPG. Agora, o destino do mundo está em suas mãos, pronto para ser moldado por suas decisões e ações.', 239.90,100,true);
 
-insert into imagem(fk_produto_id, caminho, padrao, ativo) values (1, 'PlayPieceAPI/src/main/resources/static/images/Produtos/1/81Yz2C9wsfL.jpg', true, true), (1, 'PlayPieceAPI/src/main/resources/static/images/Produtos/1/02.jpg', false, true), (2, 'PlayPieceAPI/src/main/resources/static/images/Produtos/2/ordem_paranormal_rpg_versao_fisica_25462281_1_a00c3520424507b6535cce8b6569a131.webp', true, true), (2,'PlayPieceAPI/src/main/resources/static/images/Produtos/2/ordem_paranormal_rpg_versao_fisica_25462281_4_ec28873155858efab0833cbe85ed2bf7.webp', false, true);
+insert into imagem(fk_produto_id, caminho, padrao, ativo) values (1, '/src/main/resources/static/images/Produtos/1/0.jpeg', true, true), (1, '/src/main/resources/static/images/Produtos/1/1.jpeg', false, true), (2, '/src/main/resources/static/images/Produtos/2/0.webp', true, true), (2,'/src/main/resources/static/images/Produtos/2/1.webp', false, true);
 
 insert into endereco (fk_cliente_id,cep,logradouro,numero,complemento,bairro,cidade,uf,padrao,ativo) values (1, '04671071','Rua Sócrates','853', 'apt. 193 D', 'Vila Sofia', 'São Paulo', 'SP', true, true ), (1, '04671071','Rua Sócrates','853', 'apt. 44 C', 'Vila Sofia', 'São Paulo', 'SP', false, true), (2, '06331110','Rua São Lucas Evangelista','377', '', 'Jardim Cibele', 'Carapicuíba', 'SP', true, true), (2, '06331110','Rua São Lucas Evangelista','377', '', 'Jardim Cibele', 'Carapicuíba', 'SP', false, true);
 

@@ -1,0 +1,226 @@
+@import url("./var.css");
+@import url("https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css");
+
+body {
+  font-family: "Roboto Mono", monospace;
+  color: var(--txt-color);
+  background-color: var(--bg-color);
+  transition: all 0.3s ease-in-out;
+  background-image: url(../images/background-image.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
+}
+
+#menuBar {
+  width: 100vw;
+  height: 10vh;
+  z-index: 1;
+  padding: 0 20px;
+  border-bottom: 2px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+}
+
+#menuBar .logo {
+  width: 60px;
+}
+
+#menuBar .icon {
+  text-decoration: none;
+  color: #000;
+  font-size: 40px;
+  margin-right: 16px;
+}
+
+#containerCadastro {
+  margin: 0 auto;
+  max-width: 50%;
+  min-width: 400px;
+  border-radius: 25px;
+  padding: 20px;
+  background-color: #e0e7e9;
+  box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
+}
+
+input {
+  margin: 10px;
+  outline: none !important;
+  border-bottom: 1px solid rgb(213, 213, 0);
+}
+
+.space {
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+#input_imagens {
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  align-items: center;
+  text-align: center;
+  border: 2px solid black;
+  background-color: white;
+  position: relative;
+}
+
+
+#input_imagens .drop-text {
+  margin: 0 auto;
+}
+
+.imagens_recebidas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 150px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+  position: relative;
+}
+
+.imagem,
+.imagem-input {
+  position: relative;
+}
+
+.imagem img,
+.imagem-input img {
+  margin: 10px 10px;
+  border-radius: 5px;
+  max-width: 180px;
+  max-height: 100px;
+
+}
+
+.imagem span,
+.imagem-input span {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.589);
+  width: 15px;
+  text-align: center;
+  font-size: 13px;
+  border-radius: 50px;
+}
+
+.imagem-input .fav {
+  right: 30px;
+}
+
+#imagens {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+
+.busque {
+  font-weight: bold;
+}
+
+.form__container {
+  top: 50vh;
+  left: 50vw;
+  border-radius: 5px;
+  background-color: var(--bg-alternative-color);
+  background: transparent;
+  transition: all .5s ease-in-out;
+}
+
+.nomeAvaliacao {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+}
+
+.nomeAvaliacao div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#avaliacao {
+  width: 20%;
+  min-width: 60px;
+  text-align: center;
+}
+
+#nome {
+  width: 100%;
+}
+
+.infoFlex {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.infoFlex div {
+  width: 50%;
+  min-width: 150px;
+  text-align: center;
+}
+
+.infoFlex div input {
+  width: 80%;
+  text-align: center;
+}
+
+.desc div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.desc div textarea {
+  width: 80%;
+}
+
+.btnCenter {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.btnCenter button {
+  position: relative;
+  width: 7rem;
+  height: 3rem;
+  border-radius: 15%;
+  background-color: #f8cc8a;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.btnCenter button:hover {
+  filter: brightness(1.5);
+  transform: scale(1.1);
+}
+
+.btnCenter button:active {
+  filter: brightness(.75);
+  transform: scale(.75);
+}
