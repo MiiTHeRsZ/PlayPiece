@@ -57,9 +57,16 @@ public class EnderecoService {
         }
     }
 
+
+    /***
+     * @return método responsavel por cadatrar um novo endereço. Por padrão, esse endereço, ao ser 
+     * cadastrado terá seu status padrão como ativo. 
+     * O método pesquisa um cliente atraves do seu ID e cadastra ele no novo endeço. 
+     * Ao final, ele salva esse novo endereço para determinado cliente. 
+     * @Observation: Vale ressaltar que ele usa funções vindas das interfaces ClienteRepository e EnderecoRepository. 
+     */ 
     public EnderecoModel postEndereco(Long idCliente, EnderecoModel novoEndereco, boolean isPadrao) {
         try {
-
             novoEndereco.setEnderecoId(null);
             novoEndereco.setAtivo(true);
             if (idCliente != 0L) {
