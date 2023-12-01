@@ -50,7 +50,7 @@ document.getElementById("cpf").onchange = async (e) => {
 }
 document.getElementById("nome").onchange = (e) => {
     if (!verificaNome(e.target.id)) {
-        alert("Preencha o campo 'Nome' com nome e sobrenome\ncontendo ao menos 3 letras cada!.");
+        alert("Preencha o campo 'Nome' com apenas um nome e um sobrenome\ncontendo ao menos 3 letras cada!.");
         verificaInformacao();
     }
 }
@@ -138,8 +138,6 @@ async function verificaInformacao(input) {
     let emailret = await verificaEmail();
     let genero = document.getElementById("genero").value;
     let endereco = verificaEnderecos();
-    let ruaF = document.getElementById("logradouro-faturamento").value
-    let ruaE = document.getElementById("logradouro-entrega").value
     document.getElementById("senha").value
 
     let ret = verificarSenhas(senha, confirmaSenha)
@@ -178,7 +176,7 @@ async function verificaInformacao(input) {
     }
 
     // verifica se as informações senha e cpf foram preechidas corratamente ou não para liberar o botao de salvar
-    if (ret && nomeret && cpfret && emailret && genero != 0 && endereco && ruaE != "" && ruaF != "") {
+    if (ret && nomeret && cpfret && emailret && genero != 0) {
         document.getElementById("btn-salvar").removeAttribute("disabled")
         document.getElementById("btn-salvar").style.cursor = 'pointer'
     } else {
@@ -210,9 +208,9 @@ async function verificaEmail() {
     return true
 }
 
-async function verificaEnderecos() {
-    await buscarDadosCep(document.getElementById("cep-faturamento").value)
-    await buscarDadosCep(document.getElementById("cep-entrega").value)
+function verificaEnderecos() {
+    buscarDadosCep(document.getElementById("cep-faturamento").value)
+    buscarDadosCep(document.getElementById("cep-entrega").value)
 
     let endEntrega = document.getElementById("cep-entrega").value
     let endFatutamento = document.getElementById("cep-faturamento").value
@@ -401,26 +399,6 @@ function validaCPF(cpf) {
     return true
 }
 
-
-// // nova função assincrona getJson
-// async function getJson(url) {
-//     fetch(url)
-//         .then(response => {
-//             const statusCode = response.status;
-//             if (response.ok) {
-//                 return response.json();
-//             } else {
-//                 throw new Error("Erro na requisição. Código de Status: " + statusCode);
-//             }
-//         })
-//         .then(responseData => {
-//         })
-//         .catch(error => {
-//             console.error(error);
-//         });
-// }
-
-// função getJson antiga
 function getJson(url) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
@@ -462,6 +440,9 @@ function verificaNome() {
             nomeValido = true;
         }
     });
+    if(nome.length==3){
+    nomeValido = false;
+    }
     return nomeValido;
 }
 

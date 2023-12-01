@@ -5,25 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53391e5d-4eaa-4abd-8d4a-a0d90afdb6f1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataBase/criacaoDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase/criacaoDB.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlayPiece.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/models/ClienteModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/models/ClienteModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/models/EnderecoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/models/EnderecoModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/models/ProdutoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/models/ProdutoModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/models/pedido/ItemPedidoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/models/pedido/ItemPedidoModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/models/pedido/PedidoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/models/pedido/PedidoModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/services/ClienteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/services/ClienteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/services/ProdutoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/services/ProdutoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/services/pedido/PedidoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/services/pedido/PedidoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/pages/cadastroCliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/pages/cadastroCliente.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/models/carrinho/CarrinhoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/models/carrinho/CarrinhoModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/services/ImagemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/playpieceAPI/services/ImagemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/validations/ValidarNome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/validations/ValidarNome.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/script/cadastroCliente.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/script/cadastroCliente.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/script/carrinhoCompras.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/script/carrinhoCompras.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/script/perfilCliente.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/script/perfilCliente.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/pages/cadastroCliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/pages/cadastroCliente.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/static/script/cadastroCliente.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/script/cadastroCliente.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/script/perfilCliente.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/script/perfilCliente.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +59,12 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\leofu\Desktop\PlayPiece\src\main\resources\static\images\Produtos" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="PlayPieceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">

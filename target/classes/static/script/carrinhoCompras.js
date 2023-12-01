@@ -323,19 +323,21 @@ async function alterQuantidadeItem(idProd, novaQuant) {
 }
 
 function removerItem(idProduto) {
+    debugger;
     let carrinho = sessionStorage.getItem('carrinho');
     let carrinhoFinal = "";
+    let itens = carrinho.split(",")
 
-    carrinho.split(",").forEach(item => {
+    itens.forEach(item => {
         prod = item.split("-");
 
         if (Number(prod[0]) != idProduto) {
             carrinhoFinal += `${item},`;
         }
 
-        carrinhoFinal = carrinhoFinal.slice(0, -1);
-        sessionStorage.setItem('carrinho', carrinhoFinal);
     });
+    carrinhoFinal = carrinhoFinal.slice(0, -1);
+    sessionStorage.setItem('carrinho', carrinhoFinal);
 
     criaCarrinho();
 }

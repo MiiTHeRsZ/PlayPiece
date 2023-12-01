@@ -49,7 +49,7 @@ public class ImagemService {
 
         try {
             ProdutoModel produto = produtoService.getProdutoById(produtoID);
-            String folder = "PlayPiece/src/main/resources/static/images/Produtos/" + produtoID + "/";
+            String folder = "src/main/resources/static/images/Produtos/" + produtoID + "/";
             Path path = Paths.get(folder);
             Boolean existe = Files.exists(path);
             if (existe) {

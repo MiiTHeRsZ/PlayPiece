@@ -110,8 +110,27 @@ hr {
     text-decoration: none;
 }
 
+.card-body a:first-child h5 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: normal;
+}
+
 .card-body a:first-child h5:hover {
     transform: scale(105%);
+}
+
+.card .btn-space {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
 }
 
 #pag-space {

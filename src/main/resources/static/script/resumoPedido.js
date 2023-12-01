@@ -41,10 +41,19 @@ function desconectar() {
     sessionStorage.removeItem("carrinho");
     window.location.reload();
 }
+let dados;
+const conectAPI = async () => {
+    dados = await fetch(`/cliente/${idCliente}`).then(data => data.json());
+    preecheDados();
+}
+
+conectAPI();
 
 const endEntrega = JSON.parse(sessionStorage.getItem("endEntrega"));
 
 const pagamento = sessionStorage.getItem('pagamento');
+
+var totalPago = parseFloat(endEntrega.valorFrete);
 
 async function carregarDados() {
     const dadosPedido = await fetch(`/carrinho/search?cliente=${idCliente}`).then(response => response.json());
@@ -52,7 +61,9 @@ async function carregarDados() {
     const tabela = document.getElementById("produtosTabela");
 
     let quantidadeItens = 0;
-    dadosPedido.itens.forEach(item => {
+    dadosPedido.itens.forEach((item, index) => {
+
+
         let tr = document.createElement("tr");
         tr.setAttribute("class", "itemTabela");
         tabela.appendChild(tr);
@@ -90,8 +101,8 @@ async function carregarDados() {
         imagem.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
         nomeProduto.textContent = `${item.produto.nome}`;
         quantidade.innerHTML = `${item.quantidade}`;
-        precoUnitario.textContent = `${parseFloat(item.produto.preco).toFixed(2).replace(".", ",")}`;
-        precoTotal.textContent = `${parseFloat(item.produto.preco * item.quantidade).toFixed(2).replace(".", ",")}`;
+        precoUnitario.textContent = `R$ ${parseFloat(item.produto.preco).toFixed(2).replace(".", ",")}`;
+        precoTotal.textContent = `R$ ${parseFloat(item.produto.preco * item.quantidade).toFixed(2).replace(".", ",")}`;
 
         tr.appendChild(prod);
         tr.appendChild(imagem)
@@ -99,11 +110,27 @@ async function carregarDados() {
         tr.appendChild(quantidade);
         tr.appendChild(precoUnitario);
         tr.appendChild(precoTotal);
+
+        totalPago += (item.produto.preco * item.quantidade);
+        if (index == 0) {
+            let precoTotalPedido = document.createElement("td");
+            precoTotalPedido.setAttribute("class", "precoTotalPedido");
+            precoTotalPedido.textContent = `R$ ${parseFloat(totalPago).toFixed(2).replace(".", ",")}`;
+            tr.appendChild(precoTotalPedido)
+        }
+
     });
+
+    let ultimaLinha = tabela.rows.length
+    console.log(tabela.rows.length);
+    let pedidoTotal = document.querySelector(".precoTotalPedido")
+    pedidoTotal.setAttribute("rowspan", ultimaLinha)
+    pedidoTotal.textContent = `R$ ${parseFloat(totalPago).toFixed(2).replace(".", ",")}`
+
 
     document.getElementById("frete").value = `R$ ${parseFloat(endEntrega.valorFrete).toFixed(2).replace(".", ",")}`;
 
-    dados.listaEndereco.forEach(endereco => {
+    dados.listaEndereco.map(endereco => {
         let opcao = document.createElement("option");
         opcao.value = endereco.enderecoId;
         if (endereco.enderecoId == endEntrega.idEndEntrega) {
@@ -121,17 +148,9 @@ async function carregarDados() {
 }
 carregarDados()
 
-let dados;
-
-const conectAPI = async () => {
-    dados = await fetch(`/cliente/${idCliente}`).then(data => data.json());
-    preecheDados();
-}
-conectAPI();
-
 const preecheDados = async () => {
 
-    dados.listaEndereco.forEach(endereco => {
+    dados.listaEndereco.map(endereco => {
         let opcao = document.createElement("option");
         opcao.value = endereco.enderecoId;
         if (endereco.enderecoId == endEntrega.idEndEntrega) {

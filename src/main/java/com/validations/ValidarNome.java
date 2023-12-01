@@ -10,9 +10,6 @@ public class ValidarNome implements ConstraintValidator<IValidarNome, String> {
     @Override
     public boolean isValid(String valor, ConstraintValidatorContext context) {
         String[] nomeCompleto = valor.split(" ");
-        for (String string : nomeCompleto) {
-            System.out.println(string);
-        }
 
         if (nomeCompleto.length == 2) {
             String nome = nomeCompleto[0];

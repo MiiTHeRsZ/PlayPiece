@@ -112,8 +112,9 @@ document.getElementById("confirmar-pagamento").addEventListener("click", () => {
         let cvvCart = document.getElementById("cvvCartao").value;
         let nomeCart = document.getElementById("nomeCartao").value.split(" ");
         let vencCart = document.getElementById("validadeCartao").value;
+        console.log(vencCart);
 
-        if (numCart.length != 16 || cvvCart != 3 || cvvCart != 4 || nomeCart.length < 2 || nomeCart[0].length < 3 || nomeCart[1].length < 3 || vencCart == "") {
+        if (numCart.length != 16 || cvvCart.length < 3 || nomeCart.length < 2 || nomeCart[0].length < 3 || nomeCart[1].length < 3 || vencCart == "") {
             alert("Preencha corretamente os campos!");
         } else {
             cartao = true;

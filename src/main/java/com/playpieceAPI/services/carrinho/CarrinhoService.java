@@ -107,12 +107,17 @@ public class CarrinhoService {
 
     public CarrinhoModel limparCarrinho(Long codCliente) {
         var carrinho = getCarrinhoAtivoByClienteId(codCliente);
-        try {
-            carrinhoRepository.delByIdCarrinho(carrinho.getCarrinhoId());
-            carrinho.setItens(new ArrayList<>());
-            return carrinhoRepository.save(carrinho);
-        } catch (Exception e) {
-            throw new RuntimeException("Falha ao limpar carrinho!");
+
+        if (!carrinho.getItens().isEmpty()) {
+            try {
+                carrinhoRepository.delByIdCarrinho(carrinho.getCarrinhoId());
+                carrinho.setItens(new ArrayList<>());
+                return carrinhoRepository.save(carrinho);
+            } catch (Exception e) {
+                throw new RuntimeException("Falha ao limpar carrinho!");
+            }
         }
+
+        return carrinho;
     }
 }

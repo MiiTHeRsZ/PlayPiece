@@ -119,12 +119,15 @@ async function getProducts() {
             let card = document.createElement("div")
             card.className = "card"
             card.innerHTML = `
-            <a href="./pages/produto.html?id=${produto.produtoId}"><img src="${newLink}" class="card-img-top" alt="..."></a>
+                <a href="./pages/produto.html?id=${produto.produtoId}"><img src="${newLink}" class="card-img-top" alt="..."></a>
                 <hr>
                 <div class="card-body">
-                <a href="./pages/produto.html?id=${produto.produtoId}"><h5 class="card-title">${produto.nome}</h5></a>
+                    <a href="./pages/produto.html?id=${produto.produtoId}"><h5 class="card-title">${produto.nome}</h5></a>
                     <p class="card-text">R$ ${parseFloat(produto.preco).toFixed(2).replace(".", ",")}</p>
+                </div>
+                <div class="btn-space">
                     <a href="./pages/produto.html?id=${produto.produtoId}" class="btn btn-primary">Detalhes</a>
+                    <button class="btn btn-primary" onclick="adicionarAoCarrinho(${produto.produtoId})">Adicionar ao carrinho</button>
                 </div>
             `
             container_cards.appendChild(card)
@@ -159,6 +162,74 @@ function nextPage() {
 
 function previousPage() {
     location.href = `?pag=${Number(pagina) - 1}`
+}
+
+async function adicionarAoCarrinho(idProduto) {
+    let carrinho = sessionStorage.getItem('carrinho');
+
+    if (carrinho != "" && carrinho != null && carrinho != undefined) {
+        let carrinhoFinal = "";
+        let check = false;
+        let cont = 0;
+
+        if (carrinho.length > 3) {
+            for (const item of carrinho.split(",")) {
+                prod = item.split("-");
+                if (Number(prod[0]) != idProduto) {
+                    carrinhoFinal += `${item},`;
+                } else {
+                    var result = await alterQuantidadeItem(prod[0], (Number(prod[1]) + 1))
+                    if (result === true) {
+                        carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
+                    } else {
+                        carrinhoFinal += `${item},`;
+
+                    }
+                    check = true;
+                }
+                cont++;
+            };
+        } else {
+            prod = carrinho.split("-");
+            if (Number(prod[0]) != idProduto) {
+                carrinhoFinal += `${carrinho},`;
+            } else {
+                var result = await alterQuantidadeItem(prod[0], (Number(prod[1]) + 1))
+                if (result === true) {
+                    carrinhoFinal += `${prod[0]}-${(Number(prod[1]) + 1)},`;
+                } else {
+                    carrinhoFinal += `${item},`;
+                }
+                check = true;
+            }
+            cont++;
+        }
+        if (!check) {
+            carrinhoFinal += `${idProduto}-1,`;
+            cont++;
+        }
+        carrinhoFinal = carrinhoFinal.slice(0, -1);
+
+        sessionStorage.setItem('carrinho', carrinhoFinal);
+
+        document.getElementById("notificacaoCarrinho").innerHTML = cont;
+    } else {
+        sessionStorage.setItem('carrinho', `${idProduto}-1`);
+        document.getElementById("notificacaoCarrinho").innerHTML = 1;
+    }
+    document.getElementById("notificacaoCarrinho").style.display = "inline";
+}
+
+async function alterQuantidadeItem(idProd, novaQuant) {
+    let prod;
+    const result = await fetch(`/produto/${idProd}`).then(data => data.json())
+
+    if (novaQuant > result.quantidade) {
+        alert("Quantidade indisponível em estoque");
+        return false;
+    } else {
+        return true;
+    }
 }
 
 getProducts();
