@@ -56,7 +56,7 @@ create table cliente(
 drop table if exists endereco;
 create table endereco(
 	endereco_id bigint primary key auto_increment,
-	fk_cliente_id bigint,
+	fk_cliente_id bigint default 0,
 	cep varchar(8) not null,
 	logradouro varchar(255) not null,
 	numero int not null,

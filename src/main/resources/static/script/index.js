@@ -1,3 +1,11 @@
+const urlParams = new URLSearchParams(window.location.search);
+
+pagina = Number(urlParams.get('pag'));
+totalPaginas = sessionStorage.getItem("pageTotalNumber") == undefined ? 1 : Number(sessionStorage.getItem("pageTotalNumber"));
+if (pagina <= 0 || pagina > totalPaginas) {
+    location.href = "index.html?pag=1"
+}
+
 function setCookie(nome, info, exdays) {
     Cookies.set(nome, info, exdays)
 }
@@ -63,21 +71,51 @@ const container_cards = document.getElementById("produtos");
 
 async function getProducts() {
 
-    let produtos = await fetch('/produto').then(response => response.json())
 
-    produtos.forEach(produto => {
+    let produtos = await fetch(`/produto?page=${Number(pagina) - 1}`).then(response => response.json())
+    if (sessionStorage.getItem("pageTotalNumber") == undefined || Number(sessionStorage.getItem("pageTotalNumber")) != produtos.totalPages) {
+        totalPaginas = produtos.totalPages;
+        sessionStorage.setItem("pageTotalNumber", totalPaginas);
+    }
+
+
+    if (totalPaginas == 1) {
+        document.getElementById("btn-proximo").setAttribute("disabled", true)
+        document.getElementById("btn-voltar").setAttribute("disabled", true)
+    } else if (pagina == 1) {
+        document.getElementById("btn-proximo").removeAttribute("disabled")
+        document.getElementById("btn-voltar").setAttribute("disabled", true)
+    } else if (pagina > 1 && pagina < totalPaginas) {
+        document.getElementById("btn-proximo").removeAttribute("disabled")
+        document.getElementById("btn-voltar").removeAttribute("disabled")
+    } else {
+        document.getElementById("btn-proximo").setAttribute("disabled", true)
+        document.getElementById("btn-voltar").removeAttribute("disabled")
+    }
+
+    produtos.content.forEach((produto, index) => {
         let imagens = produto.listaImagens;
         let imagemPrincipal;
+        let link;
+        let newLink;
+        if (imagens != null) {
 
-        imagens.forEach(image => {
-            if (image.padrao) {
-                imagemPrincipal = image.caminho;
+            imagens.forEach(image => {
+                if (image.padrao) {
+                    imagemPrincipal = image.caminho;
+                }
+            });
+            if (imagemPrincipal != null) {
+                link = imagemPrincipal.split("/")
+                newLink = "./" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8]
+            } else {
+                newLink = "./images/semImagem.webp"
             }
-        });
+        } else {
+            newLink = "./images/semImagem.webp"
+        }
 
         if (produto.ativo) {
-            let link = imagemPrincipal.split("/")
-            let newLink = "./" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8]
             let card = document.createElement("div")
             card.className = "card"
             card.innerHTML = `
@@ -92,6 +130,35 @@ async function getProducts() {
             container_cards.appendChild(card)
         }
     });
+
+    for (let index = 0; index < Number(totalPaginas); index++) {
+
+        let divSquare = document.createElement("div")
+        divSquare.setAttribute("id", "square")
+
+        let pageSpace = document.createElement("a")
+        pageSpace.setAttribute("href", "index.html?pag=" + (Number(index) + 1))
+        pageSpace.setAttribute("id", "pg-num")
+        pageSpace.textContent = Number(index) + 1
+
+        if (Number(index) + 1 == pagina) {
+            divSquare.setAttribute("class", "pgAtual")
+            pageSpace.setAttribute("class", "pgAtual")
+        }
+
+        divSquare.appendChild(pageSpace)
+
+        document.getElementById("btn-proximo").insertAdjacentHTML("beforebegin", divSquare.outerHTML)
+    }
+
+}
+
+function nextPage() {
+    location.href = `?pag=${Number(pagina) + 1}`
+}
+
+function previousPage() {
+    location.href = `?pag=${Number(pagina) - 1}`
 }
 
 getProducts();

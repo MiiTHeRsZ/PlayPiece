@@ -171,16 +171,31 @@ async function getProduct() {
 }
 
 async function gerarCarousel(imagens) {
-    imagens.forEach(imagem => {
-        let link = imagem.caminho.split("/");
-        let newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8];
-        let img = document.createElement("div")
+
+    let img;
+    if (imagens.length != 0) {
+
+        imagens.forEach(imagem => {
+            let link = imagem.caminho.split("/");
+            let newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8];
+            img = document.createElement("div")
+            img.className = "carousel-item"
+            img.innerHTML = `
+            <img src="${newLink}" class="d-block w-100" alt="...">
+            `
+            document.getElementsByClassName("carousel-inner")[0].appendChild(img)
+        });
+
+
+    } else {
+        img = document.createElement("div")
         img.className = "carousel-item"
         img.innerHTML = `
-        <img src="${newLink}" class="d-block w-100" alt="...">
+        <img src="../images/semImagem.webp" class="d-block w-100" alt="...">
         `
         document.getElementsByClassName("carousel-inner")[0].appendChild(img)
-    });
+    }
+
     document.getElementsByClassName("carousel-inner")[0].getElementsByClassName("carousel-item")[0].setAttribute("class", "carousel-item active");
 }
 

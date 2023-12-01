@@ -71,13 +71,20 @@ async function carregarDados() {
         precoTotal.setAttribute("class", "precoTotalProduto");
 
         let newLink;
-        item.produto.listaImagens.forEach(imagem => {
-            if (imagem.padrao) {
-                let caminho = imagem.caminho;
-                let link = caminho.split("/");
-                newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8];
-            }
-        });
+        if (item.produto.listaImagens.length != 0) {
+            item.produto.listaImagens.forEach(imagem => {
+                if (imagem.padrao) {
+                    let caminho = imagem.caminho;
+                    let link = caminho.split("/");
+                    newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8];
+                }
+                if (imagem == null) {
+                    newLink = "../images/semImagem.webp"
+                }
+            });
+        } else {
+            newLink = "../images/semImagem.webp"
+        }
 
         prod.textContent = ++quantidadeItens;
         imagem.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;

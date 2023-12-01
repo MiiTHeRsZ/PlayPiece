@@ -94,13 +94,21 @@ async function criaCarrinho() {
                 removerCarrinho.setAttribute("class", "removerProduto")
 
                 let newLink;
-                produto.listaImagens.forEach(imagem => {
-                    if (imagem.padrao) {
-                        let caminho = imagem.caminho;
-                        let link = caminho.split("/");
-                        newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8];
-                    }
-                })
+                let listaImagensProduto = produto.listaImagens
+                if (listaImagensProduto.length != 0) {
+                    listaImagensProduto.forEach(imagem => {
+                        if (imagem.padrao) {
+                            let caminho = imagem.caminho;
+                            let link = caminho.split("/");
+                            newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8];
+                        }
+                        if (imagem == null) {
+                            newLink = "../images/semImagem.webp"
+                        }
+                    })
+                } else {
+                    newLink = "../images/semImagem.webp"
+                }
 
                 id.style.display = "none";
                 id.textContent = `${produto.produtoId}`;
@@ -152,13 +160,23 @@ async function criaCarrinho() {
             removerCarrinho.setAttribute("class", "removerProduto")
 
             let newLink;
-            produto.listaImagens.forEach(imagem => {
-                if (imagem.padrao) {
-                    let caminho = imagem.caminho;
-                    let link = caminho.split("/");
-                    newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8];
-                }
-            })
+            let listaImagensProduto = produto.listaImagens
+            console.log(listaImagensProduto.length);
+            if (listaImagensProduto.length != 0) {
+                listaImagensProduto.forEach(imagem => {
+                    if (imagem.padrao) {
+                        let caminho = imagem.caminho;
+                        let link = caminho.split("/");
+                        newLink = "../" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8];
+                    }
+
+                    if (imagem == null) {
+                        newLink = "../images/semImagem.webp"
+                    }
+                })
+            } else {
+                newLink = "../images/semImagem.webp"
+            }
 
             id.style.display = "none";
             id.textContent = `${produto.produtoId}`;

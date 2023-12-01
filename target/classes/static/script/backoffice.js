@@ -7,7 +7,6 @@ function setCookie(nome, info, exdays) {
 
 group = getCookie("cargo")
 jobSessao = getCookie("jobSession")
-
 checkSessao()
 
 String.prototype.hashCode = function () {
@@ -112,6 +111,7 @@ document.getElementById("mostrarTbProdutos").addEventListener("click", () => {
     const tabelaUsuario = document.getElementById("secaoTabelaUsuario");
     const tabelaPedido = document.getElementById("secaoTabelaPedido");
 
+
     if (tabelaUsuario.style.display == "block" || tabelaPedido.style.display == "block") {
         tabelaUsuario.style.display = "none";
         tabelaPedido.style.display = "none";
@@ -136,16 +136,16 @@ async function createTbProducts() {
     const tabela = document.getElementById("tabelProduct");
 
     //Criando os campos da tabela produto
-    for (var i = 0; i < response.length; i++) {
+    for (var i = 0; i < response.numberOfElements; i++) {
 
         let produto = {
-            "Id": response[i].produtoId,
-            "Nome": response[i].nome,
-            "Avaliacao": response[i].avaliacao,
-            "Descricao": response[i].descricao,
-            "Preco": response[i].preco,
-            "Quantidade": response[i].quantidade,
-            "Status": response[i].ativo
+            "Id": response.content[i].produtoId,
+            "Nome": response.content[i].nome,
+            "Avaliacao": response.content[i].avaliacao,
+            "Descricao": response.content[i].descricao,
+            "Preco": response.content[i].preco,
+            "Quantidade": response.content[i].quantidade,
+            "Status": response.content[i].ativo
         }
 
         let tr = document.createElement("tr")
@@ -228,8 +228,8 @@ async function pesquisarPorNome(nome) {
         tr.appendChild(grupo)
         tr.appendChild(alterar)
     }
-
     alterarStatus()
+
 }
 
 /* Filtrar por Nome - Produto */
@@ -294,6 +294,7 @@ async function pesquisarPorNomeProduto(nome) {
     }
 
     alterarStatus()
+
 
 }
 
@@ -441,5 +442,7 @@ async function createTbPedidos() {
     }
 
     alterarStatus()
+
+
 
 }
