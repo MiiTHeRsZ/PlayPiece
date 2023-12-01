@@ -42,7 +42,7 @@ public class PedidoService {
             pedido = pedidoRepository.save(pedido);
             CarrinhoModel carrinho = carrinhoService.getCarrinhoAtivoByClienteId(clienteId);
             var listaItens = carrinho.getItens();
-            var total = 0;
+            Double total = 0.00;
             try {
 
                 for (ItemCarrinhoModel itemCarrinho : listaItens) {

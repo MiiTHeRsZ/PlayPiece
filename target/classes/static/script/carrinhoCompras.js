@@ -200,10 +200,10 @@ async function criaCarrinho() {
             subtotal();
         }
     }
-
-    preencheEnderecos();
 }
+
 criaCarrinho();
+preencheEnderecos();
 
 async function preencheEnderecos() {
     const dados = await fetch(`/cliente/${idCliente}`).then(data => data.json());

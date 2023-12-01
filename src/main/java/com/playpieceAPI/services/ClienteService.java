@@ -1,5 +1,6 @@
 package com.playpieceAPI.services;
 
+import com.playpieceAPI.models.EnderecoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,8 @@ import com.playpieceAPI.models.carrinho.CarrinhoModel;
 import com.playpieceAPI.repositories.ClienteRespository;
 import com.playpieceAPI.repositories.EnderecoRepository;
 import com.playpieceAPI.repositories.carrinho.CarrinhoRepository;
+
+import java.util.List;
 
 @Service
 public class ClienteService {
@@ -27,9 +30,11 @@ public class ClienteService {
     private BCryptPasswordEncoder encoder;
 
     /***
-     * @return método responsavel por retornar um cliente do sistema atraves do seu ID \n
-     * @Observation: Vale ressaltar que ele usa uma função vinda da interface ClienteRespository
-     */ 
+     * @return método responsavel por retornar um cliente do sistema atraves do seu
+     *         ID \n
+     * @Observation: Vale ressaltar que ele usa uma função vinda da interface
+     *               ClienteRespository
+     */
     public ClienteModel getClienteById(Long id) {
         try {
             ClienteModel cliente = clienteRespository.findById(id).get();
@@ -40,8 +45,10 @@ public class ClienteService {
     }
 
     /***
-     * @return método responsavel por retornar um cliente do sistema atraves do seu CPF \n
-     * @Observation: Vale ressaltar que ele usa uma função vinda da interface ClienteRespository
+     * @return método responsavel por retornar um cliente do sistema atraves do seu
+     *         CPF \n
+     * @Observation: Vale ressaltar que ele usa uma função vinda da interface
+     *               ClienteRespository
      */
     public ClienteModel getClienteByCpf(String cpf) {
         try {
@@ -53,9 +60,11 @@ public class ClienteService {
     }
 
     /***
-     * @return método responsavel por retornar um cliente do sistema atraves do seu email \n
-     * @Observation: Vale ressaltar que ele usa uma função vinda da interface ClienteRespository
-     */   
+     * @return método responsavel por retornar um cliente do sistema atraves do seu
+     *         email \n
+     * @Observation: Vale ressaltar que ele usa uma função vinda da interface
+     *               ClienteRespository
+     */
     public ClienteModel getClienteByEmail(String email) {
         try {
             ClienteModel cliente = clienteRespository.findByEmail(email);
@@ -66,12 +75,16 @@ public class ClienteService {
     }
 
     /***
-     * @return método responsavel por pesquisar um cliente pelo seu email e depois conferir 
-     * se o encript da senha fornecida é o mesmo da senha salva no banco de dados.
-     * Caso ambas as verificações sejem verdadeiras (o login e senha fornecidos conferem com o email e senha cadastrados 
-     * no banco de dados), o sistema retorna o cliente. 
-     * Caso retorne null, significa que não encontrou o email desejado
-     * @Observation: Vale ressaltar que ele usa funções vindas das interfaces ClienteRespository e BCryptPasswordEncoder
+     * @return método responsavel por pesquisar um cliente pelo seu email e depois
+     *         conferir
+     *         se o encript da senha fornecida é o mesmo da senha salva no banco de
+     *         dados.
+     *         Caso ambas as verificações sejem verdadeiras (o login e senha
+     *         fornecidos conferem com o email e senha cadastrados
+     *         no banco de dados), o sistema retorna o cliente.
+     *         Caso retorne null, significa que não encontrou o email desejado
+     * @Observation: Vale ressaltar que ele usa funções vindas das interfaces
+     *               ClienteRespository e BCryptPasswordEncoder
      */
     public ClienteModel getClienteLogin(LoginDto login) {
         try {
@@ -91,14 +104,15 @@ public class ClienteService {
         }
     }
 
-
     /***
-     * @return método responsavel salvar dados do cadastro do cliente no banco de dados. 
-     * Salva a senha encriptada; 
-     * Seta o status do clietne como true por padrão;
-     * Verifica se o cliente preencheu algum endereço, caso sim
-     * @Observation: Vale ressaltar que ele usa funções vindas das interfaces UsuarioRepository, BCryptPasswordEncoder e CargoRepository. 
-     */ 
+     * @return método responsavel salvar dados do cadastro do cliente no banco de
+     *         dados.
+     *         Salva a senha encriptada;
+     *         Seta o status do clietne como true por padrão;
+     *         Verifica se o cliente preencheu algum endereço, caso sim
+     * @Observation: Vale ressaltar que ele usa funções vindas das interfaces
+     *               UsuarioRepository, BCryptPasswordEncoder e CargoRepository.
+     */
     public ClienteModel postClient(ClienteModel cliente) {
         try {
             var senhaCripto = encoder.encode(cliente.getSenha());
@@ -142,11 +156,9 @@ public class ClienteService {
             novoCliente.setClienteId(cliente.getClienteId());
             novoCliente.setEmail(cliente.getEmail());
             novoCliente.setCpf(cliente.getCpf());
+            novoCliente.getEnderecoFaturamento().setCliente(novoCliente);
 
             cliente = novoCliente;
-
-            cliente.setEnderecoFaturamento(
-                    enderecoService.getEnderecoById(cliente.getEnderecoFaturamento().getEnderecoId()));
 
             cliente = clienteRespository.save(cliente);
 
@@ -157,9 +169,12 @@ public class ClienteService {
     }
 
     /***
-     * @return método responsavel por pegar o status do usuario filtrado (filtro atraves do seu ID) e 
-     * alterar o seu valor para o oposto, alem de setar como nulo a sua lista de endereços cadastrados
-     * @Observation: Vale ressaltar que ele usa função vinda da interface ClienteRepository
+     * @return método responsavel por pegar o status do usuario filtrado (filtro
+     *         atraves do seu ID) e
+     *         alterar o seu valor para o oposto, alem de setar como nulo a sua
+     *         lista de endereços cadastrados
+     * @Observation: Vale ressaltar que ele usa função vinda da interface
+     *               ClienteRepository
      */
     public ClienteModel statusCliente(Long id) {
         try {

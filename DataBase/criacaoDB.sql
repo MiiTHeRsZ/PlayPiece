@@ -71,10 +71,10 @@ create table endereco(
 drop table if exists pedido;
 create table pedido(
         pedido_id bigint primary key auto_increment,
-        valor_total decimal(15,2) not null,
+        valor_total decimal(10,2) not null,
         fk_cliente_id bigint not null,
         end_entrega_id bigint not null,
-        valor_frete decimal(5,2) not null,
+        valor_frete decimal(10,2) not null,
 		data_pedido datetime not null,
         modo_pagamento varchar(2),
 		pg_status varchar(2),

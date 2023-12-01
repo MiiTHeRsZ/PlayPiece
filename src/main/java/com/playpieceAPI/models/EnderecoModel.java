@@ -1,7 +1,10 @@
 package com.playpieceAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -23,7 +26,7 @@ public class EnderecoModel {
     @Column(name = "endereco_id")
     private Long enderecoId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade={CascadeType.PERSIST,CascadeType.REMOVE})
     @JoinColumn(name = "fk_cliente_id", referencedColumnName = "cliente_id")
     @JsonIgnore
     private ClienteModel cliente;

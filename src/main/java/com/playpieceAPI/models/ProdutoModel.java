@@ -35,7 +35,7 @@ public class ProdutoModel {
     private String descricao;
 
     @Column(name = "preco", columnDefinition = "DECIMAL(10,2)")
-    private double preco;
+    private Double preco;
 
     @Column(name = "quantidade", columnDefinition = "INT")
     private int quantidade;

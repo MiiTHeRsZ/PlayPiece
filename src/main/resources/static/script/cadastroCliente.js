@@ -1,4 +1,6 @@
 
+
+
 function menu() {
 
     let nome_perfil = document.getElementById("nome-perfil");
@@ -62,11 +64,19 @@ document.getElementById("genero").onchange = (e) => {
         verificaInformacao(e.target.id);
     }
 }
-document.getElementById("cep-faturamento").onchange = () => {
-    buscarDadosCep("cep-faturamento");
+document.getElementById("cep-faturamento").onchange = (e) => {
+    if (e.target.value !== "") {
+        buscarDadosCep("cep-faturamento");
+        verificaEnderecos()
+        verificaInformacao();
+    }
 }
-document.getElementById("cep-entrega").onchange = () => {
-    buscarDadosCep("cep-entrega");
+document.getElementById("cep-entrega").onchange = (e) => {
+    if (e.target.value !== "") {
+        buscarDadosCep("cep-entrega");
+        verificaEnderecos()
+        verificaInformacao();
+    }
 }
 document.getElementById("senha").onchange = (e) => {
     if (e.target.value !== "") {
@@ -78,7 +88,6 @@ document.getElementById("confirmaSenha").onchange = (e) => {
         verificaInformacao(e.target.id);
     }
 }
-
 document.getElementById("isEntrega").addEventListener("change", () => {
     if (document.getElementById("isEntrega").checked) {
         document.getElementById("cep-entrega").value = document.getElementById("cep-faturamento").value
@@ -128,10 +137,14 @@ async function verificaInformacao(input) {
     let cpfret = validaCPF(cpf)
     let emailret = await verificaEmail();
     let genero = document.getElementById("genero").value;
+    let endereco = verificaEnderecos();
+    let ruaF = document.getElementById("logradouro-faturamento").value
+    let ruaE = document.getElementById("logradouro-entrega").value
     document.getElementById("senha").value
 
     let ret = verificarSenhas(senha, confirmaSenha)
 
+    console.log("v " + endereco);
     // verifica se as senhas informadas são validas ou não
     if (ret) {
         document.getElementById("confirmaSenha").classList.remove("fail")
@@ -156,14 +169,23 @@ async function verificaInformacao(input) {
         document.getElementById("email").classList.add('fail')
     }
 
+    if (endereco) {
+        document.getElementById("cep-entrega").classList.remove("fail")
+        document.getElementById("cep-faturamento").classList.remove("fail")
+    } else {
+        document.getElementById("cep-entrega").classList.add('fail')
+        document.getElementById("cep-faturamento").classList.add('fail')
+    }
+
     // verifica se as informações senha e cpf foram preechidas corratamente ou não para liberar o botao de salvar
-    if (ret && nomeret && cpfret && emailret && genero != 0) {
+    if (ret && nomeret && cpfret && emailret && genero != 0 && endereco && ruaE != "" && ruaF != "") {
         document.getElementById("btn-salvar").removeAttribute("disabled")
         document.getElementById("btn-salvar").style.cursor = 'pointer'
     } else {
         document.getElementById("btn-salvar").setAttribute("disabled", "true")
         document.getElementById("btn-salvar").style.cursor = 'not-allowed'
     }
+
 }
 
 async function verificaEmail() {
@@ -186,6 +208,29 @@ async function verificaEmail() {
         return false
 
     return true
+}
+
+async function verificaEnderecos() {
+    await buscarDadosCep(document.getElementById("cep-faturamento").value)
+    await buscarDadosCep(document.getElementById("cep-entrega").value)
+
+    let endEntrega = document.getElementById("cep-entrega").value
+    let endFatutamento = document.getElementById("cep-faturamento").value
+
+    let ruaEntrega = document.getElementById("logradouro-entrega").value
+    let ruaFatutamento = document.getElementById("logradouro-faturamento").value
+
+    if (endFatutamento == "" || endEntrega == "" || ruaEntrega == "" || ruaFatutamento == "") {
+        if (endFatutamento == "" && endEntrega == "") {
+            console.log("1 true");
+            return true
+        }
+        console.log("1 false");
+        return false;
+    }
+
+    console.log("2 true");
+    return true;
 }
 
 let showPassIcon = document.querySelector("#showPassword")
@@ -213,7 +258,7 @@ const botaoSalvar = document.getElementById("btn-salvar");
 botaoSalvar.addEventListener("click", async (e) => {
     e.preventDefault()
 
-    var listaEndereco = []
+    var listaEndereco = null;
 
     if (!document.getElementById("isEntrega").checked) {
         listaEndereco = [{
@@ -228,8 +273,6 @@ botaoSalvar.addEventListener("click", async (e) => {
             "ativo": true
         }]
     }
-
-    console.table(listaEndereco)
 
     let cliente = {
         "cpf": document.getElementById("cpf").value,
@@ -264,7 +307,7 @@ botaoSalvar.addEventListener("click", async (e) => {
     if (result.status == 201) {
 
         alert("Cliente criado com sucesso!")
-        // location.href = "./loginCliente.html"
+        location.href = "./loginCliente.html"
     } else {
         document.querySelector("body").style = "background-color:#ffcbcb;"
         alert("Falha ao cadastrar cliente\nTente novamente")
@@ -286,7 +329,7 @@ String.prototype.hashCode = function () {
 function verificarSenhas(senha, confirmaSenha) {
     let alert = document.querySelector(".alert-senha")
     if (senha !== confirmaSenha || confirmaSenha == "" || confirmaSenha.length < 8 || confirmaSenha.length > 25) {
-        if (confirmaSenha == "" || senha == "") {
+        if (confirmaSenha == "" && senha == "") {
             return true
         }
         else if (senha !== confirmaSenha) {
@@ -431,9 +474,17 @@ async function buscarDadosCep(input) {
             if (dadosArray.erro === true) {
                 alert.innerHTML = "CEP inválido!";
                 alert.style.display = "inline";
+                document.getElementById("cep-faturamento").classList.add('fail')
+
+                document.getElementById('logradouro-faturamento').value = "";
+                document.getElementById('bairro-faturamento').value = "";
+                document.getElementById('cidade-faturamento').value = "";
+                document.getElementById('uf-faturamento').value = "";
             } else {
                 alert.innerHTML = "";
                 alert.style.display = "none";
+                document.getElementById("cep-faturamento").classList.remove("fail")
+
                 document.getElementById('logradouro-faturamento').value = dadosArray.logradouro;
                 document.getElementById('bairro-faturamento').value = dadosArray.bairro;
                 document.getElementById('cidade-faturamento').value = dadosArray.localidade;
@@ -445,9 +496,16 @@ async function buscarDadosCep(input) {
             if (dadosArray.erro === true) {
                 alert.innerHTML = "CEP inválido!";
                 alert.style.display = "inline";
+                document.getElementById("cep-entrega").classList.add('fail')
+                document.getElementById('logradouro-entrega').value = "";
+                document.getElementById('bairro-entrega').value = "";
+                document.getElementById('cidade-entrega').value = "";
+                document.getElementById('uf-entrega').value = "";
             } else {
                 alert.innerHTML = "";
                 alert.style.display = "none";
+                document.getElementById("cep-entrega").classList.remove("fail")
+
                 document.getElementById('logradouro-entrega').value = dadosArray.logradouro;
                 document.getElementById('bairro-entrega').value = dadosArray.bairro;
                 document.getElementById('cidade-entrega').value = dadosArray.localidade;

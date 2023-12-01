@@ -45,7 +45,7 @@ public class PedidoModel {
     private String statusPagamento;
 
     @Column(name = "valor_total", nullable = true)
-    private double valorTotal;
+    private Double valorTotal;
 
     @Column(name = "data_pedido", nullable = true)
     private Date dataPedido;

@@ -138,7 +138,7 @@ document.getElementById("alterar-info").addEventListener("click", async (e) => {
             "email": document.getElementById("email").value,
             "enderecoFaturamento": dados.enderecoFaturamento,
             "listaEndereco": dados.listaEndereco,
-            "senha": document.getElementById("senha").value.length == 0 ? dados.senha : document.getElementById("senha").value.hashCode(),
+            "senha": document.getElementById("senha").value.length == 0 ? dados.senha : document.getElementById("senha").value,
             "ativo": true
         }
 
@@ -198,19 +198,6 @@ document.getElementById("excluir-endereco").addEventListener("click", async (e) 
         alert("Falha ao desabilitar o endereço\nTente novamente!");
     }
 });
-
-String.prototype.hashCode = function () {
-    var hash = 0,
-        i, chr;
-    if (this.length === 0) return hash;
-    for (i = 0; i < this.length; i++) {
-        chr = this.charCodeAt(i);
-        hash = ((hash << 5) - hash) + chr;
-        hash |= 0; // Convert to 32bit integer
-    }
-    return hash;
-}
-
 let showPassIcon = document.querySelector("#showPassword")
 showPassIcon.addEventListener("click", () => {
     if (showPassIcon.getAttribute("class") == "fa-solid fa-eye-slash") {

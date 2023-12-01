@@ -58,7 +58,7 @@ public class ClienteModel {
     @Nullable
     private EnderecoModel enderecoFaturamento;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade={CascadeType.PERSIST,CascadeType.REMOVE})
     @Nullable
     private List<EnderecoModel> listaEndereco;
 

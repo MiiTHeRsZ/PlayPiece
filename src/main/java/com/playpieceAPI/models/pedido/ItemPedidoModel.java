@@ -42,10 +42,10 @@ public class ItemPedidoModel {
     private int quantidade;
 
     @Column(name = "valor_unitario")
-    private double valorUnitario;
+    private Double valorUnitario;
 
     @Column(name = "valor_total")
-    private double valorTotal;
+    private Double valorTotal;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_pedido_id", referencedColumnName = "pedido_id")
