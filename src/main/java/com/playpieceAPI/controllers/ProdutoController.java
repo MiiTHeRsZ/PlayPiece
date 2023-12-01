@@ -6,6 +6,7 @@ import com.playpieceAPI.services.ProdutoService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -32,16 +33,11 @@ public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
 
-    // public ProdutoController(ProdutoService produtoService) {
-    // this.produtoService = produtoService;
-    // }
-
     @GetMapping
     public ResponseEntity<?> getProdutoList(
             @PageableDefault(size = 10) Pageable pageable) {
         try {
-            Pageable page = PageRequest.of(pageable.getPageNumber(), 10, Sort.unsorted());
-            return new ResponseEntity<List<ProdutoModel>>(produtoService.getProdutoList(page).getContent(),
+            return new ResponseEntity<Page<ProdutoModel>>(produtoService.getProdutoList(pageable),
                     HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

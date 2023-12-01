@@ -89,7 +89,11 @@ public class ClienteController {
 
             else {
                 var carrinho = carrinhoService.getCarrinhoAtivoByClienteId(cliente.getClienteId());
-                carrinhoService.limparCarrinho(carrinho);
+                try {
+                    carrinhoService.limparCarrinho(carrinho);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
                 return new ResponseEntity<ClienteModel>(cliente, HttpStatus.OK);
             }
         } catch (Exception e) {

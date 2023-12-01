@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.playpieceAPI.models.ClienteModel;
 import com.playpieceAPI.models.LoginDto;
+import com.playpieceAPI.models.carrinho.CarrinhoModel;
 import com.playpieceAPI.repositories.ClienteRespository;
 import com.playpieceAPI.repositories.EnderecoRepository;
+import com.playpieceAPI.repositories.carrinho.CarrinhoRepository;
 
 @Service
 public class ClienteService {
@@ -18,6 +20,9 @@ public class ClienteService {
     private EnderecoService enderecoService;
     @Autowired
     private EnderecoRepository enderecoRepository;
+    @Autowired
+    private CarrinhoRepository carrinhoRepository;
+
     @Autowired
     private BCryptPasswordEncoder encoder;
 
@@ -117,6 +122,8 @@ public class ClienteService {
                 enderecoRepository.save(cliente.getListaEndereco().get(0));
             }
             cliente = clienteRespository.save(cliente);
+
+            carrinhoRepository.save(new CarrinhoModel(null, cliente, null));
 
             return cliente;
         } catch (Exception e) {

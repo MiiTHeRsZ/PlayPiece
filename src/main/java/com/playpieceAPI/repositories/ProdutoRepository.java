@@ -15,8 +15,7 @@ import com.playpieceAPI.models.ProdutoModel;
 @Repository
 public interface ProdutoRepository extends JpaRepository<ProdutoModel, Long> {
 
-    @Query("select DISTINCT  p from produto p left  join FETCH  p.listaImagens i order by p.id desc, CASE WHEN i.padrao = true THEN 0 ELSE 1 END ASC")
-    public Page<ProdutoModel> findAllByOrderByProdutoIdDescAndImagemPadrao(Pageable pageable);
+    public Page<ProdutoModel> findAllByOrderByProdutoIdDesc(Pageable pageable);
 
     @Query("select DISTINCT  p from produto p left  join FETCH  p.listaImagens i order by p.id desc, CASE WHEN i.padrao = true THEN 0 ELSE 1 END ASC")
     public List<ProdutoModel> findAllByOrderByProdutoIdDescAndImagemPadrao();
