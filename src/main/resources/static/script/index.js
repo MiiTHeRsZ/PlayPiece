@@ -72,7 +72,7 @@ const container_cards = document.getElementById("produtos");
 async function getProducts() {
 
 
-    let produtos = await fetch(`/produto?page=${Number(pagina) - 1}`).then(response => response.json())
+    let produtos = await fetch(`/produto/active?page=${Number(pagina) - 1}`).then(response => response.json())
     if (sessionStorage.getItem("pageTotalNumber") == undefined || Number(sessionStorage.getItem("pageTotalNumber")) != produtos.totalPages) {
         totalPaginas = produtos.totalPages;
         sessionStorage.setItem("pageTotalNumber", totalPaginas);

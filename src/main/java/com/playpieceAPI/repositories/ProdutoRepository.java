@@ -30,4 +30,7 @@ public interface ProdutoRepository extends JpaRepository<ProdutoModel, Long> {
     @Transactional
     @Query("DELETE FROM imagem i WHERE i.produto.id = ?1")
     public void delByIdProduto(Long produtoId);
+
+    @Query("select DISTINCT  p from produto p left  join FETCH  p.listaImagens i where p.ativo = true order by p.id desc, CASE WHEN i.padrao = true THEN 0 ELSE 1 END ASC")
+    public Page<ProdutoModel> findAllByOrderByProdutoIdDescAndImagemPadraoWhereAtivo(Pageable pageable);
 }

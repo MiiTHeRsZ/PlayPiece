@@ -54,6 +54,38 @@ public class ProdutoService {
         }
     }
 
+    public Page<ProdutoModel> getProdutoAtivoList(Pageable pageable) {
+
+        try {
+            int pagina = pageable.getPageNumber();
+            int limite = pageable.getPageSize() <= 10 ? 10 : pageable.getPageSize();
+            var atributos = ProdutoModel.class.getDeclaredFields();
+            List<String> nomeAtributos = new ArrayList<>();
+            for (Field atributo : atributos) {
+                nomeAtributos.add(atributo.getName());
+            }
+            Sort organizacao = Sort.by(Direction.DESC, "produtoId");
+            if (pageable.getSort() != Sort.unsorted()) {
+                var sortProp = ((pageable.getSort().toString()).split(":"))[0];
+                String sortDir = ((pageable.getSort().toString()).replaceAll(" ", "")).split(":")[1];
+                if (nomeAtributos.contains(sortProp)) {
+                    organizacao = Sort.by(Sort.Direction.valueOf(sortDir.toUpperCase()), sortProp);
+                } else {
+                    organizacao = Sort.by(Direction.DESC, "produtoId");
+                }
+            }
+
+            Pageable page = PageRequest.of(pagina,
+                    limite, organizacao);
+
+            Page<ProdutoModel> produtos = produtoRepository.findAllByOrderByProdutoIdDescAndImagemPadraoWhereAtivo(page);
+
+            return produtos;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     public List<ProdutoModel> getProdutoListImagem() {
 
         List<ProdutoModel> produtos = produtoRepository.findAllByOrderByProdutoIdDescAndImagemPadrao();
