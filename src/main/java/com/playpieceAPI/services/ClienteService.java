@@ -120,7 +120,7 @@ public class ClienteService {
             cliente.setAtivo(true);
             cliente.setSenha(senhaCripto);
             // verifica se a lista de endereço do cliente não está vazia
-            if (!cliente.getListaEndereco().isEmpty()) {
+            if (cliente.getListaEndereco() != null && cliente.getListaEndereco().isEmpty()) {
                 enderecoService.postEndereco(0L, cliente.getListaEndereco().get(0),
                         cliente.getListaEndereco().get(0).isPadrao());
             }
@@ -131,7 +131,7 @@ public class ClienteService {
             endereco.setCliente(cliente);
             enderecoRepository.save(endereco);
 
-            if (!cliente.getListaEndereco().isEmpty()) {
+            if (cliente.getListaEndereco() != null && !cliente.getListaEndereco().isEmpty()) {
                 cliente.getListaEndereco().get(0).setCliente(cliente);
                 enderecoRepository.save(cliente.getListaEndereco().get(0));
             }
