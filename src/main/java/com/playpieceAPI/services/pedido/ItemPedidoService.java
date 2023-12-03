@@ -34,6 +34,10 @@ public class ItemPedidoService {
             itemCarrinho.getProduto()
                     .setQuantidade(itemCarrinho.getProduto().getQuantidade() - itemCarrinho.getQuantidade());
 
+            if (itemCarrinho.getProduto().getQuantidade() == 0) {
+                itemCarrinho.getProduto().setAtivo(false);
+            }
+
             ItemPedidoModel itemSalvo = null;
             produtoRepository.save(itemCarrinho.getProduto());
 
