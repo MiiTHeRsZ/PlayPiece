@@ -115,7 +115,6 @@ public class ClienteService {
 
             // verifica se a lista de endereço do cliente não está vazia (lista endereço entrega)
             // caso não esteja, salva o endereço entrega do cliente
-            System.out.println(cliente.getListaEndereco().isEmpty());
             if (cliente.getListaEndereco() != null && !cliente.getListaEndereco().isEmpty()) {
                 enderecoService.postEndereco(0L, cliente.getListaEndereco().get(0),
                         cliente.getListaEndereco().get(0).isPadrao());
@@ -149,7 +148,7 @@ public class ClienteService {
         try {
             ClienteModel cliente = clienteRespository.findById(id).get();
             var res = encoder.matches(novoCliente.getSenha(), cliente.getSenha());
-            if (!res) {
+            if (!res) {// verifica se a senha antiga é a mesma que a atual
                 var senhaCripto = encoder.encode(novoCliente.getSenha());
                 novoCliente.setSenha(senhaCripto);
             }

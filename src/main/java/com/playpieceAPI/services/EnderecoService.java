@@ -35,6 +35,17 @@ public class EnderecoService {
         }
     }
 
+
+    /***
+     * @return método responsavel por atualizar um endereço do cliente.
+     * Busca os endereços de um cliente, pelo ID do cliente.
+     * Na tabela endereço, seta o campo 'padrao' para o oposto cadastrado (falso e torna verdadeiro).
+     * Percorre a lista de endereços até achar um endereço que tenha o ID do cliente pesquisado.
+     * Apos ter encontrado os endereços do cliente, verifica qual deles possui o campo 'padrão' como TRUE.
+     * Depois de ter achado esse endereço, seta o campo 'padrão' para FALSE e por ultimo
+     * salva as novas informações no banco de dados, retornando para o cliente, que seu endereço padrão foi alterado
+     * @Observation: Vale ressaltar que ele usa funções vindas da interface EnderecoRepository. 
+     */ 
     public EnderecoModel updatePadraoEndereco(Long id) {
         try {
             EnderecoModel endereco = enderecoRepository.findById(id).get();
@@ -61,7 +72,7 @@ public class EnderecoService {
     /***
      * @return método responsavel por cadatrar um novo endereço. Por padrão, esse endereço, ao ser 
      * cadastrado terá seu status padrão como ativo. 
-     * O método pesquisa um cliente atraves do seu ID e cadastra ele no novo endeço. 
+     * Caso o cliente já possua um ID, o método pesquisa ele atraves do seu ID e no novo endereço cadastra o ID do cliente
      * Ao final, ele salva esse novo endereço para determinado cliente. 
      * @Observation: Vale ressaltar que ele usa funções vindas das interfaces ClienteRepository e EnderecoRepository. 
      */ 
