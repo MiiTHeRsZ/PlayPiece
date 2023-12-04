@@ -1,0 +1,14 @@
+@import url("./var.css");
+@import url("./default.css");
+@import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+main {
+    padding: 100px 100px;
+    background-color: #fff;
+}

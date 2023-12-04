@@ -1,0 +1,143 @@
+@import url("./var.css");
+@import url("./default.css");
+@import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
+
+#form {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#input-space {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#dados-pessoais {
+    width: 90%;
+    text-align: center;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.endereco-space {
+    text-align: center;
+    line-height: 50px;
+    width: 46%;
+    min-width: 261px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#endereco-entrega {
+    border-left: 1px solid black;
+}
+
+#containerCadastro {
+    margin: 15vh 2vw;
+    border-radius: 25px;
+    padding: 20px;
+    background-color: #e0e7e9;
+    box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
+}
+
+input {
+    margin: 10px;
+    outline: none !important;
+    border-bottom: 2px solid rgb(213, 213, 0);
+}
+
+.fail {
+    border: 2px solid red
+}
+
+#uf {
+    width: 50px;
+}
+
+#cep {
+    width: 250px;
+    align-items: center;
+}
+
+.infos {
+    text-align: right;
+    width: max-content;
+}
+
+.infos>div:first-of-type {
+    display: flex;
+    flex-direction: column;
+}
+
+.space {
+    margin-bottom: 20px;
+}
+
+#cep {
+    width: 250px;
+    align-items: center;
+}
+
+#complemento {
+    width: 250px;
+}
+
+.form__container {
+    border-radius: 5px;
+    background-color: var(--bg-alternative-color);
+    background: transparent;
+    transition: all .5s ease-in-out;
+    width: 50%;
+}
+
+#genero {
+    margin: 10px;
+    outline: none !important;
+    border: 2px solid rgb(213, 213, 0);
+    border-radius: 5px;
+    background: rgb(255, 255, 227);
+    transition: all .5s ease-in-out;
+    width: 50%;
+}
+
+#btn-salvar {
+    margin-top: 20px;
+    height: 50px;
+    width: 200px;
+    border-radius: 20px;
+    background-color: rgb(241, 200, 96);
+    font-size: 25px;
+    color: #FFF;
+    cursor: pointer;
+}
+
+#btn-salvar:hover {
+    filter: brightness(1.2);
+}
+
+.alert {
+    color: red;
+    font-size: 10px;
+    text-align: center;
+    height: 15px;
+    margin-left: 20%;
+    /* margin-top: -5%; */
+}
+
+#showPassword {
+    text-align: center;
+    cursor: pointer;
+    width: 50%;
+    margin: 10px;
+}
+
+#showPassword:hover {
+    color: var(--txt-accent-color-ternary);
+}

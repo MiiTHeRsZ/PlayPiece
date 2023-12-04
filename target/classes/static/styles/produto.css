@@ -1,0 +1,140 @@
+@import url('./var.css');
+@import url("./default.css");
+@import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700);
+
+main {
+    padding-top: 70px;
+}
+
+main>div {
+    display: flex;
+    justify-content: center;
+    padding-top: 32px;
+}
+
+#carouselExample {
+    width: 30vw;
+    margin: 10px auto;
+}
+
+.carousel-item {
+    height: 250px;
+    width: 50vw;
+}
+
+.carousel-item img {
+    height: 100%;
+    object-fit: contain;
+}
+
+#detalhes {
+    background-color: #FFF;
+    padding: 16px 24px;
+    height: fit-content;
+    max-width: 60vw;
+    border-radius: 25px;
+}
+
+#detalhes #div-valor {
+    display: flex;
+    gap: 16px;
+    align-content: center;
+}
+
+#detalhes #div-valor #valor {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+#descricao {
+    text-align: justify;
+}
+
+.avalicao-box {
+    display: flex;
+    gap: 5px;
+}
+
+meter {
+    background: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: gold;
+    display: inline-block;
+    width: auto;
+    height: auto;
+}
+
+::-webkit-meter-bar,
+::-webkit-meter-inner-element {
+    background: none;
+}
+
+::-moz-meter-bar {
+    -moz-appearance: none;
+}
+
+#menuBox {
+    position: absolute;
+    top: 10vh;
+    right: 1vw;
+    width: 300px;
+    height: 200px;
+}
+
+#box {
+    position: absolute;
+    width: 250px;
+    height: 150px;
+    top: 5vh;
+    right: 40px;
+    background-color: #fff;
+    border-radius: 15px 0 15px 15px;
+    border: 2px solid black;
+}
+
+#box::before {
+    border: 4px solid black;
+    content: "";
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 4vh;
+    right: 0;
+    clip-path: polygon(100% 100%, 100% 0%, 0% 0%, 0% 0%, 0% 0%);
+    transform: rotate(-20deg);
+    transform: matrix(0, -1, -0.7, 1, 10, -50);
+    background-color: #fff;
+}
+
+.boxInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 90%;
+    width: 80%;
+    margin: 3% auto;
+}
+
+.boxInfo a {
+    color: #000;
+    text-decoration: none;
+    align-self: self-end;
+    width: fit-content;
+}
+
+.boxInfo a:first-of-type {
+    font-weight: bold;
+}
+
+.boxInfo a:first-of-type:hover {
+    color: darkgoldenrod;
+}
+
+.boxInfo a:nth-of-type(2) {}
+
+.boxInfo a:nth-of-type(2):hover {
+    color: darkgoldenrod;
+}
