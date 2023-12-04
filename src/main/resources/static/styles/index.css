@@ -14,7 +14,7 @@ body {
     width: 100vw;
     height: 10vh;
     z-index: 1;
-    padding: 0 20px;
+    padding: 0 150px;
     border-bottom: 2px solid;
     display: flex;
     justify-content: space-between;
@@ -56,8 +56,16 @@ body {
     cursor: pointer;
 }
 
-main {
+#container {
     padding: 100px 0;
+    max-width: 1800px;
+    margin: 0 auto;
+    width: 95%;
+}
+
+#slider {
+    width: 55%;
+    margin: 30px auto;
 }
 
 .card {

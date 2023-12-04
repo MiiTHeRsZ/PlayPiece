@@ -84,11 +84,12 @@ h1 {
     gap: 2px;
 }
 
-.enderecoSpace>div>div>label {
+.enderecoSpace label {
     text-align: center;
 }
 
-.enderecoSpace>div>div>input,
+.enderecoSpace input,
+.enderecoSpace select,
 .passInput {
     border: 2px solid black;
     border-radius: 5px;
@@ -115,7 +116,7 @@ h1 {
     margin: 0 15vw 5vh;
     padding: 5vh 0;
     border-radius: 25px;
-    background-color: #e0e7e9;
+    background-color: #FFF;
     box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
 }
 
