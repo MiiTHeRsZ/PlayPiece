@@ -30,10 +30,8 @@ public class ClienteService {
     private BCryptPasswordEncoder encoder;
 
     /***
-     * @return método responsavel por retornar um cliente do sistema atraves do seu
-     *         ID \n
-     * @Observation: Vale ressaltar que ele usa uma função vinda da interface
-     *               ClienteRespository
+     * @return método responsavel por retornar um cliente do sistema atraves do seu ID
+     * @Observation: Vale ressaltar que ele usa uma função vinda da interface ClienteRespository
      */
     public ClienteModel getClienteById(Long id) {
         try {
@@ -45,10 +43,8 @@ public class ClienteService {
     }
 
     /***
-     * @return método responsavel por retornar um cliente do sistema atraves do seu
-     *         CPF \n
-     * @Observation: Vale ressaltar que ele usa uma função vinda da interface
-     *               ClienteRespository
+     * @return método responsavel por retornar um cliente do sistema atraves do seu CPF
+     * @Observation: Vale ressaltar que ele usa uma função vinda da interface ClienteRespository
      */
     public ClienteModel getClienteByCpf(String cpf) {
         try {
@@ -60,10 +56,8 @@ public class ClienteService {
     }
 
     /***
-     * @return método responsavel por retornar um cliente do sistema atraves do seu
-     *         email \n
-     * @Observation: Vale ressaltar que ele usa uma função vinda da interface
-     *               ClienteRespository
+     * @return método responsavel por retornar um cliente do sistema atraves do seu email
+     * @Observation: Vale ressaltar que ele usa uma função vinda da interface ClienteRespository
      */
     public ClienteModel getClienteByEmail(String email) {
         try {
@@ -105,8 +99,7 @@ public class ClienteService {
     }
 
     /***
-     * @return método responsavel salvar dados do cadastro do cliente no banco de
-     *         dados.
+     * @return método responsavel salvar dados do cadastro do cliente no banco de dados.
      *         Salva a senha encriptada;
      *         Seta o status do clietne como true por padrão;
      *         Verifica se o cliente preencheu algum endereço, caso sim
@@ -119,17 +112,23 @@ public class ClienteService {
             cliente.setClienteId(null);
             cliente.setAtivo(true);
             cliente.setSenha(senhaCripto);
-            // verifica se a lista de endereço do cliente não está vazia
+
+            // verifica se a lista de endereço do cliente não está vazia (lista endereço entrega)
+            // caso não esteja, salva o endereço entrega do cliente
             if (cliente.getListaEndereco() != null && cliente.getListaEndereco().isEmpty()) {
                 enderecoService.postEndereco(0L, cliente.getListaEndereco().get(0),
                         cliente.getListaEndereco().get(0).isPadrao());
             }
+            // salva o endereço faturamento do cliente
             enderecoService.postEndereco(0L, cliente.getEnderecoFaturamento(),
                     cliente.getEnderecoFaturamento().isPadrao());
+
+            // armazena os dados que foram salvos na variavel cliente (dados inseridos pelo cliente)
             cliente = clienteRespository.save(cliente);
+            // pega o endereço faturamento do cliente, armazena em uma variavel
             var endereco = cliente.getEnderecoFaturamento();
-            endereco.setCliente(cliente);
-            enderecoRepository.save(endereco);
+            endereco.setCliente(cliente); // salva na tabela de endereços o cliente daquele endereço
+            enderecoRepository.save(endereco); // salva o endereço faturamento do cliente
 
             if (cliente.getListaEndereco() != null && !cliente.getListaEndereco().isEmpty()) {
                 cliente.getListaEndereco().get(0).setCliente(cliente);
@@ -149,7 +148,7 @@ public class ClienteService {
         try {
             ClienteModel cliente = clienteRespository.findById(id).get();
             var res = encoder.matches(novoCliente.getSenha(), cliente.getSenha());
-            if (!res) {
+            if (!res) {// verifica se a senha antiga é a mesma que a atual
                 var senhaCripto = encoder.encode(novoCliente.getSenha());
                 novoCliente.setSenha(senhaCripto);
             }

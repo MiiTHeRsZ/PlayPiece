@@ -33,37 +33,46 @@ function menu() {
 }
 menu();
 
-var jaCpf = null
+var jaCpf = null // variavel que retorna se o CPF já existe em um cadastro ou nao
 
+// verifica se o CPF inserido já não pertence em algum cadastro
 document.getElementById("cpf").onchange = async (e) => {
     const checkCpf = await (await fetch(`/cliente/search?cpf=${document.getElementById("cpf").value}`)).status == 200 ? true : false
-    if (!checkCpf) {
+    if (!checkCpf) { // cpf não existente
         document.getElementById("err-cpf").style.display = "none"
         verificaInformacao(e.target.id);
         jaCpf = false
-    } else {
+    } else { // cpf já existente
         document.getElementById("err-cpf").innerHTML = "CPF já cadastrado"
         document.getElementById("cpf").classList.add('fail')
         document.getElementById("err-cpf").style.display = "block"
         jaCpf = true
     }
 }
+
+// valida tamanho do nome/ sobrenome a cada mudança 
 document.getElementById("nome").onchange = (e) => {
     if (!verificaNome(e.target.id)) {
         alert("Preencha o campo 'Nome' com apenas um nome e um sobrenome\ncontendo ao menos 3 letras cada!.");
         verificaInformacao();
     }
 }
+
+// valida o email fornecido a cada mudança 
 document.getElementById("email").onchange = (e) => {
     if (e.target.value !== "") {
         verificaInformacao(e.target.id);
     }
 }
+
+// verifica se o campo está preenchido (foi selecionado) 
 document.getElementById("genero").onchange = (e) => {
     if (e.target.value !== "") {
         verificaInformacao(e.target.id);
     }
 }
+
+// valida o cep do endereço faturamento
 document.getElementById("cep-faturamento").onchange = (e) => {
     if (e.target.value !== "") {
         buscarDadosCep("cep-faturamento");
@@ -71,6 +80,8 @@ document.getElementById("cep-faturamento").onchange = (e) => {
         verificaInformacao();
     }
 }
+
+// valida o cep do endereço entrega caso a opção (Tornar este meu endereço de entrega, no endereço faturamento) não esteja marcada
 document.getElementById("cep-entrega").onchange = (e) => {
     if (e.target.value !== "") {
         buscarDadosCep("cep-entrega");
@@ -78,18 +89,25 @@ document.getElementById("cep-entrega").onchange = (e) => {
         verificaInformacao();
     }
 }
+
+// verifica e valida se a senha fornecida esta dentro dos padrões
 document.getElementById("senha").onchange = (e) => {
     if (e.target.value !== "") {
         verificaInformacao(e.target.id);
     }
 }
+
+// verifica e valida se a senha esta dentro dos padrões e se confere com a senha anteriormente fornecida
 document.getElementById("confirmaSenha").onchange = (e) => {
     if (e.target.value !== "") {
         verificaInformacao(e.target.id);
     }
 }
+
+// validação caso a flag (Tornar este meu endereço de entrega, no endereço faturamento) esteja marcada
 document.getElementById("isEntrega").addEventListener("change", () => {
     if (document.getElementById("isEntrega").checked) {
+        document.getElementById("cep-entrega").classList.remove("fail")
         document.getElementById("cep-entrega").value = document.getElementById("cep-faturamento").value
         document.getElementById("cep-entrega").setAttribute("readonly", "true")
         document.getElementById("logradouro-entrega").value = document.getElementById("logradouro-faturamento").value
@@ -105,6 +123,7 @@ document.getElementById("isEntrega").addEventListener("change", () => {
         document.getElementById("uf-entrega").value = document.getElementById("uf-faturamento").value
         document.getElementById("uf-entrega").setAttribute("readonly", "true")
     } else {
+        document.getElementById("cep-entrega").classList.add("fail")
         document.getElementById("cep-entrega").value = ""
         document.getElementById("cep-entrega").removeAttribute("readonly")
         document.getElementById("logradouro-entrega").value = ""
@@ -118,6 +137,7 @@ document.getElementById("isEntrega").addEventListener("change", () => {
     }
 })
 
+// vetor que pega o dia atual, formatando numero do dia e do mes, caso o valor seja menor que 10
 var hojeSemForm = new Date();
 const hoje = {
     "dia": hojeSemForm.getDate() < 10 ? "0" + hojeSemForm.getDate() : hojeSemForm.getDate(),
@@ -125,10 +145,12 @@ const hoje = {
     "ano": hojeSemForm.getFullYear(),
     "string": ""
 }
+// retorna a data como string no padrao yyyy-mm-dd
 hoje.string = hoje.ano + "-" + hoje.mes + "-" + hoje.dia
-
+// no campo tipo date, que tem o id (dt_nasc), seta o seu valor maximo de escolha para o dia atual
 document.getElementById("dt_nasc").setAttribute("max", hoje.string)
 
+// função que verifica se os campos não estão nulos e se estão formatados corretamente
 async function verificaInformacao(input) {
     let senha = document.getElementById("senha").value
     let confirmaSenha = document.getElementById("confirmaSenha").value
@@ -142,7 +164,8 @@ async function verificaInformacao(input) {
 
     let ret = verificarSenhas(senha, confirmaSenha)
 
-    console.log("v " + endereco);
+    // console.log("v " + endereco);
+
     // verifica se as senhas informadas são validas ou não
     if (ret) {
         document.getElementById("confirmaSenha").classList.remove("fail")
@@ -150,7 +173,7 @@ async function verificaInformacao(input) {
         document.getElementById("confirmaSenha").classList.add('fail')
     }
 
-    if (cpfret && !jaCpf) {
+    if (cpfret && !jaCpf) { // verifica se o cpf fornecido é valido e se já existe
         document.getElementById("cpf").classList.remove("fail")
         document.getElementById("err-cpf").style.display = "none"
     } else {
@@ -161,12 +184,14 @@ async function verificaInformacao(input) {
         document.getElementById("err-cpf").style.display = "inline"
     }
 
+    // verifica se o email já existe ou não
     if (emailret) {
         document.getElementById("email").classList.remove("fail")
     } else {
         document.getElementById("email").classList.add('fail')
     }
 
+    // verifica se o endereço é valido ou não
     if (endereco) {
         document.getElementById("cep-entrega").classList.remove("fail")
         document.getElementById("cep-faturamento").classList.remove("fail")
@@ -175,7 +200,8 @@ async function verificaInformacao(input) {
         document.getElementById("cep-faturamento").classList.add('fail')
     }
 
-    // verifica se as informações senha e cpf foram preechidas corratamente ou não para liberar o botao de salvar
+    // verifica se as informações foram preechidas corratamente ou não para liberar o botao de salvar
+    // check: senha ok; nome ok; cpf ok; email ok; genero ok
     if (ret && nomeret && cpfret && emailret && genero != 0) {
         document.getElementById("btn-salvar").removeAttribute("disabled")
         document.getElementById("btn-salvar").style.cursor = 'pointer'
@@ -186,6 +212,7 @@ async function verificaInformacao(input) {
 
 }
 
+// verifica se o email forneido já possui cadastro
 async function verificaEmail() {
     let email = document.getElementById("email").value;
     let comp = null
@@ -195,7 +222,7 @@ async function verificaEmail() {
         if (data.status == 404) {
             alert.style.display = "none"
             return false
-        } else {
+        } else { // já possui email cadastrado
             const alert = document.querySelector(".mail");
             alert.style.display = "inline"
             return data.json();
@@ -208,6 +235,7 @@ async function verificaEmail() {
     return true
 }
 
+// verifica se o endereço fornecido é valido atraves da função buscarDadosCep()
 function verificaEnderecos() {
     buscarDadosCep(document.getElementById("cep-faturamento").value)
     buscarDadosCep(document.getElementById("cep-entrega").value)
@@ -220,17 +248,18 @@ function verificaEnderecos() {
 
     if (endFatutamento == "" || endEntrega == "" || ruaEntrega == "" || ruaFatutamento == "") {
         if (endFatutamento == "" && endEntrega == "") {
-            console.log("1 true");
+            // console.log("1 true");
             return true
         }
-        console.log("1 false");
+        // console.log("1 false");
         return false;
     }
 
-    console.log("2 true");
+    // console.log("2 true");
     return true;
 }
 
+// logica que oculta ou não a senha digitada pelo cliente
 let showPassIcon = document.querySelector("#showPassword")
 showPassIcon.addEventListener("click", () => {
     if (showPassIcon.getAttribute("class") == "fa-solid fa-eye-slash") {
@@ -240,9 +269,7 @@ showPassIcon.addEventListener("click", () => {
         for (let i = 0; i < passInput.length; i++) {
             passInput[i].setAttribute("type", "text")
         }
-
-    }
-    else {
+    } else {
         showPassIcon.removeAttribute("class")
         showPassIcon.setAttribute("class", "fa-solid fa-eye-slash")
         let passInput = document.querySelectorAll(".passInput")
@@ -252,12 +279,14 @@ showPassIcon.addEventListener("click", () => {
     }
 })
 
+// lógica por tras do botão 'Cadastrar', permitir que o cliente salve seus dados corretamente
 const botaoSalvar = document.getElementById("btn-salvar");
 botaoSalvar.addEventListener("click", async (e) => {
     e.preventDefault()
 
     var listaEndereco = null;
-
+    // caso a opção (Tornar este meu endereço de entrega) não esteja marcada, coletar as informações do  
+    // endereço entrega do cliente e armazenar no vetor listaEndereco
     if (!document.getElementById("isEntrega").checked) {
         listaEndereco = [{
             "cep": document.getElementById("cep-entrega").value,
@@ -272,6 +301,8 @@ botaoSalvar.addEventListener("click", async (e) => {
         }]
     }
 
+    document.getElementById("cep-entrega").classList.remove("fail")
+    // coletar todas as informações do cliente e armazenar no vetor cliente
     let cliente = {
         "cpf": document.getElementById("cpf").value,
         "nome": document.getElementById("nome").value,
@@ -294,6 +325,8 @@ botaoSalvar.addEventListener("click", async (e) => {
         "ativo": true
     }
     console.table(cliente)
+
+    // método POST que envia os dados para o backend
     const result = await fetch("/cliente", {
         method: "POST",
         headers: {
@@ -312,18 +345,20 @@ botaoSalvar.addEventListener("click", async (e) => {
     }
 })
 
-String.prototype.hashCode = function () {
-    var hash = 0,
-        i, chr;
-    if (this.length === 0) return hash;
-    for (i = 0; i < this.length; i++) {
-        chr = this.charCodeAt(i);
-        hash = ((hash << 5) - hash) + chr;
-        hash |= 0; // Convert to 32bit integer
-    }
-    return hash;
-}
+// função que gera o hashcode da senha
+// String.prototype.hashCode = function () {
+//     var hash = 0,
+//         i, chr;
+//     if (this.length === 0) return hash;
+//     for (i = 0; i < this.length; i++) {
+//         chr = this.charCodeAt(i);
+//         hash = ((hash << 5) - hash) + chr;
+//         hash |= 0; // Convert to 32bit integer
+//     }
+//     return hash;
+// }
 
+// função que verifica se as senhas fornecidas são validas
 function verificarSenhas(senha, confirmaSenha) {
     let alert = document.querySelector(".alert-senha")
     if (senha !== confirmaSenha || confirmaSenha == "" || confirmaSenha.length < 8 || confirmaSenha.length > 25) {
@@ -346,6 +381,7 @@ function verificarSenhas(senha, confirmaSenha) {
     }
 }
 
+// função responsavel por realizar o calculo dos numeros fornecidos e validar se é um CPF válido ou não
 function validaCPF(cpf) {
     if (cpf == "") {
         return true
@@ -430,6 +466,7 @@ function getValidCep(input) {
     });
 }
 
+// o campo 'Nome' com apenas um nome e um sobrenome contendo ao menos 3 letras cada!.
 function verificaNome() {
     let nome = document.getElementById("nome").value.split(" ");
     let nomeValido;
@@ -446,6 +483,7 @@ function verificaNome() {
     return nomeValido;
 }
 
+// função que valida se o cep fornecido é verdadeiro ou não
 async function buscarDadosCep(input) {
     try {
         const alert = document.querySelector(`.alert-${input}`);
