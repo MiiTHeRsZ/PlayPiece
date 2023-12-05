@@ -16,6 +16,18 @@ checkCookie('sessaoId');
 
 var idCliente = getCookie('sessaoId');
 
+function validarVazio() {
+    let checkVazio = sessionStorage.getItem("carrinho")
+
+    if (checkVazio == undefined || checkVazio == "") {
+        document.getElementById("vazio-section").classList.add("display")
+    } else {
+        document.getElementById("vazio-section").classList.remove("display")
+    }
+}
+
+validarVazio()
+
 function menu() {
     let nome_perfil = document.getElementById("nome-perfil");
     let login_perfil = document.getElementById("login-perfil");
@@ -244,6 +256,8 @@ function limparCarrinho() {
     tr.forEach(linha => {
         linha.innerHTML = ""
     })
+
+    validarVazio()
 }
 
 async function subtrairProduto(idProduto) {
@@ -270,6 +284,8 @@ async function subtrairProduto(idProduto) {
 
                         carrinhoFinal = carrinhoFinal.slice(0, -1);
                         sessionStorage.setItem('carrinho', carrinhoFinal);
+
+                        validarVazio()
                     });
                 }
             }
@@ -338,7 +354,7 @@ function removerItem(idProduto) {
     });
     carrinhoFinal = carrinhoFinal.slice(0, -1);
     sessionStorage.setItem('carrinho', carrinhoFinal);
-
+    validarVazio()
     criaCarrinho();
 }
 

@@ -16,6 +16,26 @@ body {
     height: 100vh;
 }
 
+#vazio-section {
+    z-index: 1;
+    background-color: rgba(208, 233, 255, 1);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+
+.content {
+    text-align: center;
+}
+
+#vazio-section.display {
+    visibility: visible;
+}
+
 #menuBar {
     width: 100vw;
     height: 10vh;
@@ -94,8 +114,8 @@ main {
 table,
 th,
 td {
-  padding: 10px 5px 0;
-  border: 2px solid #000;
+    padding: 10px 5px 0;
+    border: 2px solid #000;
 }
 
 
@@ -113,10 +133,10 @@ tr td {
 
 .content-total-compra {
     width: 250px;
-    margin: 10px 317px  auto auto;
+    margin: 10px 317px auto auto;
 }
 
 .content-frete {
     width: 250px;
-    margin: 10px 317px  auto auto;
+    margin: 10px 317px auto auto;
 }
