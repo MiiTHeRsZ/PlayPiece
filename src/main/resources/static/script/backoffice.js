@@ -168,7 +168,7 @@ async function createTbProducts() {
         let status = document.createElement("td")
         let alterar = document.createElement("td")
 
-        nome.innerHTML = `<a href="./produto.html?id=${produto.Id}" target="_blank">${produto.Nome}</a>`
+        nome.innerHTML = `<a href="./produto.html?id=${produto.Id}" target="_blank">${produto.Nome} <i class="fi fi-br-share-square"></i></a>`
         avaliacao.textContent = `${produto.Avaliacao}`
         preco.textContent = `${parseFloat(produto.Preco).toFixed(2).replace(".", ",")}`
         quantidade.textContent = `${produto.Quantidade}`
@@ -429,7 +429,7 @@ async function createTbPedidos() {
         let status = document.createElement("td")
         let alterar = document.createElement("td")
 
-        pedidoId.textContent = `${response[i].pedidoId}`
+        pedidoId.textContent = `${(response[i].pedidoId.toString()).padStart(6, "0")}`
         data.textContent = `${(response[i].dataPedido).slice(0, 10).split("-").reverse().join(" - ")}`
         valorTotal.textContent = `R$ ${parseFloat(response[i].valorTotal).toFixed(2).replace(".", ",")}`
 

@@ -83,7 +83,7 @@ public class PedidoService {
 
         try {
             List<PedidoModel> pedidos = new ArrayList<>();
-            pedidos = pedidoRepository.findAllByClienteId(id);
+            pedidos = pedidoRepository.findAllByClienteIdOrderByPedidoIdDesc(id);
             return pedidos;
         } catch (Exception e) {
             throw e;
@@ -130,7 +130,7 @@ public class PedidoService {
 
         try {
             List<PedidoModel> pedidos = new ArrayList<>();
-            pedidos = pedidoRepository.findAll();
+            pedidos = pedidoRepository.findAllOrderByPedidoIdDesc();
             return pedidos;
         } catch (Exception e) {
             throw e;
