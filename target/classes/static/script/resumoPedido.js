@@ -150,14 +150,21 @@ const preecheDados = async () => {
 }
 
 async function finalizarPedido() {
+
+    var statusFinal;
     const checkout = await fetch(`/pedido/import?cliente=${idCliente}&endereco=${endEntrega.idEndEntrega}&frete=${endEntrega.valorFrete}&modoPagamento=${pagamento}`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: ""
-    });
-
-    if (checkout.status == 200 || checkout.status == 201) {
-        alert("Pedido realizado com sucesso!");
+    }).then(
+        data => {
+            statusFinal = data.status
+            return data.json()
+        }
+    );
+    console.log(checkout);
+    if (statusFinal == 200 || statusFinal == 201) {
+        alert(`Pedido ${(checkout.pedidoId.toString()).padStart(6, "0")} realizado com sucesso!`);
         sessionStorage.removeItem("pagamento")
         sessionStorage.removeItem("carrinho")
         sessionStorage.removeItem("endEntrega")

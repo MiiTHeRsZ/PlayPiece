@@ -103,7 +103,7 @@ async function criarListaPedidos() {
                 break;
         }
 
-        numero.textContent = `${pedido.pedidoId}`;
+        numero.textContent = `${(pedido.pedidoId.toString()).padStart(6, "0")}`;
         data.textContent = `${(pedido.dataPedido).slice(0, 10).split("-").reverse().join(" - ")}`;
         valor_total.textContent = `R$ ${parseFloat(pedido.valorTotal).toFixed(2).replace(".", ",")}`;
         status.textContent = `${statusPed}`;
