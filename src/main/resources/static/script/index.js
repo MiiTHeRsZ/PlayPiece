@@ -126,8 +126,8 @@ async function getProducts() {
                     <p class="card-text">R$ ${parseFloat(produto.preco).toFixed(2).replace(".", ",")}</p>
                 </div>
                 <div class="btn-space">
-                    <a href="./pages/produto.html?id=${produto.produtoId}" class="btn btn-primary">Detalhes</a>
-                    <button class="btn btn-primary" onclick="adicionarAoCarrinho(${produto.produtoId})">Adicionar ao carrinho</button>
+                    <a href="./pages/produto.html?id=${produto.produtoId}" class="btn btn-warning">Detalhes</a>
+                    <button class="btn btn-warning" onclick="adicionarAoCarrinho(${produto.produtoId})">Adicionar ao carrinho</button>
                 </div>
             `
             container_cards.appendChild(card)

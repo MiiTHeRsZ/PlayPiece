@@ -28,7 +28,6 @@ sessao = checkCookie("cargo")
 
 const conect_api = async () => {
 	const nickname = document.getElementById("nickname").value;
-	// converte senha fornecida pelo usuario e ja transforma essa senha em hashcode
 	const password = (document.getElementById("password").value);
 
 	let login = {

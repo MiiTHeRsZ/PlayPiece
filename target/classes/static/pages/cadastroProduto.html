@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -7,58 +7,50 @@
     <link rel="stylesheet" href="../styles/reset.css" />
     <link rel="stylesheet" href="../styles/cadastroProduto.css">
     <title>Cadastrar Produto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
     <section id="containerCadastro">
-        <form action="#" id="form">
-
-            <div class="nomeAvaliacao space">
-                <div>
-                    <label for="#nome">Nome:</label>
-                    <input type="text" name="nome" id="nome" class="form__container" required>
-                </div>
-                <div>
-                    <label for="#avaliacao">Avaliação:</label>
-                    <input type="number" name="avaliacao" id="avaliacao" class="form__container" step=".5" min="0"
-                        max="5" value="0" required>
-                </div>
+        <h1 id="titleFrom">Cadastro de Produto</h1>
+        <form id="form" class="row g-3">
+            <div class="col-12">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" required />
             </div>
-
-            <div class="infoFlex space">
-                <div>
-                    <label for="#preco" class="tamMarg">Preço:</label>
-                    <input type="number" name="preco" id="preco" class="form__container" step=".01" min="0" value="0"
-                        required>
-                </div>
-
-                <div>
-                    <label for="#quantidade">Quantidade:</label>
-                    <input type="number" name="quantidade" id="quantidade" class="form__container" min="0" value="1"
-                        required>
-                </div>
+            <div class="col-3">
+                <label for="avaliacao" class="form-label">Avaliação</label>
+                <input type="number" id="avaliacao" class="form-control" step=".5" min="0" max="5" value="0" required>
             </div>
-            <div class="desc space">
-                <div>
-                    <label for="#descricao">Descrição:</label>
-                    <textarea id="descricao" name="descricao" required maxlength="3000" rows="5" cols="30"
-                        placeholder="Descrição"></textarea>
-                </div>
+            <div class="col-6">
+                <label for="preco" class="form-label">Preço</label>
+                <input type="number" id="preco" class="form-control" step=".01" min="0" value="0" required>
             </div>
-
-            <div id="input_imagens">
-                <p class="drop-text">Arraste e solte as imagens aqui</p>
-                <input type="file" name="imageFile" id="imagens" multiple>
+            <div class="col-3">
+                <label for="quantidade" class="form-label">Quantidade</label>
+                <input type="number" id="quantidade" class="form-control" min="0" value="1" required>
             </div>
-
+            <div class="col-12">
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea id="descricao" class="form-control" maxlength="3000" rows="5" cols="30"
+                    placeholder="Digite aqui..." required></textarea>
+            </div>
+            <div class="col-12">
+                <label for="imagens" class="form-label">Imagens</label>
+                <input type="file" id="imagens" class="form-control" multiple required>
+            </div>
             <span class="alert"></span>
-
-            <div class="btnCenter">
-                <button type="submit" id="btn-salvar" class="button">Salvar</button>
+            <div class="col-12">
+                <button type="submit" id="btn-salvar" class="btn btn-warning">
+                    Salvar
+                </button>
+                <a href="./backoffice.html" class="btn btn-warning">Voltar</a>
             </div>
         </form>
     </section>
     <script src="../script/cadastroProduto.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

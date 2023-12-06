@@ -8,52 +8,55 @@
   <link rel="stylesheet" href="../styles/reset.css" />
   <link rel="stylesheet" href="../styles/cadastroUsuario.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
+
   <section id="containerCadastro">
+    <h1 id="titleForm">Cadastro de Usuário</h1>
 
-    <form action="#" id="form">
-
-      <div class="cpfNomeCarg space">
-        <label for="#nome">Nome:</label>
-        <input type="text" name="nome" id="nome" class="form__container" required />
-
-        <label for="#cpf">CPF:</label>
-        <input type="text" name="cpf" id="cpf" class="form__container" required minlength="11" />
+    <form id="form" class="row g-3">
+      <div class="col-md-6">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="nome" required />
       </div>
-
-      <div class="emailCargo space">
-        <label for="#email_profissional">E-mail profissional:</label>
-        <input type="email" name="email_profissional" class="form__container" id="email_profissional" required
-          readonly />
-
-        <label for="#cargo">Cargo:</label>
-        <select id="cargo" required>
-          <option value="0" selected="true" disabled="disabled">
-            Selecione um cargo
-          </option>
+      <div class="col-md-6">
+        <label for="cpf" class="form-label">CPF</label>
+        <input type="text" class="form-control" id="cpf" required minlength="11" />
+      </div>
+      <div class="col-8">
+        <label for="email_profissional" class="form-label">E-mail Corporativo</label>
+        <input type="email" class="form-control" id="email_profissional" placeholder="" required readonly />
+      </div>
+      <div class="col-4">
+        <label for="cargo" class="form-label">Cargo</label>
+        <select id="cargo" class="form-select" required>
+          <option value="0" selected="true" disabled>Selecione um cargo</option>
         </select>
       </div>
-
-      <div class="confSenha">
-
-        <label for="#senha1">Senha:</label>
-        <input type="password" name="senha1" id="senha1" class="passInput form__container" minlength="8" maxlength="25"
-          required />
-
-        <label for="#senha2">Confirmar senha:</label>
-        <input type="password" name="senha2" id="senha2" class="passInput form__container" minlength="8" maxlength="25"
-          required />
-
-        <span class="alert"></span>
-        <i id="showPassword" class="fa-solid fa-eye-slash form__container"></i>
-
-        <button type="submit" id="btn-salvar" disabled>Salvar</button>
-
+      <div class="col-4">
+        <label for="senha1" class="form-label">Senha</label>
+        <input type="password" class="form-control passInput" id="senha1" />
       </div>
-
-
+      <div class="col-4">
+        <label for="senha2" class="form-label">Confirmar Senha</label>
+        <input type="password" class="form-control passInput" id="senha2" />
+      </div>
+      <div class="col-4">
+        <label for="showPassword" class="form-label">Exibir Senha</label>
+        <br>
+        <i id="showPassword" class="fa-solid fa-eye-slash"></i>
+      </div>
+      <span class="alert"></span>
+      
+      <div class="col">
+        <button type="submit" id="btn-salvar" class="btn btn-warning" disabled>
+          Salvar
+        </button>
+        <a href="./backoffice.html" class="btn btn-warning">Voltar</a>
+      </div>
     </form>
   </section>
 

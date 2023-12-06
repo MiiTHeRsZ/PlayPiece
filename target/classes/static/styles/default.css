@@ -65,7 +65,7 @@ body {
     cursor: pointer;
 }
 
-.btn-primary {
-    background-color: #C47748 !important;
-    border-color: #C47748 !important;
-}
+/* .btn-warning {
+    background-color: #ee752a !important;
+    border-color: #ee752a !important;
+} */

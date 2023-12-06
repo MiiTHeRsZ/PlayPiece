@@ -30,6 +30,15 @@ let estoq = () => {
     return code
 }
 
+function desconectar() {
+    Cookies.remove('jobSession');
+    Cookies.remove('cargo');
+}
+
+document.getElementById("sair-perfil").addEventListener("click", () => {
+    desconectar();
+});
+
 // group 2 => estoquista
 if (group == estoq()) {
     document.getElementById("mostrarTbUsuarios").style.display = "none"
@@ -182,7 +191,7 @@ async function createTbProducts() {
 // Responsavel por filtrar a lista de usuários por Nome 
 document.getElementById("pesquisarPorNome").addEventListener("click", () => {
     checkSessao()
-    const nome = document.getElementById("txtNome").value;
+    const nome = document.getElementById("floatingInput").value;
     const tabela = document.getElementById("secaoTabelaUsuario");
     clearTable()
     pesquisarPorNome(nome);
@@ -236,7 +245,7 @@ async function pesquisarPorNome(nome) {
 
 document.getElementById("pesquisarPorNomeProduto").addEventListener("click", () => {
     checkSessao()
-    const nome = document.getElementById("txtNomeProduto").value;
+    const nome = document.getElementById("floatingInputProduto").value;
     const tabela = document.getElementById("secaoTabelaProduto");
     clearTable()
     pesquisarPorNomeProduto(nome);
@@ -432,7 +441,7 @@ async function createTbPedidos() {
             <option value="ET" ${response[i].statusPagamento == "ET" ? "selected" : ""}>Em Trânsito</option>
             <option value="EN" ${response[i].statusPagamento == "EN" ? "selected" : ""}>Entregue</option>
         </select>`;
-        alterar.innerHTML = `<button value=${response[i].pedidoId}" class="btn btn-primary changeStatusButton">Mudar Status</button>`
+        alterar.innerHTML = `<button value=${response[i].pedidoId}" class="btn btn-warning changeStatusButton">Mudar Status</button>`
 
         tr.appendChild(pedidoId)
         tr.appendChild(data)
