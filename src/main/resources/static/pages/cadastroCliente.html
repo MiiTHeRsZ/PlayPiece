@@ -42,170 +42,140 @@
 
     <div id="containerCadastro">
         <form action="#" id="form">
-            <section id="input-space">
-                <section id="dados-pessoais" class="formSecao">
-                    <h3>Dados Pessoais</h3>
-                    <div class="infos">
-                        <div>
-                            <div>
-                                <label for="cpf">CPF:</label>
-                                <input type="text" name="cpf" id="cpf" class="form__container" minlength="11"
-                                    required />
-                            </div>
-                            <span id="err-cpf" class="alert err" style="display: none;"></span>
-                        </div>
-                        <div>
-                            <label for="nome">Nome:</label>
-                            <input type="text" name="nome" class="form__container" id="nome" required />
-                        </div>
-
-                        <div>
-                            <label for="dt_nasc">Nascimento:</label>
-                            <input type="date" name="dt_nasc" id="dt_nasc" class="form__container" min="1900-01-01"
-                                required />
-                        </div>
-                        <div>
-                            <label for="genero">Gênero:</label>
-                            <select id="genero" required>
-                                <option value="0" selected="true" disabled="disabled">Selecione um gênero</option>
-                                <option value="F">Feminino</option>
-                                <option value="M">Masculino</option>
-                                <option value="NA">Prefiro não informar</option>
-                            </select>
-                        </div>
-                        <div>
-                            <div>
-                                <label for="email">Email:</label>
-                                <input type="email" name="email" class="form__container" id="email" required />
-                            </div>
-                            <span id="err-cpf" class="err alert-email mail alert" style="display: none;">email já
-                                cadastrado</span>
-                        </div>
-                        <div>
-                            <div>
-                                <label for="senha">Senha:</label>
-                                <input type="password" name="senha" id="senha" class="passInput form__container"
-                                    minlength="8" maxlength="25" required>
-                            </div>
-                            <div>
-                                <div>
-                                    <label for="confirmaSenha">Confirmar senha:</label>
-                                    <input type="password" name="confirmaSenha" id="confirmaSenha"
-                                        class="passInput form__container" minlength="8" maxlength="25" required>
-                                </div>
-                                <span class="alert-senha senha alert"></span>
-                            </div>
-                            <div>
-                                <label for="showPassword">Mostrar senha:</label>
-                                <i id="showPassword" class="fa-solid fa-eye-slash"></i>
-                            </div>
-                        </div>
+            <section id="dados-pessoais" class="formSecao">
+                <h3>Dados Pessoais</h3>
+                <div class="infos row g-3">
+                    <div class="col-3">
+                        <label for="cpf" class="form-label">CPF</label>
+                        <input type="text" name="cpf" id="cpf" class="form-control" minlength="11" required />
                     </div>
-                </section>
-
-                <section id="endereco-faturamento" class="endereco-space formSecao">
-                    <h3>Endereço de faturamento</h3>
-                    <div class="infos">
-                        <div>
-                            <div>
-                                <label for="cep-faturamento">CEP:</label>
-                                <input type="text" name="cep-faturamento" class="form__container" id="cep-faturamento"
-                                    required />
-                            </div>
-                            <span class="alert-cep-faturamento alert"></span>
-                        </div>
-                        <div>
-                            <label for="logradouro-faturamento">Logradouro:</label>
-                            <input type="text" name="logradouro-faturamento" class="form__container"
-                                id="logradouro-faturamento" required readonly />
-                        </div>
-                        <div>
-                            <label for="numero-faturamento">Número:</label>
-                            <input type="text" name="numero-faturamento" class="form__container" id="numero-faturamento"
-                                required />
-                        </div>
-
-                        <div>
-                            <label for="complemento-faturamento">Complemento:</label>
-                            <input type="text" name="complemento-faturamento" class="form__container"
-                                id="complemento-faturamento" required />
-                        </div>
-                        <div>
-                            <label for="bairro-faturamento">Bairro:</label>
-                            <input type="text" name="bairro-faturamento" class="form__container" id="bairro-faturamento"
-                                required readonly />
-                        </div>
-
-                        <div>
-                            <label for="cidade-faturamento">Cidade:</label>
-                            <input type="text" name="cidade-faturamento" class="form__container" id="cidade-faturamento"
-                                required readonly />
-                        </div>
-                        <div>
-                            <label for="uf-faturamento">UF:</label>
-                            <input type="text" name="uf-faturamento" class="form__container" id="uf-faturamento"
-                                required readonly />
-                        </div>
-                        <div>
-                            <label for="isEntrega">Tornar este meu endereço de entrega:</label>
-                            <input type="checkbox" name="isEntrega" id="isEntrega">
-                        </div>
+                    <span id="err-cpf" class="alert err" style="display: none;"></span>
+                    <div class="col-9">
+                        <label for="nome" class="form-label">Nome:</label>
+                        <input type="text" name="nome" class="form-control" id="nome" required />
                     </div>
-                </section>
-
-                <section id="endereco-entrega" class="endereco-space formSecao">
-                    <h3>Endereço de entrega</h3>
-                    <div class="infos">
-                        <div>
-                            <div>
-                                <label for="cep-entrega">CEP:</label>
-                                <input type="text" name="cep-entrega" class="form__container" id="cep-entrega"
-                                    required />
-                            </div>
-                            <span class="alert-cep-entrega alert"></span>
-                        </div>
-
-                        <div>
-                            <div>
-                                <label for="logradouro-entrega">Logradouro:</label>
-                                <input type="text" name="logradouro-entrega" class="form__container"
-                                    id="logradouro-entrega" required readonly />
-                            </div>
-                            <div>
-                                <label for="numero-entrega">Número:</label>
-                                <input type="text" name="numero-entrega" class="form__container" id="numero-entrega"
-                                    required />
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="complemento-entrega">Complemento:</label>
-                            <input type="text" name="complemento-entrega" class="form__container"
-                                id="complemento-entrega" required />
-                        </div>
-
-                        <div>
-                            <div>
-                                <label for="bairro-entrega">Bairro:</label>
-                                <input type="text" name="bairro-entrega" class="form__container" id="bairro-entrega"
-                                    required readonly />
-                            </div>
-
-                            <div>
-                                <label for="cidade-entrega">Cidade:</label>
-                                <input type="text" name="cidade-entrega" class="form__container" id="cidade-entrega"
-                                    required readonly />
-                            </div>
-                            <div>
-                                <label for="uf-entrega">UF:</label>
-                                <input type="text" name="uf-entrega" class="form__container" id="uf-entrega" required
-                                    readonly />
-                            </div>
-                        </div>
+                    <div class="col-3">
+                        <label for="dt_nasc" class="form-label">Data de Nascimento:</label>
+                        <input type="date" name="dt_nasc" id="dt_nasc" class="form-control" min="1900-01-01" required />
                     </div>
-                </section>
+                    <div class="col-3">
+                        <label for="genero" class="form-label">Genêro:</label>
+                        <select id="genero" class="form-select" required>
+                            <option value="0" selected="true" disabled>Selecione um gênero</option>
+                            <option value="F">Feminino</option>
+                            <option value="M">Masculino</option>
+                            <option value="NA">Prefiro não informar</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" name="email" class="form-control" id="email" required />
+                    </div>
+                    <span id="err-cpf" class="err alert-email mail alert" style="display: none;">email já
+                        cadastrado</span>
+                    <div class="col-4">
+                        <label for="senha" class="form-label">Senha:</label>
+                        <input type="password" name="senha" id="senha" class="passInput form-control" minlength="8"
+                            maxlength="25" required>
+                    </div>
+                    <div class="col-4">
+                        <label for="confirmaSenha" class="form-label">Confirmar Senha:</label>
+                        <input type="password" name="confirmaSenha" id="confirmaSenha" class="passInput form-control"
+                            minlength="8" maxlength="25" required>
+                        <span class="alert-senha senha alert"></span>
+                    </div>
+                    <div class="col-4">
+                        <label for="showPassword" class="form-label">Exibir Senha</label>
+                        <br>
+                        <i id="showPassword" class="fa-solid fa-eye-slash"></i>
+                    </div>
+                </div>
             </section>
-            <button type="submit" id="btn-salvar" disabled>Cadastrar</button>
+
+            <section id="enderecos" class="row g-3 justify-content-center">
+                <div class="endereco-faturamento row col-6">
+                    <h3>Endereço de faturamento</h3>
+                    <div class="col-4">
+                        <label for="cep-faturamento" class="form-label">CEP:</label>
+                        <input type="text" name="cep-faturamento" class="form-control" id="cep-faturamento" required />
+                        <span class="alert-cep-faturamento alert"></span>
+                    </div>
+                    <br>
+                    <div class="col-8">
+                        <label for="logradouro-faturamento" class="form-label">Logradouro:</label>
+                        <input type="text" name="logradouro-faturamento" class="form-control"
+                            id="logradouro-faturamento" required readonly />
+                    </div>
+                    <div class="col-4">
+                        <label for="numero-faturamento" class="form-label">Número:</label>
+                        <input type="text" name="numero-faturamento" class="form-control" id="numero-faturamento"
+                            required />
+                    </div>
+                    <div class="col-8">
+                        <label for="complemento-faturamento" class="form-label">Complemento:</label>
+                        <input type="text" name="complemento-faturamento" class="form-control"
+                            id="complemento-faturamento" required />
+                    </div>
+                    <div class="col-4">
+                        <label for="bairro-faturamento" class="form-label">Bairro:</label>
+                        <input type="text" name="bairro-faturamento" class="form-control" id="bairro-faturamento"
+                            required readonly />
+                    </div>
+                    <div class="col-6">
+                        <label for="cidade-faturamento" class="form-label">Cidade:</label>
+                        <input type="text" name="cidade-faturamento" class="form-control" id="cidade-faturamento"
+                            required readonly />
+                    </div>
+                    <div class="col-2">
+                        <label for="uf-faturamento" class="form-label">UF:</label>
+                        <input type="text" name="uf-faturamento" class="form-control" id="uf-faturamento" required
+                            readonly />
+                    </div>
+                    <div class="form-check col-12"
+                        style="text-align: center; font-size: 16px; font-weight: bold; text-transform: uppercase;">
+                        <input class="form-check-input" type="checkbox" id="isEntrega">
+                        <label class="form-check-label" for="isEntrega">Tornar este meu endereço de entrega?</label>
+                    </div>
+                </div>
+                <div class="endereco-entrega col-6 row">
+                    <h3>Endereço de entrega</h3>
+                    <div class="col-4">
+                        <label for="cep-entrega" class="form-label">CEP:</label>
+                        <input type="text" name="cep-entrega" class="form-control" id="cep-entrega" required />
+                        <span class="alert-cep-entrega alert"></span>
+                    </div>
+                    <div class="col-8">
+                        <label for="logradouro-entrega" class="form-label">Logradouro:</label>
+                        <input type="text" name="logradouro-entrega" class="form-control" id="logradouro-entrega"
+                            required readonly />
+                    </div>
+                    <div class="col-4">
+                        <label for="numero-entrega" class="form-label">Número:</label>
+                        <input type="text" name="numero-entrega" class="form-control" id="numero-entrega" required />
+                    </div>
+                    <div class="col-8">
+                        <label for="complemento-entrega" class="form-label">Complemento:</label>
+                        <input type="text" name="complemento-entrega" class="form-control" id="complemento-entrega"
+                            required />
+                    </div>
+                    <div class="col-4">
+                        <label for="bairro-entrega" class="form-label">Bairro:</label>
+                        <input type="text" name="bairro-entrega" class="form-control" id="bairro-entrega" required
+                            readonly />
+                    </div>
+                    <div class="col-6">
+                        <label for="cidade-entrega" class="form-label">Cidade:</label>
+                        <input type="text" name="cidade-entrega" class="form-control" id="cidade-entrega" required
+                            readonly />
+                    </div>
+                    <div class="col-2">
+                        <label for="uf-entrega" class="form-label">UF:</label>
+                        <input type="text" name="uf-entrega" class="form-control" id="uf-entrega" required readonly />
+                    </div>
+                </div>
+            </section>
+            <button type="submit" id="btn-salvar" class="btn btn-warning" style="margin-top: 20px;"
+                disabled>Cadastrar</button>
         </form>
     </div>
     <script src="
