@@ -20,9 +20,13 @@ function validarVazio() {
     let checkVazio = sessionStorage.getItem("carrinho")
 
     if (checkVazio == undefined || checkVazio == "") {
-        document.getElementById("vazio-section").classList.add("display")
+        document.getElementById("vazio-section").classList.add("display");
+        document.getElementById("carrinho").style.display = "none";
+        document.getElementById("totalCompra").style.display = "none";
     } else {
-        document.getElementById("vazio-section").classList.remove("display")
+        document.getElementById("vazio-section").classList.remove("display");
+        document.getElementById("carrinho").style.display = "block";
+        document.getElementById("totalCompra").style.display = "flex";
     }
 }
 

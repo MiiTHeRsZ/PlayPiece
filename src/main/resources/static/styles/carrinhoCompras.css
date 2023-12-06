@@ -17,24 +17,15 @@ main {
 }
 
 #vazio-section {
-    z-index: 1;
-    background-color: rgba(208, 233, 255, 1);
-    height: fit-content;
-    width: fit-content;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
-    padding: 40px 60px;
+    display: none;
+}
+
+#vazio-section.display {
+    display: block;
 }
 
 .content {
     text-align: center;
-}
-
-#vazio-section.display {
-    visibility: visible;
 }
 
 .quantidadeProduto {

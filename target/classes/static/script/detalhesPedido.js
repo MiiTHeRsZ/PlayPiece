@@ -67,6 +67,7 @@ async function carregarDados() {
 
     const tabela = document.getElementById("produtosTabela");
 
+    let subTotal = 0;
     let quantidadeItens = 0;
     dadosPedido.itens.forEach(item => {
         let tr = document.createElement("tr");
@@ -108,8 +109,12 @@ async function carregarDados() {
         tr.appendChild(quantidade);
         tr.appendChild(precoUnitario);
         tr.appendChild(precoTotal);
+
+        subTotal += (item.produto.preco * item.quantidade);
     });
 
+    document.getElementById("subTotal").textContent = ` Subtotal: R$ ${parseFloat(subTotal).toFixed(2).replace(".", ",")}`;
+    document.getElementById("freteFinal").textContent += `R$ ${parseFloat(dadosPedido.valorFrete).toFixed(2).replace(".", ",")}`;
     document.getElementById("valorTotal").textContent = `Valor total: R$ ${parseFloat(dadosPedido.valorTotal).toFixed(2).replace(".", ",")}`;
 
 
@@ -140,15 +145,8 @@ async function carregarDados() {
             break;
     }
 
-    document.getElementById("cep").textContent += dadosPedido.enderecoEntrega.cep;
-    document.getElementById("logradouro").textContent += dadosPedido.enderecoEntrega.logradouro;
-    document.getElementById("numero").textContent += dadosPedido.enderecoEntrega.numero;
-    document.getElementById("complemento").textContent += dadosPedido.enderecoEntrega.complemento;
-    document.getElementById("bairro").textContent += dadosPedido.enderecoEntrega.bairro;
-    document.getElementById("cidade").textContent += dadosPedido.enderecoEntrega.cidade;
-    document.getElementById("uf").textContent += dadosPedido.enderecoEntrega.uf;
+    document.getElementById("enderecoEntrega").textContent = `${dadosPedido.enderecoEntrega.logradouro}, n° ${dadosPedido.enderecoEntrega.numero} - ${dadosPedido.enderecoEntrega.cep}, ${dadosPedido.enderecoEntrega.complemento}${dadosPedido.enderecoEntrega.complemento.length > 0 ? " - " : ""} ${dadosPedido.enderecoEntrega.bairro}, ${dadosPedido.enderecoEntrega.cidade}, ${dadosPedido.enderecoEntrega.uf}`;
 
-    document.getElementById("frete").textContent += `R$ ${parseFloat(dadosPedido.valorFrete).toFixed(2).replace(".", ",")} `;
     document.getElementById("pagamentoOpc").textContent = dadosPedido.modoPagamento == "BO" ? "Boleto" : "Cartão de Crédito";
 }
 carregarDados()
