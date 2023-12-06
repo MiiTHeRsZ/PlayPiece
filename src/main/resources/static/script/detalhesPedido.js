@@ -66,6 +66,7 @@ async function carregarDados() {
     const dadosPedido = await fetch(`/pedido/search?id=${idPedido}`).then(response => response.json());
 
     const tabela = document.getElementById("produtosTabela");
+    document.getElementById("pedidoNum").textContent += ` N° ${(dadosPedido.pedidoId.toString()).padStart(6, "0")}`
 
     let subTotal = 0;
     let quantidadeItens = 0;
