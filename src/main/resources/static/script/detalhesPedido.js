@@ -59,7 +59,7 @@ function desconectar() {
     Cookies.remove('sessaoId');
     Cookies.remove('nome');
     sessionStorage.removeItem("carrinho");
-    window.location.reload();
+    window.open("../index.html", "_self");
 }
 
 async function carregarDados() {

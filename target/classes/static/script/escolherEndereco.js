@@ -39,7 +39,7 @@ function desconectar() {
     Cookies.remove('sessaoId');
     Cookies.remove('nome');
     sessionStorage.removeItem("carrinho");
-    window.location.reload();
+    window.open("../index.html", "_self");
 }
 
 let dados;
@@ -79,9 +79,9 @@ const preecheDados = async () => {
 }
 
 document.getElementById("enderecoEntrega").addEventListener("change", () => {
-    
+
     dados.listaEndereco.forEach(endereco => {
-        
+
         if (document.getElementById("enderecoEntrega").value == endereco.enderecoId) {
             document.getElementById("cep").value = endereco.cep;
             document.getElementById("logradouro").value = endereco.logradouro;
@@ -91,7 +91,7 @@ document.getElementById("enderecoEntrega").addEventListener("change", () => {
             document.getElementById("cidade").value = endereco.cidade;
             document.getElementById("uf").value = endereco.uf;
         }
-        
+
     });
 
     document.querySelectorAll("input[type='radio']").forEach(async item => {
@@ -100,7 +100,7 @@ document.getElementById("enderecoEntrega").addEventListener("change", () => {
             document.getElementById('selecionar-endereco').disabled = true;
         }
     });
-    
+
     calcularFrete();
 });
 
