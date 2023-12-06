@@ -38,7 +38,8 @@ public class PedidoService {
             PedidoModel pedido = new PedidoModel();
             var cliente = clienteRespository.findById(clienteId).get();
             pedido.setCliente(cliente);
-            pedido.setEnderecoEntrega(cliente.getEnderecoFaturamento());
+            var endereco = enderecoService.getEnderecoById(enderecoId);
+            pedido.setEnderecoEntrega(endereco);
             pedido = pedidoRepository.save(pedido);
             CarrinhoModel carrinho = carrinhoService.getCarrinhoAtivoByClienteId(clienteId);
             var listaItens = carrinho.getItens();
@@ -65,10 +66,7 @@ public class PedidoService {
                 cliente.setPedidos(new ArrayList<PedidoModel>());
             }
 
-            var endereco = enderecoService.getEnderecoById(enderecoId);
-
             pedido.getCliente().getPedidos().add(pedido);
-            pedido.setEnderecoEntrega(endereco);
             pedido.setModoPagamento(modoPagamento);
             pedido.setValorFrete(frete);
             pedido.setStatusPagamento(StatusPedidoEnum.AGUARDANDO_PAGAMENTO.getValor());
@@ -85,7 +83,7 @@ public class PedidoService {
 
         try {
             List<PedidoModel> pedidos = new ArrayList<>();
-            pedidos = pedidoRepository.findAllByClienteId(id);
+            pedidos = pedidoRepository.findAllByClienteIdOrderByPedidoIdDesc(id);
             return pedidos;
         } catch (Exception e) {
             throw e;
@@ -132,7 +130,7 @@ public class PedidoService {
 
         try {
             List<PedidoModel> pedidos = new ArrayList<>();
-            pedidos = pedidoRepository.findAll();
+            pedidos = pedidoRepository.findAllOrderByPedidoIdDesc();
             return pedidos;
         } catch (Exception e) {
             throw e;

@@ -1,78 +1,40 @@
 @import url("./var.css");
+@import url("./default.css");
 @import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
 
-body {
-    background-image: url(../images/background-image.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    height: 100vh;
-}
-
-#menuBar {
-    width: 100vw;
-    height: 10vh;
-    z-index: 1;
-    padding: 0 20px;
-    border-bottom: 2px solid;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    position: fixed;
-}
-
-#menuBar .logo {
-    width: 60px;
-}
-
-#menuBar .icon {
-    text-decoration: none;
-    color: #000;
-    font-size: 40px;
-    margin-right: 16px;
-}
-
-.user {
-    cursor: pointer;
+body{
+    display: grid;
 }
 
 main {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    background-color: #dcdcdc;
-    padding-top: 150px;
+    align-items: flex-end;
+    flex-direction: row;
+    background-color: rgba(255, 255, 255, .9);
+    border-radius: 15px;
+    width: 70%;
+    margin: 100px 0 !important;
+    padding: 40px 60px;
+    justify-self: center;
 }
 
-table,
+thead th {
+    font-weight: bold;
+}
+
+tr,
 th,
 td {
-    padding: 10px 5px 0;
-    border: 2px solid #000;
-}
-
-
-tr th {
-    border: 2px solid #000;
     text-align: center;
-    font-weight: bold;
-    vertical-align: middle;
 }
 
-tr td {
+#enderecoEntrega,
+#pagamentoOpc {
+    font-size: 18px;
     border: 2px solid #000;
-    text-align: center;
-    padding: 0 auto;
-}
-
-td {
-    height: 100%;
-    vertical-align: middle;
-}
-
-.container {
-    max-width: 800px !important;
+    border-radius: 5px;
+    padding: 10px;
+    width: fit-content;
+    background-color: var(--bg-color);
 }

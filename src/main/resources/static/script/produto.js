@@ -1,10 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
 id = urlParams.get('id');
-try {
-    email = urlParams.get('email');
-} catch (error) {
-    console.error(error);
-}
 
 function getCookie(nome) {
     return Cookies.get(nome)
@@ -64,64 +59,7 @@ function desconectar() {
     Cookies.remove('sessaoId');
     Cookies.remove('nome');
     sessionStorage.removeItem("carrinho");
-    window.location.reload();
-}
-
-document.getElementById("perfil").addEventListener("click", async () => {
-    let check = false
-    if (document.getElementById("menuBox").style.display == "none") {
-
-        if (idCliente == undefined) {
-            document.querySelector("#box").innerHTML = `<div class="Deslogado boxInfo">
-            <h5 class="nome">Seja Bem-Vindo(a)!</h5>
-            <a href="./pages/loginCliente.html">Login/Cadastro</a>
-            <a href="./pages/loginBackoffice.html">Backoffice</a>
-            </div>`
-            check = true
-        }
-        else {
-
-            const cliente = await fetch(`/cliente/${idCliente}`).then((data) => data.json())
-            let nome = cliente.nome.split(" ")
-            document.querySelector("#box").innerHTML = `<div class="Logado boxInfo">
-            <h5 class="nome">Eai, ${nome[0]}!</h5>
-            <a href="./pages/perfilCliente.html">Meu perfil</a>
-            <a href="" id="sair-perfil">Sair</a>
-            </div>`
-
-            check = true
-
-            document.getElementById("sair-perfil").addEventListener("click", (e) => {
-                e.preventDefault();
-
-                const resp = window.confirm("Deseja encerrar a sessão?");
-                if (resp == 1) {
-                    Cookies.remove('sessaoId');
-                    window.open("../index.html", "_self")
-                }
-            });
-
-        }
-
-        document.addEventListener('click', (event) => {
-            const box = document.getElementById('menuBox');
-
-            if (!document.getElementById("box").contains(event.target) && event.target.className != 'fi fi-br-user') {
-                box.style.display = 'none';
-            }
-        });
-
-        document.getElementById("menuBox").style.display = "block"
-
-    }
-    else {
-        document.getElementById("menuBox").style.display = "none"
-    }
-})
-
-if (email != null) {
-    document.getElementById("perfil").href = `./perfilCliente.html?email=${email}`;
-    document.getElementById("logo").href += `?email=${email}`;
+    window.open("../index.html", "_self");
 }
 
 const container = document.getElementById("container");
@@ -158,7 +96,7 @@ async function getProduct() {
         </div>
         <div id="div-valor">
             <p id="valor">R$ ${parseFloat(produto.preco).toFixed(2).replace(".", ",")}</p>
-            <button onclick="adicionarAoCarrinho(${produto.produtoId})">Adicionar ao carrinho</button>
+            <button onclick="adicionarAoCarrinho(${produto.produtoId})" class="btn btn-warning">Adicionar ao carrinho</button>
         </div>
         <h4 for="descricao">Descrição:</h4>
         <p style="white-space:pre-line" id="descricao">${produto.descricao}</p>

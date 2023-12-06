@@ -11,7 +11,10 @@ import com.playpieceAPI.models.pedido.PedidoModel;
 @Repository
 public interface PedidoRepository extends JpaRepository<PedidoModel, Long> {
 
-    @Query("select p from pedido p where p.cliente.id = ?1")
-    List<PedidoModel> findAllByClienteId(Long id);
+    @Query("select p from pedido p order by p.id desc")
+    List<PedidoModel> findAllOrderByPedidoIdDesc();
+
+    @Query("select p from pedido p where cliente.id = ?1 order by p.id desc")
+    List<PedidoModel> findAllByClienteIdOrderByPedidoIdDesc(Long id);
 
 }

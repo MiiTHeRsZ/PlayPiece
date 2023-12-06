@@ -14,7 +14,10 @@
 
 <body>
     <header id="menuBar">
-        <a href="../index.html" id="logo"><img src="../images/Logo.png" alt="Logo" class="logo" /></a>
+        <a href="../index.html" id="logo" class="icon">
+            <img src="../images/Logo.png" alt="Logo" class="logo" />
+            <i class="fi fi-br-home"></i>
+        </a>
         <div>
             <a href="./carrinhoCompras.html" class="icon shopping_cart">
                 <i class="fi fi-br-shopping-cart"></i>
@@ -29,30 +32,32 @@
             <h1 id="nomeCliente">Fulano</h1>
             <p id="idCliente" hidden></p>
             <form action="#" id="form">
-                <div>
+                <div class="enderecoSpace">
                     <label for="cpf">CPF:</label>
                     <input type="text" name="cpf" id="cpf" minlength="11" required readonly />
                     <label for="nome">Nome:</label>
                     <input type="text" name="nome" id="nome" required />
                 </div>
-                <div style="display: flex; gap: 10px;">
+                <div class="enderecoSpace">
                     <div>
-                        <label for="dt_nasc">Data de Nascimento:</label>
-                        <input type="date" name="dt_nasc" id="dt_nasc" required />
-                    </div>
-                    <div>
-                        <label for="genero">Gênero:</label>
-                        <select name="genero" id="genero" required>
-                            <option value="0" selected disabled>Selecione um cargo</option>
-                            <option value="F">Feminino</option>
-                            <option value="M">Masculino</option>
-                            <option value="NA">Prefiro não informar</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="email">Email:</label>
-                        <input type="text" name="email" id="email" required readonly />
-                        <span class="alert mail"></span>
+                        <div>
+                            <label for="dt_nasc">Data de Nascimento:</label>
+                            <input type="date" name="dt_nasc" id="dt_nasc" required />
+                        </div>
+                        <div>
+                            <label for="genero">Gênero:</label>
+                            <select name="genero" id="genero" required>
+                                <option value="0" selected disabled>Selecione um cargo</option>
+                                <option value="F">Feminino</option>
+                                <option value="M">Masculino</option>
+                                <option value="NA">Prefiro não informar</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="email">Email:</label>
+                            <input type="text" name="email" id="email" required readonly />
+                            <span class="alert mail"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="enderecoSpace">
@@ -93,9 +98,10 @@
                     <br>
                     <select name="enderecoEntrega" id="enderecoEntrega">
                     </select>
-                    <button type="button" id="novo-endereco">Novo endereço</button>
-                    <button type="button" id="definir-endereco-padrao">Definir como padrão</button>
-                    <button type="button" id="excluir-endereco">Excluir endereço</button>
+                    <button type="button" id="novo-endereco" class="btn btn-warning">Novo endereço</button>
+                    <button type="button" id="definir-endereco-padrao" class="btn btn-warning">Definir como
+                        padrão</button>
+                    <button type="button" id="excluir-endereco" class="btn btn-warning">Excluir endereço</button>
                     <div>
                         <div>
                             <label for="cep">CEP:</label>
@@ -162,8 +168,8 @@
                         </div>
                     </div>
                     <div id="botoes">
-                        <button type="button" id="salvar-novo-endereco">Criar</button>
-                        <button type="button" id="cancelar-novo-endereco">Cancelar</button>
+                        <button type="button" id="salvar-novo-endereco" class="btn btn-warning">Criar</button>
+                        <button type="button" id="cancelar-novo-endereco" class="btn btn-warning">Cancelar</button>
                     </div>
                 </div>
                 <div>
@@ -180,7 +186,7 @@
                     <i id="showPassword" class="fa-solid fa-eye-slash"></i>
                 </div>
 
-                <button type="submit" id="alterar-info">Alterar informações</button>
+                <button type="submit" id="alterar-info" class="btn btn-warning">Alterar informações</button>
             </form>
         </section>
     </main>

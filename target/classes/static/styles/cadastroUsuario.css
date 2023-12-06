@@ -1,74 +1,18 @@
 @import url("./var.css");
+@import url("./default.css");
 @import url("https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css");
 
 body {
-  font-family: "Roboto Mono", monospace;
-  color: var(--txt-color);
-  background-color: var(--bg-color);
-  transition: all 0.3s ease-in-out;
-  background-image: url(../images/background-image.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  height: 100vh;
-}
-
-#menuBar {
-  width: 100vw;
-  height: 10vh;
-  z-index: 1;
-  padding: 0 20px;
-  border-bottom: 2px solid;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  background-color: #fff;
-}
-
-#menuBar .logo {
-  width: 60px;
-}
-
-#menuBar .icon {
-  text-decoration: none;
-  color: #000;
-  font-size: 40px;
-  margin-right: 16px;
 }
 
 #containerCadastro {
-  margin: 15vh 29vw;
+  height: fit-content;
+  width: 60%;
   border-radius: 25px;
-  padding: 20px;
-  background-color: #e0e7e9;
-  box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
-}
-
-input {
-  margin: 10px;
-  outline: none !important;
-  border-bottom: 1px solid rgb(213, 213, 0);
-}
-
-.space {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.confSenha {
-  text-align: center;
-}
-
-.form__container {
-  top: 50vh;
-  left: 50vw;
-  border-radius: 5px;
-  background-color: var(--bg-alternative-color);
-  background: transparent;
-  transition: all .5s ease-in-out;
-}
-
-#btn-salvar {
-  margin-top: 15px;
+  padding: 60px;
+  background-color: rgba(255, 255, 255, .9);
+  font-size: 20px;
 }

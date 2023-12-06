@@ -56,7 +56,7 @@ function desconectar() {
     Cookies.remove('sessaoId');
     Cookies.remove('nome');
     sessionStorage.removeItem("carrinho");
-    window.location.reload();
+    window.open("../index.html", "_self");
 }
 
 async function criarListaPedidos() {
@@ -103,11 +103,11 @@ async function criarListaPedidos() {
                 break;
         }
 
-        numero.textContent = `${pedido.pedidoId}`;
+        numero.textContent = `${(pedido.pedidoId.toString()).padStart(6, "0")}`;
         data.textContent = `${(pedido.dataPedido).slice(0, 10).split("-").reverse().join(" - ")}`;
         valor_total.textContent = `R$ ${parseFloat(pedido.valorTotal).toFixed(2).replace(".", ",")}`;
         status.textContent = `${statusPed}`;
-        detalhes.innerHTML = `<a href="./detalhesPedido.html?id=${pedido.pedidoId}" class="btn btn-primary"><i class="fi fi-br-list-check"></i></a>`;
+        detalhes.innerHTML = `<a href="./detalhesPedido.html?id=${pedido.pedidoId}" class="btn btn-warning"><i class="fi fi-br-list-check"></i></a>`;
         tr.appendChild(numero);
         tr.appendChild(data);
         tr.appendChild(valor_total);

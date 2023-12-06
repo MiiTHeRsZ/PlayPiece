@@ -15,7 +15,10 @@
 <body>
 
     <header id="menuBar">
-        <a href="../index.html" id="logo"><img src="../images/Logo.png" alt="Logo" class="logo" /></a>
+        <a href="../index.html" id="logo" class="icon">
+            <img src="../images/Logo.png" alt="Logo" class="logo" />
+            <i class="fi fi-br-home"></i>
+        </a>
         <div class="dropdown">
             <a class="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="perfil"><i
                     class="icon user"><i class="fi fi-br-user"></i></i>
@@ -37,7 +40,7 @@
             <br>
             <select name="enderecoEntrega" id="enderecoEntrega">
             </select>
-            <button type="button" id="novo-endereco">Novo endereço</button>
+            <button type="button" id="novo-endereco" class="btn btn-primary">Novo endereço</button>
             <div>
                 <div>
                     <label for="cep">CEP:</label>
@@ -72,21 +75,21 @@
             <section id="opcoesFrete">
                 <p>Selecione um dos fretes:</p>
                 <div>
-                    <label for="frete01">Frete 01</label>
+                    <label for="frete01">Express</label>
                     <label for="frete01" id="frete1"></label>
                     <input type="radio" name="frete" id="frete01" value="">
                 </div>
                 <div>
-                    <label for="frete02">Frete 02</label>
+                    <label for="frete02">Sedex</label>
                     <label for="frete02" id="frete2"></label>
                     <input type="radio" name="frete" id="frete02" value="">
                 </div>
                 <div>
-                    <label for="frete03">Frete 03</label>
+                    <label for="frete03">Pac</label>
                     <label for="frete03" id="frete3"></label>
                     <input type="radio" name="frete" id="frete03" value="">
                 </div>
-                <button type="button" id="selecionar-endereco" disabled>Selecionar endereço</button>
+                <button type="button" id="selecionar-endereco" class="btn btn-primary" disabled>Selecionar endereço</button>
             </section>
         </section>
         <section id="endEntregaNovo" class="enderecoSpace" style="display: none;">
@@ -123,8 +126,8 @@
                 </div>
             </div>
             <div id="botoes">
-                <button type="button" id="salvar-novo-endereco">Criar</button>
-                <button type="button" id="cancelar-novo-endereco">Cancelar</button>
+                <button type="button" id="salvar-novo-endereco" class="btn btn-primary">Criar</button>
+                <button type="button" id="cancelar-novo-endereco" class="btn btn-primary">Cancelar</button>
             </div>
         </section>
     </main>

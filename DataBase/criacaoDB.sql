@@ -1,3 +1,4 @@
+drop database if exists playpiece;
 create database if not exists playpiece;
 use playpiece;
 
@@ -97,9 +98,9 @@ create table item_pedido(
 
 DROP TABLE IF EXISTS carrinho;
 CREATE TABLE carrinho (
-  carrinho_id bigint NOT NULL primary key AUTO_INCREMENT,
-  fk_cliente_id bigint,
-  FOREIGN KEY (fk_cliente_id) REFERENCES cliente (cliente_id)
+	carrinho_id bigint NOT NULL primary key AUTO_INCREMENT,
+	fk_cliente_id bigint,
+	FOREIGN KEY (fk_cliente_id) REFERENCES cliente (cliente_id)
 );
 
 drop table if exists item_carrinho;
@@ -116,8 +117,8 @@ create table item_carrinho(
 
 insert into cargo (nome) value ("Administrador"), ("Estoquista");
 
-insert into usuario (nome, cpf, fk_cargo_id, email, senha, ativo) values('Leonardo Noboru Machado Fujimura', '43183345897', 1, 'lfujimura.pp1@playpiece.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', true),
-('Vinicios Mendes', '97876694993', 2, 'vmendes.pp2@playpiece.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', true);
+insert into usuario (nome, cpf, fk_cargo_id, email, senha, ativo) values('Leonardo Noboru Machado Fujimura', '43183345897', 1, 'lfujimura.pp1@playpiece.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', true), ('Gustavo Leme de Souza Lima', '38479946890', 1, 'gleme.pp2@playpiece.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', true),
+('Vinicios Mendes', '97876694993', 2, 'vmendes.pp3@playpiece.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', true);
 
 
 INSERT INTO `produto` VALUES (1,"Dungeons & Dragons: Kit Essencial",5,"Kit Essencial Dungeons Dragons Rpg Dnd Português Inicial Original\nTudo o que você precisa para criar personagens e jogar as novas aventuras nesta introdução ao maior RPG do mundo.\n\nDungeons & Dragons é um jogo cooperativo de narrativa que explora sua imaginação e o convida a explorar um fantástico mundo de aventuras, onde heróis lutam contra monstros, encontram tesouros e superam missões. O D&D Essentials Kit é um novo produto introdutório destinado a levar o D&D ao público interessado em mergulhar em uma história de fantasia.\n\nEsta caixa contém o essencial que você precisa para executar um jogo de D&D com um Dungeon Master e um a cinco aventureiros. Um livro de regras recém-projetado integra os jogadores, ensinando-os a criar personagens, e a aventura incluída, Dragon of Icespire Peak , apresenta uma nova variante de regras 1 contra 1.\n\n\nCONTEÚDO:\n\n1 Livro de Regras de 72 Páginas que ensina como criar personagens dos níveis 1 a 6 e como jogar\n\nDragão do Pico da Ponta Gélida, uma aventura introdutória.\n\nMapa pôster frente e verso\n\nEscudo do Dungeon Master\n\n6 Planilhas de personagem em branco\n\n11 dados poliédricos\n\n81 Cartas que descrevem itens mágicos, ajudantes e mais.",178.60,92,1), 
@@ -191,10 +192,15 @@ INSERT INTO `imagem` VALUES (1,1,'/src/main/resources/static/images/Produtos/1/0
 insert into endereco (fk_cliente_id,cep,logradouro,numero,complemento,bairro,cidade,uf,padrao,ativo) values (1, '04671071','Rua Sócrates','853', 'apt. 193 D', 'Vila Sofia', 'São Paulo', 'SP', true, true ),
 (1, '04671071','Rua Sócrates','853', 'apt. 44 C', 'Vila Sofia', 'São Paulo', 'SP', false, true),
 (2, '06331110','Rua São Lucas Evangelista','377', '', 'Jardim Cibele', 'Carapicuíba', 'SP', true, true),
-(2, '06331110','Rua São Lucas Evangelista','377', '', 'Jardim Cibele', 'Carapicuíba', 'SP', false, true);
+(2, '06331110','Rua São Lucas Evangelista','377', '', 'Jardim Cibele', 'Carapicuíba', 'SP', false, true),
+(3,'04775170','Rua Waldemar Gomes Lingoanoti',210,'ap 42','Jardim Marabá(Zona Sul)','São Paulo','SP', false, true),
+(3,'04821000','Avenida Presidente João Goulart',1212,'','Jardim Mália II','São Paulo','SP', false, false),
+(3,'04696000','Avenida Engenheiro Eusébio Stevaux',333,'','Jurubatuba','São Paulo','SP', true, true);
 
-insert into cliente (cpf,nome,dt_nascimento,genero,email,senha,end_fat,ativo) values('43183345897', 'Leonardo Fujimura', '2002-03-30', 'M', 'l.fujimura@teste.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 1, true),
-('38479946890', 'Gustavo Leme', '1999-05-29', 'M', 'g.leme@test.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 3, true);
+insert into cliente (cpf,nome,dt_nascimento,genero,email,senha,end_fat,ativo) values
+('43183345897', 'Leonardo Fujimura', '2002-03-30', 'M', 'l.fujimura@teste.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 1, true),
+('38479946890', 'Gustavo Leme', '1999-05-29', 'M', 'g.leme@test.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 3, true),
+('52308444851','Ian Saggiorattoor','2004-11-29','M','ian.saggior@gmail.com','$2a$05$GdSwxvC3EXOl3SVL5GOBy.6olrw1vSlILc1AbATZxSTc6qngJeSNK',5,true);
 
 INSERT INTO carrinho VALUES (1,1),(2,2);
 

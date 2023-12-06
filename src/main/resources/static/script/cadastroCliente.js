@@ -296,7 +296,7 @@ botaoSalvar.addEventListener("click", async (e) => {
             "bairro": document.getElementById("bairro-entrega").value,
             "cidade": document.getElementById("cidade-entrega").value,
             "uf": document.getElementById("uf-entrega").value,
-            "padrao": false,
+            "padrao": true,
             "ativo": true
         }]
     }
@@ -317,7 +317,7 @@ botaoSalvar.addEventListener("click", async (e) => {
             "bairro": document.getElementById("bairro-faturamento").value,
             "cidade": document.getElementById("cidade-faturamento").value,
             "uf": document.getElementById("uf-faturamento").value,
-            "padrao": true,
+            "padrao": listaEndereco != null ? false : true,
             "ativo": true
         },
         "listaEndereco": listaEndereco,
@@ -344,19 +344,6 @@ botaoSalvar.addEventListener("click", async (e) => {
         alert("Falha ao cadastrar cliente\nTente novamente")
     }
 })
-
-// função que gera o hashcode da senha
-// String.prototype.hashCode = function () {
-//     var hash = 0,
-//         i, chr;
-//     if (this.length === 0) return hash;
-//     for (i = 0; i < this.length; i++) {
-//         chr = this.charCodeAt(i);
-//         hash = ((hash << 5) - hash) + chr;
-//         hash |= 0; // Convert to 32bit integer
-//     }
-//     return hash;
-// }
 
 // função que verifica se as senhas fornecidas são validas
 function verificarSenhas(senha, confirmaSenha) {
@@ -477,8 +464,8 @@ function verificaNome() {
             nomeValido = true;
         }
     });
-    if(nome.length==3){
-    nomeValido = false;
+    if (nome.length == 3) {
+        nomeValido = false;
     }
     return nomeValido;
 }

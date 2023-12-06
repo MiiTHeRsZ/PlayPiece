@@ -15,7 +15,10 @@
 <body>
 
     <header id="menuBar">
-        <a href="../index.html" id="logo"><img src="../images/Logo.png" alt="Logo" class="logo" /></a>
+        <a href="../index.html" id="logo" class="icon">
+            <img src="../images/Logo.png" alt="Logo" class="logo" />
+            <i class="fi fi-br-home"></i>
+        </a>
         <div class="dropdown">
             <a href="./carrinhoCompras.html" class="icon shopping_cart">
                 <i class="fi fi-br-shopping-cart"></i>
@@ -38,17 +41,17 @@
     <main>
         <section id="pedidos">
             <h1>Meus Pedidos</h1>
-            <table id="tabelaPedidos">
+            <table id="tabelaPedidos" class="table table-striped table-houver border border-5 rounded-5">
                 <thead>
                     <tr>
-                        <th>Número</th>
-                        <th>Data</th>
-                        <th>Valor Total</th>
-                        <th>Status</th>
-                        <th>Detalhes</th>
+                        <th scope="col">Número</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Valor Total</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Detalhes</th>
                     </tr>
                 </thead>
-                <tbody id="itensPedidos">
+                <tbody id="itensPedidos" class="table-group-divider">
 
                 </tbody>
             </table>

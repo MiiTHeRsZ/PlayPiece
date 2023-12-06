@@ -1,47 +1,11 @@
 @import url("./var.css");
+@import url("./default.css");
 @import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
-
-body {
-    background-image: url(../images/background-image.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    height: 100vh;
-}
-
-#menuBar {
-    width: 100vw;
-    height: 10vh;
-    z-index: 1;
-    padding: 0 20px;
-    border-bottom: 2px solid;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    position: fixed;
-}
-
-#menuBar .logo {
-    width: 60px;
-}
-
-#menuBar .icon {
-    text-decoration: none;
-    color: #000;
-    font-size: 40px;
-    margin-right: 16px;
-}
-
-.user {
-    cursor: pointer;
 }
 
 main {
@@ -56,7 +20,6 @@ main {
     padding: 2vw;
     border-radius: 25px;
     background-color: #e0e7e9;
-    box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
 }
 
 #opcoes {

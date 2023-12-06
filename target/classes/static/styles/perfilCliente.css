@@ -1,57 +1,9 @@
 @import url("./var.css");
+@import url("./default.css");
 @import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
-
-
-body {
-    background-image: url(../images/background-image.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    height: 100vh;
-    font-family: var(--font);
-}
 
 main {
     padding-top: 100px;
-}
-
-#menuBar {
-    width: 100vw;
-    height: 10vh;
-    z-index: 1;
-    padding: 0 20px;
-    border-bottom: 2px solid;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    position: fixed;
-}
-
-#menuBar .logo {
-    width: 60px;
-}
-
-#menuBar .icon {
-    text-decoration: none;
-    color: #000;
-    font-size: 40px;
-    margin-right: 16px;
-}
-
-#notificacaoCarrinho {
-    position: fixed;
-    top: 10px;
-    right: 90px;
-    background-color: #0000FF;
-    color: #FFF;
-    font-size: 15px;
-    text-align: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: none;
 }
 
 h1 {
@@ -84,11 +36,12 @@ h1 {
     gap: 2px;
 }
 
-.enderecoSpace>div>div>label {
+.enderecoSpace label {
     text-align: center;
 }
 
-.enderecoSpace>div>div>input,
+.enderecoSpace input,
+.enderecoSpace select,
 .passInput {
     border: 2px solid black;
     border-radius: 5px;
@@ -115,8 +68,7 @@ h1 {
     margin: 0 15vw 5vh;
     padding: 5vh 0;
     border-radius: 25px;
-    background-color: #e0e7e9;
-    box-shadow: 20px 20px 60px var(--bg-accent-color), -20px -20px 60px #FFF;
+    background-color: rgba(255, 255, 255, .85);
 }
 
 .nomeCpf div {

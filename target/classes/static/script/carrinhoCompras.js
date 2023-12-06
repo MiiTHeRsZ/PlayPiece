@@ -16,6 +16,22 @@ checkCookie('sessaoId');
 
 var idCliente = getCookie('sessaoId');
 
+function validarVazio() {
+    let checkVazio = sessionStorage.getItem("carrinho")
+
+    if (checkVazio == undefined || checkVazio == "") {
+        document.getElementById("vazio-section").classList.add("display");
+        document.getElementById("carrinho").style.display = "none";
+        document.getElementById("totalCompra").style.display = "none";
+    } else {
+        document.getElementById("vazio-section").classList.remove("display");
+        document.getElementById("carrinho").style.display = "block";
+        document.getElementById("totalCompra").style.display = "flex";
+    }
+}
+
+validarVazio()
+
 function menu() {
     let nome_perfil = document.getElementById("nome-perfil");
     let login_perfil = document.getElementById("login-perfil");
@@ -41,7 +57,7 @@ function desconectar() {
     Cookies.remove('sessaoId');
     Cookies.remove('nome');
     sessionStorage.removeItem("carrinho");
-    window.location.reload();
+    window.open("../index.html", "_self");
 }
 
 async function criaCarrinho() {
@@ -91,7 +107,6 @@ async function criaCarrinho() {
                 let precoTotal = document.createElement("td");
                 precoTotal.setAttribute("class", "precoTotalProduto");
                 let removerCarrinho = document.createElement("td");
-                removerCarrinho.setAttribute("class", "removerProduto")
 
                 let newLink;
                 let listaImagensProduto = produto.listaImagens
@@ -115,10 +130,10 @@ async function criaCarrinho() {
                 item.textContent = ++quantidadeItens;
                 img.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
                 nomeProduto.textContent = `${produto.nome}`;
-                quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.produtoId})">-</button><p class="qntdProduto">${info.quantidade}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.produtoId})">+</button>`;
+                quantidade.innerHTML = `<button class="btn btn-outline-secondary" onclick="subtrairProduto(${produto.produtoId})">-</button><p class="qntdProduto">${info.quantidade}</p><button class="btn btn-outline-secondary" onclick="adicionarProduto(${produto.produtoId})">+</button>`;
                 precoUnitario.textContent = `${parseFloat(produto.preco).toFixed(2).replace(".", ",")}`;
                 precoTotal.textContent = `${parseFloat(produto.preco * Number(info.quantidade)).toFixed(2).replace(".", ",")}`;
-                removerCarrinho.innerHTML = `<button onclick="removerItem(${produto.produtoId})">Remover</button>`;
+                removerCarrinho.innerHTML = `<button onclick="removerItem(${produto.produtoId})" class="btn btn-outline-danger">Remover</button>`;
 
                 tr.appendChild(id);
                 tr.appendChild(item);
@@ -144,8 +159,9 @@ async function criaCarrinho() {
 
             let id = document.createElement("td");
             id.setAttribute("class", "idProduto");
-            let item = document.createElement("td");
+            let item = document.createElement("th");
             item.setAttribute("class", "itemProduto");
+            item.setAttribute("scope", "row");
             let img = document.createElement("td");
             img.setAttribute("class", "imgProduto");
             let nomeProduto = document.createElement("td");
@@ -244,6 +260,8 @@ function limparCarrinho() {
     tr.forEach(linha => {
         linha.innerHTML = ""
     })
+
+    validarVazio()
 }
 
 async function subtrairProduto(idProduto) {
@@ -270,6 +288,8 @@ async function subtrairProduto(idProduto) {
 
                         carrinhoFinal = carrinhoFinal.slice(0, -1);
                         sessionStorage.setItem('carrinho', carrinhoFinal);
+
+                        validarVazio()
                     });
                 }
             }
@@ -338,7 +358,7 @@ function removerItem(idProduto) {
     });
     carrinhoFinal = carrinhoFinal.slice(0, -1);
     sessionStorage.setItem('carrinho', carrinhoFinal);
-
+    validarVazio()
     criaCarrinho();
 }
 

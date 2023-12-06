@@ -13,9 +13,11 @@
 </head>
 
 <body>
-
     <header id="menuBar">
-        <a href="../index.html" id="logo"><img src="../images/Logo.png" alt="Logo" class="logo" /></a>
+        <a href="../index.html" id="logo" class="icon">
+            <img src="../images/Logo.png" alt="Logo" class="logo" />
+            <i class="fi fi-br-home"></i>
+        </a>
         <div class="dropdown">
             <a class="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="perfil"><i
                     class="icon user"><i class="fi fi-br-user"></i></i>
@@ -32,62 +34,71 @@
     </header>
 
     <main>
+        <section id="vazio-section">
+            <div class="content">
+                <h1 class="titulo-vazio">Seu carrinho está vazio...</h1>
+                <button type="button" onclick="location.href=`../index.html`" class="btn btn-warning">Comece suas compras!</button>
+            </div>
+        </section>
         <section id="carrinho">
             <h1 class="titleCarrinho">Meu Carrinho</h1>
-            <table id="tabelaProdutos">
+            <table id="tabelaProdutos" class="table table-striped table-houver border border-5 rounded-5">
                 <thead>
                     <tr>
                         <th style="display: none;">ID</th>
-                        <th>Item</th>
-                        <th>Imagem</th>
-                        <th>Nome do Produto</th>
-                        <th>Quantidade</th>
-                        <th>Preço Unitário</th>
-                        <th>Preço Total</th>
-                        <th>Remover do Carrinho</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Imagem</th>
+                        <th scope="col">Nome do Produto</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Preço Unitário</th>
+                        <th scope="col">Preço Total</th>
+                        <th scope="col">Remover do Carrinho</th>
                     </tr>
                 </thead>
-                <tbody id="produtosTabela">
+                <tbody id="produtosTabela" class="table-group-divider">
 
                 </tbody>
             </table>
         </section>
-
-        <section id="totalCompra">
-            <div class="content-total-compra">
-                <h5 id="subtotal"></h5>
-                <h5 id="freteFinal"></h5>
-                <h2 id="valorTotal"></h2>
-                <button class="btn-final-pedido" onclick="finalizarPedido()">Finalizar Pedido</button>
-            </div>
-        </section>
-
-        <section id="frete">
-            <div class="content-frete">
-                <label for="enderecoEntrega">Calcular frete</label>
-                <input type="number" name="enderecoEntrega" id="enderecoEntrega" placeholder="Ex: 04696000">
-                <select name="enderecoEntregaLogado" id="enderecoEntregaLogado">
-                </select>
-                <button onclick="calcularFrete()">Calcular</button>
+        <section id="totalCompra" class="row g-3">
+            <div class="content-frete col-9">
+                <div class="frete-menu">
+                    <div class="col-2">
+                        <input type="number" name="enderecoEntrega" id="enderecoEntrega" class="form-control"
+                            placeholder="Ex: 04696000">
+                        <select name="enderecoEntregaLogado" id="enderecoEntregaLogado" class="form-control">
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <button onclick="calcularFrete()" class="btn btn-primary">Calcular frete</button>
+                    </div>
+                </div>
 
                 <div id="opcoesFrete" style="display: none;">
                     <p>Selecione um dos fretes</p>
                     <div>
-                        <label for="frete01">Frete 01</label>
+                        <label for="frete01">Express</label>
                         <label for="frete01" id="frete1"></label>
                         <input type="radio" name="frete" id="frete01" value="">
                     </div>
                     <div>
-                        <label for="frete02">Frete 02</label>
+                        <label for="frete02">Sedex</label>
                         <label for="frete02" id="frete2"></label>
                         <input type="radio" name="frete" id="frete02" value="">
                     </div>
                     <div>
-                        <label for="frete03">Frete 03</label>
+                        <label for="frete03">Pac</label>
                         <label for="frete03" id="frete3"></label>
                         <input type="radio" name="frete" id="frete03" value="">
                     </div>
                 </div>
+            </div>
+
+            <div class="content-total-compra col-3">
+                <h5 id="subtotal"></h5>
+                <h5 id="freteFinal"></h5>
+                <h2 id="valorTotal"></h2>
+                <button class="btn-final-pedido btn btn-success" onclick="finalizarPedido()">Finalizar Pedido</button>
             </div>
         </section>
     </main>

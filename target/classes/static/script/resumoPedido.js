@@ -39,7 +39,7 @@ function desconectar() {
     Cookies.remove('sessaoId');
     Cookies.remove('nome');
     sessionStorage.removeItem("carrinho");
-    window.location.reload();
+    window.open("../index.html", "_self");
 }
 let dados;
 const conectAPI = async () => {
@@ -53,7 +53,7 @@ const endEntrega = JSON.parse(sessionStorage.getItem("endEntrega"));
 
 const pagamento = sessionStorage.getItem('pagamento');
 
-var totalPago = parseFloat(endEntrega.valorFrete);
+let totalPago = parseFloat(endEntrega.valorFrete);
 
 async function carregarDados() {
     const dadosPedido = await fetch(`/carrinho/search?cliente=${idCliente}`).then(response => response.json());
@@ -111,36 +111,20 @@ async function carregarDados() {
         tr.appendChild(precoUnitario);
         tr.appendChild(precoTotal);
 
-        totalPago += (item.produto.preco * item.quantidade);
+        let subTotalPago = 0;
+        subTotalPago += (item.produto.preco * item.quantidade);
         if (index == 0) {
-            let precoTotalPedido = document.createElement("td");
-            precoTotalPedido.setAttribute("class", "precoTotalPedido");
-            precoTotalPedido.textContent = `R$ ${parseFloat(totalPago).toFixed(2).replace(".", ",")}`;
-            tr.appendChild(precoTotalPedido)
+            totalPago += parseFloat(subTotalPago);
+            document.getElementById("subTotal").textContent += `R$ ${parseFloat(subTotalPago).toFixed(2).replace(".", ",")}`;
+            document.getElementById("valorTotal").textContent += `R$ ${parseFloat(totalPago).toFixed(2).replace(".", ",")}`;
         }
-
     });
 
-    let ultimaLinha = tabela.rows.length
-    console.log(tabela.rows.length);
-    let pedidoTotal = document.querySelector(".precoTotalPedido")
-    pedidoTotal.setAttribute("rowspan", ultimaLinha)
-    pedidoTotal.textContent = `R$ ${parseFloat(totalPago).toFixed(2).replace(".", ",")}`
-
-
-    document.getElementById("frete").value = `R$ ${parseFloat(endEntrega.valorFrete).toFixed(2).replace(".", ",")}`;
+    document.getElementById("freteFinal").textContent += `R$ ${parseFloat(endEntrega.valorFrete).toFixed(2).replace(".", ",")}`;
 
     dados.listaEndereco.map(endereco => {
-        let opcao = document.createElement("option");
-        opcao.value = endereco.enderecoId;
         if (endereco.enderecoId == endEntrega.idEndEntrega) {
-            document.getElementById("cep").value = endereco.cep;
-            document.getElementById("logradouro").value = endereco.logradouro;
-            document.getElementById("numero").value = endereco.numero;
-            document.getElementById("complemento").value = endereco.complemento;
-            document.getElementById("bairro").value = endereco.bairro;
-            document.getElementById("cidade").value = endereco.cidade;
-            document.getElementById("uf").value = endereco.uf;
+            document.getElementById("enderecoEntrega").textContent = `${endereco.logradouro}, n° ${endereco.numero} - ${endereco.cep}, ${endereco.complemento}${endereco.complemento.length > 0 ? " - " : ""} ${endereco.bairro}, ${endereco.cidade}, ${endereco.uf}`;
         }
     });
 
@@ -166,14 +150,21 @@ const preecheDados = async () => {
 }
 
 async function finalizarPedido() {
+
+    var statusFinal;
     const checkout = await fetch(`/pedido/import?cliente=${idCliente}&endereco=${endEntrega.idEndEntrega}&frete=${endEntrega.valorFrete}&modoPagamento=${pagamento}`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: ""
-    });
-
-    if (checkout.status == 200 || checkout.status == 201) {
-        alert("Pedido realizado com sucesso!");
+    }).then(
+        data => {
+            statusFinal = data.status
+            return data.json()
+        }
+    );
+    console.log(checkout);
+    if (statusFinal == 200 || statusFinal == 201) {
+        alert(`Pedido ${(checkout.pedidoId.toString()).padStart(6, "0")} realizado com sucesso!`);
         sessionStorage.removeItem("pagamento")
         sessionStorage.removeItem("carrinho")
         sessionStorage.removeItem("endEntrega")

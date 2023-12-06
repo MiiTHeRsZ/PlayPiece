@@ -15,7 +15,10 @@
 <body>
 
     <header id="menuBar">
-        <a href="../index.html" id="logo"><img src="../images/Logo.png" alt="Logo" class="logo" /></a>
+        <a href="../index.html" id="logo" class="icon">
+            <img src="../images/Logo.png" alt="Logo" class="logo" />
+            <i class="fi fi-br-home"></i>
+        </a>
         <div class="dropdown">
             <a class="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="perfil"><i
                     class="icon user"><i class="fi fi-br-user"></i></i>
@@ -31,72 +34,41 @@
         </div>
     </header>
 
-    <main>
+    <main class="row g-3">
         <section class="container">
-            <h1>Resumo do pedido:</h1>
-            <table id="tabelaProdutos">
+            <h1>Resumo do Pedido:</h1>
+            <table id="tabelaProdutos" class="table table-striped table-houver border border-5 rounded-5">
                 <thead>
                     <tr>
                         <th style="display: none;">ID</th>
-                        <th>Item</th>
-                        <th>Imagem</th>
-                        <th style='width:40% !important'>Nome do Produto</th>
-                        <th>Quantidade</th>
-                        <th style='width:20% !important'>Preço Unitário</th>
-                        <th style='width:20% !important'>Preço Total</th>
-                        <th style='width:20% !important'>Total Pedido</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Imagem</th>
+                        <th scope="col">Nome do Produto</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Preço Unitário</th>
+                        <th scope="col">Preço Total</th>
                     </tr>
                 </thead>
-                <tbody id="produtosTabela">
+                <tbody id="produtosTabela" class="table-group-divider">
                 </tbody>
             </table>
         </section>
-        <section id="entrega">
-            <h3>Endereço de Entrega:</h3>
-            <br>
-            <div>
-                <div>
-                    <label for="cep">CEP:</label>
-                    <input type="text" name="cep" id="cep" required readonly />
-                    <span class="alert cep"></span>
-                    <label for="frete">Frete escolhido:</label>
-                    <input type="text" name="frete" id="frete" required readonly />
-                </div>
-                <div>
-                    <label for="logradouro">Logradouro:</label>
-                    <input type="text" name="logradouro" id="logradouro" required readonly />
-                </div>
-                <div>
-                    <label for="numero">Número:</label>
-                    <input type="text" name="numero" id="numero" required readonly />
-                </div>
-                <div>
-                    <label for="complemento">Complemento:</label>
-                    <input type="text" name="complemento" id="complemento" required readonly />
-                </div>
-                <div>
-                    <label for="bairro">Bairro:</label>
-                    <input type="text" name="bairro" id="bairro" required readonly />
-                </div>
-                <div>
-                    <label for="cidade">Cidade:</label>
-                    <input type="text" name="cidade" id="cidade" required readonly />
-                </div>
-                <div>
-                    <label for="uf">UF:</label>
-                    <input type="text" name="uf" id="uf" required readonly />
-                </div>
-            </div>
-        </section>
-        <section id="pagamento">
-            <h3>Forma de Pagamento:</h3>
-            <p id="pagamentoOpc"></p>
-        </section>
-        <section id="totalCompra">
-            <h5 id="subtotal"></h5>
-            <h5 id="freteFinal"></h5>
-            <h2 id="valorTotal"></h2>
-            <button onclick="finalizarPedido()">Finalizar Pedido</button>
+        <div class="col-7">
+            <section id="entrega">
+                <h3>Endereço de Entrega:</h3>
+                <p id="enderecoEntrega"></p>
+            </section>
+            <section id="pagamento">
+                <h3>Forma de Pagamento:</h3>
+                <p id="pagamentoOpc"></p>
+            </section>
+        </div>
+        <section id="totalCompra" class="col-5">
+            <h5 id="subTotal">Subtotal: </h5>
+            <h5 id="freteFinal">Frete: </h5>
+            <h2 id="valorTotal">Valor Total: </h2>
+            <button onclick="finalizarPedido()" class="btn btn-warning"
+                style="width: 200px; height: 60px; font-size: 20px; font-weight: bolder;">Finalizar Pedido</button>
         </section>
     </main>
 
