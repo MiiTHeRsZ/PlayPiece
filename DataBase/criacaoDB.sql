@@ -1,3 +1,4 @@
+
 create database if not exists playpiece;
 use playpiece;
 
@@ -97,9 +98,9 @@ create table item_pedido(
 
 DROP TABLE IF EXISTS carrinho;
 CREATE TABLE carrinho (
-  carrinho_id bigint NOT NULL primary key AUTO_INCREMENT,
-  fk_cliente_id bigint,
-  FOREIGN KEY (fk_cliente_id) REFERENCES cliente (cliente_id)
+	carrinho_id bigint NOT NULL primary key AUTO_INCREMENT,
+	fk_cliente_id bigint,
+	FOREIGN KEY (fk_cliente_id) REFERENCES cliente (cliente_id)
 );
 
 drop table if exists item_carrinho;
@@ -191,10 +192,15 @@ INSERT INTO `imagem` VALUES (1,1,'/src/main/resources/static/images/Produtos/1/0
 insert into endereco (fk_cliente_id,cep,logradouro,numero,complemento,bairro,cidade,uf,padrao,ativo) values (1, '04671071','Rua Sócrates','853', 'apt. 193 D', 'Vila Sofia', 'São Paulo', 'SP', true, true ),
 (1, '04671071','Rua Sócrates','853', 'apt. 44 C', 'Vila Sofia', 'São Paulo', 'SP', false, true),
 (2, '06331110','Rua São Lucas Evangelista','377', '', 'Jardim Cibele', 'Carapicuíba', 'SP', true, true),
-(2, '06331110','Rua São Lucas Evangelista','377', '', 'Jardim Cibele', 'Carapicuíba', 'SP', false, true);
+(2, '06331110','Rua São Lucas Evangelista','377', '', 'Jardim Cibele', 'Carapicuíba', 'SP', false, true),
+(3,'04775170','Rua Waldemar Gomes Lingoanoti',210,'ap 42','Jardim Marabá(Zona Sul)','São Paulo','SP', false, true),
+(3,'04821000','Avenida Presidente João Goulart',1212,'','Jardim Mália II','São Paulo','SP', false, false),
+(3,'04696000','Avenida Engenheiro Eusébio Stevaux',333,'','Jurubatuba','São Paulo','SP', true, true);
 
-insert into cliente (cpf,nome,dt_nascimento,genero,email,senha,end_fat,ativo) values('43183345897', 'Leonardo Fujimura', '2002-03-30', 'M', 'l.fujimura@teste.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 1, true),
-('38479946890', 'Gustavo Leme', '1999-05-29', 'M', 'g.leme@test.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 3, true);
+insert into cliente (cpf,nome,dt_nascimento,genero,email,senha,end_fat,ativo) values
+('43183345897', 'Leonardo Fujimura', '2002-03-30', 'M', 'l.fujimura@teste.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 1, true),
+('38479946890', 'Gustavo Leme', '1999-05-29', 'M', 'g.leme@test.com', '$2a$05$LTPYtURk5yTPzY8C3vJE6ewczRyG8JSygT1IBhOyzpRwX3YnkX8VS', 3, true),
+('52308444851','Ian Saggiorattoor','2004-11-29','M','ian.saggior@gmail.com','$2a$05$GdSwxvC3EXOl3SVL5GOBy.6olrw1vSlILc1AbATZxSTc6qngJeSNK',5,true);
 
 INSERT INTO carrinho VALUES (1,1),(2,2);
 
