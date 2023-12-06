@@ -9,6 +9,10 @@ body {
     height: 100vh;
 }
 
+.dropdown {
+    display: flex !important;
+}
+
 #menuBar {
     width: 100vw;
     height: 10vh;
@@ -21,6 +25,7 @@ body {
     background-color: #fff;
     position: fixed;
 }
+
 #menuBar #logo {
     display: flex;
     gap: 30px;
@@ -39,12 +44,13 @@ body {
     color: #000;
     font-size: 40px;
     margin-right: 16px;
+    position: relative;
 }
 
 #notificacaoCarrinho {
-    position: fixed;
-    top: 10px;
-    right: 100px;
+    position: absolute;
+    top: -5px;
+    left: 35px;
     background-color: #0000FF;
     color: #FFF;
     font-size: 15px;
