@@ -128,19 +128,17 @@ async function carregarDados() {
     pedidoTotal.textContent = `R$ ${parseFloat(totalPago).toFixed(2).replace(".", ",")}`
 
 
-    document.getElementById("frete").value = `R$ ${parseFloat(endEntrega.valorFrete).toFixed(2).replace(".", ",")}`;
+    document.getElementById("frete").textContent += `R$ ${parseFloat(endEntrega.valorFrete).toFixed(2).replace(".", ",")}`;
 
     dados.listaEndereco.map(endereco => {
-        let opcao = document.createElement("option");
-        opcao.value = endereco.enderecoId;
         if (endereco.enderecoId == endEntrega.idEndEntrega) {
-            document.getElementById("cep").value = endereco.cep;
-            document.getElementById("logradouro").value = endereco.logradouro;
-            document.getElementById("numero").value = endereco.numero;
-            document.getElementById("complemento").value = endereco.complemento;
-            document.getElementById("bairro").value = endereco.bairro;
-            document.getElementById("cidade").value = endereco.cidade;
-            document.getElementById("uf").value = endereco.uf;
+            document.getElementById("cep").textContent += endereco.cep;
+            document.getElementById("logradouro").textContent += endereco.logradouro;
+            document.getElementById("numero").textContent += endereco.numero;
+            document.getElementById("complemento").textContent += endereco.complemento;
+            document.getElementById("bairro").textContent += endereco.bairro;
+            document.getElementById("cidade").textContent += endereco.cidade;
+            document.getElementById("uf").textContent += endereco.uf;
         }
     });
 

@@ -140,15 +140,15 @@ async function carregarDados() {
             break;
     }
 
-    document.getElementById("cep").value = dadosPedido.enderecoEntrega.cep;
-    document.getElementById("logradouro").value = dadosPedido.enderecoEntrega.logradouro;
-    document.getElementById("numero").value = dadosPedido.enderecoEntrega.numero;
-    document.getElementById("complemento").value = dadosPedido.enderecoEntrega.complemento;
-    document.getElementById("bairro").value = dadosPedido.enderecoEntrega.bairro;
-    document.getElementById("cidade").value = dadosPedido.enderecoEntrega.cidade;
-    document.getElementById("uf").value = dadosPedido.enderecoEntrega.uf;
+    document.getElementById("cep").textContent += dadosPedido.enderecoEntrega.cep;
+    document.getElementById("logradouro").textContent += dadosPedido.enderecoEntrega.logradouro;
+    document.getElementById("numero").textContent += dadosPedido.enderecoEntrega.numero;
+    document.getElementById("complemento").textContent += dadosPedido.enderecoEntrega.complemento;
+    document.getElementById("bairro").textContent += dadosPedido.enderecoEntrega.bairro;
+    document.getElementById("cidade").textContent += dadosPedido.enderecoEntrega.cidade;
+    document.getElementById("uf").textContent += dadosPedido.enderecoEntrega.uf;
 
-    document.getElementById("frete").value = `R$ ${parseFloat(dadosPedido.valorFrete).toFixed(2).replace(".", ",")} `;
+    document.getElementById("frete").textContent += `R$ ${parseFloat(dadosPedido.valorFrete).toFixed(2).replace(".", ",")} `;
     document.getElementById("pagamentoOpc").textContent = dadosPedido.modoPagamento == "BO" ? "Boleto" : "Cartão de Crédito";
 }
 carregarDados()

@@ -14,7 +14,10 @@
 
 <body>
     <header id="menuBar">
-        <a href="./index.html" id="logo"><img src="./images/Logo.png" alt="Logo" class="logo" /></a>
+        <a href="./index.html" id="logo" class="icon">
+            <img src="./images/Logo.png" alt="Logo" class="logo" />
+            <i class="fi fi-br-home"></i>
+        </a>
         <div class="dropdown">
             <a href="./pages/carrinhoCompras.html" class="icon shopping_cart">
                 <i class="fi fi-br-shopping-cart"></i>
@@ -34,7 +37,41 @@
         </div>
     </header>
 
-    <main>
+    <main id="container">
+        <section id="slider">
+            <div id="carouselExampleAutoplaying" class="carousel slide m-3" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="images/banner1.webp" class="w-100 img-fluid d-none d-xl-block" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images/banner2.webp" class="w-100 img-fluid d-none d-xl-block" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images/banner3.webp" class="w-100 img-fluid d-none d-xl-block" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+
         <section id="produtos">
         </section>
 
