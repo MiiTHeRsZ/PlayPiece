@@ -103,7 +103,6 @@ async function criaCarrinho() {
                 let precoTotal = document.createElement("td");
                 precoTotal.setAttribute("class", "precoTotalProduto");
                 let removerCarrinho = document.createElement("td");
-                removerCarrinho.setAttribute("class", "removerProduto")
 
                 let newLink;
                 let listaImagensProduto = produto.listaImagens
@@ -127,10 +126,10 @@ async function criaCarrinho() {
                 item.textContent = ++quantidadeItens;
                 img.innerHTML = `<img src="${newLink}" style="width: 30px; height: 30px"></img>`;
                 nomeProduto.textContent = `${produto.nome}`;
-                quantidade.innerHTML = `<button class="btn-qntd" onclick="subtrairProduto(${produto.produtoId})">-</button><p class="qntdProduto">${info.quantidade}</p><button class="btn-qntd" onclick="adicionarProduto(${produto.produtoId})">+</button>`;
+                quantidade.innerHTML = `<button class="btn btn-outline-secondary" onclick="subtrairProduto(${produto.produtoId})">-</button><p class="qntdProduto">${info.quantidade}</p><button class="btn btn-outline-secondary" onclick="adicionarProduto(${produto.produtoId})">+</button>`;
                 precoUnitario.textContent = `${parseFloat(produto.preco).toFixed(2).replace(".", ",")}`;
                 precoTotal.textContent = `${parseFloat(produto.preco * Number(info.quantidade)).toFixed(2).replace(".", ",")}`;
-                removerCarrinho.innerHTML = `<button onclick="removerItem(${produto.produtoId})">Remover</button>`;
+                removerCarrinho.innerHTML = `<button onclick="removerItem(${produto.produtoId})" class="btn btn-outline-danger">Remover</button>`;
 
                 tr.appendChild(id);
                 tr.appendChild(item);
@@ -156,8 +155,9 @@ async function criaCarrinho() {
 
             let id = document.createElement("td");
             id.setAttribute("class", "idProduto");
-            let item = document.createElement("td");
+            let item = document.createElement("th");
             item.setAttribute("class", "itemProduto");
+            item.setAttribute("scope", "row");
             let img = document.createElement("td");
             img.setAttribute("class", "imgProduto");
             let nomeProduto = document.createElement("td");

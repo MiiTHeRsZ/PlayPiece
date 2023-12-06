@@ -2,31 +2,31 @@
 @import url("./default.css");
 @import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css');
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+body{
+    display: grid;
 }
 
-body {
-    background-image: url(../images/background-image.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    height: 100vh;
+main {
+    background-color: rgba(255, 255, 255, .9);
+    border-radius: 15px;
+    width: 80%;
+    height: fit-content;
+    margin-top: 100px;
+    padding: 30px 60px;
+    justify-self: center;
 }
 
 #vazio-section {
     z-index: 1;
     background-color: rgba(208, 233, 255, 1);
-    height: 100%;
-    width: 100%;
+    height: fit-content;
+    width: fit-content;
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
     visibility: hidden;
+    padding: 40px 60px;
 }
 
 .content {
@@ -35,44 +35,6 @@ body {
 
 #vazio-section.display {
     visibility: visible;
-}
-
-#menuBar {
-    width: 100vw;
-    height: 10vh;
-    z-index: 1;
-    padding: 0 20px;
-    border-bottom: 2px solid;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    position: fixed;
-}
-
-#menuBar .logo {
-    width: 60px;
-}
-
-#menuBar .icon {
-    text-decoration: none;
-    color: #000;
-    font-size: 40px;
-    margin-right: 16px;
-}
-
-.user {
-    cursor: pointer;
-}
-
-main {
-    padding: 100px 100px;
-    background-color: #fff;
-}
-
-.nomeProduto {
-    /* height: 30px;
-    overflow: hidden; */
 }
 
 .quantidadeProduto {
@@ -85,59 +47,30 @@ main {
     width: 30px;
 }
 
-.removerProduto button {
-    background: transparent;
-    border: 2px solid #f00;
-    color: #f00;
-}
-
-.btn-qntd {
-    cursor: pointer;
-    border-radius: 50%;
-    width: 35%;
-    background: transparent;
-}
-
 .btn-final-pedido {
-    background: #0f0;
-    width: 170px;
+    width: 200px;
     height: 45px;
 }
 
-#tabelaProdutos {
-    margin: 0 auto;
-}
-
-.titleCarrinho {
-    text-align: center;
-}
-
-table,
-th,
-td {
-    padding: 10px 5px 0;
-    border: 2px solid #000;
-}
-
-
-tr th {
-    border: 2px solid #000;
-    text-align: center;
+thead th {
     font-weight: bold;
 }
 
-tr td {
-    border: 2px solid #000;
+tr,
+th,
+td {
     text-align: center;
-    padding: 0 auto;
-}
-
-.content-total-compra {
-    width: 250px;
-    margin: 10px 317px auto auto;
 }
 
 .content-frete {
-    width: 250px;
-    margin: 10px 317px auto auto;
+    width: fit-content;
+    font-size: large;
+}
+
+.frete-menu {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 15px;
 }
