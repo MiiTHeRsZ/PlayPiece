@@ -133,10 +133,10 @@ btnSalvarProduto.addEventListener("submit", async (e) => {
             })
             if (resultImagem.status == "201") {
 
-                window.close()
+                window.open("./backoffice.html", "_self");
             } else {
                 alert("falha ao criar imagens. Tente alterar o produto em breve")
-                window.close()
+                window.open("./backoffice.html", "_self");
             }
 
         } else {

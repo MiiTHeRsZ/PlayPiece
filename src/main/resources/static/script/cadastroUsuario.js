@@ -171,7 +171,7 @@ botaoSalvar.addEventListener("click", async (e) => {
     if (result.status == 201) {
 
         alert("Usuário criado com sucesso!")
-        window.close()
+        window.open("./backoffice.html", "_self");
     } else {
         document.querySelector("body").style = "background-color:#ffcbcb;"
         alert("Falha ao cadastrar usuário\nTente novamente")
