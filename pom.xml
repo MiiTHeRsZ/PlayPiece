@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.playpieceAPI</groupId>
 	<artifactId>PlayPiece</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>PlayPiece</name>
 	<description>PI 4 semestre TADS</description>
 	<properties>

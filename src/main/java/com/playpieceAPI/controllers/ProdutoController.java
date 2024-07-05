@@ -43,6 +43,7 @@ public class ProdutoController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping(value = "/active")
     public ResponseEntity<?> getProdutoTivoList(
             @PageableDefault(size = 10) Pageable pageable) {
