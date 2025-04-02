@@ -30,7 +30,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
 public class CarrinhoModel {
 
     @Id

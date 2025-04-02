@@ -1,0 +1,13 @@
+spring:
+  main:
+    allow-circular-references: true
+  port: 8080
+  datasource:
+    url: jdbc:mysql://db:3306/playpiece?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    username: root
+    password: 123123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
