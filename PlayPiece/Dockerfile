@@ -5,7 +5,7 @@ FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
 
 # Copia o arquivo JAR gerado pelo Spring Boot para o contêiner
-COPY target/*.jar app.jar
+COPY PlayPiece/target/*.jar app.jar
 
 # Expõe a porta da aplicação (se estiver configurada para rodar na 8080)
 EXPOSE 8080
