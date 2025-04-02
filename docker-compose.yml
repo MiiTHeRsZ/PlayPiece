@@ -1,16 +1,16 @@
 version: '3.8'
 services:
   db:
-    image: mysql:8
-    container_name: playpiecedb
+    image: mysql:latest
+    container_name: mysql_container
     restart: always
     environment:
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: playpiece
-      MYSQL_ROOT_PASSWORD: 123123
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
-    networks:
-      - mynetwork
 
   app:
     build: .
@@ -20,8 +20,10 @@ services:
       - db
     ports:
       - "8080:8080"
-    networks:
-      - mynetwork
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/playpiece?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&autoReconnect=true
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
 
 networks:
   mynetwork:
