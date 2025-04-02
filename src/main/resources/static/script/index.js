@@ -76,6 +76,7 @@ async function getProducts() {
         });
 
         if (produto.ativo) {
+            console.log(imagemPrincipal)
             let link = imagemPrincipal.split("/")
             let newLink = "./" + link[5] + "/" + link[6] + "/" + link[7] + "/" + link[8]
             let card = document.createElement("div")

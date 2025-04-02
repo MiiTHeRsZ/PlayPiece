@@ -1,5 +1,9 @@
 package com.playpieceAPI.controllers;
 
+import com.playpieceAPI.models.ClienteModel;
+import com.playpieceAPI.models.LoginDto;
+import com.playpieceAPI.services.ClienteService;
+import com.playpieceAPI.services.carrinho.CarrinhoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,11 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.playpieceAPI.models.ClienteModel;
-import com.playpieceAPI.models.LoginDto;
-import com.playpieceAPI.services.ClienteService;
-import com.playpieceAPI.services.carrinho.CarrinhoService;
 
 @RestController
 @CrossOrigin("*")
@@ -72,14 +71,16 @@ public class ClienteController {
         ClienteModel cliente = clienteService.getClienteLogin(login);
 
         if (cliente == null)
-            return new ResponseEntity<String>(
+            return new ResponseEntity<>(
                     "{\"erro\":\"Cliente não encontrado\",\n\"code\":" + HttpStatus.NOT_FOUND.value() + "}",
                     HttpStatus.NOT_FOUND);
 
         else {
             var carrinho = carrinhoService.getCarrinhoAtivoByClienteId(cliente.getClienteId());
+            if (carrinho != null) {
             carrinhoService.limparCarrinho(carrinho);
-            return new ResponseEntity<ClienteModel>(cliente, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(cliente, HttpStatus.OK);
         }
     }
 

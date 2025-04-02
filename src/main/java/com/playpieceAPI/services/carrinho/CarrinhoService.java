@@ -1,16 +1,14 @@
 package com.playpieceAPI.services.carrinho;
 
-import java.util.ArrayList;
-
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Service;
-
-import com.playpieceAPI.models.ClienteModel;
 import com.playpieceAPI.models.carrinho.CarrinhoModel;
 import com.playpieceAPI.models.carrinho.ItemCarrinhoModel;
 import com.playpieceAPI.repositories.carrinho.CarrinhoRepository;
 import com.playpieceAPI.services.ClienteService;
 import com.playpieceAPI.services.ProdutoService;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 

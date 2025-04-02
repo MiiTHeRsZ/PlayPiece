@@ -64,6 +64,9 @@ public class ClienteService {
     public ClienteModel getClienteLogin(LoginDto login) {
         try {
             ClienteModel cliente = clienteRespository.findByEmail(login.getEmail());
+            if(cliente == null){
+                return null;
+            }
             // cliente.setListaEndereco(adicionarEnderecosCliente(cliente.getId()));
             var result = encoder.matches(login.getSenha(), cliente.getSenha());
             if (result && login.getEmail().equalsIgnoreCase(cliente.getEmail())) {
