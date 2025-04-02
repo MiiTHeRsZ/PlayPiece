@@ -1,14 +1,12 @@
-# Usa a imagem oficial do OpenJDK 21 como base
-FROM eclipse-temurin:21-jdk-alpine
-
-# Define o diretório de trabalho dentro do contêiner
+# Etapa 1: Build da aplicação
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copia o arquivo JAR gerado pelo Spring Boot para o contêiner
-COPY target/*.jar app.jar
-
-# Expõe a porta da aplicação (se estiver configurada para rodar na 8080)
+# Etapa 2: Criar a imagem final
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Comando para rodar a aplicação
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
