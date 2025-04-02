@@ -46,6 +46,8 @@ replay_pid*
 .history
 .ionide
 
+.idea/*
+.idea
 # End of https://www.toptal.com/developers/gitignor/java,visualstudioco
 # Custom rules (everything added below won't be oven by 'Generate .gitignore File' if you use 'Update' optio
 
